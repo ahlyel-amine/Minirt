@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:39:24 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/07/23 09:09:08 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:59:06 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*ft_line(char *line)
 	if (line[i] == '\n' && line[i + 1])
 	{
 		tmp = malloc(i + 2);
+		if (!tmp)
+			return (NULL);
 		count = -1;
 		while (++count <= i)
 			tmp[count] = line[count];
