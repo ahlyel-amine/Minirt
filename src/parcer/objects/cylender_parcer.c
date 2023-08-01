@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   cylender_parcer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 21:15:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 17:46:46 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/08/01 17:24:27 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../../include/structs.h"
+#include <stdbool.h>
 
-int	ft_atoi(const char *str)
+
+bool cylender_parcer(char *line, t_data *data)
 {
-	int		sign;
-	long	res;
-
-	sign = 1;
-	res = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-' || *str == '+')
-		if (*(str++) == '-')
-			sign = -1;
-	while (*str && ft_isdigit(*str))
-		res = (res * 10) + *(str++) - '0';
-	return ((int)(res * sign));
+	(void)line;
+	(void)data;
+	printf("cylender\n");
+	return (true);
 }

@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   lighting_parcer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/07/25 08:43:53 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/08/01 17:23:23 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/08/01 17:24:42 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../../include/structs.h"
+#include <stdbool.h>
 
-t_list	*ft_lstnew(void *content)
+bool lighting_parcer(char *line, t_data *data)
 {
-	t_list	*node;
-
-	node = (t_list *)malloc(sizeof(t_list));
-	if (node)
-	{
-		node->content = content;
-		node->next = NULL;
-	}
-	return (node);
+	(void)line;
+	(void)data;
+	printf("lighting\n");
+	return (true);
 }
