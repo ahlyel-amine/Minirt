@@ -6,11 +6,11 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:15:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 17:46:46 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 int	ft_atoi(const char *str)
 {

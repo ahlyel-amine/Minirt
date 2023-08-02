@@ -6,13 +6,13 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 19:40:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/structs.h"
-#include "../../include/libft.h"
-#include "../../include/tools.h"
+#include "structs.h"
+#include "libft.h"
+#include "tools.h"
 #include <stdbool.h>
 
 static int	only_3_digits(char *str)

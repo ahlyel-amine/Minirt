@@ -6,11 +6,11 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:58:05 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/05/05 18:42:44 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {

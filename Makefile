@@ -15,16 +15,22 @@ FLAGS = -Wall -Wextra -Werror -fsanitize=address
 NAME = minirt
 CC = cc
 OBJ = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
+DEPS = $(patsubst %.c, $(OBJ_DIR)/%.d, $(SRC))
+DEPSFLAGS = -MMD -MP
 
-all : $(NAME)
+
+all : x $(NAME)
 	
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)/%.o : %.c $(HEADERS) 
+$(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) $(DEPSFLAGS) -Iinclude -c $< -o $@
+
+x:
+	make -C lib_ft
 
 clean :
 	rm -rf $(OBJ_DIR)
@@ -34,5 +40,8 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : $(NAME) clean fclean all
+
+.PHONY : clean fclean all
+
+-include : $(DEPS)
 .SILENT : $(NAME) clean fclean all ${OBJ}

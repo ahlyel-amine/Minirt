@@ -6,14 +6,14 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:36 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 19:34:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/structs.h"
-#include "../../include/libft.h"
-#include "../../include/tools.h"
-#include "../../include/library.h"
+#include "structs.h"
+#include "libft.h"
+#include "tools.h"
+#include "library.h"
 #include <stdbool.h>
 
 bool	cordinate_parcer(char **line, t_cord *cordinate, int marge_max, int marge_min)
