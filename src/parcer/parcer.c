@@ -6,19 +6,19 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 19:28:43 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdio.h>
-#include "../../include/minirt.h"
-#include "../../include/structs.h"
-#include "../../include/get_next_line.h"
-#include "../../include/tools.h"
-#include "../../include/library.h"
-#include "../../include/libft.h"
-#include "../../include/parcer.h"
+#include "minirt.h"
+#include "structs.h"
+#include "get_next_line.h"
+#include "tools.h"
+#include "library.h"
+#include "libft.h"
+#include "parcer.h"
 
 enum types	find_type(char *line)
 {
@@ -38,7 +38,7 @@ enum types	find_type(char *line)
 		return (INVALID);
 }
 
-object_parcer	objcets_parcers(enum types call)
+object_parcer	objcets_parcers(enum types offset)
 {
 	static object_parcer	function_parcer[MAX_OBJECTS];
 	static bool				init;
@@ -53,7 +53,7 @@ object_parcer	objcets_parcers(enum types call)
 		function_parcer[CAMERA] = camera_parcer;
 		function_parcer[LIGHT] = light_parcer;
 	}
-	return (*(function_parcer + call));
+	return (*(function_parcer + offset));
 }
 
 bool	transform_line(char *line, t_data *data)
@@ -76,7 +76,7 @@ bool	read_true(char **line, t_data *data, int fd)
 	{
 		if (!transform_line(*line, data))
 			return (false);
-		free(*line);
+		free (*line);
 		*line = get_next_line(fd);
 	}
 	return (true);

@@ -6,13 +6,13 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 19:33:56 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdbool.h>
-#include "../include/libft.h"
+#include "libft.h"
 
 static int	ft_datoi(char **str)
 {
@@ -31,7 +31,7 @@ static int	ft_datoi(char **str)
 	return ((int)(res * sign));
 }
 
-#include "../include/structs.h"
+#include "structs.h"
 bool	check_boundries(char **ascii, int marge)
 {
 	int i;
