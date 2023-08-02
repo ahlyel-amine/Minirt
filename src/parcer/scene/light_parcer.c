@@ -6,11 +6,11 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:47 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/01 17:24:39 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:33 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/structs.h"
+#include "structs.h"
 #include <stdbool.h>
 
 bool light_parcer(char *line, t_data *data)
