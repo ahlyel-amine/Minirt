@@ -6,12 +6,12 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:39:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/07/23 08:48:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
-#include "../include/libft.h"
+#include "get_next_line.h"
+#include "libft.h"
 
 int	ft_memchr_ind(char *str, char c)
 {

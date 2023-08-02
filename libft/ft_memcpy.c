@@ -6,11 +6,11 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 09:26:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/02/19 18:42:11 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
