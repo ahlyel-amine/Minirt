@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   newobject.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
+/*   Created: 2022/10/08 14:25:08 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/02/19 18:42:14 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "structs.h"
+#include "../include/libft.h"
 
-t_objects	*newobject(void *object, unsigned char type)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	t_objects	*node;
-
-	node = (t_objects *)malloc(sizeof(t_objects));
-	if (node)
-	{
-		node->type = type;
-		node->object = object;
-		node->next = NULL;
-	}
-	return (node);
+	if (!src && !dst)
+		return (NULL);
+	if (src < dst)
+		while (len-- > 0)
+			*((unsigned char *)(dst + len)) = *((unsigned char *)(src + len));
+	else
+		return (ft_memcpy(dst, src, len));
+	return (dst);
 }

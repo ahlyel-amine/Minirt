@@ -42,14 +42,14 @@ typedef struct s_plane
 	t_cord	normalized;
 }	t_plane;
 
-typedef struct s_cylinder
+typedef struct s_cylender
 {
 	t_color	clr;
 	double	diameter;
 	double	height;
 	t_cord	cord;
 	t_cord	normalized;
-}	t_cylinder;
+}	t_cylender;
 
 typedef struct s_sphere
 {

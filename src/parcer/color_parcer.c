@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/03 21:11:09 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ static bool	check_rgb(char *rgb)
 		return (ft_putendl_fd("minirt: invalid color format", 2), false);
 	j = only_3_digits(rgb + i + 1);
 	i += j + 1;
-	if (j == -1 || rgb[i + skip_spaces(rgb + i)])
+	if (j == -1)
+		return (ft_putendl_fd("minirt: invalid color format", 2), false);
+	else if (rgb[i + skip_spaces(rgb + i)])
 		return (ft_putendl_fd("minirt: to much argumets", 2), false);
 	return (true);
 }
