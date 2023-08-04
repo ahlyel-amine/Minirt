@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/03 20:44:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool	transform_line(char *line, t_data *data)
 		return (true);
 	type = find_type(line);
 	if (type == INVALID)
-		return (ft_putendl_fd("minirt: invalid object/function format", 2), false);
+		return (ft_putendl_fd("minirt: invalid object/description format", 2), false);
 	if (!objcets_parcers(type)(line, data))
 		return (false);
 	return (true);
@@ -89,10 +89,10 @@ bool	parcer(char *scene, t_data	*data)
 
 	fd = open(scene, O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		ft_putendl_fd("minirt: invalid scene file", 2);
+		return (ft_putendl_fd("minirt: invalid scene file", 2), false);
 	line = get_next_line(fd);
 	if (!line)
-		ft_putendl_fd("minirt: empty scene file", 2);
+		return (ft_putendl_fd("minirt: empty scene file", 2), false);
 	if (!read_true(&line, data, fd))
 		return (false);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:36 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/03 19:17:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 bool	cordinate_parcer(char **line, t_cord *cordinate, int marge_max, int marge_min)
 {
 	bool	success;
-
 
 	success = true;
 	*line += skip_spaces(*line);
