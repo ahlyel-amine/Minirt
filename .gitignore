@@ -1,0 +1,6 @@
+obj/
+.vscode
+include/a.c
+.gitignore
+libft/obj/
+libft/bin/
