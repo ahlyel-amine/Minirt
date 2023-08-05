@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:31:16 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 01:30:04 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ double	ft_atod(char **ascii, bool *success, int marge_max, int marge_min)
 	sign = 1.0;
 	digits_left = 0;
 	*ascii += skip_spaces(*ascii);
-
 	if ((*ascii)[0] == '-' && (*ascii)++)
 		sign = -1.0;
 	if (!ft_isdigit((*ascii)[0]) || !check_boundries(ascii, marge_max))

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:35:58 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 00:11:10 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ bool	camera_parcer(char *line, t_data *data)
 	bool			success;
 	
 	if (visited)
-		return (false);
+		return (ft_putendl_fd("minirt: error: duplicate of camera information", 2), false);
 	success = true;
 	visited = true;
 	camera = ft_calloc(sizeof(t_camera), 1);
 	if (!camera)
 		return (false);
 	line += 2;
+	printf("%s\n", line);
 	if (!cordinate_parcer(&line, &camera->cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid cordinate format", 2), false);
+		return (ft_putendl_fd("minirt: C invalid cordinate format", 2), false);
 	if (!cordinate_parcer(&line, &camera->normalized, 1, -1))
-		return (ft_putendl_fd("minirt: invalid cordinate format", 2), false);
+		return (ft_putendl_fd("minirt: C n invalid cordinate format", 2), false);
 	line += skip_spaces(line);
 	int i = 0;
 	while (ft_isdigit(line[i]))

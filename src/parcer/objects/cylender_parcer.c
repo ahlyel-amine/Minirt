@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:27:55 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 00:10:16 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool cylender_parcer(char *line, t_data *data)
 	success = true;
 	line += 3;
 	if (!cordinate_parcer(&line, &cylender->cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid cordinate format", 2), false);
+		return (ft_putendl_fd("minirt:  cy invalid cordinate format", 2), false);
 	if (!cordinate_parcer(&line, &cylender->normalized, 1, -1))
 		return (ft_putendl_fd("minirt: invalid normalized format", 2), false);
 	cylender->diameter = ft_atod(&line, &success, INT_MAX, INT_MIN);

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:47 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:29:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 02:10:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool light_parcer(char *line, t_data *data)
 		return (false);
 	line += 2;
 	if (!cordinate_parcer(&line, &light->cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid cordinate format", 2), false);
+		return (ft_putendl_fd("minirt: L invalid cordinate format", 2), false);
 	light->brightness = ft_atod(&line, &success, 1, 0);
 	if (!success)
 		return (ft_putendl_fd("minirt: invalid brightness format", 2), false);
@@ -48,11 +48,9 @@ bool light_parcer(char *line, t_data *data)
 	else if (this is mandatory)
 	{
 	*/
-	if (line[skip_spaces(line)])
-		return (ft_putendl_fd("minirt: to much arguments", 2), false);
-	/*
-	}
-	*/
+	line += skip_spaces(line);
+	if (!color_parcer(line, &light->clr))
+		return (false);
 	object = newobject(light, LIGHT);
 	if (!object)
 		return (false);

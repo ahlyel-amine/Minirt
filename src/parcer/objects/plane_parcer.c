@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:53 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:27:55 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 00:10:20 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool plane_parcer(char *line, t_data *data)
 		return (false);
 	line += 3;
 	if (!cordinate_parcer(&line, &plane->cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid cordinate format", 2), false);
+		return (ft_putendl_fd("minirt: pl invalid cordinate format", 2), false);
 	if (!cordinate_parcer(&line, &plane->normalized, 1, -1))
 		return (ft_putendl_fd("minirt: invalid normalized format", 2), false);
 	line += skip_spaces(line);

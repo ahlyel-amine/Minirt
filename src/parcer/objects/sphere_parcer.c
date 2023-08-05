@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:40:36 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 01:38:23 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ t_data *data;
 		return (false);
 	success = true;
 	line += 3;
+	printf("%s\n", line);
 	if (!cordinate_parcer(&line, &sphere->cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid cordinate format", 2), false);
+		return (ft_putendl_fd("minirt: sp invalid cordinate format", 2), false);
 	sphere->diameter = ft_atod(&line, &success, INT_MAX, INT_MIN);
 	if (!success)
 		return (ft_putendl_fd("minirt: invalid diameter format", 2), false);
