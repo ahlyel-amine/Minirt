@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 01:30:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 04:45:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ double	ft_atod(char **ascii, bool *success, int marge_max, int marge_min)
 		return (*success = false, 0);
 	result = ft_datoi(ascii);
 	if ((*ascii)[0] != '.' || !ft_isdigit((*ascii)[1]))
-		return (*success = false, 0);
+		return (result);
 	(*ascii)++;
 	while (ft_isdigit((*ascii)[digits_left]))
 		digits_left++;
