@@ -18,11 +18,11 @@ enum	types
 
 #define	MAX_OBJECTS	6
 
-#define	S_SPHERE	"sp "
-#define	S_CYLENDER	"cy "
-#define	S_PLANE		"pl "
-#define	S_LIGHTING	"A "
-#define	S_CAMERA	"C "
-#define	S_LIGHT		"L "
+#define	S_SPHERE	"sp"
+#define	S_CYLENDER	"cy"
+#define	S_PLANE		"pl"
+#define	S_LIGHTING	"A"
+#define	S_CAMERA	"C"
+#define	S_LIGHT		"L"
 
 #endif
