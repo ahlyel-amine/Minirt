@@ -8,6 +8,12 @@ typedef struct s_cord
 	double	z;
 }	t_cord;
 
+typedef struct s_vec
+{
+	double	v_x;
+	double	v_y;
+	double	v_z;
+}	t_vec;
 typedef struct s_color
 {
 	unsigned char	r;
