@@ -65,11 +65,19 @@ typedef	struct s_object
 	struct s_object	*next;
 }	t_objects;
 
+typedef struct s_counter
+{
+	int sphere;
+	int cylender;
+	int plane;
+}	t_counter;
+
 typedef	struct s_data
 {
 	t_objects	*objects;
 	t_lighting	lighting;
 	t_light		light;
+	t_counter	counter;
 	t_camera	camera;
 }	t_data;
 

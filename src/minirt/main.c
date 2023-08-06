@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 02:16:24 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 09:04:45 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include "libft.h"
 #include "library.h"
 #include "minirt.h"
+#include "x_malloc.h"
+
+void	clearobjs(t_objects **lst)
+{
+	t_objects	*tmp;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free ((*lst)->object);
+		free(*lst);
+		*lst = tmp;
+	}
+}
+
 
 int main(int ac, char **av)
 {
@@ -23,9 +40,8 @@ int main(int ac, char **av)
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
-		{
-			return (1);
-		}
+			return (clearobjs(&data.objects),  1);
+		printf("cy's : %d, pl's : %d, sp's : %d\n", data.counter.cylender, data.counter.plane, data.counter.sphere);
 		while (data.objects)
 		{
 			if (data.objects->type == SPHERE)

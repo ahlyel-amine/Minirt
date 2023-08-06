@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 00:10:16 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 08:57:43 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool cylender_parcer(char *line, t_data *data)
 	if (!cylender)
 		return (false);
 	success = true;
+	data->counter.cylender += 1;
 	line += 3;
 	if (!cordinate_parcer(&line, &cylender->cord, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt:  cy invalid cordinate format", 2), false);
@@ -43,6 +44,8 @@ bool cylender_parcer(char *line, t_data *data)
 	if (!color_parcer(line, &cylender->clr))
 		return (false);
 	object = newobject(cylender, CYLENDER);
+	if (!object)
+		return (false);
 	addobject_front(&data->objects, object);
 	return (true);
 }

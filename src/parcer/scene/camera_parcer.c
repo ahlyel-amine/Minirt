@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 00:11:10 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 08:42:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ bool	camera_parcer(char *line, t_data *data)
 	if (!camera)
 		return (false);
 	line += 2;
-	printf("%s\n", line);
 	if (!cordinate_parcer(&line, &camera->cord, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt: C invalid cordinate format", 2), false);
 	if (!cordinate_parcer(&line, &camera->normalized, 1, -1))

@@ -7,6 +7,7 @@ OBJECTS		= src/parcer/objects/
 LIBFT		= libft/
 
 SRC			=	$(shell ls $(OBJECTS)*.c)\
+				$(shell ls C_TOOLS/*.c)\
 				$(shell ls $(SCENES)*.c)\
 				$(shell ls $(PARCER)*.c)\
 				$(shell ls $(TOOLS)*.c)\

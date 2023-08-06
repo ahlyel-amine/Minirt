@@ -19,7 +19,7 @@ ${NAME} : ${OBJS}
 obj/%.o : src/%.c Makefile
 	mkdir -p $(dir $@)
 	printf ${HBLU}" [%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	${CC} ${CFLAGS} ${DEPSFLAGS} -Iinclude -c $< -o $@
+	${CC} ${CFLAGS} ${DEPSFLAGS} -Iinclude -I../include -c $< -o $@
 
 clean :
 	${RM} obj
