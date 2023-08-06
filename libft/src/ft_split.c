@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 22:57:13 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 09:02:14 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	wc = word_count((char *)s, c);
-	splited = malloc((wc + 1) * sizeof(char *));
+	splited = ft_calloc((wc + 1), sizeof(char *));
 	if (!splited)
 		return (NULL);
 	if (alloc_fill_strs(splited, (char *)s, c, wc))

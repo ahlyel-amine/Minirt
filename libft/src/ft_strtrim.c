@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   addobject_front.c                                  :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
+/*   Created: 2022/10/13 11:26:46 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/02/19 18:43:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "structs.h"
+#include "../include/libft.h"
 
-void	addobject_front(t_objects **lst, t_objects *new)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	if (new && lst)
-	{
-		new->next = *lst;
-		*lst = new;
-	}
+	int	n;
+
+	if (!s1)
+		return (NULL);
+	if (!set || !*set)
+		return (ft_strdup(s1));
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	n = ft_strlen(s1);
+	while (n && ft_strchr(set, *(s1 + n - 1)))
+		n--;
+	return (ft_substr(s1, 0, n));
 }
