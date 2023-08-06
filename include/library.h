@@ -2,6 +2,7 @@
 #define LIBRARY_H
 #include <stdbool.h>
 #include "structs.h"
+
 typedef	bool	(*object_parcer)(char *, t_data *);
 
 enum	types
