@@ -1,6 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <stdio.h>
+
+#define t_cord t_vector
 typedef struct s_cord
 {
 	double	x;
@@ -43,18 +45,18 @@ typedef struct s_light
 
 typedef struct s_plane
 {
-	t_color	clr;
-	t_cord	cord;
-	t_cord	normalized;
+	t_color		clr;
+	t_cord		cord;
+	t_vector	normalized;
 }	t_plane;
 
 typedef struct s_cylender
 {
-	t_color	clr;
-	double	diameter;
-	double	height;
-	t_cord	cord;
-	t_cord	normalized;
+	t_color		clr;
+	double		diameter;
+	double		height;
+	t_cord		cord;
+	t_vector	normalized;
 }	t_cylender;
 
 typedef struct s_sphere
