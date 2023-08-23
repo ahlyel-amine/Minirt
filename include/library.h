@@ -1,5 +1,7 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
+#include <stdbool.h>
+#include "structs.h"
 
 typedef	bool	(*object_parcer)(char *, t_data *);
 
@@ -17,11 +19,11 @@ enum	types
 
 #define	MAX_OBJECTS	6
 
-#define	S_SPHERE	"sp "
-#define	S_CYLENDER	"cy "
-#define	S_PLANE		"pl "
-#define	S_LIGHTING	"A "
-#define	S_CAMERA	"C "
-#define	S_LIGHT		"L "
+#define	S_SPHERE	"sp"
+#define	S_CYLENDER	"cy"
+#define	S_PLANE		"pl"
+#define	S_LIGHTING	"A"
+#define	S_CAMERA	"C"
+#define	S_LIGHT		"L"
 
 #endif
