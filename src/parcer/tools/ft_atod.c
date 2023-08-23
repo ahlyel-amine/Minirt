@@ -6,13 +6,14 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 04:45:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdbool.h>
 #include "libft.h"
+#include "tools.h"
 
 static int	ft_datoi(char **str)
 {
@@ -56,13 +57,14 @@ double	ft_atod(char **ascii, bool *success, int marge_max, int marge_min)
 	result = 0.0;
 	sign = 1.0;
 	digits_left = 0;
+	*ascii += skip_spaces(*ascii);
 	if ((*ascii)[0] == '-' && (*ascii)++)
 		sign = -1.0;
 	if (!ft_isdigit((*ascii)[0]) || !check_boundries(ascii, marge_max))
 		return (*success = false, 0);
 	result = ft_datoi(ascii);
 	if ((*ascii)[0] != '.' || !ft_isdigit((*ascii)[1]))
-		return (*success = false, 0);
+		return (result);
 	(*ascii)++;
 	while (ft_isdigit((*ascii)[digits_left]))
 		digits_left++;

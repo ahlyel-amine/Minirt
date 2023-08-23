@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/05 08:58:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ static bool	check_rgb(char *rgb)
 		return (ft_putendl_fd("minirt: invalid color format", 2), false);
 	j = only_3_digits(rgb + i + 1);
 	i += j + 1;
-	if (j == -1 || rgb[i + skip_spaces(rgb + i)])
-		return (ft_putendl_fd("minirt: to much argumets", 2), false);
+	if (j == -1)
+		return (ft_putendl_fd("minirt: invalid color format", 2), false);
+	else if (rgb[i + skip_spaces(rgb + i)])
+		return (ft_putendl_fd("color minirt: to much argumets", 2), false);
 	return (true);
 }
 
@@ -61,7 +63,7 @@ bool	color_parcer(char *line, t_color *color)
 	colors = ft_split(line, ',');
 	if (!colors)
 		return (free(line), false);
-	while (i < 3)
+	while (i < 3 && colors[i])
 	{
 		tmp = ft_atoi(colors[i]);
 		if (tmp > 255 || tmp < 0)
