@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/27 14:46:26 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/08/27 22:16:32 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	double ndcX;
 	double ndcY;
 	t_vec	direction;
-	double 	aspect_ratio = WIDTH / HEIGHT;
-	ray->origin = cam->cord;
+	double 	aspect_ratio = WIDTH / (double)HEIGHT;
+	ray->origin = create_vec_from_scalar(0);
 	ndcX = ((double)x + 0.5) / WIDTH;
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	// my_mlx_put(rt, (int)ndcX, (int)ndcY, 0xFF0000);
 	// printf("%.4f  %.4f\n", ndcX, ndcY);
-	direction.v_x = 2 * ndcX - 1;
-	direction.v_y = 1 - 2 * ndcY - 1;
+	direction.v_x = (2 * ndcX - 1) * tan(cam->v_field >> 1 * M_PI / 180) * aspect_ratio;
+	direction.v_y = (1 - 2 * ndcY) * tan(cam->v_field >> 1 * M_PI / 180);
 	direction.v_z = -1.0;
 	
 	ray->direction = normalize(&direction);

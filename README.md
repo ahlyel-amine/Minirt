@@ -15,7 +15,7 @@ This is what ray tracing does in computer.
 
 `E_1.png`
 
-	1-2) Now we gonna hightlight some key point about Optics and how light   	behaves.
+	1-2) Now we gonna hightlight some key point about Optics and how light behaves.
 
 1-2-1 <Reflection>: + <specular reflection> When light encounters a surface,
                     it  can bounce back.
