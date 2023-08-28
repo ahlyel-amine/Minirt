@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/27 22:16:32 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/08/28 07:03:46 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,43 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	// my_mlx_put(rt, (int)ndcX, (int)ndcY, 0xFF0000);
 	// printf("%.4f  %.4f\n", ndcX, ndcY);
-	direction.v_x = (2 * ndcX - 1) * tan(cam->v_field >> 1 * M_PI / 180) * aspect_ratio;
-	direction.v_y = (1 - 2 * ndcY) * tan(cam->v_field >> 1 * M_PI / 180);
+	direction.v_x = (2 * ndcX - 1) * tan(((int)(cam->v_field) >> 1) * M_PI / 180) * aspect_ratio;
+	direction.v_y = (1 - 2 * ndcY) * tan(((int)(cam->v_field) >> 1) * M_PI / 180);
 	direction.v_z = -1.0;
 	
-	ray->direction = normalize(&direction);
+	ray->direction = direction;
+	printf("%.8f %.8f %.8f\n", ray->direction.v_x, ray->direction.v_y, ray->direction.v_z);
+
 }
 
+int Intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
+    t_vec oc = { ray.origin.v_x - sphere.cord.v_x, ray.origin.v_y - sphere.cord.v_y, ray.origin.v_z - sphere.cord.v_z };
+    double a = dot_product(ray.direction, ray.direction);
+    double b = 2.0f * dot_product(oc, ray.direction);
+    double c = dot_product(oc, oc) - ((sphere.diameter / 2) * (sphere.diameter / 2));
+    double discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        double t1 = (-b - sqrt(discriminant)) / (2.0f * a);
+        double t2 = (-b + sqrt(discriminant)) / (2.0f * a);
+        double t = (t1 < t2) ? t1 : t2;
+
+        pHit->v_x = ray.origin.v_x + t * ray.direction.v_x;
+        pHit->v_y = ray.origin.v_y + t * ray.direction.v_y;
+        pHit->v_z = ray.origin.v_z + t * ray.direction.v_z;
+
+        *nHit = normalize(pHit);
+        return 1;
+    }
+
+    return 0;
+}
 void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam)
 {
 	int	x;
 	int	y;
 	// t_camera *cam = (t_camera *)data.objects->object;
+	t_sphere sphere = {{0.0,0.0,20.6}, 70.6, {10,0,255}};
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -78,9 +103,15 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam)
 		{
 			// puts("alo");
 			Prime_ray(m_rt, x, y, ray, cam);
-			printf("%.8f  %.8f %.8f\n", ray->direction.v_x, ray->direction.v_x, ray->direction.v_x);
+			t_vec pHit, nHit;
+			double minDistance = INFINITY;
+			if (Intersect(sphere, *ray, &pHit, &nHit))
+				my_mlx_put(m_rt, (int)x, (int)y, 0xff00);
+			else
+				my_mlx_put(m_rt, (int)x, (int)y, 0xffff);
+
+			// printf("%.8f  %.8f %.8f\n", ray->direction.v_x, ray->direction.v_x, ray->direction.v_x);
 			// usleep(10000);
-			// my_mlx_put(m_rt, (int)x, (int)y, 0x5555);
 			x++;
 		}
 		y++;
