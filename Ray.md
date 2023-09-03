@@ -1,4 +1,5 @@
-#Ray takeover
+# Ray takeover
+
 
 1. **red note**:
 
@@ -13,7 +14,7 @@ This can easily be done by tracing a line starting at the camera's origin and pa
 We can express this line in the form of a ray whose origin is the camera's origin and whose direction is the vector from the camera's origin to the pixel center.
 * To compute the position of a point at the center of a pixel, we need to convert the pixel coordinates which are originally expressed in *raster space* (the point coordinates are expressed in pixels with the coordinates (0,0) being the top-left corner of the frame) to world space.
 
-#Day02
+## Day02
 
 Our task today consist of creating a primary ray for each pixel of the frame. This can easily be done by tracing a line starting at the camera's origin and passing through the middle of each pixel.
 but in order to compute the position of a point at the center of a pixel, we need first to convert the pixel coordinates which are originally expressed in <raster space> to *world space*.
