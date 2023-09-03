@@ -6,14 +6,14 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:56:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/08/05 08:31:27 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/08/27 10:14:52 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include <math.h>
 
-double	sar(double x)
+double	sqr(double x)
 {
 	return (x * x);
 }
@@ -38,7 +38,7 @@ double	v_length(t_vec v)
 	return (sqrt(length(v)));
 }
 // change a vector to have a lenght of 1
-t_vec	nermalize(t_vec *v)
+t_vec	normalize(t_vec *v)
 {
 	double	len;
 
