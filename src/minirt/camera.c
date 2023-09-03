@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 16:00:04 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/26 08:38:55 by aelbrahm         ###   ########.fr       */
+/*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
+/*   Updated: 2023/08/26 08:27:56 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_calloc(size_t count, size_t size)
+#include "structs.h"
+#include <stdlib.h>
+t_camera *create_cam(t_vec *origin, t_vec *direction, double fov)
 {
-	void	*p;
-
-	p = malloc(count * size);
-	if (p)
-		ft_bzero(p, count * size);
-	return (p);
+	t_camera	*cam;
+	cam = (t_camera *)malloc(sizeof(t_camera));
+	if (!cam)
+		return (NULL);
+	return cam;
 }
