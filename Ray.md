@@ -19,7 +19,7 @@ We can express this line in the form of a ray whose origin is the camera's origi
 	but in order to compute the position of a point at the center of a pixel, we need first to convert the pixel coordinates which are originally expressed in <raster space> to *world space*.
 	<Raster_world_space> >> for more daitles check resource bellow.
 	- Converssion >> Converting the coordinates of a point in the middle of a pixel requires a banch of steps, The coordinates of this point which expressed in *raster space* plus *0.5* then convert it to *NDC space* here the coordinates are remapped to the range [0, 1].
-	
+
 			~~~~
 	ndcX = ((Pixel_x + 0.5) / ImageWidth)
 	ndcY = ((Pixel_y + 0.5) / imageHeight)
@@ -33,7 +33,8 @@ We can express this line in the form of a ray whose origin is the camera's origi
 	`PixelCamera_x = (1 - 2 * PixelScreen_y) * FOV.` 
 	
 	Now we reach the final stage which consist of applying the final camera to world transformation 4x4 matrix transformas the coordinates in screen space to world space.
-* <secondary ray>* are shadows ray.
+*secondary ray* are shadows ray.
+
 [Ray-Tracing: Generating Camera Rays](https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-generating-camera-rays/generating-camera-rays.html#:~:text=This%20can%20easily%20be%20done,origin%20to%20the%20pixel%20center).
 
 
