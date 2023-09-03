@@ -26,14 +26,15 @@ ndcY = ((Pixel_y + 0.5) / imageHeight)
 
 ```
 	
-	Then converted again to *screen space* like last converssion now we remapp it to the range [-1,1].
-
-	`PixelScreen_x = 2 * ndcX - 1`
-	`PixelScreen_y = 1 - 2 * ndcY.`
-	`PixelCamera_x = (2 * PixelScreen_x) * ImageAspectRatio * FOV`
-	`PixelCamera_x = (1 - 2 * PixelScreen_y) * FOV.` 
+Then converted again to *screen space* like last converssion now we remapp it to the range [-1,1].
+~~~~
+	PixelScreen_x = 2 * ndcX - 1
+	PixelScreen_y = 1 - 2 * ndcY
+	PixelCamera_x = (2 * PixelScreen_x) * ImageAspectRatio * FOV
+	PixelCamera_x = (1 - 2 * PixelScreen_y) * FOV
+~~~~
 	
-	Now we reach the final stage which consist of applying the final camera to world transformation 4x4 matrix transformas the coordinates in screen space to world space.
+Now we reach the final stage which consist of applying the final camera to world transformation 4x4 matrix transformas the coordinates in screen space to world space.
 *secondary ray* are shadows ray.
 
 [Ray-Tracing: Generating Camera Rays](https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-generating-camera-rays/generating-camera-rays.html#:~:text=This%20can%20easily%20be%20done,origin%20to%20the%20pixel%20center).
