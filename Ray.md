@@ -20,10 +20,11 @@ but in order to compute the position of a point at the center of a pixel, we nee
 <Raster_world_space> >> for more daitles check resource bellow.
 - Converssion >> Converting the coordinates of a point in the middle of a pixel requires a banch of steps, The coordinates of this point which expressed in *raster space* plus *0.5* then convert it to *NDC space* here the coordinates are remapped to the range [0, 1].
 
-			```
-	ndcX = ((Pixel_x + 0.5) / ImageWidth)
-	ndcY = ((Pixel_y + 0.5) / imageHeight)
-			```
+```
+ndcX = ((Pixel_x + 0.5) / ImageWidth)
+ndcY = ((Pixel_y + 0.5) / imageHeight)
+
+```
 	
 	Then converted again to *screen space* like last converssion now we remapp it to the range [-1,1].
 
