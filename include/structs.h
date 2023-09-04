@@ -105,5 +105,6 @@ typedef struct s_mrt
 	int		bit_per_px;
 	int		line_len;
 	int		endian;
+	double	cam_matrix[4][4];
 }	t_mrt;
 #endif

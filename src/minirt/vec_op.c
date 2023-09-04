@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:56:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/08/27 10:14:52 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/09/04 03:31:22 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_vec	cross_product(t_vec v, t_vec u)
 {
 	t_vec	res;
 
-	res.v_x = v.v_x * u.v_z - v.v_z * u.v_y;
+	res.v_x = v.v_y * u.v_z - v.v_z * u.v_y;
 	res.v_y = v.v_z * u.v_x - v.v_x * u.v_z;
 	res.v_z = v.v_x * u.v_y - v.v_y * u.v_x;
 	return (res);
