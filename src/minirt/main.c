@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/09/02 12:31:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/09/04 05:08:38 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include "minirt.h"
 #include "vector.h"
 #include <mlx.h>
-#define WIDTH 1200
-#define HEIGHT 600
+#define WIDTH 1280
+#define HEIGHT 720
 void	clearobjs(t_objects **lst)
 {
 	t_objects	*tmp;
@@ -46,7 +46,12 @@ void	my_mlx_put(t_mrt *rt, int x, int y, int color)
 	}
 	return ;
 }
-
+void	cam_to_world(double matrix[4][4], t_vec *dir)
+{
+	dir->v_x = dir->v_x * matrix[0][0] + dir->v_y * matrix[1][0] + dir->v_z * matrix[2][0];
+	dir->v_y = dir->v_x * matrix[0][1] + dir->v_y * matrix[1][1] + dir->v_z * matrix[2][1];
+	dir->v_z = dir->v_x * matrix[0][2] + dir->v_y * matrix[1][2] + dir->v_z * matrix[2][2];
+}
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
 	t_vec	direction;
@@ -60,15 +65,15 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	// my_mlx_put(rt, (int)ndcX, (int)ndcY, 0xFF0000);
 	// printf("%.4f  %.4f\n", ndcX, ndcY);
-	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
-	direction.v_z = -1.0;
-	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
-	direction.v_z = -1.0;
+	direction.v_x = (1 - 2 * ndcX) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
+	direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
+	direction.v_z = 0.5;
+	// printf("++ x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
 	// ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
 	// ray->direction.v_x = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
 	// ray->direction.v_x = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
+	cam_to_world(rt->cam_matrix, &direction);
+	// printf("-- x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
 	ray->direction = normalize(&direction);
 	// printf("%.8f %.8f %.8f\n", ray->direction.v_x, ray->direction.v_y, ray->direction.v_z);
 
@@ -101,18 +106,37 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 {
 	int	x;
 	int	y;
+	t_vec	tmp = {0, 1, 0};
+	t_vec	forword = normalize(&cam->normalized);
+	printf("x : %.2f y : %.2f z : %.2f\n", forword.v_x, forword.v_x, forword.v_z);
+
 	// t_camera *cam = (t_camera *)data.objects->object;
 	while (data.objects->type != SPHERE)
 		data.objects = data.objects->next;
 	t_sphere *sphere = (t_sphere *)data.objects->object;
 	y = 0;
-	// cam->right = (t_vec){1, 0, 0};
-	// cam->up.v_x = cam->normalized.v_y * cam->right.v_z - cam->normalized.v_z * cam->right.v_y;
-    // cam->up.v_y = cam->normalized.v_z * cam->right.v_x - cam->normalized.v_x * cam->right.v_z;
-    // cam->up.v_z = cam->normalized.v_x * cam->right.v_y - cam->normalized.v_y * cam->right.v_x;
-	while (y < HEIGHT)
+	cam->right = cross_product(tmp, forword);
+	printf("right : %.2f\n", cam->right.v_x);
+	cam->up = cross_product(forword, cam->right);
+	m_rt->cam_matrix[0][0] = cam->right.v_x;
+	printf("matrix[0][0] : %.2f\n", m_rt->cam_matrix[0][0]);
+	m_rt->cam_matrix[0][1] = cam->right.v_y;
+	printf("matrix[0][1] : %.2f\n", m_rt->cam_matrix[0][1]);
+
+	m_rt->cam_matrix[0][2] = cam->right.v_z;
+	printf("matrix[0][2] : %.2f\n", m_rt->cam_matrix[0][2]);
+
+	m_rt->cam_matrix[1][0] = cam->up.v_x;
+	m_rt->cam_matrix[1][1] = cam->up.v_y;
+	m_rt->cam_matrix[1][2] = cam->up.v_z;
+	m_rt->cam_matrix[2][0] = forword.v_x;
+	m_rt->cam_matrix[2][1] = forword.v_y;
+	m_rt->cam_matrix[2][2] = forword.v_z;
+	y = HEIGHT;
+	while (y--)
 	{
 		x = 0;
+			// double pxY = (HEIGHT - y - 0.5) / HEIGHT;
 		while (x < WIDTH)
 		{
 			// puts("alo");
@@ -120,15 +144,14 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 			t_vec pHit, nHit;
 			double minDistance = INFINITY;
 			if (sphere_intersect(*sphere, *ray, &pHit, &nHit))
-				my_mlx_put(m_rt, (int)x, (int)y, 0xff00);
+				my_mlx_put(m_rt, x, y, 0xffe);
 			else
-				my_mlx_put(m_rt, (int)x, (int)y, 0xffff);
+				my_mlx_put(m_rt, x, y, 0xffff);
 			
 			// printf("%.8f  %.8f %.8f\n", ray->direction.v_x, ray->direction.v_x, ray->direction.v_x);
 			// usleep(10000);
 			x++;
 		}
-		y++;
 	}
 	mlx_put_image_to_window(m_rt->mlx, m_rt->mlx_win, m_rt->mlx_img, 0, 0);
 }
