@@ -1,12 +1,13 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <stdio.h>
-// typedef struct s_cord
-// {
-// 	double	x;
-// 	double	y;
-// 	double	z;
-// }	t_vec;
+typedef struct s_cord
+{
+	double	a;
+	double	b;
+	double	c;
+}	t_cord;
+
 typedef struct s_vec
 {
 	double	v_x;
@@ -38,6 +39,8 @@ typedef struct s_camera
 	unsigned char	v_field;
 	t_vec			cord;
 	t_vec			normalized;
+	t_vec			up;
+	t_vec			right;
 }	t_camera;
 
 typedef struct s_light
