@@ -27,7 +27,8 @@ NC			= '\e[0m'
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)    -I /usr/local/include -L /usr/local/lib \
+ -lmlx -framework OpenGL -framework AppKit -lm -lz -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
