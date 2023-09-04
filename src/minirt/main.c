@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/09/04 05:08:38 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/09/04 05:25:02 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ void	my_mlx_put(t_mrt *rt, int x, int y, int color)
 	}
 	return ;
 }
-void	cam_to_world(double matrix[4][4], t_vec *dir)
+t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 {
-	dir->v_x = dir->v_x * matrix[0][0] + dir->v_y * matrix[1][0] + dir->v_z * matrix[2][0];
-	dir->v_y = dir->v_x * matrix[0][1] + dir->v_y * matrix[1][1] + dir->v_z * matrix[2][1];
-	dir->v_z = dir->v_x * matrix[0][2] + dir->v_y * matrix[1][2] + dir->v_z * matrix[2][2];
+	t_vec	v;	
+	v.v_x = dir->v_x * matrix[0][0] + dir->v_y * matrix[1][0] + dir->v_z * matrix[2][0];
+	v.v_y = dir->v_x * matrix[0][1] + dir->v_y * matrix[1][1] + dir->v_z * matrix[2][1];
+	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * matrix[1][2] + dir->v_z * matrix[2][2];
+	return v;
 }
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
@@ -65,14 +67,14 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	// my_mlx_put(rt, (int)ndcX, (int)ndcY, 0xFF0000);
 	// printf("%.4f  %.4f\n", ndcX, ndcY);
-	direction.v_x = (1 - 2 * ndcX) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
+	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
+	direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
 	direction.v_z = 0.5;
 	// printf("++ x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
 	// ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
 	// ray->direction.v_x = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
 	// ray->direction.v_x = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
-	cam_to_world(rt->cam_matrix, &direction);
+	direction = cam_to_world(rt->cam_matrix, &direction);
 	// printf("-- x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
 	ray->direction = normalize(&direction);
 	// printf("%.8f %.8f %.8f\n", ray->direction.v_x, ray->direction.v_y, ray->direction.v_z);
