@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/09/04 05:25:02 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/09/05 02:06:30 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,23 @@ void	my_mlx_put(t_mrt *rt, int x, int y, int color)
 	}
 	return ;
 }
+void	lookat(double matrix[4][4], t_mrt *rt, t_camera *cam)
+{
+	t_vec	tmp = {0, 1, 0};
+	t_vec	forword = normalize(&cam->normalized);
+	cam->right = cross_product(tmp, forword);
+	cam->up = cross_product(forword, cam->right);
+	rt->cam_matrix[0][0] = cam->right.v_x;
+	rt->cam_matrix[0][1] = cam->right.v_y;
+	rt->cam_matrix[0][2] = cam->right.v_z;
+	rt->cam_matrix[1][0] = cam->up.v_x;
+	rt->cam_matrix[1][1] = cam->up.v_y;
+	rt->cam_matrix[1][2] = cam->up.v_z;
+	rt->cam_matrix[2][0] = forword.v_x;
+	rt->cam_matrix[2][1] = forword.v_y;
+	rt->cam_matrix[2][2] = forword.v_z;
+}
+
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 {
 	t_vec	v;	
@@ -69,7 +86,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	// printf("%.4f  %.4f\n", ndcX, ndcY);
 	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
 	direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
-	direction.v_z = 0.5;
+	direction.v_z = -1;
 	// printf("++ x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
 	// ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
 	// ray->direction.v_x = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
@@ -108,32 +125,13 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 {
 	int	x;
 	int	y;
-	t_vec	tmp = {0, 1, 0};
-	t_vec	forword = normalize(&cam->normalized);
-	printf("x : %.2f y : %.2f z : %.2f\n", forword.v_x, forword.v_x, forword.v_z);
+	
 
 	// t_camera *cam = (t_camera *)data.objects->object;
 	while (data.objects->type != SPHERE)
 		data.objects = data.objects->next;
 	t_sphere *sphere = (t_sphere *)data.objects->object;
-	y = 0;
-	cam->right = cross_product(tmp, forword);
-	printf("right : %.2f\n", cam->right.v_x);
-	cam->up = cross_product(forword, cam->right);
-	m_rt->cam_matrix[0][0] = cam->right.v_x;
-	printf("matrix[0][0] : %.2f\n", m_rt->cam_matrix[0][0]);
-	m_rt->cam_matrix[0][1] = cam->right.v_y;
-	printf("matrix[0][1] : %.2f\n", m_rt->cam_matrix[0][1]);
-
-	m_rt->cam_matrix[0][2] = cam->right.v_z;
-	printf("matrix[0][2] : %.2f\n", m_rt->cam_matrix[0][2]);
-
-	m_rt->cam_matrix[1][0] = cam->up.v_x;
-	m_rt->cam_matrix[1][1] = cam->up.v_y;
-	m_rt->cam_matrix[1][2] = cam->up.v_z;
-	m_rt->cam_matrix[2][0] = forword.v_x;
-	m_rt->cam_matrix[2][1] = forword.v_y;
-	m_rt->cam_matrix[2][2] = forword.v_z;
+	lookat(m_rt->cam_matrix, m_rt, cam);	
 	y = HEIGHT;
 	while (y--)
 	{
