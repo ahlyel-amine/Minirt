@@ -15,12 +15,15 @@ typedef struct s_vec
 	double	v_z;
 }	t_vec;
 
+
 typedef struct s_ray
 {
 	t_vec	origin;
 	t_vec	direction;
 }	t_ray;
 
+// typedef t_cord	(*param_at)(double t, t_ray ray);
+# define t_coord t_vec
 typedef struct s_color
 {
 	unsigned char	r;
@@ -107,4 +110,11 @@ typedef struct s_mrt
 	int		endian;
 	double	cam_matrix[4][4];
 }	t_mrt;
+
+// typedef enum e_bool
+// {
+// 	false,
+// 	true
+// }	t_bool;
+
 #endif
