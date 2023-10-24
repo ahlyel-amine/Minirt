@@ -13,7 +13,7 @@ SRC			=	$(shell ls $(OBJECTS)*.c)\
 				$(shell ls $(SRC_F)minirt/*.c)
 INCLUDES	= -Iinclude -Ilibft/include
 OBJ_DIR 	= obj
-FLAGS		= -I/usr/include -Imlx_linux -O3 -fsanitize=address
+FLAGS		= -Imlx -O3 -fsanitize=address
 # -Wall -Wextra -Werror -fsanitize=address
 NAME		= Minirt
 LIBFT_NAME	= libft/bin/libft.a
@@ -27,7 +27,7 @@ NC			= '\e[0m'
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
