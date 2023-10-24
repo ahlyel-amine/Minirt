@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/10/24 00:59:31 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/10/24 04:58:46 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,36 +104,31 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 }
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
-	// t_vec	direction;
-	double	ndcX;
-	double	ndcY;
-	// double	aspect_ratio;
+
 	
-	ndcX = ((double)x + 0.5) / WIDTH;
-	ndcY = ((double)y + 0.5) / HEIGHT;
-	t_vec	lower_left_corner = { -2.0, -1.0, -1.0 };
-	t_vec	horizontal = { 4.0, 0.0, 0.0 };
-	t_vec	vertical = { 0.0, 2.0, 0.0 };
-	ray->origin = cam->cord;
-	ray->direction = vec_addition(lower_left_corner, vec_addition(scalar_mult(horizontal, ndcX), scalar_mult(vertical, ndcY)));
-	// aspect_ratio = WIDTH / (double)HEIGHT;
-	// ray->origin = cam->cord;
-	// printf("o_x: %f o_y: %f o_z: %f\n", cam->normalized.v_x, cam->normalized.v_y, cam->normalized.v_z);
 	// ndcX = ((double)x + 0.5) / WIDTH;
 	// ndcY = ((double)y + 0.5) / HEIGHT;
-	// my_mlx_put(rt, (int)ndcX, (int)ndcY, 0xFF0000);
-	// printf("%.4f  %.4f\n", ndcX, ndcY);
-	// direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	// direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
-	// direction.v_z = -1;
-	// printf("++ x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
-	// ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
-	// ray->direction.v_x = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
-	// ray->direction.v_x = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
-	// direction = cam_to_world(rt->cam_matrix, &direction);
-	// printf("-- x: %.2f y: %.2f z: %.2f\n", direction.v_x, direction.v_y, direction.v_z);
-	// ray->direction = normalize(&direction);
-	// printf("%.8f %.8f %.8f\n", ray->direction.v_x, ray->direction.v_y, ray->direction.v_z);
+	// t_vec	lower_left_corner = { -2.0, -1.0, -1.0 };
+	// t_vec	horizontal = { 4.0, 0.0, 0.0 };
+	// t_vec	vertical = { 0.0, 2.0, 0.0 };
+	// ray->origin = cam->cord;
+	// ray->direction = vec_addition(lower_left_corner, vec_addition(scalar_mult(horizontal, ndcX), scalar_mult(vertical, ndcY)));
+	t_vec	direction;
+	double	ndcX;
+	double	ndcY;
+	double	aspect_ratio;
+
+	aspect_ratio = WIDTH / (double)HEIGHT;
+	ray->origin = cam->cord;
+	ndcX = ((double)x + 0.5) / WIDTH;
+	ndcY = ((double)y + 0.5) / HEIGHT;
+	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
+	direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
+	direction.v_z = -1.0;
+	ray->direction = normalize(&direction);
+	ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
+	ray->direction.v_y = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
+	ray->direction.v_z = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
 
 }
 
@@ -160,7 +155,7 @@ int sphere_intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
     return 0;
 }
 
-bool	hit_sphere(t_ray *ray, t_sphere *sphere)
+double	hit_sphere(t_ray *ray, t_sphere *sphere)
 {
 	t_vec	oc;
 	t_cord	p;
@@ -172,21 +167,23 @@ bool	hit_sphere(t_ray *ray, t_sphere *sphere)
 	p.b = 2.0 * dot_product(oc, ray->direction);
 	p.c = dot_product(oc, oc) - (sphere->diameter/2) * (sphere->diameter/2);
 	discriminant = p.b * p.b - (4 * p.a * p.c);
-	printf("discriminant: %.8f\n", discriminant);
-	return (discriminant >= 0);
+	if (discriminant < 0)
+		return (-1.0);
+	return ((-p.b - sqrt(discriminant)) / (2.0 * p.a));
 }
 t_coord	ray_color(t_ray *ray, t_sphere *sphere)
 {
-	// printf("1===> %.8f %.8f %.8f\n", ray->direction.v_x, ray->direction.v_y, ray->direction.v_z);
-	if (hit_sphere(ray, sphere))
+	double	t = hit_sphere(ray, sphere);	
+	if (t > 0.0)
 	{
-		return ((t_coord){1.0, 0.0, 0.0});
-	}	
+		t_vec	n = normalized(vec_sub(at(t, *ray), sphere->cord));
+		return (scalar_mult((t_coord){n.v_x + 1, n.v_y + 1, n.v_z + 1}, 0.5));
+	}
+		
 	t_coord	unit_direction = normalized(ray->direction);
-	// printf("2===> %.8f %.8f %.8f\n", ray->direction.v_x, ray->direction.v_y, ray->direction.v_z);
-	double	a_scale = 0.5 * (unit_direction.v_y + 1.0);
-	t_coord	c_end = scalar_mult((t_coord){0.3, 0.2, 1.0}, 1.0 - a_scale);
-	t_coord	c_start = scalar_mult((t_coord){1.0, 1.0, 1.0}, a_scale);
+	t = 0.5 * (unit_direction.v_y + 1.0);
+	t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
+	t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 1.0}, t);
 	return ((t_coord)vec_addition(c_start, c_end));
 }
 void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
@@ -195,6 +192,10 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 	int	y;
 	int	nx = WIDTH;
 	int ny = HEIGHT;
+	cam->right = (t_vec){1, 0, 0};
+	cam->up.v_x = cam->normalized.v_y * cam->right.v_z - cam->normalized.v_z * cam->right.v_y;
+    cam->up.v_y = cam->normalized.v_z * cam->right.v_x - cam->normalized.v_x * cam->right.v_z;
+    cam->up.v_z = cam->normalized.v_x * cam->right.v_y - cam->normalized.v_y * cam->right.v_x;
 	while (data.objects->type != SPHERE)
 		data.objects = data.objects->next;
 	t_sphere *sphere = (t_sphere *)data.objects->object;
