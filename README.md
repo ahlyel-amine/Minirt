@@ -13,14 +13,14 @@ When you shine you flashlight, the light beams go out and bounce off these thing
 Now, imagine you can follow these beams with your eyes and see where they go. You can figure out what things looks like by following how the beams bounce.
 This is what ray tracing does in computer.
 
-`E_1.png`
+![alt text](E_1.png "")
 
 	1-2) Now we gonna hightlight some key point about Optics and how light behaves.
 
 1-2-1 <Reflection>: + <specular reflection> When light encounters a surface,
                     it  can bounce back.
 					this called reflection. `The angle at which light hits a surface is equal to the angel at which it reflects`. Mirrors work by reflecting light with hight precision.
-					`E_2`
+					![alt text](E_2.png "E_2")
 					(Law of reflection of a mirror, shiny or smooth surface).
 
 					+ <Diffuse Reflection>: Normal objects, like ball or most everyday surfaces, exhibit diffuse reflection. Unlike mirrors, there surfaces are typically rough at the microscopic level. When light hits a rough surface, it scratters in various directions. This means that the reflected light doesn't obey the low of refliction as precisly as with mirrors.
@@ -30,7 +30,9 @@ This is what ray tracing does in computer.
 1-2-2 <Refraction>  When light pass from one transparent material into another 
 					(like air into water), it can change direction. This bending of light is called refraction. The amount of bending depends on the material's refractive indices.Lenses, like those on eyeglasses or cameras, use refraction to focus light.
 
-1-2-3 <Scattering>  When light interacts with small particles or     irregularities  in a material, it can scatter in all direction `E_3`.
+1-2-3 <Scattering>  When light interacts with small particles or     irregularities  in a material, it can scatter in all direction.
+
+![alt text](E_3.png "E_3")
 
 1-2-3 <Inverse Square Law> The intensity of light or its brightness decreases
                            with distance from the source following the inverse 
