@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/10/24 04:58:46 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/10/26 00:19:06 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 #define WIDTH 1280
 #define HEIGHT 820
 #define FRAME 3
+#define M_D 1.79769e+308
+#define eps 1e-3
+typedef struct s_hit_record
+{
+	double	t;
+	t_vec	pHit;
+	t_vec	nHit;	
+}	t_hit_record;
+
+
 void	clearobjs(t_objects **lst)
 {
 	t_objects	*tmp;
@@ -142,7 +152,7 @@ int sphere_intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
    	p.b = 2.0 * dot_product(oc, ray.direction);
     p.c = dot_product(oc, oc) - ((sphere.diameter / 2) * (sphere.diameter / 2));
 	discriminant = p.b * p.b - 4 * p.a * p.c;
-    if (discriminant > 0) {
+    if (discriminant > 0.0) {
         double t1 = (-p.b - sqrt(discriminant)) / (2.0f * p.a);
         double t2 = (-p.b + sqrt(discriminant)) / (2.0f * p.a);
         double t = (t1 < t2) ? t1 : t2;
@@ -155,33 +165,43 @@ int sphere_intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
     return 0;
 }
 
-double	hit_sphere(t_ray *ray, t_sphere *sphere)
+bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 {
 	t_vec	oc;
 	t_cord	p;
 	double	discriminant;
-	t_vec	tmp;
+	double	tmp;
 
 	oc = vec_sub(ray->origin, sphere->cord);
 	p.a = dot_product(ray->direction, ray->direction);
-	p.b = 2.0 * dot_product(oc, ray->direction);
+	p.b = dot_product(oc, ray->direction);
 	p.c = dot_product(oc, oc) - (sphere->diameter/2) * (sphere->diameter/2);
-	discriminant = p.b * p.b - (4 * p.a * p.c);
-	if (discriminant < 0)
-		return (-1.0);
-	return ((-p.b - sqrt(discriminant)) / (2.0 * p.a));
-}
-t_coord	ray_color(t_ray *ray, t_sphere *sphere)
-{
-	double	t = hit_sphere(ray, sphere);	
-	if (t > 0.0)
+	discriminant = p.b * p.b - (p.a * p.c);
+	if (discriminant <= 0)
+		return (false);
+	tmp = (-p.b - sqrt(discriminant)) / (p.a);
+	if (tmp <= 0.0 || tmp >= M_D)
 	{
-		t_vec	n = normalized(vec_sub(at(t, *ray), sphere->cord));
+		tmp = (-p.b + sqrt(discriminant)) / (p.a);
+		if (tmp <= 0.0 || tmp >= M_D)
+			return (false);		
+	}
+	rec->t = tmp;
+	rec->pHit = at(rec->t, *ray);
+	rec->nHit = scalar_div(vec_sub(rec->pHit, sphere->cord), (sphere->diameter / 2));
+	return (true);
+}
+t_coord	ray_color(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
+{
+		
+	if (sphere_hit(ray, sphere, rec))
+	{
+		t_vec	n = vec_sub(rec->nHit, sphere->cord);
 		return (scalar_mult((t_coord){n.v_x + 1, n.v_y + 1, n.v_z + 1}, 0.5));
 	}
 		
 	t_coord	unit_direction = normalized(ray->direction);
-	t = 0.5 * (unit_direction.v_y + 1.0);
+	double t = 0.5 * (unit_direction.v_y + 1.0);
 	t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
 	t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 1.0}, t);
 	return ((t_coord)vec_addition(c_start, c_end));
@@ -192,6 +212,7 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 	int	y;
 	int	nx = WIDTH;
 	int ny = HEIGHT;
+	t_hit_record	rec;
 	cam->right = (t_vec){1, 0, 0};
 	cam->up.v_x = cam->normalized.v_y * cam->right.v_z - cam->normalized.v_z * cam->right.v_y;
     cam->up.v_y = cam->normalized.v_z * cam->right.v_x - cam->normalized.v_x * cam->right.v_z;
@@ -205,7 +226,7 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 		{
 			Prime_ray(m_rt, i, j, ray, cam);
 			// printf("%d\n",rgb_to_int(ray_color(ray)));
-			my_mlx_put(m_rt, i, j, rgb_to_int(ray_color(ray, sphere)));
+			my_mlx_put(m_rt, i, j, rgb_to_int(ray_color(ray, sphere, &rec)));
 		}
 	}
 	// // t_camera *cam = (t_camera *)data.objects->object;
