@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 08:47:16 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/08/27 22:12:01 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/10/24 03:52:18 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ t_vec	vec_addition(t_vec v, t_vec u);
 t_vec 	vec_sub(t_vec v, t_vec u);
 t_vec	scalar_mult(t_vec v, double f);
 t_vec	scalar_div(t_vec v, double f);
+t_coord	at(double t, t_ray ray);
 
 #endif
