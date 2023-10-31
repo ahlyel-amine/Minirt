@@ -13,7 +13,7 @@ SRC			=	$(shell ls $(OBJECTS)*.c)\
 				$(shell ls $(SRC_F)minirt/*.c)
 INCLUDES	= -Iinclude -Ilibft/include
 OBJ_DIR 	= obj
-FLAGS		= -I/usr/include -Imlx_linux -O3 -fsanitize=address
+FLAGS		= -Imlx -O3 -fsanitize=address
 # -Wall -Wextra -Werror -fsanitize=address
 NAME		= Minirt
 LIBFT_NAME	= libft/bin/libft.a
