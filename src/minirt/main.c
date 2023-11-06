@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/06 11:48:44 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:36:30 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 #include "library.h"
 #include "minirt.h"
 #include "vector.h"
+
 #include <mlx.h>
 #define WIDTH 1280
 #define HEIGHT 820
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3
-typedef struct s_hit_record
-{
-	double	t;
-	t_vec	pHit;
-	t_vec	nHit;	
-}	t_hit_record;
+
 
 
 void	clearobjs(t_objects **lst)
@@ -87,143 +83,6 @@ int	rgb_to_int(t_coord color)
 	return (r << 16 | g << 8 | b);
 }
 
-void	lookat(double matrix[4][4], t_mrt *rt, t_camera *cam)
-{
-	t_vec	tmp = {0, 1, 0};
-	t_vec	forword = normalize(&cam->normalized);
-	cam->right = cross_product(tmp, forword);
-	cam->up = cross_product(forword, cam->right);
-	rt->cam_matrix[0][0] = cam->right.v_x;
-	rt->cam_matrix[0][1] = cam->right.v_y;
-	rt->cam_matrix[0][2] = cam->right.v_z;
-	rt->cam_matrix[1][0] = cam->up.v_x;
-	rt->cam_matrix[1][1] = cam->up.v_y;
-	rt->cam_matrix[1][2] = cam->up.v_z;
-	rt->cam_matrix[2][0] = forword.v_x;
-	rt->cam_matrix[2][1] = forword.v_y;
-	rt->cam_matrix[2][2] = forword.v_z;
-}
-
-t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
-{
-	t_vec	v;	
-	v.v_x = dir->v_x * matrix[0][0] + dir->v_y * matrix[1][0] + dir->v_z * matrix[2][0];
-	v.v_y = dir->v_x * matrix[0][1] + dir->v_y * matrix[1][1] + dir->v_z * matrix[2][1];
-	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * matrix[1][2] + dir->v_z * matrix[2][2];
-	return v;
-}
-void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
-{
-
-	
-	// ndcX = ((double)x + 0.5) / WIDTH;
-	// ndcY = ((double)y + 0.5) / HEIGHT;
-	// t_vec	lower_left_corner = { -2.0, -1.0, -1.0 };
-	// t_vec	horizontal = { 4.0, 0.0, 0.0 };
-	// t_vec	vertical = { 0.0, 2.0, 0.0 };
-	// ray->origin = cam->cord;
-	// ray->direction = vec_addition(lower_left_corner, vec_addition(scalar_mult(horizontal, ndcX), scalar_mult(vertical, ndcY)));
-	t_vec	direction;
-	double	ndcX;
-	double	ndcY;
-	double	aspect_ratio;
-
-	aspect_ratio = WIDTH / (double)HEIGHT;
-	ray->origin = cam->cord;
-	ndcX = ((double)x + 0.5) / WIDTH;
-	ndcY = ((double)y + 0.5) / HEIGHT;
-	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
-	direction.v_z = -1.0;
-	// ray->direction = normalize(&direction);
-	ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
-	ray->direction.v_y = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
-	ray->direction.v_z = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
-
-}
-
-int sphere_intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
-    t_vec	oc;
-	t_cord	p;
-    double	discriminant;
-
-	oc = vec_sub(ray.origin, sphere.cord);
-    p.a = dot_product(ray.direction, ray.direction);
-   	p.b = 2.0 * dot_product(oc, ray.direction);
-    p.c = dot_product(oc, oc) - ((sphere.diameter / 2) * (sphere.diameter / 2));
-	discriminant = p.b * p.b - 4 * p.a * p.c;
-    if (discriminant > 0.0) {
-        double t1 = (-p.b - sqrt(discriminant)) / (2.0f * p.a);
-        double t2 = (-p.b + sqrt(discriminant)) / (2.0f * p.a);
-        double t = (t1 < t2) ? t1 : t2;
-        pHit->v_x = ray.origin.v_x + t * ray.direction.v_x;
-        pHit->v_y = ray.origin.v_y + t * ray.direction.v_y;
-        pHit->v_z = ray.origin.v_z + t * ray.direction.v_z;
-        *nHit = normalize(pHit);
-        return 1;
-    }
-    return 0;
-}
-
-bool	plan_hit(t_ray *ray, t_plane *plan, t_hit_record *rec)
-{
-	double	denom;
-	double	t;
-	t_vec	p;
-
-	denom = dot_product(plan->normalized, ray->direction);
-	if (fabs(denom) > eps)
-	{
-		p = vec_sub(plan->cord, ray->origin);
-		t = dot_product(p, plan->normalized) / denom;
-		if (t > eps)
-		{
-			rec->t = t;
-			rec->pHit = at(rec->t, *ray);
-			rec->nHit = plan->normalized;
-			return (true);
-		}
-	}
-	return (false);
-}
-
-
-
-bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
-{
-	t_vec	oc;
-	t_cord	p;
-	double	discriminant;
-	double	tmp;
-
-	oc = vec_sub(ray->origin, sphere->cord);
-	p.a = dot_product(ray->direction, ray->direction);
-	p.b = dot_product(oc, ray->direction);
-
-	p.c = dot_product(oc, oc) - (sphere->diameter/2) * (sphere->diameter/2);
-	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant < 0)
-		return (false);
-	if (discriminant > 0)
-	{
-		tmp = (-p.b - sqrt(discriminant)) / (p.a);
-		if (tmp <= 0.0 || tmp >= M_D)
-		{
-			tmp = (-p.b + sqrt(discriminant)) / (p.a);
-			if (tmp <= 0.0 || tmp >= M_D)
-				return (false);		
-		}
-	}else
-	{
-		tmp = -p.b / p.a;
-		if (tmp <= 0.0 || tmp >= M_D)
-			return (false);
-	}
-	rec->t = tmp;
-	rec->pHit = at(rec->t, *ray);
-	rec->nHit = scalar_div(vec_sub(rec->pHit, sphere->cord), (sphere->diameter / 2));
-	return (true);
-}
 t_coord	ray_color(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 		
@@ -243,41 +102,7 @@ t_coord	ray_color(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	return (scalar_mult((t_coord){0.3,0.3,0.3}, (0.1)));
 }
 
-bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
-{
-	t_vec	oc;
-	t_cord	p;
-	double	discriminant;
-	double	tmp;
 
-	oc = vec_sub(ray->origin, cylinder->cord);
-	p.a = dot_product(ray->direction, ray->direction) - dot_product(ray->direction, cylinder->normalized) * dot_product(ray->direction, cylinder->normalized);
-	p.b = 2 * (dot_product(ray->direction, oc) - dot_product(ray->direction, cylinder->normalized) * dot_product(oc, cylinder->normalized));
-	p.c = dot_product(oc, oc) - dot_product(oc, cylinder->normalized) * dot_product(oc, cylinder->normalized) - (cylinder->diameter / 2) * (cylinder->diameter / 2);
-	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant < 0)
-		return (false);
-	if (discriminant > 0)
-	{
-		tmp = (-p.b - sqrt(discriminant)) / (p.a);
-		if (tmp <= 0.0 || tmp >= M_D)
-		{
-			tmp = (-p.b + sqrt(discriminant)) / (p.a);
-			if (tmp <= 0.0 || tmp >= M_D)
-				return (false);		
-		}
-	}
-	else
-	{
-		tmp = -p.b / p.a;
-		if (tmp <= 0.0 || tmp >= M_D)
-			return (false);
-	}
-	rec->t = tmp;
-	rec->pHit = at(rec->t, *ray);
-	rec->nHit = scalar_div(vec_sub(rec->pHit, cylinder->cord), (cylinder->diameter / 2));
-	return (true);
-}
 void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 {
 	int	x;
@@ -285,14 +110,11 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 	int	nx = WIDTH;
 	int ny = HEIGHT;
 	t_hit_record	rec;
-	cam->right = (t_vec){1, 0, 0};
-	cam->up.v_x = cam->normalized.v_y * cam->right.v_z - cam->normalized.v_z * cam->right.v_y;
-    cam->up.v_y = cam->normalized.v_z * cam->right.v_x - cam->normalized.v_x * cam->right.v_z;
-    cam->up.v_z = cam->normalized.v_x * cam->right.v_y - cam->normalized.v_y * cam->right.v_x;
-	while (data.objects->type != PLANE)
+	lookat(m_rt, cam);
+	while (data.objects->type != SPHERE)
 		data.objects = data.objects->next;
-	// t_sphere *sphere = (t_sphere *)data.objects->object;
-	t_plane *plan = (t_plane *)data.objects->object;
+	t_sphere *sphere = (t_sphere *)data.objects->object;
+	// t_plane *plan = (t_plane *)data.objects->object;
 	// printf("%.2f\n", sphere->diameter);
 	for (int j = ny - 1; j >= 0; j--)
 	{
