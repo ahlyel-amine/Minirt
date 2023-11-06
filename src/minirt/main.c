@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/10/26 00:19:06 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:28:01 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
 	direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
 	direction.v_z = -1.0;
-	ray->direction = normalize(&direction);
+	// ray->direction = normalize(&direction);
 	ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
 	ray->direction.v_y = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
 	ray->direction.v_z = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
@@ -165,6 +165,30 @@ int sphere_intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
     return 0;
 }
 
+bool	plan_hit(t_ray *ray, t_plane *plan, t_hit_record *rec)
+{
+	double	denom;
+	double	t;
+	t_vec	p;
+
+	denom = dot_product(plan->normalized, ray->direction);
+	if (fabs(denom) > eps)
+	{
+		p = vec_sub(plan->cord, ray->origin);
+		t = dot_product(p, plan->normalized) / denom;
+		if (t > eps)
+		{
+			rec->t = t;
+			rec->pHit = at(rec->t, *ray);
+			rec->nHit = plan->normalized;
+			return (true);
+		}
+	}
+	return (false);
+}
+
+
+
 bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 {
 	t_vec	oc;
@@ -175,16 +199,25 @@ bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 	oc = vec_sub(ray->origin, sphere->cord);
 	p.a = dot_product(ray->direction, ray->direction);
 	p.b = dot_product(oc, ray->direction);
+
 	p.c = dot_product(oc, oc) - (sphere->diameter/2) * (sphere->diameter/2);
 	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant <= 0)
+	if (discriminant < 0)
 		return (false);
-	tmp = (-p.b - sqrt(discriminant)) / (p.a);
-	if (tmp <= 0.0 || tmp >= M_D)
+	if (discriminant > 0)
 	{
-		tmp = (-p.b + sqrt(discriminant)) / (p.a);
+		tmp = (-p.b - sqrt(discriminant)) / (p.a);
 		if (tmp <= 0.0 || tmp >= M_D)
-			return (false);		
+		{
+			tmp = (-p.b + sqrt(discriminant)) / (p.a);
+			if (tmp <= 0.0 || tmp >= M_D)
+				return (false);		
+		}
+	}else
+	{
+		tmp = -p.b / p.a;
+		if (tmp <= 0.0 || tmp >= M_D)
+			return (false);
 	}
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
@@ -204,7 +237,43 @@ t_coord	ray_color(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 	double t = 0.5 * (unit_direction.v_y + 1.0);
 	t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
 	t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 1.0}, t);
-	return ((t_coord)vec_addition(c_start, c_end));
+	return (scalar_mult((t_coord){0.3,0.3,0.3}, (0.1)));
+}
+
+bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
+{
+	t_vec	oc;
+	t_cord	p;
+	double	discriminant;
+	double	tmp;
+
+	oc = vec_sub(ray->origin, cylinder->cord);
+	p.a = dot_product(ray->direction, ray->direction) - dot_product(ray->direction, cylinder->normalized) * dot_product(ray->direction, cylinder->normalized);
+	p.b = 2 * (dot_product(ray->direction, oc) - dot_product(ray->direction, cylinder->normalized) * dot_product(oc, cylinder->normalized));
+	p.c = dot_product(oc, oc) - dot_product(oc, cylinder->normalized) * dot_product(oc, cylinder->normalized) - (cylinder->diameter / 2) * (cylinder->diameter / 2);
+	discriminant = p.b * p.b - (p.a * p.c);
+	if (discriminant < 0)
+		return (false);
+	if (discriminant > 0)
+	{
+		tmp = (-p.b - sqrt(discriminant)) / (p.a);
+		if (tmp <= 0.0 || tmp >= M_D)
+		{
+			tmp = (-p.b + sqrt(discriminant)) / (p.a);
+			if (tmp <= 0.0 || tmp >= M_D)
+				return (false);		
+		}
+	}
+	else
+	{
+		tmp = -p.b / p.a;
+		if (tmp <= 0.0 || tmp >= M_D)
+			return (false);
+	}
+	rec->t = tmp;
+	rec->pHit = at(rec->t, *ray);
+	rec->nHit = scalar_div(vec_sub(rec->pHit, cylinder->cord), (cylinder->diameter / 2));
+	return (true);
 }
 void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 {
@@ -220,6 +289,7 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 	while (data.objects->type != SPHERE)
 		data.objects = data.objects->next;
 	t_sphere *sphere = (t_sphere *)data.objects->object;
+	printf("%.2f\n", sphere->diameter);
 	for (int j = ny - 1; j >= 0; j--)
 	{
 		for (int i = 0; i < nx; i++)
@@ -254,7 +324,6 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 	// }
 	mlx_put_image_to_window(m_rt->mlx, m_rt->mlx_win, m_rt->mlx_img, 0, 0);
 }
-
 int main(int ac, char **av)
 {
 	t_data	data;
