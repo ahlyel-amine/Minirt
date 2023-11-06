@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/06 11:28:01 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:48:44 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,14 +224,17 @@ bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 	rec->nHit = scalar_div(vec_sub(rec->pHit, sphere->cord), (sphere->diameter / 2));
 	return (true);
 }
-t_coord	ray_color(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
+t_coord	ray_color(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 		
-	if (sphere_hit(ray, sphere, rec))
+	if (obj->type == SPHERE &&  sphere_hit(ray, (t_sphere*)obj->object, rec))
 	{
+		t_sphere *sphere = (t_sphere *)obj->object;
 		t_vec	n = vec_sub(rec->nHit, sphere->cord);
 		return (scalar_mult((t_coord){n.v_x + 1, n.v_y + 1, n.v_z + 1}, 0.5));
 	}
+	else if (obj->type == PLANE && plan_hit(ray, (t_plane*)obj->object, rec))
+		return ((t_coord){0.5, 0.5, 0.5});
 		
 	t_coord	unit_direction = normalized(ray->direction);
 	double t = 0.5 * (unit_direction.v_y + 1.0);
@@ -286,17 +289,20 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 	cam->up.v_x = cam->normalized.v_y * cam->right.v_z - cam->normalized.v_z * cam->right.v_y;
     cam->up.v_y = cam->normalized.v_z * cam->right.v_x - cam->normalized.v_x * cam->right.v_z;
     cam->up.v_z = cam->normalized.v_x * cam->right.v_y - cam->normalized.v_y * cam->right.v_x;
-	while (data.objects->type != SPHERE)
+	while (data.objects->type != PLANE)
 		data.objects = data.objects->next;
-	t_sphere *sphere = (t_sphere *)data.objects->object;
-	printf("%.2f\n", sphere->diameter);
+	// t_sphere *sphere = (t_sphere *)data.objects->object;
+	t_plane *plan = (t_plane *)data.objects->object;
+	// printf("%.2f\n", sphere->diameter);
 	for (int j = ny - 1; j >= 0; j--)
 	{
 		for (int i = 0; i < nx; i++)
 		{
 			Prime_ray(m_rt, i, j, ray, cam);
 			// printf("%d\n",rgb_to_int(ray_color(ray)));
-			my_mlx_put(m_rt, i, j, rgb_to_int(ray_color(ray, sphere, &rec)));
+			my_mlx_put(m_rt, i, j, rgb_to_int(ray_color(ray, data.objects, &rec)));
+			// my_mlx_put(m_rt, i, j, 0x8000);
+		
 		}
 	}
 	// // t_camera *cam = (t_camera *)data.objects->object;
