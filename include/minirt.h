@@ -21,4 +21,8 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
 void	lookat(t_mrt *rt, t_camera *cam);
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam);
 
+
+void	print_scean(t_data data);
+void print_vec(char *str, t_vec vec);
+
 #endif

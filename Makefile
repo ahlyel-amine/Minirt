@@ -10,7 +10,8 @@ SRC			=	$(shell ls $(OBJECTS)*.c)\
 				$(shell ls $(SCENES)*.c)\
 				$(shell ls $(PARCER)*.c)\
 				$(shell ls $(TOOLS)*.c)\
-				$(shell ls $(SRC_F)minirt/*.c)
+				$(shell ls $(SRC_F)minirt/*.c)\
+				src/debug_tools.c
 INCLUDES	= -Iinclude -Ilibft/include
 OBJ_DIR 	= obj
 FLAGS		= -Imlx -O3 -fsanitize=address
