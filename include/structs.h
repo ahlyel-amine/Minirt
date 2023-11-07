@@ -111,6 +111,8 @@ typedef struct s_mrt
 	double	cam_matrix[4][4];
 }	t_mrt;
 
+void print_vec(char *str, t_vec vec);
+void	print_scean(t_data data);
 // typedef enum e_bool
 // {
 // 	false,

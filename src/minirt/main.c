@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/10/31 12:12:30 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/07 17:20:00 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	rgb_to_int(t_coord color)
 	int	g;
 	int	b;
 	
-	r = (int)(255.9 * (color.v_x));
-	g = (int)(255.9 * (color.v_y));
-	b = (int)(255.9 * color.v_z);
+	r = (int)(255.0 * (color.v_x));
+	g = (int)(255.0 * (color.v_y));
+	b = (int)(255.0 * color.v_z);
 	return (r << 16 | g << 8 | b);
 }
 
@@ -114,8 +114,6 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 }
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
-
-	
 	// ndcX = ((double)x + 0.5) / WIDTH;
 	// ndcY = ((double)y + 0.5) / HEIGHT;
 	// t_vec	lower_left_corner = { -2.0, -1.0, -1.0 };
@@ -139,9 +137,15 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ray->direction.v_x = cam->normalized.v_x + direction.v_x * cam->right.v_x + direction.v_y * cam->up.v_x;
 	ray->direction.v_y = cam->normalized.v_y + direction.v_x * cam->right.v_y + direction.v_y * cam->up.v_y;
 	ray->direction.v_z = cam->normalized.v_z + direction.v_x * cam->right.v_z + direction.v_y * cam->up.v_z;
-
 }
-
+// x^2 + y^2 + z^2 = r^2
+// r = √x^2 + y^2 + z^2
+// a  = 1 / r
+// a  = 1 / (√x^2 + y^2 + z^2)
+// a  = 1 / (√x^2 + y^2 + z^2)
+// x = x * a
+// y = y * a
+// z = z * a
 int sphere_intersect(t_sphere sphere, t_ray ray, t_vec *pHit, t_vec *nHit) {
     t_vec	oc;
 	t_cord	p;
@@ -191,6 +195,7 @@ bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 	rec->nHit = scalar_div(vec_sub(rec->pHit, sphere->cord), (sphere->diameter / 2));
 	return (true);
 }
+
 t_coord	ray_color(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 {
 		
@@ -206,30 +211,32 @@ t_coord	ray_color(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 	t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 1.0}, t);
 	return ((t_coord)vec_addition(c_start, c_end));
 }
-void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
+
+void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data *data)
 {
 	int	x;
 	int	y;
 	int	nx = WIDTH;
 	int ny = HEIGHT;
 	t_hit_record	rec;
-	cam->right = (t_vec){1, 0, 0};
-	cam->up.v_x = cam->normalized.v_y * cam->right.v_z - cam->normalized.v_z * cam->right.v_y;
-    cam->up.v_y = cam->normalized.v_z * cam->right.v_x - cam->normalized.v_x * cam->right.v_z;
-    cam->up.v_z = cam->normalized.v_x * cam->right.v_y - cam->normalized.v_y * cam->right.v_x;
-	while (data.objects->type != SPHERE)
-		data.objects = data.objects->next;
-	t_sphere *sphere = (t_sphere *)data.objects->object;
+	data->camera.right = (t_vec){1, 0, 0};
+	data->camera.up.v_x = data->camera.normalized.v_y * data->camera.right.v_z - data->camera.normalized.v_z * data->camera.right.v_y;
+    data->camera.up.v_y = data->camera.normalized.v_z * data->camera.right.v_x - data->camera.normalized.v_x * data->camera.right.v_z;
+    data->camera.up.v_z = data->camera.normalized.v_x * data->camera.right.v_y - data->camera.normalized.v_y * data->camera.right.v_x;
+	while (data->objects->type != SPHERE)
+		data->objects = data->objects->next;
+	t_sphere *sphere = (t_sphere *)data->objects->object;
 	for (int j = ny - 1; j >= 0; j--)
 	{
 		for (int i = 0; i < nx; i++)
 		{
-			Prime_ray(m_rt, i, j, ray, cam);
-			// printf("%d\n",rgb_to_int(ray_color(ray)));
+			Prime_ray(m_rt, i, j, ray, &data->camera);
+			// printf("a%f\n", ray->direction.v_z);
+			// printf("%d\n",rgb_to_int(ray_color(ray, sphere, &rec)));
 			my_mlx_put(m_rt, i, j, rgb_to_int(ray_color(ray, sphere, &rec)));
 		}
 	}
-	// // t_camera *cam = (t_camera *)data.objects->object;
+	// // t_camera *cam = (t_camera *)data->objects->object;
 	// // lookat(m_rt->cam_matrix, m_rt, cam);	
 	// y = HEIGHT;
 	// while (y--)
@@ -258,63 +265,21 @@ void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
 int main(int ac, char **av)
 {
 	t_data	data;
-	t_data	data_d;
-	t_camera	*cam;
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
 			return (clearobjs(&data.objects),  1);
-		printf("cy's : %d, pl's : %d, sp's : %d\n", data.counter.cylender, data.counter.plane, data.counter.sphere);
-		data_d = data;
-		while (data.objects)
-		{
-			if (data.objects->type == SPHERE)
-			{
-				t_sphere	*object = (t_sphere *)data.objects->object;
-				printf("sphere\t:\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->diameter, object->clr.r, object->clr.g, object->clr.b);
-			}
-			else if (data.objects->type == PLANE)
-			{
-				t_plane	*object = (t_plane *)data.objects->object;
-				printf("plane\t:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t\t\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, object->clr.r, object->clr.g, object->clr.b);
-			}
-			else if (data.objects->type == CYLENDER)
-			{
-				t_cylender	*object = (t_cylender *)data.objects->object;
-				printf("cylender:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
-				object->diameter, object->height,  object->clr.r, object->clr.g, object->clr.b);
-			}
-			else if (data.objects->type == CAMERA)
-			{
-				t_camera	*object = (t_camera *)data.objects->object;
-				cam = object;
-				printf("camera\t:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t\t%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
-				object->v_field);
-			}
-			else if (data.objects->type == LIGHT)
-			{
-				t_light	*object = (t_light *)data.objects->object;
-				printf("light\t:\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->brightness, \
-				object->clr.r, object->clr.g, object->clr.b);
-			}
-			else if (data.objects->type == LIGHTING)
-			{
-				t_lighting	*object = (t_lighting *)data.objects->object;
-				printf("lighting:\t\t\t\t\t\t%.1f\t%d,%d,%d\n", object->ratio, object->clr.r, object->clr.g, object->clr.b);
-			}
-			data.objects = data.objects->next;
-		}
+		print_scean(data);
+		t_mrt scean;
+		t_ray ray;
+		ft_memset(&ray, 0, sizeof(t_ray));
+		scean.mlx = mlx_init();
+		scean.mlx_win = mlx_new_window(scean.mlx, WIDTH, HEIGHT, "MINI_RT");
+		scean.mlx_img = mlx_new_image(scean.mlx, WIDTH, HEIGHT);
+		scean.mlx_add = mlx_get_data_addr(scean.mlx_img, &(scean.bit_per_px), &(scean.line_len), &(scean.endian));
+		draw(&scean, &ray, &data.camera, &data);
+		mlx_loop(scean.mlx);
 	}
-
-	t_mrt scean;
-	t_ray ray;
-	
-	scean.mlx = mlx_init();
-	scean.mlx_win = mlx_new_window(scean.mlx, WIDTH, HEIGHT, "MINI_RT");
-	scean.mlx_img = mlx_new_image(scean.mlx, WIDTH, HEIGHT);
-	scean.mlx_add = mlx_get_data_addr(scean.mlx_img, &(scean.bit_per_px), &(scean.line_len), &(scean.endian));
-	draw(&scean, &ray, cam, data_d);
-	mlx_loop(scean.mlx);
 	return 0;
 }
