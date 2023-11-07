@@ -111,6 +111,13 @@ typedef struct s_mrt
 	double	cam_matrix[4][4];
 }	t_mrt;
 
+typedef struct s_hit_record
+{
+	double	t;
+	t_vec	pHit;
+	t_vec	nHit;	
+}	t_hit_record;
+
 // typedef enum e_bool
 // {
 // 	false,
