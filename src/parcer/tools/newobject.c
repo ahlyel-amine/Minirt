@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   newobject.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 08:52:47 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/08/26 08:37:46 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include <stdlib.h>
-#include "x_malloc.h"
-# define malloc(x) x_malloc(x)
+
 t_objects	*newobject(void *object, unsigned char type)
 {
 	t_objects	*node;

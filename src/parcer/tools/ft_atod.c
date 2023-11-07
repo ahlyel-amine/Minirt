@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: saba <saba@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 04:45:28 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/04 14:29:44 by saba             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ double	ft_atod(char **ascii, bool *success, int marge_max, int marge_min)
 	if (!ft_isdigit((*ascii)[0]) || !check_boundries(ascii, marge_max))
 		return (*success = false, 0);
 	result = ft_datoi(ascii);
-	if ((*ascii)[0] != '.' || !ft_isdigit((*ascii)[1]))
-		return (result);
+	if ((*ascii)[0] != '.' || !ft_isdigit((*ascii)[1])) 
+		return (sign * result);
 	(*ascii)++;
 	while (ft_isdigit((*ascii)[digits_left]))
 		digits_left++;
