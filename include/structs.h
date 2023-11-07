@@ -1,13 +1,11 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <stdio.h>
-
-#define t_cord t_vector
 typedef struct s_cord
 {
-	double	x;
-	double	y;
-	double	z;
+	double	a;
+	double	b;
+	double	c;
 }	t_cord;
 
 typedef struct s_vec
@@ -16,6 +14,16 @@ typedef struct s_vec
 	double	v_y;
 	double	v_z;
 }	t_vec;
+
+
+typedef struct s_ray
+{
+	t_vec	origin;
+	t_vec	direction;
+}	t_ray;
+
+// typedef t_cord	(*param_at)(double t, t_ray ray);
+# define t_coord t_vec
 typedef struct s_color
 {
 	unsigned char	r;
@@ -32,38 +40,40 @@ typedef struct s_lighting
 typedef struct s_camera
 {
 	unsigned char	v_field;
-	t_cord			cord;
-	t_cord			normalized;
+	t_vec			cord;
+	t_vec			normalized;
+	t_vec			up;
+	t_vec			right;
 }	t_camera;
 
 typedef struct s_light
 {
 	t_color	clr;
 	double	brightness;
-	t_cord	cord;
+	t_vec	cord;
 }	t_light;
 
 typedef struct s_plane
 {
-	t_color		clr;
-	t_cord		cord;
-	t_vector	normalized;
+	t_color	clr;
+	t_vec	cord;
+	t_vec	normalized;
 }	t_plane;
 
 typedef struct s_cylender
 {
-	t_color		clr;
-	double		diameter;
-	double		height;
-	t_cord		cord;
-	t_vector	normalized;
+	t_color	clr;
+	double	diameter;
+	double	height;
+	t_vec	cord;
+	t_vec	normalized;
 }	t_cylender;
 
 typedef struct s_sphere
 {
 	t_color	clr;
 	double	diameter;
-	t_cord	cord;
+	t_vec	cord;
 }	t_sphere;
 
 typedef	struct s_object
@@ -89,5 +99,29 @@ typedef	struct s_data
 	t_camera	camera;
 }	t_data;
 
+typedef struct s_mrt
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*mlx_img;
+	char	*mlx_add;
+	int		bit_per_px;
+	int		line_len;
+	int		endian;
+	double	cam_matrix[4][4];
+}	t_mrt;
+
+typedef struct s_hit_record
+{
+	double	t;
+	t_vec	pHit;
+	t_vec	nHit;	
+}	t_hit_record;
+
+// typedef enum e_bool
+// {
+// 	false,
+// 	true
+// }	t_bool;
 
 #endif

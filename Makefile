@@ -7,15 +7,16 @@ OBJECTS		= src/parcer/objects/
 LIBFT		= libft/
 
 SRC			=	$(shell ls $(OBJECTS)*.c)\
-				$(shell ls C_TOOLS/*.c)\
 				$(shell ls $(SCENES)*.c)\
 				$(shell ls $(PARCER)*.c)\
 				$(shell ls $(TOOLS)*.c)\
-				$(shell ls $(SRC_F)minirt/*.c)
+				$(shell ls $(SRC_F)minirt/*.c)\
+				src/debug_tools.c
 INCLUDES	= -Iinclude -Ilibft/include
 OBJ_DIR 	= obj
-FLAGS		= -Wall -Wextra -Werror -fsanitize=address
-NAME		= minirt
+FLAGS		= -Imlx -O3 -fsanitize=address
+# -Wall -Wextra -Werror -fsanitize=address
+NAME		= Minirt
 LIBFT_NAME	= libft/bin/libft.a
 CC			= cc
 OBJ			= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -27,7 +28,8 @@ NC			= '\e[0m'
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)    -I /usr/local/include -L /usr/local/lib \
+ -lmlx -framework OpenGL -framework AppKit -lm -lz -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
