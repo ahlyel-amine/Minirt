@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   vec_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:56:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/08/05 08:31:27 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:19:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include <math.h>
 
-double	sar(double x)
+double	sqr(double x)
 {
 	return (x * x);
 }
@@ -38,14 +38,14 @@ double	v_length(t_vec v)
 	return (sqrt(length(v)));
 }
 // change a vector to have a lenght of 1
-t_vec	nermalize(t_vec *v)
+t_vec	normalize(t_vec *v)
 {
 	double	len;
 
-	len = length(*v);
-	v->v_x /= len;
-	v->v_y /= len;
-	v->v_z /= len;
+	len = 1.0 / v_length(*v);
+	v->v_x *= len;
+	v->v_y *= len;
+	v->v_z *= len;
 	return (*v); 
 }
 
@@ -54,8 +54,7 @@ t_vec	normalized(t_vec v)
 	t_vec	res;
 
 	res = v;
-	normalize(&res);
-	return (res);
+	return (normalize(&res));
 }
 
 double	dot_product(t_vec v, t_vec u)
@@ -67,7 +66,7 @@ t_vec	cross_product(t_vec v, t_vec u)
 {
 	t_vec	res;
 
-	res.v_x = v.v_x * u.v_z - v.v_z * u.v_y;
+	res.v_x = v.v_y * u.v_z - v.v_z * u.v_y;
 	res.v_y = v.v_z * u.v_x - v.v_x * u.v_z;
 	res.v_z = v.v_x * u.v_y - v.v_y * u.v_x;
 	return (res);
@@ -96,4 +95,9 @@ t_vec	scalar_mult(t_vec v, double f)
 t_vec	scalar_div(t_vec v, double f)
 {
 	return ((t_vec){v.v_x / f, v.v_y / f, v.v_z / f});
+}
+
+t_coord	at(double t, t_ray ray)
+{
+	return ((vec_addition(ray.origin, scalar_mult(ray.direction, t))));
 }
