@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cordinate_parcer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:36 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/27 09:28:25 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:20:18 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "libft.h"
-#include "tools.h"
-#include "library.h"
-#include <stdbool.h>
+# include "structs.h"
+# include "libft.h"
+# include "tools.h"
+# include "library.h"
+# include <stdbool.h>
 
 bool	cordinate_parcer(char **line, t_vec *cordinate, int marge_max, int marge_min)
 {
