@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/06 14:37:57 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/09 01:40:26 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ndcX = ((double)x + 0.5) / WIDTH;
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	ray->direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	ray->direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
+	ray->direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
 	ray->direction.v_z = 0.5;
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
 	normalized(ray->direction);

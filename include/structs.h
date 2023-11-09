@@ -115,9 +115,22 @@ typedef struct s_hit_record
 {
 	double	t;
 	t_vec	pHit;
-	t_vec	nHit;	
+	t_vec	nHit;
+	t_vec 	h_color;	
 }	t_hit_record;
 
+typedef struct s_light_effect
+{
+	t_vec	ambient;
+	t_vec	diffuse;
+	t_vec	specular;
+}	t_light_effect;
+
+typedef struct s_rays
+{
+	t_ray	ray;
+	t_ray	shadow_ray;
+}	t_rays;
 // typedef enum e_bool
 // {
 // 	false,
