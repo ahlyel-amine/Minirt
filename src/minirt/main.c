@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/07 17:51:04 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/09 04:55:56 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,30 +101,76 @@ t_coord	ray_color(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 1.0}, t);
 	return (scalar_mult((t_coord){0.3,0.3,0.3}, (0.1)));
 }
+void	get_closes_object(t_rt *m_rt, t_rays *rays, t_objects *obj, t_hit_record *rec)
+{
+	t_objects	*object;
+	double		closest_so_far;
+	double		temp;
+	t_hit_record	temp_rec;
+	
+	closest_so_far = M_D;
+	object = NULL;
+	while (obj)
+	{
+		if (obj->type == SPHERE && sphere_hit(rays->ray, (t_sphere *)obj->object, &temp_rec))
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far && temp > eps)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+			}
+		}
+		else if (obj->type == PLANE && plan_hit(rays->ray, (t_plane *)obj->object, &temp_rec))
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far && temp > eps)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+			}
+		}
+		obj = obj->next;
+	}
+	return (object);
+}
+t_color	raytrace(t_mrt *m_rt, t_rays *rays, t_objects *obj, t_hit_record *rec)
+{
+	t_light_effect light_effect;
+	t_objects	*object;
+	
+	object = get_closes_object(m_rt, rays, obj, rec);
+	if (!object)
+		return ((t_color){0, 0, 0});
+	light_effect = get_light_effect(m_rt, rays, object, rec);
+	
+}
 
-
-void	draw(t_mrt *m_rt, t_ray *ray, t_camera *cam, t_data data)
+void	draw(t_mrt *m_rt, t_rays *rays, t_camera *cam, t_data data)
 {
 	int	x;
 	int	y;
 	int	nx = WIDTH;
 	int ny = HEIGHT;
 	t_hit_record	rec;
+	bool inShadow;
 	lookat(m_rt, cam);
 	while (data.objects->type != SPHERE)
 		data.objects = data.objects->next;
 	t_sphere *sphere = (t_sphere *)data.objects->object;
 	// t_plane *plan = (t_plane *)data.objects->object;
 	// printf("%.2f\n", sphere->diameter);
+	printf("%.2f %.2f %.2f\n", (float)((sphere->clr.r))/(255), (float)(sphere->clr.g/255), (float)(sphere->clr.b/255));
+	double coef = 1.0;
+	t_light light = data.light;
 	for (int j = ny - 1; j >= 0; j--)
 	{
 		for (int i = 0; i < nx; i++)
 		{
-			Prime_ray(m_rt, i, j, ray, cam);
-			// printf("%d\n",rgb_to_int(ray_color(ray)));
-			my_mlx_put(m_rt, i, j, rgb_to_int(ray_color(ray, data.objects, &rec)));
-			// my_mlx_put(m_rt, i, j, 0x8000);
-		
+			Prime_ray(m_rt, i, j, rays->ray, cam);
+			
 		}
 	}
 	// // t_camera *cam = (t_camera *)data->objects->object;
@@ -162,13 +208,13 @@ int main(int ac, char **av)
 			return (clearobjs(&data.objects),  1);
 		print_scean(data);
 		t_mrt scean;
-		t_ray ray;
-		ft_memset(&ray, 0, sizeof(t_ray));
+		t_rays rays;
+		ft_memset(&rays, 0, sizeof(t_rays));
 		scean.mlx = mlx_init();
 		scean.mlx_win = mlx_new_window(scean.mlx, WIDTH, HEIGHT, "MINI_RT");
 		scean.mlx_img = mlx_new_image(scean.mlx, WIDTH, HEIGHT);
 		scean.mlx_add = mlx_get_data_addr(scean.mlx_img, &(scean.bit_per_px), &(scean.line_len), &(scean.endian));
-		draw(&scean, &ray, &data.camera, data);
+		draw(&scean, &rays, &data.camera, data);
 		mlx_loop(scean.mlx);
 	}
 	return 0;
