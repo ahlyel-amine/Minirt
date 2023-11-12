@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/12 14:56:32 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:02:10 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,18 +147,7 @@ t_vec merge_light(t_vec color, t_color light_color, double ratio)
 	res.v_x = color.v_x * ((double)(light_color.r) / 255) * ratio;
 	res.v_y = color.v_y * ((double)(light_color.g) / 255) * ratio;
 	res.v_z = color.v_z * ((double)(light_color.b) / 255) * ratio;
-	// if (res.v_x > 1.0)
-	// 	res.v_x = 1.0;
-	// if (res.v_y > 1.0)
-	// 	res.v_y = 1.0;
-	// if (res.v_z > 1.0)
-	// 	res.v_z = 1.0;
-	// if (res.v_x < 0.0)
-	// 	res.v_x = 0.0;
-	// if (res.v_y < 0.0)
-	// 	res.v_y = 0.0;
-	// if (res.v_z < 0.0)
-	// 	res.v_z = 0.0;
+
 	return (res);
 }
 
@@ -172,9 +161,6 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
 	
 	normalize(&rays->shadow_ray.direction);
-	// rays->shadow_ray.origin.v_x = rays->shadow_ray.origin.v_x + 0.01 * rays->shadow_ray.direction.v_x;
-	// rays->shadow_ray.origin.v_y = rays->shadow_ray.origin.v_y + 0.01 * rays->shadow_ray.direction.v_y;
-	// rays->shadow_ray.origin.v_z = rays->shadow_ray.origin.v_z + 0.01 * rays->shadow_ray.direction.v_z;
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
 	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
 	
@@ -231,12 +217,6 @@ t_vec	convert_light(t_light_effect effect)
 	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
 	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
 	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
-	// if (res.v_x > 1.0)
-	// 	res.v_x = 1.0;
-	// if (res.v_y > 1.0)
-	// 	res.v_y = 1.0;
-	// if (res.v_z > 1.0)
-	// 	res.v_z = 1.0;
 	return (res);
 }
 
@@ -266,12 +246,6 @@ void	draw(t_mrt *m_rt, t_rays *rays, t_camera *cam, t_data data)
 	t_hit_record	rec;
 	bool inShadow;
 	lookat(m_rt, cam);
-	// while (data.objects->type != SPHERE)
-	// 	data.objects = data.objects->next;
-	// t_sphere *sphere = (t_sphere *)data.objects->object;
-	// t_plane *plan = (t_plane *)data.objects->object;
-	// printf("%.2f\n", sphere->diameter);
-	// printf("%.2f %.2f %.2f\n", (float)((sphere->clr.r))/(255), (float)(sphere->clr.g/255), (float)(sphere->clr.b/255));
 	double coef = 1.0;
 	t_light light = data.light;
 	t_objects *obj = data.objects;
@@ -284,28 +258,7 @@ void	draw(t_mrt *m_rt, t_rays *rays, t_camera *cam, t_data data)
 		}
 	}
 	// // t_camera *cam = (t_camera *)data->objects->object;
-	// // lookat(m_rt->cam_matrix, m_rt, cam);	
-	// y = HEIGHT;
-	// while (y--)
-	// {
-	// 	x = 0;
-	// 		// double pxY = (HEIGHT - y - 0.5) / HEIGHT;
-	// 	while (x < WIDTH)
-	// 	{
-	// 		// puts("alo");
-	// 		Prime_ray(m_rt, x, y, ray, cam);
-	// 		t_vec pHit, nHit;
-	// 		double minDistance = INFINITY;
-	// 		if (sphere_intersect(*sphere, *ray, &pHit, &nHit))
-	// 			my_mlx_put(m_rt, x, y, 0xffe);
-	// 		else
-	// 			my_mlx_put(m_rt, x, y, 0xffff);
-			
-	// 		// printf("%.8f  %.8f %.8f\n", ray->direction.v_x, ray->direction.v_x, ray->direction.v_x);
-	// 		// usleep(10000);
-	// 		x++;
-	// 	}
-	// }
+
 	mlx_put_image_to_window(m_rt->mlx, m_rt->mlx_win, m_rt->mlx_img, 0, 0);
 }
 
