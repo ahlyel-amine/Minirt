@@ -8,13 +8,15 @@
 #include <stdbool.h>
 #include "structs.h"
 
+typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 bool	parcer(char *scene, t_data	*data);
 
 //--------------------intersection--------------------
 
-bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec);
-bool	plan_hit(t_ray *ray, t_plane *plan, t_hit_record *rec);
-bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec);
+bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
+bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
+bool	cylinder_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
+inter_func	intersect(int type);
 
 //--------------------camera--------------------
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
@@ -24,5 +26,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam);
 
 void	print_scean(t_data data);
 void print_vec(char *str, t_vec vec);
+double distance(t_vec v, t_vec u);
+
 
 #endif
