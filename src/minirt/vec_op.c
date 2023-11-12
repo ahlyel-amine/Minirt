@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:56:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/07 17:29:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/11 23:13:17 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,9 @@ t_vec	scalar_div(t_vec v, double f)
 t_coord	at(double t, t_ray ray)
 {
 	return ((vec_addition(ray.origin, scalar_mult(ray.direction, t))));
+}
+
+double distance(t_vec v, t_vec u)
+{
+	return (v_length(vec_sub(v, u)));
 }

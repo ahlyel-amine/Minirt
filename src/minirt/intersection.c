@@ -6,12 +6,13 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/09 01:40:26 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/12 14:52:33 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include "minirt.h"
+#include "library.h"
 #include "vector.h"
 
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
@@ -28,25 +29,25 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ray->direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
 	ray->direction.v_z = 0.5;
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
-	normalized(ray->direction);
+	normalize(&ray->direction);
 }
 
-bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
+bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	t_vec	oc;
 	t_cord	p;
 	double	discriminant;
 	double	tmp;
-
+	t_sphere *sphere = obj->object;
 	oc = vec_sub(ray->origin, sphere->cord);
 	p.a = dot_product(ray->direction, ray->direction);
 	p.b = dot_product(oc, ray->direction);
 
-	p.c = dot_product(oc, oc) - (sphere->diameter/2) * (sphere->diameter/2);
+	p.c = dot_product(oc, oc) - pow(sphere->diameter/2, 2);
 	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant < 0)
+	if (discriminant < eps)
 		return (false);
-	if (discriminant > 0)
+	if (discriminant > eps)
 	{
 		tmp = (-p.b - sqrt(discriminant)) / (p.a);
 		if (tmp <= 0.0 || tmp >= M_D)
@@ -63,16 +64,19 @@ bool	sphere_hit(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 	}
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
-	rec->nHit = scalar_div(vec_sub(rec->pHit, sphere->cord), (sphere->diameter / 2));
+	rec->nHit = normalized(vec_sub(rec->pHit, sphere->cord));
+	
+	// printf("sphere clooor %d %d %d\n", sphere->clr.r, sphere->clr.g, sphere->clr.b);
+	// rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
 	return (true);
 }
 
-bool	plan_hit(t_ray *ray, t_plane *plan, t_hit_record *rec)
+bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	double	denom;
 	double	t;
 	t_vec	p;
-
+	t_plane *plan = obj->object;
 	denom = dot_product(plan->normalized, ray->direction);
 	if (fabs(denom) > eps)
 	{
@@ -83,19 +87,22 @@ bool	plan_hit(t_ray *ray, t_plane *plan, t_hit_record *rec)
 			rec->t = t;
 			rec->pHit = at(rec->t, *ray);
 			rec->nHit = plan->normalized;
+			if (dot_product(rec->nHit, ray->direction) > 0)
+				rec->nHit = vec_nega(rec->nHit);
+			// rec->h_color = create_vec((double)(plan->clr.r) / 255, (double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
 			return (true);
 		}
 	}
 	return (false);
 }
 
-bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
+bool	cylinder_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	t_vec	oc;
 	t_cord	p;
 	double	discriminant;
 	double	tmp;
-
+	t_cylender *cylinder = obj->object;
 	oc = vec_sub(ray->origin, cylinder->cord);
 	p.a = dot_product(ray->direction, ray->direction) - dot_product(ray->direction, cylinder->normalized) * dot_product(ray->direction, cylinder->normalized);
 	p.b = 2 * (dot_product(ray->direction, oc) - dot_product(ray->direction, cylinder->normalized) * dot_product(oc, cylinder->normalized));
@@ -121,6 +128,17 @@ bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	}
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
-	rec->nHit = scalar_div(vec_sub(rec->pHit, cylinder->cord), (cylinder->diameter / 2));
+	rec->nHit = vec_sub(rec->pHit, cylinder->cord);
+	rec->h_color = create_vec((double)(cylinder->clr.r) / 255, (double)(cylinder->clr.g) / 255, (double)(cylinder->clr.b) / 255);
 	return (true);
+}
+
+inter_func	intersect(int type)
+{
+	t_objects	*obj;
+	inter_func 		obj_inter[3];
+	obj_inter[SPHERE] = sphere_hit;
+	obj_inter[PLANE] = plan_hit;
+	obj_inter[CYLENDER] = cylinder_hit;
+	return (*(obj_inter + type));
 }
