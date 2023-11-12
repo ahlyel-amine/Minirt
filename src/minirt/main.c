@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/12 15:02:10 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:02:57 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,6 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 				closest_so_far = temp;
 				object = obj;
 				*rec = temp_rec;
-				
-				// rec->h_color = (t_vec){(double)(((t_sphere *)obj->object)->clr.r) / 255, (double)(((t_sphere *)obj->object)->clr.g) / 255, (double)(((t_sphere *)obj->object)->clr.b) / 255};
-				// printf("color %d\n", rgb_to_int(rec->h_color));
-
-				// printf("type : %d rec : %f %f %f\n",obj->type, rec->h_color.v_x, rec->h_color.v_y, rec->h_color.v_z);
 			}
 		}
 		obj = obj->next;
@@ -137,7 +132,6 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		else if (object->type == PLANE)
 			rec->h_color = (t_vec){(double)(((t_plane *)object->object)->clr.r) / 255, (double)(((t_plane *)object->object)->clr.g) / 255, (double)(((t_plane *)object->object)->clr.b) / 255};
 	}
-	// 	printf("type : %d rec : %f %f %f\n",object->type, rec->h_color.v_x, rec->h_color.v_y, rec->h_color.v_z);
 	return (object);
 }
 t_vec merge_light(t_vec color, t_color light_color, double ratio)
