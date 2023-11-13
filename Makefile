@@ -28,12 +28,12 @@ NC			= '\e[0m'
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -c $< -o $@
+	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -Imlx -c $< -o $@
 
 lib:
 	make -C ${LIBFT}

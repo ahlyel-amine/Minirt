@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/12 14:52:33 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/13 05:23:15 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ndcX = ((double)x + 0.5) / WIDTH;
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	ray->direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	ray->direction.v_y = (1 - 2 * ndcY) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
+	ray->direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
 	ray->direction.v_z = 0.5;
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
 	normalize(&ray->direction);
@@ -67,7 +67,7 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	rec->nHit = normalized(vec_sub(rec->pHit, sphere->cord));
 	
 	// printf("sphere clooor %d %d %d\n", sphere->clr.r, sphere->clr.g, sphere->clr.b);
-	// rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
+	rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
 	return (true);
 }
 
@@ -89,7 +89,7 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 			rec->nHit = plan->normalized;
 			if (dot_product(rec->nHit, ray->direction) > 0)
 				rec->nHit = vec_nega(rec->nHit);
-			// rec->h_color = create_vec((double)(plan->clr.r) / 255, (double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
+			rec->h_color = create_vec((double)(plan->clr.r) / 255, (double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
 			return (true);
 		}
 	}
@@ -108,9 +108,9 @@ bool	cylinder_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	p.b = 2 * (dot_product(ray->direction, oc) - dot_product(ray->direction, cylinder->normalized) * dot_product(oc, cylinder->normalized));
 	p.c = dot_product(oc, oc) - dot_product(oc, cylinder->normalized) * dot_product(oc, cylinder->normalized) - (cylinder->diameter / 2) * (cylinder->diameter / 2);
 	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant < 0)
+	if (discriminant < eps)
 		return (false);
-	if (discriminant > 0)
+	if (discriminant > eps)
 	{
 		tmp = (-p.b - sqrt(discriminant)) / (p.a);
 		if (tmp <= 0.0 || tmp >= M_D)
