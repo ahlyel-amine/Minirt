@@ -44,6 +44,8 @@ typedef struct s_camera
 	t_vec			normalized;
 	t_vec			up;
 	t_vec			right;
+	double			scale;
+	double			aspect_ratio;
 }	t_camera;
 
 typedef struct s_light

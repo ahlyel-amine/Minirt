@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/13 05:23:15 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/15 04:58:39 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
 	double	ndcX;
 	double	ndcY;
-	double	aspect_ratio;
 
-	aspect_ratio = WIDTH / (double)HEIGHT;
 	ray->origin = cam->cord;
 	ndcX = ((double)x + 0.5) / WIDTH;
 	ndcY = ((double)y + 0.5) / HEIGHT;
-	ray->direction.v_x = (2 * ndcX - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180) * aspect_ratio;
-	ray->direction.v_y = (2 * ndcY - 1) * tan(((double)(cam->v_field) / 2) * M_PI / 180);
-	ray->direction.v_z = 0.5;
+	ray->direction.v_x = (2 * ndcX - 1) * cam->scale * cam->aspect_ratio;
+	ray->direction.v_y = (1 - 2 * ndcY) * cam->scale;
+	ray->direction.v_z = 1;
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
 	normalize(&ray->direction);
 }
@@ -50,21 +48,24 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	if (discriminant > eps)
 	{
 		tmp = (-p.b - sqrt(discriminant)) / (p.a);
-		if (tmp <= 0.0 || tmp >= M_D)
+		if (tmp <= eps || tmp >= M_D)
 		{
 			tmp = (-p.b + sqrt(discriminant)) / (p.a);
-			if (tmp <= 0.0 || tmp >= M_D)
+			if (tmp <= eps || tmp >= M_D)
 				return (false);		
 		}
 	}else
 	{
 		tmp = -p.b / p.a;
-		if (tmp <= 0.0 || tmp >= M_D)
+		if (tmp <= eps || tmp >= M_D)
 			return (false);
 	}
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
-	rec->nHit = normalized(vec_sub(rec->pHit, sphere->cord));
+	t_vec norm = vec_sub(rec->pHit, sphere->cord);
+	// if (dot_product(norm, norm) == 0.0)
+	// 	return (false);
+	rec->nHit = normalize(&norm);
 	
 	// printf("sphere clooor %d %d %d\n", sphere->clr.r, sphere->clr.g, sphere->clr.b);
 	rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
