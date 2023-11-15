@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/13 05:20:37 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/15 04:56:29 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 
 	while (obj)
 	{
-		if (intersect(obj->type)(ray, obj, &temp_rec))
+		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
 		{
 			temp = temp_rec.t;
 			if (temp < closest_so_far)
@@ -120,6 +120,40 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 				closest_so_far = temp;
 				object = obj;
 				*rec = temp_rec;
+			}
+		}
+		obj = obj->next;
+	}
+	// if (object)
+	// {
+	// 	if (object->type == SPHERE)
+	// 		rec->h_color = (t_vec){(double)(((t_sphere *)object->object)->clr.r) / 255, (double)(((t_sphere *)object->object)->clr.g) / 255, (double)(((t_sphere *)object->object)->clr.b) / 255};
+	// 	else if (object->type == PLANE)
+	// 		rec->h_color = (t_vec){(double)(((t_plane *)object->object)->clr.r) / 255, (double)(((t_plane *)object->object)->clr.g) / 255, (double)(((t_plane *)object->object)->clr.b) / 255};
+	// }
+	return (object);
+}
+
+t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
+{
+	t_objects	*object;
+	double		closest_so_far;
+	double		temp;
+	t_hit_record	temp_rec;
+	closest_so_far = INFINITY;
+	object = NULL;
+
+	while (obj)
+	{
+		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+				return obj;
 			}
 		}
 		obj = obj->next;
@@ -146,11 +180,11 @@ t_vec merge_light(t_vec color, t_color light_color, double ratio)
 		res.v_y = 1;
 	if (res.v_z > 1)
 		res.v_z = 1;
-	if (res.v_x <= 0.0)
+	if (res.v_x <= eps)
 		res.v_x = 0.0;
-	if (res.v_y <= 0.0)
+	if (res.v_y <= eps)
 		res.v_y = 0.0;
-	if (res.v_z <= 0.0)
+	if (res.v_z <= eps)
 		res.v_z = 0.0;
 	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);
@@ -165,9 +199,13 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.origin = rec->pHit;
 	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
 	
-	normalize(&rays->shadow_ray.direction);
+	normalize(&(rays->shadow_ray.direction));
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
-	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
+		// printf("origin type : %d\n",obj->type);
+
+	objt = get_closes_object2(&(rays->shadow_ray), obj, &h_shadow);
+	// if (objt)
+	// 	printf("origin type : %d------type : %d\n",obj->type, objt->type);
 	
 	return (objt);
 }
@@ -195,6 +233,30 @@ t_vec	specular_light(t_rays *rays, t_light *light, t_objects *obj, t_hit_record 
 	return (specular);
 }
 
+t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
+{
+	t_vec	diffuse;
+	double	thita;
+	
+	thita = dot_product(rays->shadow_ray.direction, rec->nHit);
+	diffuse = rec->h_color;
+		diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
+	return (diffuse);
+}
+t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
+{
+	t_vec r_color;
+	r_color.v_x = f_c.v_x * p1 + s_c.v_x * p2;
+	r_color.v_y = f_c.v_y * p1 + s_c.v_y * p2;
+	r_color.v_z = f_c.v_z * p1 + s_c.v_z * p2;
+	if (r_color.v_x > 1)
+		r_color.v_x = 1;
+	if (r_color.v_y > 1)
+		r_color.v_y = 1;
+	if (r_color.v_z > 1)
+		r_color.v_z = 1;
+	return (r_color);
+}
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 {
 	t_light_effect	effect;
@@ -205,13 +267,14 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
 	bool inShadow = shadow_ray(rays, &data->light, obj, rec);
 	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
-	// if (!inShadow)
-	// {
-	// 	effect.diffuse = rec->h_color;
-	// 	thita = dot_product(rec->nHit, rays->shadow_ray.direction);
-	// 	effect.diffuse = merge_light(effect.diffuse, data->light.clr, data->light.brightness * thita);
-	// 	// effect.specular = specular_light(rays, &data->light, obj, rec);
-	// }
+	if (!inShadow)
+	{
+		// effect.diffuse = rec->h_color;
+		// thita = dot_product(rec->nHit, rays->shadow_ray.direction);
+		effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, &data->light, rec), 1, 1);
+		// effect.specular = specular_light(rays, &data->light, obj, rec);
+		// printf("effect.diffuse: %.2f %.2f %.2f\n", effect.diffuse.v_x, effect.diffuse.v_y, effect.diffuse.v_z);
+	}
 	
 	return (effect);
 }
@@ -235,18 +298,34 @@ int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 	// 	printf("--object-type: %d--\n", object->type);
 
 	object = get_closes_object(&(rays->ray), obj, rec);
-	static int i;
+	
 	if (!object)
 	{
-		t_coord	unit_direction = normalized(rays->ray.direction);
-		double t = 0.5 * (unit_direction.v_y + 1.0);
-		t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
-		t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 0.2}, t);
-		return (rgb_to_int(scalar_mult(c_end, 1)));
+		// t_coord	unit_direction = normalized(rays->ray.direction);
+		// double t = 0.5 * (unit_direction.v_y + 1.0);
+		// t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
+		// t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 0.2}, t);
+		// return (rgb_to_int(scalar_mult(c_end, 1)));
+		return (0x00);
 	}
 	// printf("object-type: %d -%d-\n", object->type, i++);
 	light_effect = get_light_effect(data, rays, object, rec);
-	int rgb = rgb_to_int(convert_light(light_effect));
+	t_vec color = convert_light(light_effect);
+	if (color.v_x > 1)
+		color.v_x = 1;
+	if (color.v_y > 1)
+		color.v_y = 1;
+	if (color.v_z > 1)
+		color.v_z = 1;
+	if (color.v_x <= 0.0)
+		color.v_x = 0.0;
+	if (color.v_y <= 0.0)
+		color.v_y = 0.0;
+	if (color.v_z <= 0.0)
+		color.v_z = 0.0;
+	// printf("color: %.2f %.2f %.2f\n", color.v_x, color.v_y, color.v_z);
+	int rgb = rgb_to_int(color);
+	// printf("rgb: %d\n", rgb);
 	return (rgb);
 }
 

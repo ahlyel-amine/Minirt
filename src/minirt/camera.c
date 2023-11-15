@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/10 22:18:54 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/15 04:57:50 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ void	lookat(t_mrt *rt, t_camera *cam)
 	rt->cam_matrix[2][0] = forword.v_x;
 	rt->cam_matrix[2][1] = forword.v_y;
 	rt->cam_matrix[2][2] = forword.v_z;
+	cam->aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	cam->scale = tan(((double)cam->v_field / 2) * M_PI / 180);
 }
 
