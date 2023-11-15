@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/15 04:56:29 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/15 05:43:29 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "library.h"
 #include "minirt.h"
 #include "vector.h"
-
+#include <pthread.h>
 #include <mlx.h>
 #define WIDTH 1280
 #define HEIGHT 820
@@ -23,7 +23,17 @@
 #define M_D 1.79769e+308
 #define eps 1e-3
 
-
+typedef struct s_dataset
+{
+	t_mrt *m_rt;
+	t_rays *rays;
+	t_camera *cam;
+	t_data data;
+	int s_x;
+	int s_y;
+	int e_x;
+	int e_y;
+}	t_dataset;
 
 void	clearobjs(t_objects **lst)
 {
@@ -269,8 +279,6 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
 	if (!inShadow)
 	{
-		// effect.diffuse = rec->h_color;
-		// thita = dot_product(rec->nHit, rays->shadow_ray.direction);
 		effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, &data->light, rec), 1, 1);
 		// effect.specular = specular_light(rays, &data->light, obj, rec);
 		// printf("effect.diffuse: %.2f %.2f %.2f\n", effect.diffuse.v_x, effect.diffuse.v_y, effect.diffuse.v_z);
@@ -353,10 +361,28 @@ void	draw(t_mrt *m_rt, t_rays *rays, t_camera *cam, t_data data)
 
 	mlx_put_image_to_window(m_rt->mlx, m_rt->mlx_win, m_rt->mlx_img, 0, 0);
 }
+void	*draw2(void *alo)
+{
+	t_dataset		*ptr;
+	t_hit_record	rec;
 
+	ptr = (t_dataset *)alo;
+	lookat(ptr->m_rt, ptr->cam);
+	for (int j = ptr->s_y; j < ptr->e_y; j++)
+	{
+		for (int i = ptr->s_x; i < ptr->e_x; i++)
+		{
+			Prime_ray(ptr->m_rt, i, j, &(ptr->rays->ray), ptr->cam);
+			my_mlx_put(ptr->m_rt, i, j, raytrace(&ptr->data, ptr->rays, ptr->data.objects, &rec));
+		}
+	}
+	return (NULL);
+}
 int main(int ac, char **av)
 {
 	t_data	data;
+	pthread_t	th[10];
+	t_dataset ptr[10];
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
@@ -364,15 +390,41 @@ int main(int ac, char **av)
 			return (clearobjs(&data.objects),  1);
 		print_scean(data);
 		printf("sphers:%d cylenders:%d planes:%d\n", data.counter.sphere, data.counter.cylender, data.counter.plane);
-		t_mrt scean;
-		t_rays rays;
+		t_mrt scean[10];
+		t_mrt scean2;
+		t_rays rays[10];
 		ft_memset(&rays, 0, sizeof(t_rays));
-		scean.mlx = mlx_init();
-		scean.mlx_win = mlx_new_window(scean.mlx, WIDTH, HEIGHT, "MINI_RT");
-		scean.mlx_img = mlx_new_image(scean.mlx, WIDTH, HEIGHT);
-		scean.mlx_add = mlx_get_data_addr(scean.mlx_img, &(scean.bit_per_px), &(scean.line_len), &(scean.endian));
-		draw(&scean, &rays, &data.camera, data);
-		mlx_loop(scean.mlx);
+		scean[0].mlx = mlx_init();
+		scean[0].mlx_win = mlx_new_window(scean[0].mlx, WIDTH, HEIGHT, "MINI_RT");
+		scean[0].mlx_img = mlx_new_image(scean[0].mlx, WIDTH, HEIGHT);
+		int coef = 0;
+		int coef_y = 0;
+		for (int i = 0; i < 10; i++) {
+			scean[i].mlx = scean[0].mlx;
+			scean[i].mlx_win = scean[0].mlx_win;
+			scean[i].mlx_img = scean[0].mlx_img;
+			scean[i].mlx_add = mlx_get_data_addr(scean[i].mlx_img, &(scean[i].bit_per_px), &(scean[i].line_len), &(scean[i].endian));
+			ptr[i].m_rt = &scean[i];
+			ptr[i].rays = &rays[i];
+			ptr[i].cam = &data.camera;
+			ptr[i].data = data;
+			ptr[i].s_x = (coef * WIDTH / 5);
+			ptr[i].e_x = ((coef + 1) * WIDTH / 5);
+			ptr[i].s_y = (coef_y * HEIGHT / 2);
+			ptr[i].e_y = ((coef_y + 1) * HEIGHT / 2);
+			if (i % 2) {
+				coef_y = 0;
+				coef++;
+			}
+			else
+				coef_y++;
+			pthread_create(&th[i], NULL, draw2, &ptr[i]);
+		}
+		for (int i = 0; i < 10; i++){
+			pthread_join(th[i], NULL);
+		}
+		mlx_put_image_to_window(scean[0].mlx, scean[0].mlx_win, scean[0].mlx_img, 0, 0);
+		mlx_loop(scean[0].mlx);
 	}
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 08:57:43 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/15 05:15:11 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ bool cylender_parcer(char *line, t_data *data)
 	object = newobject(cylender, CYLENDER);
 	if (!object)
 		return (false);
-	addobject_front(&data->objects, object);
+	addobject_back(&data->objects, object);
 	return (true);
 }

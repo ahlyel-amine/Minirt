@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 08:42:36 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/15 05:15:14 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ t_data *data;
 	object = newobject(sphere, SPHERE);
 	if (!object)
 		return (false);
-	addobject_front(&data->objects, object);
+	addobject_back(&data->objects, object);
 	return (true);
 }
