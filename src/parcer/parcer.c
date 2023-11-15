@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/07 17:20:21 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/15 06:36:42 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ bool	read_true(char **line, t_data *data, int fd)
 {
 	while (*line)
 	{
-		if (!transform_line(*line, data))
-			return (false);
+		if (*line[0] != '#') {
+			if (!transform_line(*line, data))
+				return (false);
+		}
 		free (*line);
 		*line = get_next_line(fd);
 	}
