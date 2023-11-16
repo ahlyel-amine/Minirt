@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/15 04:58:39 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/16 01:45:15 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	p.b = dot_product(oc, ray->direction);
 
 	p.c = dot_product(oc, oc) - pow(sphere->diameter/2, 2);
-	discriminant = p.b * p.b - (p.a * p.c);
+	discriminant = p.b * p.b -   p.a * p.c;
 	if (discriminant < eps)
 		return (false);
 	if (discriminant > eps)
@@ -62,11 +62,12 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	}
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
-	t_vec norm = vec_sub(rec->pHit, sphere->cord);
+	t_vec norm = scalar_div(vec_sub(rec->pHit, sphere->cord), pow(sphere->diameter/2, 2));
 	// if (dot_product(norm, norm) == 0.0)
 	// 	return (false);
 	rec->nHit = normalize(&norm);
-	
+	if (dot_product(rec->nHit, ray->direction) > 0.0)
+		rec->nHit = vec_nega(rec->nHit);
 	// printf("sphere clooor %d %d %d\n", sphere->clr.r, sphere->clr.g, sphere->clr.b);
 	rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
 	return (true);
@@ -78,17 +79,21 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	double	t;
 	t_vec	p;
 	t_plane *plan = obj->object;
+	
 	denom = dot_product(plan->normalized, ray->direction);
+	if (fabs(denom) < eps)
+		return (false);
 	if (fabs(denom) > eps)
 	{
 		p = vec_sub(plan->cord, ray->origin);
 		t = dot_product(p, plan->normalized) / denom;
-		if (t > eps)
+		if (t >= eps)
 		{
 			rec->t = t;
 			rec->pHit = at(rec->t, *ray);
 			rec->nHit = plan->normalized;
-			if (dot_product(rec->nHit, ray->direction) > 0)
+			// printf("normal %f %f %f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
+			if (dot_product(rec->nHit, ray->direction) > 0.0)
 				rec->nHit = vec_nega(rec->nHit);
 			rec->h_color = create_vec((double)(plan->clr.r) / 255, (double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
 			return (true);
