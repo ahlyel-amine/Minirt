@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/15 05:43:29 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/16 02:50:35 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 #include "vector.h"
 #include <pthread.h>
 #include <mlx.h>
-#define WIDTH 1280
-#define HEIGHT 820
+
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3
@@ -163,7 +162,7 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 				closest_so_far = temp;
 				object = obj;
 				*rec = temp_rec;
-				return obj;
+				// return obj;
 			}
 		}
 		obj = obj->next;
@@ -180,7 +179,10 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 t_vec merge_light(t_vec color, t_color light_color, double ratio)
 {
 	t_vec res;
-	
+	double a = ((double)(light_color.r) / 255);
+	double b = ((double)(light_color.g) / 255);
+	double c = ((double)(light_color.b) / 255);
+	printf("a: %.2f b: %.2f c: %.2f\n", a, b, c);
 	res.v_x = color.v_x * ((double)(light_color.r) / 255) * ratio;
 	res.v_y = color.v_y * ((double)(light_color.g) / 255) * ratio;
 	res.v_z = color.v_z * ((double)(light_color.b) / 255) * ratio;
@@ -213,7 +215,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
 		// printf("origin type : %d\n",obj->type);
 
-	objt = get_closes_object2(&(rays->shadow_ray), obj, &h_shadow);
+	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
 	// if (objt)
 	// 	printf("origin type : %d------type : %d\n",obj->type, objt->type);
 	
@@ -249,6 +251,9 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	double	thita;
 	
 	thita = dot_product(rays->shadow_ray.direction, rec->nHit);
+	// printf("thita: %.2f\n", thita);
+	if (thita < eps)
+		thita = 0;
 	diffuse = rec->h_color;
 		diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
 	return (diffuse);
@@ -273,9 +278,12 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	double			thita;
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
+	t_vec dis =vec_sub(data->light.cord, rec->pHit);
+	// if (dot_product(dis, dis) < eps)
+	// 	return (effect);
 	// printf("effect.ambient: %.2f %.2f %.2f\n", effect.ambient.v_x, effect.ambient.v_y, effect.ambient.v_z);
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
-	bool inShadow = shadow_ray(rays, &data->light, obj, rec);
+	bool inShadow = shadow_ray(rays, &data->light, data->objects, rec);
 	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
 	if (!inShadow)
 	{
@@ -304,7 +312,7 @@ int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 	t_objects	*object;
 	// if (obj)
 	// 	printf("--object-type: %d--\n", object->type);
-
+	ft_memset(&light_effect, 0, sizeof(t_light_effect));
 	object = get_closes_object(&(rays->ray), obj, rec);
 	
 	if (!object)
@@ -388,6 +396,7 @@ int main(int ac, char **av)
 	{
 		if (!parcer(av[1], &data))
 			return (clearobjs(&data.objects),  1);
+		
 		print_scean(data);
 		printf("sphers:%d cylenders:%d planes:%d\n", data.counter.sphere, data.counter.cylender, data.counter.plane);
 		t_mrt scean[10];
