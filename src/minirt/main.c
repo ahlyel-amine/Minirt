@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/16 02:50:35 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/17 00:43:39 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 
 	while (obj)
 	{
-		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
+		if (intersect(obj->type)(ray, obj, &temp_rec) && obj->type != PLANE)
 		{
 			temp = temp_rec.t;
 			if (temp < closest_so_far)
@@ -179,10 +179,7 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 t_vec merge_light(t_vec color, t_color light_color, double ratio)
 {
 	t_vec res;
-	double a = ((double)(light_color.r) / 255);
-	double b = ((double)(light_color.g) / 255);
-	double c = ((double)(light_color.b) / 255);
-	printf("a: %.2f b: %.2f c: %.2f\n", a, b, c);
+
 	res.v_x = color.v_x * ((double)(light_color.r) / 255) * ratio;
 	res.v_y = color.v_y * ((double)(light_color.g) / 255) * ratio;
 	res.v_z = color.v_z * ((double)(light_color.b) / 255) * ratio;
@@ -215,7 +212,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
 		// printf("origin type : %d\n",obj->type);
 
-	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
+	objt = get_closes_object2(&(rays->shadow_ray), obj, &h_shadow);
 	// if (objt)
 	// 	printf("origin type : %d------type : %d\n",obj->type, objt->type);
 	
