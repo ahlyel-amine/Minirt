@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/16 02:39:29 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 02:38:53 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ bool	color_parcer(char *line, t_color *color)
 	colors = ft_split(line, ',');
 	if (!colors)
 		return (free(line), false);
-	printf("%d\n", sizeof(t_color));
 	while (i < 3 && colors[i])
 	{
 		tmp = ft_atoi(colors[i]);
