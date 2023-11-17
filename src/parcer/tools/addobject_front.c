@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 02:37:01 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 03:55:11 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	addobject_front(t_objects **lst, t_objects *new)
 	}
 }
 
-t_light 	*addlight(t_light **lst, t_light *new)
+void	addlight(t_light **lst, t_light *new)
 {
 	if (new && lst)
 	{
