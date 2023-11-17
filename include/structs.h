@@ -133,6 +133,17 @@ typedef struct s_rays
 	t_ray	ray;
 	t_ray	shadow_ray;
 }	t_rays;
+
+typedef struct s_dataset
+{
+	t_mrt *m_rt;
+	t_data data;
+	int s_x;
+	int s_y;
+	int e_x;
+	int e_y;
+}	t_dataset;
+
 // typedef enum e_bool
 // {
 // 	false,
