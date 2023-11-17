@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/15 18:54:48 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 09:40:46 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,30 @@ bool	check_boundries(char **ascii, int marge)
 	return (true);
 }
 
-double	ft_atod(char **ascii, bool *success, int marge_max, int marge_min)
+bool	ft_atod(char **ascii, double *result, int marge_max, int marge_min)
 {
 	int		digits_left;
-	double	result;
 	double	sign;
 	
-	result = 0.0;
+	*result = 0.0;
 	sign = 1.0;
 	digits_left = 0;
 	*ascii += skip_spaces(*ascii);
 	if ((*ascii)[0] == '-' && (*ascii)++)
 		sign = -1.0;
 	if (!ft_isdigit((*ascii)[0]) || !check_boundries(ascii, marge_max))
-		return (*success = false, 0);
-	result = ft_datoi(ascii);
+		return (false);
+	*result = ft_datoi(ascii);
 	if ((*ascii)[0] != '.' || !ft_isdigit((*ascii)[1])) 
-		return (sign * result);
+		return (*result *= sign, true);
 	(*ascii)++;
 	while (ft_isdigit((*ascii)[digits_left]))
 		digits_left++;
 	if (!ft_isspace((*ascii)[digits_left]) && (*ascii)[digits_left] != ',')
-		return (*success = false, 0);
-	result += (double)(ft_datoi(ascii) / pow(10.0, digits_left));
-	result *= sign;
-	if (result > (double)marge_max || result < (double)marge_min)
-		return (*success = false, 0);
-	return (result);
+		return (false);
+	*result += (double)(ft_datoi(ascii) / pow(10.0, digits_left));
+	*result *= sign;
+	if (*result > (double)marge_max || *result < (double)marge_min)
+		return (false);
+	return (true);
 }

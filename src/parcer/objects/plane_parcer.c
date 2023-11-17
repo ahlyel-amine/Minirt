@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:53 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 08:39:51 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 09:44:41 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool plane_parcer(char *line, t_data *data)
 		return (ft_putendl_fd("minirt: invalid normalized format", 2), false);
 	line += skip_spaces(line);
 	if (!color_parcer(line, &plane->clr))
-		return (false);
+		return (ft_putendl_fd("minirt: palne invalid color format", 2), false);
 	object = newobject(plane, PLANE);
 	if (!object)
 		return (false);
