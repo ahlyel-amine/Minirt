@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 02:20:14 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 02:56:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,19 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	effect.ambient = rec->h_color;
 	// printf("effect.ambient: %.2f %.2f %.2f\n", effect.ambient.v_x, effect.ambient.v_y, effect.ambient.v_z);
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
-	bool inShadow = shadow_ray(rays, &data->light, obj, rec);
-	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
-	if (!inShadow)
+	t_light *alo = data->light;
+	while (alo)
 	{
-		effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, &data->light, rec), 1, 1);
-		// effect.specular = specular_light(rays, &data->light, obj, rec);
-		// printf("effect.diffuse: %.2f %.2f %.2f\n", effect.diffuse.v_x, effect.diffuse.v_y, effect.diffuse.v_z);
+		bool inShadow = shadow_ray(rays, alo, obj, rec);
+		if (!inShadow)
+		{
+			effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, alo, rec), 1, 1);
+			// effect.specular = specular_light(rays, &alo, obj, rec);
+			// printf("effect.diffuse: %.2f %.2f %.2f\n", effect.diffuse.v_x, effect.diffuse.v_y, effect.diffuse.v_z);
+			}
+			alo = alo->next;
 	}
+	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
 	
 	return (effect);
 }
@@ -102,10 +107,10 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 t_vec	convert_light(t_light_effect effect)
 {
 	t_vec	res;
+
 	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
 	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
 	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
 	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
-
 	return (res);
 }

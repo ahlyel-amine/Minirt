@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:55:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/15 18:55:07 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 02:43:51 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ void	print_scean(t_data data)
 {
     printf("cy's : %d, pl's : %d, sp's : %d\n", data.counter.cylender, data.counter.plane, data.counter.sphere);
     printf("camera\t:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t\t%d\n", data.camera.cord.v_x, data.camera.cord.v_y, data.camera.cord.v_z, data.camera.normalized.v_x, data.camera.normalized.v_y, data.camera.normalized.v_z, data.camera.v_field);
-    printf("light\t:\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t%d,%d,%d\n", data.light.cord.v_x, data.light.cord.v_y, data.light.cord.v_z, data.light.brightness, data.light.clr.r, data.light.clr.g, data.light.clr.b);
     printf("lighting:\t\t\t\t\t\t%.1f\t%d,%d,%d\n", data.lighting.ratio, data.lighting.clr.r, data.lighting.clr.g, data.lighting.clr.b);
+    while (data.light)
+    {
+        printf("light\t:\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t%d,%d,%d\n", data.light->cord.v_x, data.light->cord.v_y, data.light->cord.v_z, data.light->brightness, data.light->clr.r, data.light->clr.g, data.light->clr.b);
+        data.light = data.light->next;
+    }
     while (data.objects)
     {
         if (data.objects->type == SPHERE)
