@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 00:43:39 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/17 01:54:02 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 
 	while (obj)
 	{
-		if (intersect(obj->type)(ray, obj, &temp_rec) && obj->type != PLANE)
+		if (obj->type != PLANE && intersect(obj->type)(ray, obj, &temp_rec))
 		{
 			temp = temp_rec.t;
 			if (temp < closest_so_far)
@@ -162,7 +162,7 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 				closest_so_far = temp;
 				object = obj;
 				*rec = temp_rec;
-				// return obj;
+				return obj;
 			}
 		}
 		obj = obj->next;
@@ -216,7 +216,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	// if (objt)
 	// 	printf("origin type : %d------type : %d\n",obj->type, objt->type);
 	
-	return (objt);
+	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
 }
 t_vec	specular_light(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 {
