@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 01:54:02 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/17 03:42:53 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3
+
 
 typedef struct s_dataset
 {
@@ -176,6 +177,21 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	// }
 	return (object);
 }
+void	nineties(t_vec *color)
+{
+	color->v_x = MIN(color->v_x, 1.0);
+	color->v_y = MIN(color->v_x, 1.0);
+	color->v_z = MIN(color->v_x, 1.0);
+}
+void color_range_norm(t_vec *color)
+{
+	if (color->v_x > 1)
+		color->v_x = 1.0;
+	if (color->v_y > 1.0)
+		color->v_y = 1.0;
+	if (color->v_z > 1.0)
+		color->v_z = 1.0;
+}
 t_vec merge_light(t_vec color, t_color light_color, double ratio)
 {
 	t_vec res;
@@ -183,18 +199,8 @@ t_vec merge_light(t_vec color, t_color light_color, double ratio)
 	res.v_x = color.v_x * ((double)(light_color.r) / 255) * ratio;
 	res.v_y = color.v_y * ((double)(light_color.g) / 255) * ratio;
 	res.v_z = color.v_z * ((double)(light_color.b) / 255) * ratio;
-	if (res.v_x > 1)
-		res.v_x = 1;
-	if (res.v_y > 1)
-		res.v_y = 1;
-	if (res.v_z > 1)
-		res.v_z = 1;
-	if (res.v_x <= eps)
-		res.v_x = 0.0;
-	if (res.v_y <= eps)
-		res.v_y = 0.0;
-	if (res.v_z <= eps)
-		res.v_z = 0.0;
+	// nineties(&res); //black and withe
+	color_range_norm(&res);
 	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);
 }
@@ -249,8 +255,8 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	
 	thita = dot_product(rays->shadow_ray.direction, rec->nHit);
 	// printf("thita: %.2f\n", thita);
-	if (thita < eps)
-		thita = 0;
+	// if (thita < eps)
+	// 	thita = 0;
 	diffuse = rec->h_color;
 		diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
 	return (diffuse);
@@ -261,12 +267,7 @@ t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 	r_color.v_x = f_c.v_x * p1 + s_c.v_x * p2;
 	r_color.v_y = f_c.v_y * p1 + s_c.v_y * p2;
 	r_color.v_z = f_c.v_z * p1 + s_c.v_z * p2;
-	if (r_color.v_x > 1)
-		r_color.v_x = 1;
-	if (r_color.v_y > 1)
-		r_color.v_y = 1;
-	if (r_color.v_z > 1)
-		r_color.v_z = 1;
+	color_range_norm(&r_color);
 	return (r_color);
 }
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
@@ -276,17 +277,11 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
 	t_vec dis =vec_sub(data->light.cord, rec->pHit);
-	// if (dot_product(dis, dis) < eps)
-	// 	return (effect);
-	// printf("effect.ambient: %.2f %.2f %.2f\n", effect.ambient.v_x, effect.ambient.v_y, effect.ambient.v_z);
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
 	bool inShadow = shadow_ray(rays, &data->light, data->objects, rec);
-	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
 	if (!inShadow)
 	{
 		effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, &data->light, rec), 1, 1);
-		// effect.specular = specular_light(rays, &data->light, obj, rec);
-		// printf("effect.diffuse: %.2f %.2f %.2f\n", effect.diffuse.v_x, effect.diffuse.v_y, effect.diffuse.v_z);
 	}
 	
 	return (effect);
@@ -298,8 +293,7 @@ t_vec	convert_light(t_light_effect effect)
 	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
 	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
 	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
-	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
-
+	color_range_norm(&res);
 	return (res);
 }
 
@@ -307,8 +301,7 @@ int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 {
 	t_light_effect light_effect;
 	t_objects	*object;
-	// if (obj)
-	// 	printf("--object-type: %d--\n", object->type);
+
 	ft_memset(&light_effect, 0, sizeof(t_light_effect));
 	object = get_closes_object(&(rays->ray), obj, rec);
 	
@@ -321,24 +314,10 @@ int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 		// return (rgb_to_int(scalar_mult(c_end, 1)));
 		return (0x00);
 	}
-	// printf("object-type: %d -%d-\n", object->type, i++);
 	light_effect = get_light_effect(data, rays, object, rec);
 	t_vec color = convert_light(light_effect);
-	if (color.v_x > 1)
-		color.v_x = 1;
-	if (color.v_y > 1)
-		color.v_y = 1;
-	if (color.v_z > 1)
-		color.v_z = 1;
-	if (color.v_x <= 0.0)
-		color.v_x = 0.0;
-	if (color.v_y <= 0.0)
-		color.v_y = 0.0;
-	if (color.v_z <= 0.0)
-		color.v_z = 0.0;
-	// printf("color: %.2f %.2f %.2f\n", color.v_x, color.v_y, color.v_z);
-	int rgb = rgb_to_int(color);
-	// printf("rgb: %d\n", rgb);
+	nineties(&color);
+	// int rgb = rgb_to_int(color);
 	return (rgb);
 }
 
@@ -362,8 +341,6 @@ void	draw(t_mrt *m_rt, t_rays *rays, t_camera *cam, t_data data)
 			my_mlx_put(m_rt, i, j, raytrace(&data, rays, obj, &rec));
 		}
 	}
-	// // t_camera *cam = (t_camera *)data->objects->object;
-
 	mlx_put_image_to_window(m_rt->mlx, m_rt->mlx_win, m_rt->mlx_img, 0, 0);
 }
 void	*draw2(void *alo)
