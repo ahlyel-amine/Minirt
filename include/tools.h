@@ -12,6 +12,6 @@ t_objects	*newobject(void *object, unsigned char type);
 bool    	make_threads(t_mrt *scean, t_data data);
 void	    clearobjs(t_objects **lst);
 t_light 	*newlight(t_light new);
-t_light 	*addlight(t_light **lst, t_light *new);
+void        addlight(t_light **lst, t_light *new);
 
 #endif
