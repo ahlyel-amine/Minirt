@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/15 04:58:39 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/17 02:22:44 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,7 @@
 #include "library.h"
 #include "vector.h"
 
-void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
-{
-	double	ndcX;
-	double	ndcY;
 
-	ray->origin = cam->cord;
-	ndcX = ((double)x + 0.5) / WIDTH;
-	ndcY = ((double)y + 0.5) / HEIGHT;
-	ray->direction.v_x = (2 * ndcX - 1) * cam->scale * cam->aspect_ratio;
-	ray->direction.v_y = (1 - 2 * ndcY) * cam->scale;
-	ray->direction.v_z = 1;
-	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
-	normalize(&ray->direction);
-}
 
 bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
@@ -78,6 +65,7 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	double	t;
 	t_vec	p;
 	t_plane *plan = obj->object;
+
 	denom = dot_product(plan->normalized, ray->direction);
 	if (fabs(denom) > eps)
 	{
@@ -143,3 +131,57 @@ inter_func	intersect(int type)
 	obj_inter[CYLENDER] = cylinder_hit;
 	return (*(obj_inter + type));
 }
+
+t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
+{
+	t_objects	*object;
+	double		closest_so_far;
+	double		temp;
+	t_hit_record	temp_rec;
+	closest_so_far = INFINITY;
+	object = NULL;
+
+	while (obj)
+	{
+		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+			}
+		}
+		obj = obj->next;
+	}
+	return (object);
+}
+
+t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
+{
+	t_objects	*object;
+	double		closest_so_far;
+	double		temp;
+	t_hit_record	temp_rec;
+	closest_so_far = INFINITY;
+	object = NULL;
+
+	while (obj)
+	{
+		if (intersect(obj->type)(ray, obj, &temp_rec) && obj->type != PLANE)
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+				return obj;
+			}
+		}
+		obj = obj->next;
+	}
+	return (object);
+}
+

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/15 06:36:42 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/15 23:32:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ bool	transform_line(char *line, t_data *data)
 
 	if (!line[skip_spaces(line)])
 		return (true);
+	if (line[skip_spaces(line)] == '#')
+		return (true);
 	type = find_type(line);
 	if (type == INVALID)
 		return (ft_putendl_fd("minirt: invalid object/description format", 2), false);
@@ -74,10 +76,8 @@ bool	read_true(char **line, t_data *data, int fd)
 {
 	while (*line)
 	{
-		if (*line[0] != '#') {
-			if (!transform_line(*line, data))
-				return (false);
-		}
+		if (!transform_line(*line, data))
+			return (false);
 		free (*line);
 		*line = get_next_line(fd);
 	}
