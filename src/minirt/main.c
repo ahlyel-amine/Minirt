@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 03:42:53 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/19 06:31:47 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,10 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 
 	while (obj)
 	{
-		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
+		if (intersect(obj->type)(ray, obj, &temp_rec))
 		{
+			// if (obj->type == CYLENDER)
+			// 	puts("CYLINDER");
 			temp = temp_rec.t;
 			if (temp < closest_so_far)
 			{
@@ -191,6 +193,12 @@ void color_range_norm(t_vec *color)
 		color->v_y = 1.0;
 	if (color->v_z > 1.0)
 		color->v_z = 1.0;
+	if (color->v_x < 0)
+		color->v_x = 0.0;
+	if (color->v_y < 0)
+		color->v_y = 0.0;
+	if (color->v_z < 0)
+		color->v_z = 0.0;
 }
 t_vec merge_light(t_vec color, t_color light_color, double ratio)
 {
@@ -307,17 +315,17 @@ int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 	
 	if (!object)
 	{
-		// t_coord	unit_direction = normalized(rays->ray.direction);
-		// double t = 0.5 * (unit_direction.v_y + 1.0);
-		// t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
-		// t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 0.2}, t);
-		// return (rgb_to_int(scalar_mult(c_end, 1)));
-		return (0x00);
+		t_coord	unit_direction = normalized(rays->ray.direction);
+		double t = 0.5 * (unit_direction.v_y + 1.0);
+		t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
+		t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 0.2}, t);
+		return (rgb_to_int(scalar_mult(c_end, 1)));
+		// return (0x00);
 	}
 	light_effect = get_light_effect(data, rays, object, rec);
 	t_vec color = convert_light(light_effect);
-	nineties(&color);
-	// int rgb = rgb_to_int(color);
+	// nineties(&color);
+	int rgb = rgb_to_int(color);
 	return (rgb);
 }
 
@@ -343,6 +351,7 @@ void	draw(t_mrt *m_rt, t_rays *rays, t_camera *cam, t_data data)
 	}
 	mlx_put_image_to_window(m_rt->mlx, m_rt->mlx_win, m_rt->mlx_img, 0, 0);
 }
+
 void	*draw2(void *alo)
 {
 	t_dataset		*ptr;
@@ -360,6 +369,7 @@ void	*draw2(void *alo)
 	}
 	return (NULL);
 }
+
 int main(int ac, char **av)
 {
 	t_data	data;

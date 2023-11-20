@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/16 01:45:15 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/20 11:16:47 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minirt.h"
 #include "library.h"
 #include "vector.h"
+#include "../../libft/include/libft.h"
 
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
@@ -101,42 +102,76 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	}
 	return (false);
 }
-
+int isZero(double value, double epsilon) {
+    return fabs(value) < epsilon;
+}
 bool	cylinder_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
-	t_vec	oc;
+	t_vec	ro;
 	t_cord	p;
+	t_vec u;
+	t_vec v;
 	double	discriminant;
 	double	tmp;
+	double	t1;
+	double	t2;
 	t_cylender *cylinder = obj->object;
-	oc = vec_sub(ray->origin, cylinder->cord);
-	p.a = dot_product(ray->direction, ray->direction) - dot_product(ray->direction, cylinder->normalized) * dot_product(ray->direction, cylinder->normalized);
-	p.b = 2 * (dot_product(ray->direction, oc) - dot_product(ray->direction, cylinder->normalized) * dot_product(oc, cylinder->normalized));
-	p.c = dot_product(oc, oc) - dot_product(oc, cylinder->normalized) * dot_product(oc, cylinder->normalized) - (cylinder->diameter / 2) * (cylinder->diameter / 2);
-	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant < eps)
+	u = cross_product(ray->direction, cylinder->normalized);
+	v = vec_sub(ray->origin, cylinder->cord);
+	v = cross_product(v, cylinder->normalized);
+	p.a = dot_product(u, u);
+	p.b = 2 * dot_product(u, v);
+	p.c = dot_product(v, v) - pow(cylinder->diameter/2, 2);
+	discriminant = p.b * p.b -  4 * p.a * p.c;
+	t1 = (-p.b - sqrt(discriminant)) / (2 * p.a);
+	t2 = (-p.b + sqrt(discriminant)) / (2 * p.a);
+	if (discriminant <= eps || (t1 <= eps && t2 <= eps))
 		return (false);
-	if (discriminant > eps)
-	{
-		tmp = (-p.b - sqrt(discriminant)) / (p.a);
-		if (tmp <= 0.0 || tmp >= M_D)
-		{
-			tmp = (-p.b + sqrt(discriminant)) / (p.a);
-			if (tmp <= 0.0 || tmp >= M_D)
-				return (false);		
-		}
-	}
-	else
-	{
-		tmp = -p.b / p.a;
-		if (tmp <= 0.0 || tmp >= M_D)
-			return (false);
-	}
-	rec->t = tmp;
+	if (t1 <= eps || (t2 > eps && (t2 < t1)))
+		t1 = t2;
+	rec->t = t1;
 	rec->pHit = at(rec->t, *ray);
-	rec->nHit = vec_sub(rec->pHit, cylinder->cord);
+	v = vec_sub(cylinder->cord, rec->pHit);
+	rec->nHit = cross_product(v, cylinder->normalized);
+	rec->nHit = cross_product(rec->nHit, cylinder->normalized);
+	normalize(&rec->nHit);
+	// if (dot_product(rec->nHit, ray->direction))
+	// 	rec->nHit = vec_nega(rec->nHit);
 	rec->h_color = create_vec((double)(cylinder->clr.r) / 255, (double)(cylinder->clr.g) / 255, (double)(cylinder->clr.b) / 255);
-	return (true);
+	
+	if (pow(distance(cylinder->cord, rec->pHit), 2) > (pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter/2, 2)))
+		printf("out of cylinder %.1f %.1f  %.1f\n", rec->pHit.v_x, rec->pHit.v_y, rec->pHit.v_z);
+	else
+		printf("in of cylinder %.1f %.1f  %.1f\n", rec->pHit.v_x, rec->pHit.v_y, rec->pHit.v_z);
+	
+	return true;
+	// p.a = dot_product(ray->direction, ray->direction) - dot_product(ray->direction, cylinder->normalized) * dot_product(ray->direction, cylinder->normalized);
+	// p.b = (dot_product(ray->direction, oc) - dot_product(ray->direction, cylinder->normalized) * dot_product(oc, cylinder->normalized));
+	// p.c = dot_product(oc, oc) - dot_product(oc, cylinder->normalized) * dot_product(oc, cylinder->normalized) - (cylinder->diameter / 2) * (cylinder->diameter / 2);
+	// discriminant = p.b * p.b - (p.a * p.c);
+	// if (discriminant < eps)
+	// 	return (false);
+	// if (discriminant > eps)
+	// {
+	// 	tmp = (-p.b - sqrt(discriminant)) / (p.a);
+	// 	if (tmp <= 0.0 || tmp >= M_D)
+	// 	{
+	// 		tmp = (-p.b + sqrt(discriminant)) / (p.a);
+	// 		if (tmp <= 0.0 || tmp >= M_D)
+	// 			return (false);		
+	// 	}
+	// }
+	// else
+	// {
+	// 	tmp = -p.b / p.a;
+	// 	if (tmp <= 0.0 || tmp >= M_D)
+	// 		return (false);
+	// }
+	// rec->t = tmp;
+	// rec->pHit = at(rec->t, *ray);
+	// rec->nHit = vec_sub(rec->pHit, cylinder->cord);
+	// rec->h_color = create_vec((double)(cylinder->clr.r) / 255, (double)(cylinder->clr.g) / 255, (double)(cylinder->clr.b) / 255);
+	// return (true);
 }
 
 inter_func	intersect(int type)
