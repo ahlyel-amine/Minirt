@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 03:23:05 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:58:04 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "minirt.h"
 #include "vector.h"
 #include "tools.h"
+#include "draw.h"
 
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 {
@@ -23,12 +24,7 @@ t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 	r_color.v_x = f_c.v_x * p1 + s_c.v_x * p2;
 	r_color.v_y = f_c.v_y * p1 + s_c.v_y * p2;
 	r_color.v_z = f_c.v_z * p1 + s_c.v_z * p2;
-	if (r_color.v_x > 1)
-		r_color.v_x = 1;
-	if (r_color.v_y > 1)
-		r_color.v_y = 1;
-	if (r_color.v_z > 1)
-		r_color.v_z = 1;
+	color_range_norm(&r_color);
 	return (r_color);
 }
 

@@ -1,6 +1,7 @@
 #ifndef DRAW_H
 #define DRAW_H
 
+void	color_range_norm(t_vec *color);
 void	*draw(void *alo);
 int     raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
 void	my_mlx_put(t_mrt *rt, int x, int y, int color);
@@ -13,5 +14,5 @@ t_vec   merge_light(t_vec color, t_color light_color, double ratio);
 bool    shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec);
 t_vec	specular_light(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec);
 t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec);
-
+void	nineties(t_vec *color);
 #endif

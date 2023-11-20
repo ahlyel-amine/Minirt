@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 02:22:15 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/20 12:03:03 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,7 @@ int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 		return (0x0/*0xccaabb*/);
 	light_effect = get_light_effect(data, rays, object, rec);
 	t_vec color = convert_light(light_effect);
-	if (color.v_x > 1.0)
-		color.v_x = 1.0;
-	if (color.v_y > 1.0)
-		color.v_y = 1.0;
-	if (color.v_z > 1.0)
-		color.v_z = 1.0;
-	if (color.v_x < 0.0)
-		color.v_x = 0.0;
-	if (color.v_y < 0.0)
-		color.v_y = 0.0;
-	if (color.v_z < 0.0)
-		color.v_z = 0.0;
+	// nineties(&color);
 	// printf("color: %.2f %.2f %.2f\n", color.v_x, color.v_y, color.v_z);
 	int rgb = rgb_to_int(color);
 	// printf("rgb: %d\n", rgb);
