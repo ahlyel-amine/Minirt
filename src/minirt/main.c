@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/19 06:31:47 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:08:20 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	// if (thita < eps)
 	// 	thita = 0;
 	diffuse = rec->h_color;
-		diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
+	diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
 	return (diffuse);
 }
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
