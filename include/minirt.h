@@ -1,13 +1,13 @@
 #ifndef MINIRT_H
 # define MINIRT_H
-#define WIDTH 1280
-#define HEIGHT 820
+#define WIDTH 1920
+#define HEIGHT 1080
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3
 #include <stdbool.h>
 #include "structs.h"
-#define MIN(X, Y)((X) < (Y) ? (X) : (Y))
+
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 bool	parcer(char *scene, t_data	*data);
 

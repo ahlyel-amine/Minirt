@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/15 23:42:35 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/20 16:21:46 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	join_threads(pthread_t	*th, int i)
 
 bool	make_threads(t_mrt *scean, t_data data)
 {
-	pthread_t	th[10];
-	t_dataset	ptr[10];
+	pthread_t	th[20];
+	t_dataset	ptr[20];
 	int 		coef_x;
 	int 		coef_y;
 	int 		i;
@@ -54,7 +54,7 @@ bool	make_threads(t_mrt *scean, t_data data)
 	i = -1;
 	coef_x = 0;
 	coef_y = 0;
-	while (++i < 10)
+	while (++i < 20)
 	{
 		ptr[i].m_rt = scean;
 		ptr[i].data = data;
@@ -62,6 +62,6 @@ bool	make_threads(t_mrt *scean, t_data data)
 		if (pthread_create(&th[i], NULL, draw, &ptr[i]))
 			return (join_threads(th,  i + 1), false);
 	}
-	join_threads(th, 10);
+	join_threads(th, 20);
 	return (true);
 }

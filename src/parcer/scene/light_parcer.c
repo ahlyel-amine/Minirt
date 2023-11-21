@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:47 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 09:43:33 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/20 16:19:08 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool light_parcer(char *line, t_data *data)
 	if (!ft_atod(&line, &single_light.brightness, 1, 0))
 		return (ft_putendl_fd("minirt: light invalid brightness format", 2), false);
 	line += skip_spaces(line);
-	if (!color_parcer(line, &single_light.clr))
+	if (color_parcer(line, &single_light.clr) == -1)
 		return (ft_putendl_fd("minirt: light invalid color format", 2), false);
 	light = newlight(single_light);
 	if (!light)
