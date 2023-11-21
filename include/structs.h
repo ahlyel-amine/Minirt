@@ -56,8 +56,15 @@ typedef struct s_light
 	struct s_light	*next;
 }	t_light;
 
+typedef struct s_specular_light
+{
+	double	intensity;
+	double	shininess_factor;
+}	t_specular_light;
+
 typedef struct s_plane
 {
+	t_specular_light spec;
 	t_color	clr;
 	t_vec	cord;
 	t_vec	normalized;
@@ -65,6 +72,7 @@ typedef struct s_plane
 
 typedef struct s_cylender
 {
+	t_specular_light spec;
 	t_color	clr;
 	double	diameter;
 	double	height;
@@ -74,6 +82,7 @@ typedef struct s_cylender
 
 typedef struct s_sphere
 {
+	t_specular_light spec;
 	t_color	clr;
 	double	diameter;
 	t_vec	cord;

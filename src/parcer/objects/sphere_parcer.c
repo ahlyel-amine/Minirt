@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 09:44:34 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/20 16:34:58 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ t_data *data;
 	if (!ft_atod(&line, &sphere->diameter, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt: invalid diameter format", 2), false);
 	line += skip_spaces(line);
-	if (!color_parcer(line, &sphere->clr))
+	printf("line : %s\n", line);
+	int a = color_parcer(line, &sphere->clr);
+	if (a == -1)
 		return (ft_putendl_fd("minirt: sphere invalid color format", 2), false);
+	line += skip_spaces(line + a) +a ;
+	ft_atod(&line, &sphere->spec.intensity, INT_MAX, INT_MIN);
+	line += skip_spaces(line);
+	ft_atod(&line, &sphere->spec.shininess_factor, INT_MAX, INT_MIN);
 	object = newobject(sphere, SPHERE);
 	if (!object)
 		return (false);

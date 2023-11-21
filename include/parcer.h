@@ -12,6 +12,6 @@ bool light_parcer(char *line, t_data *data);
 bool lighting_parcer(char *line, t_data *data);
 
 bool	cordinate_parcer(char **line, t_vec *cordinate, int marge_max, int marge_min);
-bool	color_parcer(char *line, t_color *color);
+int 	color_parcer(char *line, t_color *color);
 
 #endif
