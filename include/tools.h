@@ -7,7 +7,11 @@ int			skip_spaces(char *str);
 void		get_integer(char **line, int *integer);
 void		addobject_front(t_objects **lst, t_objects *new);
 void    	addobject_back(t_objects **lst, t_objects *new);
-double		ft_atod(char **ascii, bool *success, int marge_max, int marge_min);
+bool    	ft_atod(char **ascii, double *result, int marge_max, int marge_min);
 t_objects	*newobject(void *object, unsigned char type);
+bool    	make_threads(t_mrt *scean, t_data data);
+void	    clearobjs(t_objects **lst);
+t_light 	*newlight(t_light new);
+void        addlight(t_light **lst, t_light *new);
 
 #endif

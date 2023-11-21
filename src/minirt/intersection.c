@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/21 14:29:55 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:22:49 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,8 @@
 #include "minirt.h"
 #include "library.h"
 #include "vector.h"
-#include "../../libft/include/libft.h"
 
-void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
-{
-	double	ndcX;
-	double	ndcY;
 
-	ray->origin = cam->cord;
-	ndcX = ((double)x + 0.5) / WIDTH;
-	ndcY = ((double)y + 0.5) / HEIGHT;
-	ray->direction.v_x = (2 * ndcX - 1) * cam->scale * cam->aspect_ratio;
-	ray->direction.v_y = (1 - 2 * ndcY) * cam->scale;
-	ray->direction.v_z = 1;
-	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
-	normalize(&ray->direction);
-}
 
 bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
@@ -43,7 +29,7 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	p.b = dot_product(oc, ray->direction);
 
 	p.c = dot_product(oc, oc) - pow(sphere->diameter/2, 2);
-	discriminant = p.b * p.b -   p.a * p.c;
+	discriminant = p.b * p.b - (p.a * p.c);
 	if (discriminant < eps)
 		return (false);
 	if (discriminant > eps)
@@ -63,12 +49,11 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	}
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
-	t_vec norm = scalar_div(vec_sub(rec->pHit, sphere->cord), pow(sphere->diameter * 0.5, 2));
+	t_vec norm = vec_sub(rec->pHit, sphere->cord);
 	// if (dot_product(norm, norm) == 0.0)
 	// 	return (false);
 	rec->nHit = normalize(&norm);
-	if (dot_product(rec->nHit, ray->direction) > 0.0)
-		rec->nHit = vec_nega(rec->nHit);
+	
 	// printf("sphere clooor %d %d %d\n", sphere->clr.r, sphere->clr.g, sphere->clr.b);
 	rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
 	return (true);
@@ -80,11 +65,9 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	double	t;
 	t_vec	p;
 	t_plane *plan = obj->object;
-	// normalize(&plan->normalized);
+
 	denom = dot_product(plan->normalized, ray->direction);
-	if (fabs(denom) < eps)
-		return (false);
-	if (fabs(denom) >= eps)
+	if (fabs(denom) > eps)
 	{
 		p = vec_sub(plan->cord, ray->origin);
 		t = dot_product(p, plan->normalized) / denom;
@@ -93,7 +76,7 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 			rec->t = t;
 			rec->pHit = at(rec->t, *ray);
 			rec->nHit = plan->normalized;
-			if (dot_product(rec->nHit, ray->direction) > 0.0)
+			if (dot_product(rec->nHit, ray->direction) > 0)
 				rec->nHit = vec_nega(rec->nHit);
 			rec->h_color = create_vec((double)(plan->clr.r) / 255, (double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
 			return (true);
@@ -101,10 +84,6 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	}
 	return (false);
 }
-int isZero(double value, double epsilon) {
-    return fabs(value) < epsilon;
-}
-
 bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
 	t_vec orthg;
@@ -128,19 +107,8 @@ bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	return (rec->t = param.b, true);
 	
 }
-void calculate_disk_plan(t_cylender *cylinder, t_objects *obj, bool	is_top)
-{
-	t_plane	*plan;
-	plan = obj->object;
 
-	plan->normalized = cylinder->normalized;
-	if (is_top)
-		plan->cord = vec_addition(cylinder->cord, scalar_mult(cylinder->normalized, cylinder->height * 0.5));
-	else
-		plan->cord = vec_sub(cylinder->cord, scalar_mult(cylinder->normalized, cylinder->height * 0.5));
-}
-
-static bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
+bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
 	// t_cylender	*cylinder;
 	t_cord		p;
@@ -163,29 +131,10 @@ static bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	t_cylender	*cylinder;
-	t_objects		*plan;
-	rec->t = M_D;
-	plan = malloc(sizeof(t_objects));
-	plan->next = NULL;
-	plan->object = malloc(sizeof(t_plane));
-	ft_memset(plan->object, 0, sizeof(t_plane));
 	t_hit_record	tmp_rec;
-	cylinder = obj->object;
-	calculate_disk_plan(cylinder, plan,true);
-	((t_plane *)(plan->object))->clr = cylinder->clr;
-	// printf("plan type %f %f %f\n", ((t_plane *)(plan->object))->cord.v_x, ((t_plane *)(plan->object))->cord.v_y, ((t_plane *)(plan->object))->cord.v_z);
-	// printf("obj->type %d\n", plan.type);
-		
-	calculate_disk_plan(cylinder, plan, false);
-	// printf("plan2 type %f %f %f\n", ((t_plane *)(plan->object))->cord.v_x, ((t_plane *)(plan->object))->cord.v_y, ((t_plane *)(plan->object))->cord.v_z);
 
-	// if (plan_hit(ray, plan, &tmp_rec)
-	// 	&& distance(tmp_rec.pHit, ((t_plane *)(plan->object))->cord) <= ((cylinder->diameter * 0.5) - 0.002)
-	// 	&& rec->t > tmp_rec.t)
-	// {
-	// 	*rec = tmp_rec;
-	// 	puts("here");
-	// }	
+	cylinder = obj->object;
+	rec->t = M_D;
 	if (cylinder_hit(ray, cylinder, &tmp_rec)
 		&& pow(distance(cylinder->cord, tmp_rec.pHit), 2) <= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))
 		*rec = tmp_rec;
@@ -201,3 +150,57 @@ inter_func	intersect(int type)
 	obj_inter[CYLENDER] = f_cylinder_render;
 	return (*(obj_inter + type));
 }
+
+t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
+{
+	t_objects	*object;
+	double		closest_so_far;
+	double		temp;
+	t_hit_record	temp_rec;
+	closest_so_far = INFINITY;
+	object = NULL;
+
+	while (obj)
+	{
+		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+			}
+		}
+		obj = obj->next;
+	}
+	return (object);
+}
+
+t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
+{
+	t_objects	*object;
+	double		closest_so_far;
+	double		temp;
+	t_hit_record	temp_rec;
+	closest_so_far = INFINITY;
+	object = NULL;
+
+	while (obj)
+	{
+		if (intersect(obj->type)(ray, obj, &temp_rec) && obj->type != PLANE)
+		{
+			temp = temp_rec.t;
+			if (temp < closest_so_far)
+			{
+				closest_so_far = temp;
+				object = obj;
+				*rec = temp_rec;
+				return obj;
+			}
+		}
+		obj = obj->next;
+	}
+	return (object);
+}
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   newobject.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/26 08:37:46 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/17 02:35:59 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,19 @@ t_objects	*newobject(void *object, unsigned char type)
 		node->next = NULL;
 	}
 	return (node);
+}
+
+t_light	*newlight(t_light new)
+{
+	t_light	*light;
+	
+	light = malloc(sizeof(t_light));
+	if (light)
+	{
+		light->brightness = new.brightness;
+		light->clr = new.clr;
+		light->cord = new.cord;
+		light->next = NULL;
+	}
+	return (light);
 }

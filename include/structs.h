@@ -53,6 +53,7 @@ typedef struct s_light
 	t_color	clr;
 	double	brightness;
 	t_vec	cord;
+	struct s_light	*next;
 }	t_light;
 
 typedef struct s_plane
@@ -96,7 +97,7 @@ typedef	struct s_data
 {
 	t_objects	*objects;
 	t_lighting	lighting;
-	t_light		light;
+	t_light		*light;
 	t_counter	counter;
 	t_camera	camera;
 }	t_data;
@@ -133,6 +134,17 @@ typedef struct s_rays
 	t_ray	ray;
 	t_ray	shadow_ray;
 }	t_rays;
+
+typedef struct s_dataset
+{
+	t_mrt *m_rt;
+	t_data data;
+	int s_x;
+	int s_y;
+	int e_x;
+	int e_y;
+}	t_dataset;
+
 // typedef enum e_bool
 // {
 // 	false,
