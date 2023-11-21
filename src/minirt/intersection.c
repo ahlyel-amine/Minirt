@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/21 19:31:06 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:09:17 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minirt.h"
 #include "library.h"
 #include "vector.h"
-
+#include "../../libft/include/libft.h"
 
 
 bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
@@ -108,6 +108,18 @@ bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	
 }
 
+void	calculate_disk_plan(t_cylender *cylinder, t_objects *obj, bool is_top)
+{
+	t_plane *plan;
+
+	plan = obj->object;
+	plan->normalized = cylinder->normalized;
+	if (is_top)
+		plan->cord = vec_addition(cylinder->cord, scalar_mult(cylinder->normalized, cylinder->height * 0.5));
+	else
+		plan->cord = vec_sub(cylinder->cord, scalar_mult(cylinder->normalized, cylinder->height * 0.5));
+}
+
 bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
 	t_cord		p;
@@ -129,10 +141,29 @@ bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	t_cylender	*cylinder;
-	t_hit_record	tmp_rec;
-
-	cylinder = obj->object;
+	t_objects		*plan;
 	rec->t = M_D;
+	plan = malloc(sizeof(t_objects));
+	plan->next = NULL;
+	plan->object = malloc(sizeof(t_plane));
+	ft_memset(plan->object, 0, sizeof(t_plane));
+	t_hit_record	tmp_rec;
+	cylinder = obj->object;
+	calculate_disk_plan(cylinder, plan,true);
+	((t_plane *)(plan->object))->clr = cylinder->clr;
+	// printf("plan type %f %f %f\n", ((t_plane *)(plan->object))->cord.v_x, ((t_plane *)(plan->object))->cord.v_y, ((t_plane *)(plan->object))->cord.v_z);
+	// printf("obj->type %d\n", plan.type);
+		
+	calculate_disk_plan(cylinder, plan, false);
+	// printf("plan2 type %f %f %f\n", ((t_plane *)(plan->object))->cord.v_x, ((t_plane *)(plan->object))->cord.v_y, ((t_plane *)(plan->object))->cord.v_z);
+
+	if (plan_hit(ray, plan, &tmp_rec)
+		&& distance(tmp_rec.pHit, ((t_plane *)(plan->object))->cord) <= ((cylinder->diameter * 0.5) - 0.002)
+		&& rec->t > tmp_rec.t)
+	{
+		*rec = tmp_rec;
+		puts("here");
+	}	
 	if (cylinder_hit(ray, cylinder, &tmp_rec)
 		&& pow(distance(cylinder->cord, tmp_rec.pHit), 2) <= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))
 		*rec = tmp_rec;
