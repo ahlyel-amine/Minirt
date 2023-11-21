@@ -7,7 +7,6 @@
 #define eps 1e-3
 #include <stdbool.h>
 #include "structs.h"
-
 #define MIN(X, Y)((X) < (Y) ? (X) : (Y))
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 bool	parcer(char *scene, t_data	*data);
@@ -22,12 +21,16 @@ inter_func	intersect(int type);
 //--------------------camera--------------------
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
 void	lookat(t_mrt *rt, t_camera *cam);
-void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam);
 
 
 void	print_scean(t_data data);
 void print_vec(char *str, t_vec vec);
 double distance(t_vec v, t_vec u);
+
+t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
+t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec);
+t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
+t_vec	convert_light(t_light_effect effect);
 
 
 #endif
