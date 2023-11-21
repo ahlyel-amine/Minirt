@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/21 19:22:49 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:31:06 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,9 @@ bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 
 bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
-	// t_cylender	*cylinder;
 	t_cord		p;
 	t_vec		v;
 
-	// cylinder = obj->object;
 	if (!solve_quad(ray, cylinder, rec))
 		return false;
 	rec->pHit = at(rec->t, *ray);
