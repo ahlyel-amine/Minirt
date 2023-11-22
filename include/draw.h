@@ -3,7 +3,7 @@
 
 void	color_range_norm(t_vec *color);
 void	*draw(void *alo);
-int     raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
+t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level);
 void	my_mlx_put(t_mrt *rt, int x, int y, int color);
 int	    get_pixel(t_mrt *rt, int x, int y);
 int	    rgb_to_int(t_coord color);

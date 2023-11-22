@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/21 19:32:22 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:27:42 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,16 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	return (effect);
 }
 
-t_vec	convert_light(t_light_effect effect)
+t_vec	convert_light(t_objects *obj, t_light_effect effect)
 {
 	t_vec	res;
-
+	t_vec	f_c;
 	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
 	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
 	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
+	// f_c = 
+	if (obj)
+		res = c_color(res, effect.reflect, 1 - 0.4, 0.4);
 	color_range_norm(&res);
 	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);

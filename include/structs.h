@@ -127,12 +127,14 @@ typedef struct s_light_effect
 	t_vec	ambient;
 	t_vec	diffuse;
 	t_vec	specular;
+	t_vec	reflect;
 }	t_light_effect;
 
 typedef struct s_rays
 {
 	t_ray	ray;
 	t_ray	shadow_ray;
+	t_objects	*closet_obj;
 }	t_rays;
 
 typedef struct s_dataset
