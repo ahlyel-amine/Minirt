@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/21 20:09:17 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/22 13:36:04 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		&& rec->t > tmp_rec.t)
 	{
 		*rec = tmp_rec;
-		puts("here");
+		// puts("here");
 	}	
 	if (cylinder_hit(ray, cylinder, &tmp_rec)
 		&& pow(distance(cylinder->cord, tmp_rec.pHit), 2) <= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))

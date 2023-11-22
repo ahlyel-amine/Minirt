@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/21 19:30:32 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:28:33 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include "structs.h"
 #define MIN(X, Y)((X) < (Y) ? (X) : (Y))
+#define REF_LEVEL 5
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 bool	parcer(char *scene, t_data	*data);
 
@@ -42,7 +43,7 @@ double distance(t_vec v, t_vec u);
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
 t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec);
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
-t_vec	convert_light(t_light_effect effect);
+t_vec	convert_light(t_objects *obj, t_light_effect effect);
 
 
 #endif
