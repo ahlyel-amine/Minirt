@@ -79,6 +79,15 @@ typedef struct s_sphere
 	t_vec	cord;
 }	t_sphere;
 
+typedef struct s_triangle
+{
+	t_color	clr;
+	t_vec	cord1;
+	t_vec	cord2;
+	t_vec	cord3;
+	t_vec 	normalizer;
+}	t_triangle;
+
 typedef	struct s_object
 {
 	unsigned char	type;
@@ -91,6 +100,7 @@ typedef struct s_counter
 	int sphere;
 	int cylender;
 	int plane;
+	int triangle;
 }	t_counter;
 
 typedef	struct s_data

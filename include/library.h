@@ -14,11 +14,12 @@ enum	types
 	LIGHTING	= 0x03,
 	CAMERA		= 0x04,
 	LIGHT		= 0x05,
+	TRIANGLE	= 0x06,
 	INVALID		= 0x20,
 };
 
 
-#define	MAX_OBJECTS	6
+#define	MAX_OBJECTS	7
 
 #define	S_SPHERE	"sp"
 #define	S_CYLENDER	"cy"
@@ -26,5 +27,6 @@ enum	types
 #define	S_LIGHTING	"A"
 #define	S_CAMERA	"C"
 #define	S_LIGHT		"L"
+#define	S_TRIANGLE	"tr"
 
 #endif

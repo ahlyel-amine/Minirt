@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/22 16:35:48 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/24 09:35:55 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,26 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 {
 	t_light_effect light_effect;
 	t_objects	*obj;
+	t_rays		ref_ray;
 	rays->closet_obj = get_closes_object(&(rays->ray), data->objects, rec);
 	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0}/*0xccaabb*/);
-	light_effect = get_light_effect(data, rays, rays->closet_obj, rec);
+	light_effect = get_light_effect(data, rays, obj, rec);
 	level -= 1;
-	if (obj->type == SPHERE && level > 0)
+	if (data->objects->type == SPHERE && level > 0)
 	{
-		t_rays	ref_ray;
 		ref_ray.ray.origin = rec->pHit;
 		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
 		ref_ray.ray.direction = vec_sub(rays->ray.direction, ref_ray.ray.direction);
 		normalize(&(ref_ray.ray.direction));
 		light_effect.reflect = raytrace(data, &ref_ray, rec, level);
-		
 	}	
-	// nineties(&color);
-	// printf("color: %.2f %.2f %.2f\n", color.v_x, color.v_y, color.v_z);
+
 	if (level <= 0)
 		obj = NULL;
 	t_vec color = convert_light(obj, light_effect);
-	// int rgb = rgb_to_int(color);
-	// printf("rgb: %d\n", rgb);
+	// nineties(&color);
 	return (color);
 }
 

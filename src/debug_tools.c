@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:55:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 02:43:51 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/24 09:12:12 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,13 @@ void	print_scean(t_data data)
             t_cylender	*object = (t_cylender *)data.objects->object;
             printf("cylender:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
             object->diameter, object->height,  object->clr.r, object->clr.g, object->clr.b);
-        } 
+        }
+		else if (data.objects->type == TRIANGLE)
+		{
+			t_triangle	*object = (t_triangle *)data.objects->object;
+			printf("triangle:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%d,%d,%d\n", object->cord1.v_x, object->cord1.v_y, object->cord1.v_z, object->cord2.v_x, object->cord2.v_y, object->cord2.v_z, \
+			object->cord3.v_x, object->cord3.v_y, object->cord3.v_z, object->clr.r, object->clr.g, object->clr.b);
+		}
         data.objects = data.objects->next;
     }
 }
