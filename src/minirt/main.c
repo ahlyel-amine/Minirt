@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/21 19:32:54 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/24 09:23:35 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ bool	make_image(t_mrt *scean)
 		return (false);
 	return (true);
 }
-
+void check()
+{
+	system("leaks Minirt");
+}
 int main(int ac, char **av)
 {
 	t_data		data;
@@ -66,17 +69,18 @@ int main(int ac, char **av)
 	t_mrt		scean;
 
 	ft_memset(&data, 0, sizeof(t_data));
+	atexit(check);
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
-			return (clearobjs(&data.objects),  1);
+			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		print_scean(data);
-		printf("sphers:%d cylenders:%d planes:%d\n", data.counter.sphere, data.counter.cylender, data.counter.plane);
+		// printf("sphers:%d cylenders:%d planes:%d\n", data.counter.sphere, data.counter.cylender, data.counter.plane);
 		if (!make_image(&scean))
-			return (clearobjs(&data.objects),  1);
+			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		lookat(&scean, &data.camera);
 		if (!make_threads(&scean, data))
-			return (clearobjs(&data.objects),  1);
+			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
 		mlx_loop(scean.mlx);
 	}
