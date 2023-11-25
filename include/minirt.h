@@ -7,7 +7,7 @@
 #define eps 1e-3
 #include <stdbool.h>
 #include "structs.h"
-
+#define MIN(X, Y)((X) < (Y) ? (X) : (Y))
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 bool	parcer(char *scene, t_data	*data);
 
