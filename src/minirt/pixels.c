@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/25 03:59:39 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/25 07:37:08 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "vector.h"
 #include "draw.h"
 #include "tools.h"
+#include "MLX42.h"
 
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 {
@@ -29,37 +30,39 @@ t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 }
 
 
+
 void	my_mlx_put(t_mrt *rt, int x, int y, int color)
 {
 	int	iter;
 	
 	// if ( x < (WIDTH - FRAME) && x >= FRAME && y >= FRAME && y < (HEIGHT - FRAME))
 	if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
-	{
-		iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
-		// printf("rt->bit_per_px: %d rt->line_len: %d\n", rt->bit_per_px, rt->line_len);
-		rt->mlx_add[iter] = color;
-		rt->mlx_add[++iter] = (color >> 8) & 0xFF;
-		rt->mlx_add[++iter] = (color >> 16) & 0xFF;
-	}
+		mlx_put_pixel(rt->mlx_add, x, y, color);
+	// {
+	// 	iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
+	// 	// printf("rt->bit_per_px: %d rt->line_len: %d\n", rt->bit_per_px, rt->line_len);
+	// 	rt->mlx_add[iter] = color;
+	// 	rt->mlx_add[++iter] = (color >> 8) & 0xFF;
+	// 	rt->mlx_add[++iter] = (color >> 16) & 0xFF;
+	// }
 	return ;
 }
 
-int	get_pixel(t_mrt *rt, int x, int y)
-{
-	int	iter;
-	int	color;
+// int	get_pixel(t_mrt *rt, int x, int y)
+// {
+// 	int	iter;
+// 	int	color;
 
-	if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
-	{
-		iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
-		color = rt->mlx_add[iter];
-		color |= rt->mlx_add[++iter] << 8;
-		color |= rt->mlx_add[++iter] << 16;
-		return (color);
-	}
-	return (0);
-}
+// 	if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
+// 	{
+// 		iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
+// 		color = rt->mlx_add[iter];
+// 		color |= rt->mlx_add[++iter] << 8;
+// 		color |= rt->mlx_add[++iter] << 16;
+// 		return (color);
+// 	}
+// 	return (0);
+// }
 
 int	rgb_to_int(t_coord color)
 {

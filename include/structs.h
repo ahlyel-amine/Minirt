@@ -1,6 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <stdio.h>
+#include "MLX42.h"
 typedef struct s_cord
 {
 	double	a;
@@ -114,9 +115,9 @@ typedef	struct s_data
 typedef struct s_mrt
 {
 	void	*mlx;
-	void	*mlx_win;
+	mlx_t	*mlx_win;
 	void	*mlx_img;
-	char	*mlx_add;
+	mlx_image_t	*mlx_add;
 	int		bit_per_px;
 	int		line_len;
 	int		endian;

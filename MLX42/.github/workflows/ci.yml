@@ -1,0 +1,78 @@
+# -----------------------------------------------------------------------------
+# Codam Coding College, Amsterdam @ 2022-2023-2023 by W2Wizard.
+# See README in the root project for more information.
+# -----------------------------------------------------------------------------
+
+name: Build
+
+#=============================================================================#
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+#=============================================================================#
+
+jobs:
+
+# Tests
+#=============================================================================#
+
+  unit-test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      DISPLAY: ":99"
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xorg-dev xvfb
+
+      - name: Setup virtual screen
+        run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
+
+      - name: Build MLX42 & tests
+        run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build --parallel
+
+      - name: Run tests
+        run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
+# Unix
+#=============================================================================#
+
+  build:
+    timeout-minutes: 10
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v3
+
+    # Windows will just fetch glfw with cmake automatically.
+    # This avoids doing extra work like installing a package manager.
+    - name: Install Dependencies
+      if: matrix.os != 'windows-latest'
+      run: |
+        set -x
+        if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq xorg-dev
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew update
+            brew install glfw
+        fi
+
+    - name: Build
+      run: cmake -B build && cmake --build build --parallel
+
+#=============================================================================#

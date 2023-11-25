@@ -5,7 +5,7 @@ void	color_range_norm(t_vec *color);
 void	*draw(void *alo);
 int     raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
 void	my_mlx_put(t_mrt *rt, int x, int y, int color);
-int	    get_pixel(t_mrt *rt, int x, int y);
+// int	    get_pixel(t_mrt *rt, int x, int y);
 int	    rgb_to_int(t_coord color);
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam);
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2);

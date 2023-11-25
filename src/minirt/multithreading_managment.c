@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/20 16:21:46 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/25 07:33:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "vector.h"
 #include "draw.h"
 #include <pthread.h>
-#include <mlx.h>
+// #include <mlx.h>
 
 void init_data_sets(t_dataset	*ptr, int *coef_x, int *coef_y, int i)
 {

@@ -12,28 +12,28 @@ SRC			=	$(shell ls $(OBJECTS)*.c)\
 				$(shell ls $(TOOLS)*.c)\
 				$(shell ls $(SRC_F)minirt/*.c)\
 				src/debug_tools.c
-INCLUDES	= -Iinclude -Ilibft/include
+INCLUDES	= -Iinclude -Ilibft/include -I./MLX42/include -I./MLX42/include/MLX42
 OBJ_DIR 	= obj
 FLAGS		= -fsanitize=address
 # -Wall -Wextra -Werror -fsanitize=address
 NAME		= Minirt
-LIBFT_NAME	= libft/bin/libft.a
+LIBFT_NAME	= libft/bin/libft.a 
 CC			= cc
 OBJ			= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 DEPS		= $(patsubst %.c, $(OBJ_DIR)/%.d, $(SRC))
 DEPSFLAGS	= -MMD -MP
 HBLU		= '\e[1;94m'
 NC			= '\e[0m'
-
+AAA = ./MLX42/build/libmlx42.a -ldl -L"/Users/aahlyel/homebrew/Cellar/glfw/3.3.8/lib" -lglfw -pthread -lm
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME) ${INCLUDES} $(AAA)  -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -Imlx -c $< -o $@
+	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -c $< -o $@
 
 lib:
 	make -C ${LIBFT}
