@@ -14,7 +14,8 @@ SRC			=	$(shell ls $(OBJECTS)*.c)\
 				src/debug_tools.c
 INCLUDES	= -Iinclude -Ilibft/include
 OBJ_DIR 	= obj
-FLAGS		= -Imlx -O3 -fsanitize=address
+FLAGS		= 
+# -fsanitize=address -g
 # -Wall -Wextra -Werror -fsanitize=address
 NAME		= Minirt
 LIBFT_NAME	= libft/bin/libft.a
@@ -28,13 +29,12 @@ NC			= '\e[0m'
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)    -I /usr/local/include -L /usr/local/lib \
- -lmlx -framework OpenGL -framework AppKit -lm -lz -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c Makefile
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -c $< -o $@
+	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -Imlx -c $< -o $@
 
 lib:
 	make -C ${LIBFT}

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 08:42:36 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 09:44:34 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,22 @@ t_data *data;
 {
 	t_objects	*object;
 	t_sphere	*sphere;
-	bool		success;
 
 	sphere = ft_calloc(sizeof(t_sphere), 1);
 	if (!sphere)
 		return (false);
 	data->counter.sphere += 1;
-	success = true;
 	line += 3;
 	if (!cordinate_parcer(&line, &sphere->cord, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt: sp invalid cordinate format", 2), false);
-	sphere->diameter = ft_atod(&line, &success, INT_MAX, INT_MIN);
-	if (!success)
+	if (!ft_atod(&line, &sphere->diameter, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt: invalid diameter format", 2), false);
 	line += skip_spaces(line);
 	if (!color_parcer(line, &sphere->clr))
-		return (false);
+		return (ft_putendl_fd("minirt: sphere invalid color format", 2), false);
 	object = newobject(sphere, SPHERE);
 	if (!object)
 		return (false);
-	addobject_front(&data->objects, object);
+	addobject_back(&data->objects, object);
 	return (true);
 }
