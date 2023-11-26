@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/22 16:27:42 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:11:06 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,19 @@ t_vec merge_light(t_vec color, t_color light_color, double ratio)
 	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);
 }
+t_specular_light		get_specular_addr(t_objects *obj)
+{
+	if (obj->type == PLANE)
+		return (((t_plane *)obj->object)->spec);
+	else if (obj->type == SPHERE)
+		return (((t_sphere *)obj->object)->spec);
+	else if (obj->type == CYLENDER)
+		return (((t_cylender *)obj->object)->spec);
+	else
+		return (((t_triangle *)obj->object)->spec);
+}
 
-
-t_vec	specular_light(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
+t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hit_record *rec)
 {
 	t_vec	specular;
 	t_vec	reflect;
@@ -55,19 +65,16 @@ t_vec	specular_light(t_rays *rays, t_light *light, t_objects *obj, t_hit_record 
 	double	spec;
 	double	coef;
 	double	thita;
-	
-	coef = 1.0;
-	reflect = vec_sub(rays->shadow_ray.direction, scalar_mult(rec->nHit, 2 * dot_product(rays->shadow_ray.direction, rec->nHit)));
-	view = vec_sub(rays->ray.direction, scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit)));
+	ft_memset(&specular, 0, sizeof(t_vec));
+	view = scalar_mult(scalar_mult(rec->nHit, 2.0), dot_product(vec_nega(rec->nHit), rays->shadow_ray.direction));
+	reflect = vec_addition(rays->shadow_ray.direction, view);
 	thita = dot_product(reflect, view);
 	if (thita > eps)
 	{
-		spec = pow(thita, 10);
+		spec = pow(thita, speclr.shininess_factor);
 		specular = scalar_mult((t_vec){1, 1, 1}, spec);
-		specular = merge_light(specular, light->clr, light->brightness * coef);
+		specular = merge_light(specular, light->clr, light->brightness * speclr.intensity);
 	}
-	else
-		specular = (t_vec){1, 1, 1};
 	return (specular);
 }
 
@@ -82,45 +89,38 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	return (diffuse);
 }
 
-
-
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
 {
 	t_light_effect	effect;
 	double			thita;
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
-	// printf("effect.ambient: %.2f %.2f %.2f\n", effect.ambient.v_x, effect.ambient.v_y, effect.ambient.v_z);
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
 	t_light *alo = data->light;
 	while (alo)
 	{
 		bool inShadow = shadow_ray(rays, alo, obj, rec);
+		effect.specular =  vec_addition(effect.specular, specular_light(rays, alo, get_specular_addr(obj), rec));
 		if (!inShadow)
-		{
 			effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, alo, rec), 1, 1);
-			// effect.specular = specular_light(rays, &alo, obj, rec);
-			// printf("effect.diffuse: %.2f %.2f %.2f\n", effect.diffuse.v_x, effect.diffuse.v_y, effect.diffuse.v_z);
-			}
-			alo = alo->next;
+		alo = alo->next;
 	}
-	// printf("normal: %.2f %.2f %.2f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
-	
 	return (effect);
 }
 
-t_vec	convert_light(t_objects *obj, t_light_effect effect)
+t_vec	convert_light(int level, t_light_effect effect, t_objects *obj)
 {
 	t_vec	res;
-	t_vec	f_c;
-	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
-	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
-	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
-	// f_c = 
-	if (obj)
-		res = c_color(res, effect.reflect, 1 - 0.4, 0.4);
+	t_specular_light refl;
+	res.v_x = effect.ambient.v_x + effect.diffuse.v_x + effect.specular.v_x;
+	res.v_y = effect.ambient.v_y + effect.diffuse.v_y + effect.specular.v_y;
+	res.v_z = effect.ambient.v_z + effect.diffuse.v_z + effect.specular.v_z;
+	if (level > 0 && refl.reflection > 0)
+	{
+		refl = get_specular_addr(obj);
+		res = c_color(res, effect.reflect, 1 - refl.reflection, refl.reflection);
+	}
 	color_range_norm(&res);
-	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);
 }
 void	nineties(t_vec *color)
