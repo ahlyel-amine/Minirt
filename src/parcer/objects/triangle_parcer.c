@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triangle_parcer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:59:13 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/24 09:09:57 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:15:49 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,15 @@ bool	triangle_parcer(char *line, t_data *data)
 	if (!cordinate_parcer(&line, &triangle->cord3, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
 	line += skip_spaces(line);
-	if (!color_parcer(line, &triangle->clr))
-		return (ft_putendl_fd("minirt: tr invalid color format", 2), false);
+	int a = color_parcer(line, &triangle->clr);
+	if (a == -1)
+		return (ft_putendl_fd("minirt: triangle invalid color format", 2), false);
+	line += skip_spaces(line + a) + a;
+	ft_atod(&line, &triangle->spec.intensity, INT_MAX, INT_MIN);
+	line += skip_spaces(line);
+	ft_atod(&line, &triangle->spec.shininess_factor, 1, 0);
+	line += skip_spaces(line);
+	ft_atod(&line, &triangle->spec.reflection, 1, 0);
 	object = newobject(triangle, TRIANGLE);
 	if (!object)
 		return (false);
