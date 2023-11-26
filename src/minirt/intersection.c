@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/22 13:36:04 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/26 07:54:57 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,14 +169,59 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		*rec = tmp_rec;
 	return (rec->t < M_D && rec->t > eps);
 }
+void	tri_properties(t_triangle *triangle)
+{
+	triangle->edge0 = vec_sub(triangle->cord2, triangle->cord1);
+	triangle->edge1 = vec_sub(triangle->cord3, triangle->cord2);
+	triangle->edge2 = vec_sub(triangle->cord1, triangle->cord3);
+	triangle->normalizer = cross_product(triangle->edge0, triangle->edge1);
+	// normalize(&triangle->normalizer);
+}
+
+bool	check_tri_inter(t_hit_record *rec, t_triangle *tri)
+{
+	t_vec c1, c2, c3;
+	c1 = vec_sub(rec->pHit, tri->cord1);
+	c2 = vec_sub(rec->pHit, tri->cord2);
+	c3 = vec_sub(rec->pHit, tri->cord3);
+	if (dot_product(cross_product(tri->edge0, c1), tri->normalizer) > 0 &&
+		dot_product(cross_product(tri->edge1, c2), tri->normalizer) > 0 &&
+		dot_product(cross_product(tri->edge2, c3), tri->normalizer) > 0)
+	{
+		rec->h_color = create_vec((double)(tri->clr.r) / 255, (double)(tri->clr.g) / 255, (double)(tri->clr.b) / 255);
+		return (true);
+	}	
+	return (false);
+		
+}
+bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
+{
+	t_triangle	*triangle;
+	double		dis;
+	double 		dinom;
+
+	triangle = (t_triangle *)obj->object;
+	tri_properties(triangle);
+	dinom = dot_product(ray->direction, triangle->normalizer);
+	if (fabs(dinom) < eps)
+		return (false);
+	dis = -dot_product(triangle->normalizer, triangle->cord1);
+	rec->t = -(dot_product(ray->origin, triangle->normalizer) + dis) / dinom;
+	if (rec->t < eps)
+		return (false);
+	rec->pHit = at(rec->t, *ray);
+	return (check_tri_inter(rec, triangle));
+}
+
 
 inter_func	intersect(int type)
 {
 	t_objects	*obj;
-	inter_func 		obj_inter[3];
+	inter_func 		obj_inter[4];
 	obj_inter[SPHERE] = sphere_hit;
 	obj_inter[PLANE] = plan_hit;
 	obj_inter[CYLENDER] = f_cylinder_render;
+	obj_inter[TRIANGLE] = triangle_hit;
 	return (*(obj_inter + type));
 }
 

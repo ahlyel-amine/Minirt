@@ -11,10 +11,10 @@ enum	types
 	SPHERE		= 0x00,
 	CYLENDER	= 0x01,
 	PLANE		= 0x02,
-	LIGHTING	= 0x03,
-	CAMERA		= 0x04,
-	LIGHT		= 0x05,
-	TRIANGLE	= 0x06,
+	TRIANGLE	= 0x03,
+	LIGHTING	= 0x04,
+	CAMERA		= 0x05,
+	LIGHT		= 0x06,
 	INVALID		= 0x20,
 };
 

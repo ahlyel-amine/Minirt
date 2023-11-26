@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/24 09:35:55 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/24 09:42:23 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		return ((t_vec){0,0,0}/*0xccaabb*/);
 	light_effect = get_light_effect(data, rays, obj, rec);
 	level -= 1;
-	if (data->objects->type == SPHERE && level > 0)
+	if (obj->type == SPHERE && level > 0)
 	{
 		ref_ray.ray.origin = rec->pHit;
 		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));

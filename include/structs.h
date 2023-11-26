@@ -85,6 +85,9 @@ typedef struct s_triangle
 	t_vec	cord1;
 	t_vec	cord2;
 	t_vec	cord3;
+	t_vec	edge0;
+	t_vec	edge1;
+	t_vec	edge2;
 	t_vec 	normalizer;
 }	t_triangle;
 
