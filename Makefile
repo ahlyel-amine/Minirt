@@ -14,7 +14,8 @@ SRC			=	$(shell ls $(OBJECTS)*.c)\
 				src/debug_tools.c
 INCLUDES	= -Iinclude -Ilibft/include
 OBJ_DIR 	= obj
-FLAGS		= -fsanitize=address
+FLAGS		= 
+# -fsanitize=address -g
 # -Wall -Wextra -Werror -fsanitize=address
 NAME		= Minirt
 LIBFT_NAME	= libft/bin/libft.a

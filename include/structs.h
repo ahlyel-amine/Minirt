@@ -88,6 +88,18 @@ typedef struct s_sphere
 	t_vec	cord;
 }	t_sphere;
 
+typedef struct s_triangle
+{
+	t_color	clr;
+	t_vec	cord1;
+	t_vec	cord2;
+	t_vec	cord3;
+	t_vec	edge0;
+	t_vec	edge1;
+	t_vec	edge2;
+	t_vec 	normalizer;
+}	t_triangle;
+
 typedef	struct s_object
 {
 	unsigned char	type;
@@ -100,6 +112,7 @@ typedef struct s_counter
 	int sphere;
 	int cylender;
 	int plane;
+	int triangle;
 }	t_counter;
 
 typedef	struct s_data
@@ -136,12 +149,14 @@ typedef struct s_light_effect
 	t_vec	ambient;
 	t_vec	diffuse;
 	t_vec	specular;
+	t_vec	reflect;
 }	t_light_effect;
 
 typedef struct s_rays
 {
 	t_ray	ray;
 	t_ray	shadow_ray;
+	t_objects	*closet_obj;
 }	t_rays;
 
 typedef struct s_dataset

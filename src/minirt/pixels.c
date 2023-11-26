@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/25 03:59:39 by aahlyel          ###   ########.fr       */
+=======
+/*   Updated: 2023/11/26 13:12:09 by aelbrahm         ###   ########.fr       */
+>>>>>>> vec_
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +21,7 @@
 #include "vector.h"
 #include "draw.h"
 #include "tools.h"
+#include "draw.h"
 
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 {
