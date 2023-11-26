@@ -3,6 +3,12 @@
 	"files.associations": {
 		"*.excalidraw": "json",
 		"*.excalidrawlib": "json",
-		"structs.h": "c"
+		"structs.h": "c",
+		"vector.h": "c",
+		"library.h": "c",
+		"minirt.h": "c",
+		"tools.h": "c",
+		"draw.h": "c",
+		"iosfwd": "cpp"
 	}
 }

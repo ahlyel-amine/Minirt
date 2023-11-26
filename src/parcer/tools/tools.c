@@ -3,16 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 22:41:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/24 09:18:03 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include "structs.h"
 #include "libft.h"
+
+void	clearobjs(t_objects **lst)
+{
+	t_objects	*tmp;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free ((*lst)->object);
+		free(*lst);
+		*lst = tmp;
+	}
+}
+void	clearlights(t_light **lst)
+{
+	t_light	*tmp;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
+	}
+}
 
 int	skip_spaces(char *str)
 {

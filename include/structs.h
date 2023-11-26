@@ -44,6 +44,8 @@ typedef struct s_camera
 	t_vec			normalized;
 	t_vec			up;
 	t_vec			right;
+	double			scale;
+	double			aspect_ratio;
 }	t_camera;
 
 typedef struct s_light
@@ -51,6 +53,7 @@ typedef struct s_light
 	t_color	clr;
 	double	brightness;
 	t_vec	cord;
+	struct s_light	*next;
 }	t_light;
 
 typedef struct s_plane
@@ -76,6 +79,18 @@ typedef struct s_sphere
 	t_vec	cord;
 }	t_sphere;
 
+typedef struct s_triangle
+{
+	t_color	clr;
+	t_vec	cord1;
+	t_vec	cord2;
+	t_vec	cord3;
+	t_vec	edge0;
+	t_vec	edge1;
+	t_vec	edge2;
+	t_vec 	normalizer;
+}	t_triangle;
+
 typedef	struct s_object
 {
 	unsigned char	type;
@@ -88,13 +103,14 @@ typedef struct s_counter
 	int sphere;
 	int cylender;
 	int plane;
+	int triangle;
 }	t_counter;
 
 typedef	struct s_data
 {
 	t_objects	*objects;
 	t_lighting	lighting;
-	t_light		light;
+	t_light		*light;
 	t_counter	counter;
 	t_camera	camera;
 }	t_data;
@@ -115,8 +131,34 @@ typedef struct s_hit_record
 {
 	double	t;
 	t_vec	pHit;
-	t_vec	nHit;	
+	t_vec	nHit;
+	t_vec 	h_color;	
 }	t_hit_record;
+
+typedef struct s_light_effect
+{
+	t_vec	ambient;
+	t_vec	diffuse;
+	t_vec	specular;
+	t_vec	reflect;
+}	t_light_effect;
+
+typedef struct s_rays
+{
+	t_ray	ray;
+	t_ray	shadow_ray;
+	t_objects	*closet_obj;
+}	t_rays;
+
+typedef struct s_dataset
+{
+	t_mrt *m_rt;
+	t_data data;
+	int s_x;
+	int s_y;
+	int e_x;
+	int e_y;
+}	t_dataset;
 
 // typedef enum e_bool
 // {
