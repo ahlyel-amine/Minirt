@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/26 14:26:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:30:53 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		level;
 	return (raytrace(data, &ref_ray, rec, level));
 }
 
+
+
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 {
 	t_light_effect light_effect;
@@ -54,10 +56,10 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 	rays->closet_obj = get_closes_object(&(rays->ray), data->objects, rec);
 	obj = rays->closet_obj;
 	if (!rays->closet_obj)
-		return ((t_vec){0,0,0}/*0xccaabb*/);
+		return ((t_vec){0,0,0});
 	light_effect = get_light_effect(data, rays, obj, rec);
 	level -= 1;
-	if ((obj->type == TRIANGLE || obj->type == PLANE) && level > 0)
+	if (level > 0)
 	{
 		ref_ray.ray.origin = rec->pHit;
 		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
@@ -65,10 +67,9 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		normalize(&(ref_ray.ray.direction));
 		light_effect.reflect = raytrace(data, &ref_ray, rec, level);
 	}	
-
 	if (level <= 0)
 		obj = NULL;
-	t_vec color = convert_light(obj, light_effect);
+	t_vec color = convert_light(level, light_effect, obj);
 	// nineties(&color);
 	return (color);
 }
@@ -83,12 +84,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	
 	normalize(&(rays->shadow_ray.direction));
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
-		// printf("origin type : %d\n",obj->type);
-
 	objt = get_closes_object2(&(rays->shadow_ray), obj, &h_shadow);
-	// if (objt)
-	// 	printf("origin type : %d------type : %d\n",obj->type, objt->type);
-	
 	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
 }
 

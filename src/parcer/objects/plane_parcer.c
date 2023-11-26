@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:53 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/20 16:34:50 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:31:01 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ bool plane_parcer(char *line, t_data *data)
 	int a = color_parcer(line, &plane->clr);
 	if (a == -1)
 		return (ft_putendl_fd("minirt: plane invalid color format", 2), false);
-	line += skip_spaces(line + a) +a ;
+	line += skip_spaces(line + a) + a;
 	ft_atod(&line, &plane->spec.intensity, INT_MAX, INT_MIN);
 	line += skip_spaces(line);
-	ft_atod(&line, &plane->spec.shininess_factor, INT_MAX, INT_MIN);
+	ft_atod(&line, &plane->spec.shininess_factor, 1, 0);
+	line += skip_spaces(line);
+	ft_atod(&line, &plane->spec.reflection, 1, 0);
 	object = newobject(plane, PLANE);
 	if (!object)
-		return (false);
+		return (false);  
 	addobject_front(&data->objects, object);
 	return (true);
 }
