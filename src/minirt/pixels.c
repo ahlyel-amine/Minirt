@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/21 19:33:30 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:12:09 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 	r_color.v_x = f_c.v_x * p1 + s_c.v_x * p2;
 	r_color.v_y = f_c.v_y * p1 + s_c.v_y * p2;
 	r_color.v_z = f_c.v_z * p1 + s_c.v_z * p2;
-	color_range_norm(&r_color);
+	// color_range_norm(&r_color);
 	return (r_color);
 }
 

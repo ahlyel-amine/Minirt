@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/26 07:54:57 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:48:32 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	rec->pHit = at(rec->t, *ray);
 	v = vec_sub(rec->pHit, cylinder->cord);
 	rec->nHit = normalized(cross_product(cross_product(v, cylinder->normalized), cylinder->normalized));
-	if (dot_product(rec->nHit, ray->direction))
+	if (dot_product(rec->nHit, ray->direction) > 0)
 		rec->nHit = vec_nega(rec->nHit);
 	if (pow(distance(cylinder->cord, rec->pHit), 2) > (pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2)))
 		return false;
@@ -142,6 +142,7 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	t_cylender	*cylinder;
 	t_objects		*plan;
+
 	rec->t = M_D;
 	plan = malloc(sizeof(t_objects));
 	plan->next = NULL;
@@ -151,21 +152,15 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	cylinder = obj->object;
 	calculate_disk_plan(cylinder, plan,true);
 	((t_plane *)(plan->object))->clr = cylinder->clr;
-	// printf("plan type %f %f %f\n", ((t_plane *)(plan->object))->cord.v_x, ((t_plane *)(plan->object))->cord.v_y, ((t_plane *)(plan->object))->cord.v_z);
-	// printf("obj->type %d\n", plan.type);
-		
 	calculate_disk_plan(cylinder, plan, false);
-	// printf("plan2 type %f %f %f\n", ((t_plane *)(plan->object))->cord.v_x, ((t_plane *)(plan->object))->cord.v_y, ((t_plane *)(plan->object))->cord.v_z);
-
 	if (plan_hit(ray, plan, &tmp_rec)
-		&& distance(tmp_rec.pHit, ((t_plane *)(plan->object))->cord) <= ((cylinder->diameter * 0.5) - 0.002)
+		&& distance(tmp_rec.pHit, ((t_plane *)(plan->object))->cord) \
+		<= ((cylinder->diameter * 0.5) - 0.002)
 		&& rec->t > tmp_rec.t)
-	{
 		*rec = tmp_rec;
-		// puts("here");
-	}	
 	if (cylinder_hit(ray, cylinder, &tmp_rec)
-		&& pow(distance(cylinder->cord, tmp_rec.pHit), 2) <= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))
+		&& pow(distance(cylinder->cord, tmp_rec.pHit), 2) \
+		<= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))
 		*rec = tmp_rec;
 	return (rec->t < M_D && rec->t > eps);
 }
@@ -188,6 +183,7 @@ bool	check_tri_inter(t_hit_record *rec, t_triangle *tri)
 		dot_product(cross_product(tri->edge1, c2), tri->normalizer) > 0 &&
 		dot_product(cross_product(tri->edge2, c3), tri->normalizer) > 0)
 	{
+		// rec->nHit = normalized(tri->normalizer);
 		rec->h_color = create_vec((double)(tri->clr.r) / 255, (double)(tri->clr.g) / 255, (double)(tri->clr.b) / 255);
 		return (true);
 	}	
@@ -210,7 +206,14 @@ bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	if (rec->t < eps)
 		return (false);
 	rec->pHit = at(rec->t, *ray);
-	return (check_tri_inter(rec, triangle));
+	if (check_tri_inter(rec, triangle))
+	{
+		if (dot_product(rec->nHit, ray->direction) > 0)
+			rec->nHit = vec_nega(rec->nHit);
+		return (true);
+	}
+	return (false);
+	// return (check_tri_inter(rec, triangle));
 }
 
 
@@ -256,10 +259,10 @@ t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	t_objects	*object;
 	double		closest_so_far;
 	double		temp;
+
 	t_hit_record	temp_rec;
 	closest_so_far = INFINITY;
 	object = NULL;
-
 	while (obj)
 	{
 		if (intersect(obj->type)(ray, obj, &temp_rec) && obj->type != PLANE)
