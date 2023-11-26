@@ -62,11 +62,6 @@ typedef struct s_light
 	struct s_light	*next;
 }	t_light;
 
-typedef struct s_specular_light
-{
-	double	intensity;
-	double	shininess_factor;
-}	t_specular_light;
 
 typedef struct s_plane
 {
