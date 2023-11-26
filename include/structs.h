@@ -15,6 +15,12 @@ typedef struct s_vec
 	double	v_z;
 }	t_vec;
 
+typedef struct s_specular_light
+{
+	double	intensity;
+	double	reflection;
+	double	shininess_factor;
+}	t_specular_light;
 
 typedef struct s_ray
 {
@@ -90,6 +96,7 @@ typedef struct s_sphere
 
 typedef struct s_triangle
 {
+	t_specular_light spec;
 	t_color	clr;
 	t_vec	cord1;
 	t_vec	cord2;

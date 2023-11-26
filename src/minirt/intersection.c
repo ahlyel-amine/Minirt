@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/26 13:48:32 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:32:16 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ bool	check_tri_inter(t_hit_record *rec, t_triangle *tri)
 		dot_product(cross_product(tri->edge1, c2), tri->normalizer) > 0 &&
 		dot_product(cross_product(tri->edge2, c3), tri->normalizer) > 0)
 	{
-		// rec->nHit = normalized(tri->normalizer);
+		rec->nHit = normalized(tri->normalizer);
 		rec->h_color = create_vec((double)(tri->clr.r) / 255, (double)(tri->clr.g) / 255, (double)(tri->clr.b) / 255);
 		return (true);
 	}	

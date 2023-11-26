@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/20 16:34:27 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:31:20 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ bool cylender_parcer(char *line, t_data *data)
 	int a = color_parcer(line, &cylender->clr);
 	if (a == -1)
 		return (ft_putendl_fd("minirt: cylender invalid color format", 2), false);
-	line += skip_spaces(line + a) +a ;
+	line += skip_spaces(line + a) + a;
 	ft_atod(&line, &cylender->spec.intensity, INT_MAX, INT_MIN);
 	line += skip_spaces(line);
-	ft_atod(&line, &cylender->spec.shininess_factor, INT_MAX, INT_MIN);
+	ft_atod(&line, &cylender->spec.shininess_factor, 1, 0);
+	line += skip_spaces(line);
+	ft_atod(&line, &cylender->spec.reflection, 1, 0);
 	object = newobject(cylender, CYLENDER);
 	if (!object)
 		return (false);
