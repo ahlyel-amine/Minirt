@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:55:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/20 22:44:03 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:24:34 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ void	print_scean(t_data data)
         else if (data.objects->type == CYLENDER)
         {
             t_cylender	*object = (t_cylender *)data.objects->object;
-            printf("cylender:\t%.2f,%.2f,%.2f\t%.2f,%.2f,%.2f\t%.2f\t%.2f\t%d,%d,%d\t\t%.2f\t%.2f\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
-            object->diameter, object->height,  object->clr.r, object->clr.g, object->clr.b, object->spec.intensity, object->spec.shininess_factor);
-        } 
+            printf("cylender:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
+            object->diameter, object->height,  object->clr.r, object->clr.g, object->clr.b);
+        }
+		else if (data.objects->type == TRIANGLE)
+		{
+			t_triangle	*object = (t_triangle *)data.objects->object;
+			printf("triangle:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%d,%d,%d\n", object->cord1.v_x, object->cord1.v_y, object->cord1.v_z, object->cord2.v_x, object->cord2.v_y, object->cord2.v_z, \
+			object->cord3.v_x, object->cord3.v_y, object->cord3.v_z, object->clr.r, object->clr.g, object->clr.b);
+		}
         data.objects = data.objects->next;
     }
 }

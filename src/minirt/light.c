@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/25 03:57:14 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:23:33 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,18 +139,20 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	return (effect);
 }
 
-t_vec	convert_light(t_light_effect effect)
+t_vec	convert_light(t_objects *obj, t_light_effect effect)
 {
 	t_vec	res;
-
-	res.v_x = effect.ambient.v_x + effect.diffuse.v_x + effect.specular.v_x;;
-	res.v_y = effect.ambient.v_y + effect.diffuse.v_y + effect.specular.v_y;;
-	res.v_z = effect.ambient.v_z + effect.diffuse.v_z + effect.specular.v_z;;
+	t_vec	f_c;
+	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
+	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
+	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
+	// f_c = 
+	if (obj)
+		res = c_color(res, effect.reflect, 1 - 0.8, 0.8);
 	color_range_norm(&res);
 	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);
 }
-
 void	nineties(t_vec *color)
 {
 	color->v_x = MIN(color->v_x, 1.0);

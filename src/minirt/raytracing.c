@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/25 03:58:13 by aahlyel          ###   ########.fr       */
+=======
+/*   Updated: 2023/11/26 13:50:15 by aelbrahm         ###   ########.fr       */
+>>>>>>> vec_
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +36,45 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
 	normalize(&ray->direction);
 }
+t_vec	get_ref_ray_color(rec, ray, data, level)
+t_hit_record *rec;
+t_rays *ray;
+t_data *data;
+int		level;
+{
+	t_rays	ref_ray;
+	ref_ray.ray.origin = rec->pHit;
+	ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(ray->ray.direction, rec->nHit));
+	ref_ray.ray.direction = vec_sub(ray->ray.direction, ref_ray.ray.direction);
+	normalize(&(ref_ray.ray.direction));
+	return (raytrace(data, &ref_ray, rec, level));
+}
 
-int	raytrace(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
+t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 {
 	t_light_effect light_effect;
-	t_objects	*object;
+	t_objects	*obj;
+	t_rays		ref_ray;
+	rays->closet_obj = get_closes_object(&(rays->ray), data->objects, rec);
+	obj = rays->closet_obj;
+	if (!rays->closet_obj)
+		return ((t_vec){0,0,0}/*0xccaabb*/);
+	light_effect = get_light_effect(data, rays, obj, rec);
+	level -= 1;
+	if ((obj->type == TRIANGLE || obj->type == PLANE) && level > 0)
+	{
+		ref_ray.ray.origin = rec->pHit;
+		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
+		ref_ray.ray.direction = vec_sub(rays->ray.direction, ref_ray.ray.direction);
+		normalize(&(ref_ray.ray.direction));
+		light_effect.reflect = raytrace(data, &ref_ray, rec, level);
+	}	
 
-	object = get_closes_object(&(rays->ray), obj, rec);
-	if (!object)
-		return (0x0/*0xccaabb*/);
-	light_effect = get_light_effect(data, rays, object, rec);
-	t_vec color = convert_light(light_effect);
+	if (level <= 0)
+		obj = NULL;
+	t_vec color = convert_light(obj, light_effect);
 	// nineties(&color);
-	// printf("color: %.2f %.2f %.2f\n", color.v_x, color.v_y, color.v_z);
-	int rgb = rgb_to_int(color);
-	// printf("rgb: %d\n", rgb);
-	return (rgb);
+	return (color);
 }
 
 bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
@@ -82,7 +109,7 @@ void	*draw(void *alo)
 		for (int i = ptr->s_x; i < ptr->e_x; i++)
 		{
 			Prime_ray(ptr->m_rt, i, j, &(rays.ray), &ptr->data.camera);
-			my_mlx_put(ptr->m_rt, i, j, raytrace(&ptr->data, &rays, ptr->data.objects, &rec));
+			my_mlx_put(ptr->m_rt, i, j, rgb_to_int(raytrace(&ptr->data, &rays, &rec, REF_LEVEL)));
 		}
 	}
 	return (NULL);
