@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:53:27 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 16:05:10 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@
 #include "draw.h"
 #include "tools.h"
 #include "draw.h"
+
+void color_range_norm(t_vec *color)
+{
+	if (color->v_x > 1)
+		color->v_x = 1.0;
+	if (color->v_y > 1.0)
+		color->v_y = 1.0;
+	if (color->v_z > 1.0)
+		color->v_z = 1.0;
+	if (color->v_x < 0)
+		color->v_x = 0.0;
+	if (color->v_y < 0)
+		color->v_y = 0.0;
+	if (color->v_z < 0)
+		color->v_z = 0.0;
+}
 
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 {

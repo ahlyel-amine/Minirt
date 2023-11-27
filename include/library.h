@@ -18,7 +18,7 @@ enum	types
 };
 
 
-#define	MAX_OBJECTS	7
+#define	MAX_OBJECTS	6
 
 #define	S_SPHERE	"sp"
 #define	S_CYLENDER	"cy"
