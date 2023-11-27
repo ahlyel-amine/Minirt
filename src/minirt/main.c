@@ -6,18 +6,14 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:53:42 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:50:51 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
-#include "libft.h"
-#include "library.h"
 #include "minirt.h"
-#include "vector.h"
-#include "draw.h"
+#include "libft.h"
 #include "tools.h"
-#include <pthread.h>
 #include <mlx.h>
 
 bool	make_image(t_mrt *scean)
@@ -40,7 +36,6 @@ bool	make_image(t_mrt *scean)
 int main(int ac, char **av)
 {
 	t_data		data;
-	pthread_t	th[10];
 	t_dataset	ptr[10];
 	t_mrt		scean;
 

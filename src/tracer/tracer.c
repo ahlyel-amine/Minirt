@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a.c                                                :+:      :+:    :+:   */
+/*   tracer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 17:52:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/03 23:19:24 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/11/27 16:03:33 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/11/27 16:04:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <stdbool.h>
-#include <limits.h>
+#include "structs.h"
 
-int main(int ac, char **av)
+void	draw(t_data data, t_mrt *scean)
 {
-	char *alo = ft_strdup("alo mok dsj dnij eidj jdsfio");
+	t_hit_record	rec;
+	t_rays			rays;
 
-	char *splited = ft_split(alo, ' ')[4];
-	
-	
-	
+	ft_memset(&rays, 0, sizeof(t_rays));
+	for (int j = 0; j < HEIGHT; j++)
+	{
+		for (int i = 0; i < WIDTH; i++)
+		{
+			Prime_ray(scean, i, j, &(rays.ray), &data.camera);
+			my_mlx_put(scean, i, j, rgb_to_int(raytrace(&data, &rays, &rec)));
+		}
+	}
 }
-

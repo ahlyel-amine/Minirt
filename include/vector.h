@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 08:47:16 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/10/24 03:52:18 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:18:58 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define VECTOR_H
 # include "structs.h"
 # include <math.h>
+
 double	sqr(double x);
 double	length(t_vec v);
-
 t_vec	create_vec(double x, double y, double z);
 t_vec	create_vec_from_scalar(double s);
 double	v_length(t_vec v);

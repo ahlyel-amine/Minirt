@@ -6,17 +6,14 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:50:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:56:56 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "tracer.h"
 #include "structs.h"
-#include "libft.h"
-#include "library.h"
-#include "minirt.h"
-#include "draw.h"
-#include "vector.h"
 #include "tools.h"
+
 
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
@@ -31,6 +28,19 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ray->direction.v_z = 1;
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
 	normalize(&ray->direction);
+}
+
+bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
+{
+	t_hit_record	h_shadow;
+	t_objects		*objt;
+
+	rays->shadow_ray.origin = rec->pHit;
+	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
+	normalize(&(rays->shadow_ray.direction));
+	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
+	objt = get_first_close_object(&(rays->shadow_ray), obj, &h_shadow);
+	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
 }
 
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
@@ -50,34 +60,4 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
 	normalize(&(ref_ray.ray.direction));
 	t_vec color = convert_light(light_effect, obj);
 	return (color);
-}
-
-bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
-{
-	t_hit_record	h_shadow;
-	t_objects		*objt;
-
-	rays->shadow_ray.origin = rec->pHit;
-	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
-	
-	normalize(&(rays->shadow_ray.direction));
-	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
-	objt = get_closes_object2(&(rays->shadow_ray), obj, &h_shadow);
-	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
-}
-
-void	draw(t_data data, t_mrt *scean)
-{
-	t_hit_record	rec;
-	t_rays			rays;
-
-	ft_memset(&rays, 0, sizeof(t_rays));
-	for (int j = 0; j < HEIGHT; j++)
-	{
-		for (int i = 0; i < WIDTH; i++)
-		{
-			Prime_ray(scean, i, j, &(rays.ray), &data.camera);
-			my_mlx_put(scean, i, j, rgb_to_int(raytrace(&data, &rays, &rec)));
-		}
-	}
 }

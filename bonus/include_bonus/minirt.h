@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/27 14:17:05 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:51:21 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ double distance(t_vec v, t_vec u);
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
 t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec);
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
-// t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular_light refl);
-t_vec	convert_light(t_light_effect effect, t_objects *obj, t_specular_light refl);
+t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular_light refl);
+// t_vec	convert_light(t_light_effect effect, t_objects *obj, t_specular_light refl);
 // t_vec	convert_light(int level, t_light_effect effect, t_objects *obj);
 
 

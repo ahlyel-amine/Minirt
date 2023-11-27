@@ -13,4 +13,5 @@ int 	rgb_to_int(t_coord color);
 t_vec   merge_light(t_vec color, t_color light_color, double ratio);
 bool    shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec);
 t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec);
+
 #endif
