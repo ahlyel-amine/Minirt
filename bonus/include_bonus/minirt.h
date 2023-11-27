@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/27 14:47:55 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:17:05 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 #include <stdbool.h>
 #include "structs.h"
 #define MIN(X, Y)((X) < (Y) ? (X) : (Y))
-
+#define REF_LEVEL 5
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 bool	parcer(char *scene, t_data	*data);
 
 //--------------------intersection--------------------
 
-bool	    sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
-bool	    plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
-bool	    f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
+bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
+bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
+bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
 inter_func	intersect(int type);
 
 //--------------------camera--------------------
@@ -36,6 +36,7 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
 void	lookat(t_mrt *rt, t_camera *cam);
 
 
+void	print_scean(t_data data);
 void print_vec(char *str, t_vec vec);
 double distance(t_vec v, t_vec u);
 
@@ -43,12 +44,8 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
 t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec);
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
 // t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular_light refl);
-// t_vec	convert_light(t_light_effect effect, t_objects *obj, t_specular_light refl);
+t_vec	convert_light(t_light_effect effect, t_objects *obj, t_specular_light refl);
 // t_vec	convert_light(int level, t_light_effect effect, t_objects *obj);
-t_vec	convert_light(t_light_effect effect, t_objects *obj);
 
-
-
-void	print_scean(t_data data);
 
 #endif

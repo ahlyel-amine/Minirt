@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:54:53 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/17 09:40:46 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdbool.h>
 #include "libft.h"
 #include "tools.h"
-#include "structs.h"
 
 static int	ft_datoi(char **str)
 {
@@ -33,6 +32,7 @@ static int	ft_datoi(char **str)
 	return ((int)(res * sign));
 }
 
+#include "structs.h"
 bool	check_boundries(char **ascii, int marge)
 {
 	int i;

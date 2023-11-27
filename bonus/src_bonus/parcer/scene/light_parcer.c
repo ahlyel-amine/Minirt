@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lighting_parcer.c                                  :+:      :+:    :+:   */
+/*   light_parcer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 17:23:23 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:37:32 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/08/01 17:23:47 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/11/20 16:19:08 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@
 #include <stdbool.h>
 #include <limits.h>
 
-bool	lighting_parcer(char *line, t_data *data)
+bool light_parcer(char *line, t_data *data)
 {
-	bool		success;
-	static bool	visited;
+	t_light	*light;
+	t_light	single_light;
 
-	if (visited)
-		return (ft_putendl_fd("minirt: error: duplicate of lighting information", 2), false);
-	visited = true;
-	success = true;
 	line += 2;
-	if (!ft_atod(&line, &data->lighting.ratio, 1, 0))
-		return (ft_putendl_fd("minirt: invalid ambient lighting value", 2), false);
+	if (!cordinate_parcer(&line, &single_light.cord, INT_MAX, INT_MIN))
+		return (ft_putendl_fd("minirt: light invalid cordinate format", 2), false);
+	if (!ft_atod(&line, &single_light.brightness, 1, 0))
+		return (ft_putendl_fd("minirt: light invalid brightness format", 2), false);
 	line += skip_spaces(line);
-	if (!color_parcer(line, &data->lighting.clr))
-		return (ft_putendl_fd("minirt: lighting invalid color format", 2), false);
+	if (color_parcer(line, &single_light.clr) == -1)
+		return (ft_putendl_fd("minirt: light invalid color format", 2), false);
+	light = newlight(single_light);
+	if (!light)
+		return (false);
+	addlight(&data->light, light);
 	return (true);
 }

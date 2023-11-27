@@ -11,5 +11,9 @@ bool    	ft_atod(char **ascii, double *result, int marge_max, int marge_min);
 t_objects	*newobject(void *object, unsigned char type);
 bool    	make_threads(t_mrt *scean, t_data data);
 void	    clearobjs(t_objects **lst);
+void		clearlights(t_light **lst);
+t_light 	*newlight(t_light new);
+void        addlight(t_light **lst, t_light *new);
 
+t_specular_light		get_specular_addr(t_objects *obj);
 #endif

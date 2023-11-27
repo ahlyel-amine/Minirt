@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/26 14:30:37 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:46:11 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,64 +42,8 @@ t_vec merge_light(t_vec color, t_color light_color, double ratio)
 	res.v_y = color.v_y * ((double)(light_color.g) / 255) * ratio;
 	res.v_z = color.v_z * ((double)(light_color.b) / 255) * ratio;
 	color_range_norm(&res);
-	// printf("res: %.2f %.2f %.2f\n", res.v_x, res.v_y, res.v_z);
 	return (res);
 }
-t_specular_light		get_specular_addr(t_objects *obj)
-{
-	if (obj->type == PLANE)
-		return (((t_plane *)obj->object)->spec);
-	else if (obj->type == SPHERE)
-		return (((t_sphere *)obj->object)->spec);
-	else if (obj->type == CYLENDER)
-		return (((t_cylender *)obj->object)->spec);
-	else
-		return (((t_triangle *)obj->object)->spec);
-}
-
-t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hit_record *rec)
-{
-	t_vec	specular;
-	t_vec	reflect;
-	t_vec	view;
-	double	spec;
-	double	coef;
-	double	thita;
-	ft_memset(&specular, 0, sizeof(t_vec));
-	view = scalar_mult(scalar_mult(rec->nHit, 2.0), dot_product(vec_nega(rec->nHit), rays->shadow_ray.direction));
-	reflect = vec_addition(rays->shadow_ray.direction, view);
-	thita = dot_product(reflect, view);
-	if (thita > eps)
-	{
-		spec = pow(thita, speclr.shininess_factor);
-		specular = scalar_mult((t_vec){1, 1, 1}, spec);
-		specular = merge_light(specular, light->clr, light->brightness * speclr.intensity);
-	}
-	return (specular);
-}
-// t_vec	specular_light(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
-// {
-// 	t_vec	specular;
-// 	t_vec	reflect;
-// 	t_vec	view;
-// 	double	spec;
-// 	double	coef;
-// 	double	thita;
-	
-// 	coef = 0.1;
-// 	reflect = vec_sub(rays->shadow_ray.direction, scalar_mult(rec->nHit, 2 * dot_product(rays->shadow_ray.direction, rec->nHit)));
-// 	view = vec_sub(rays->ray.direction, scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit)));
-// 	thita = dot_product(reflect, view);
-// 	if (thita > eps)
-// 	{
-// 		spec = pow(thita, 5);
-// 		specular = scalar_mult((t_vec){1, 1, 1}, spec);
-// 		specular = merge_light(specular, light->clr, light->brightness * coef);
-// 	}
-// 	else
-// 		specular = (t_vec){0, 0, 0};
-// 	return (specular);
-// }
 
 t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 {
@@ -116,36 +60,26 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 {
 	t_light_effect	effect;
 	double			thita;
+
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
-	t_light *alo = data->light;
-	while (alo)
-	{
-		bool inShadow = shadow_ray(rays, alo, obj, rec);
-		effect.specular =  vec_addition(effect.specular, specular_light(rays, alo, get_specular_addr(obj), rec));
-		if (!inShadow)
-			effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, alo, rec), 1, 1);
-		alo = alo->next;
-	}
+	if (!shadow_ray(rays, &data->light, obj, rec))
+		effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, &data->light, rec), 1, 1);
 	return (effect);
 }
 
-t_vec	convert_light(int level, t_light_effect effect, t_objects *obj)
+t_vec	convert_light(t_light_effect effect, t_objects *obj)
 {
 	t_vec	res;
-	t_specular_light refl;
-	res.v_x = effect.ambient.v_x + effect.diffuse.v_x + effect.specular.v_x;
-	res.v_y = effect.ambient.v_y + effect.diffuse.v_y + effect.specular.v_y;
-	res.v_z = effect.ambient.v_z + effect.diffuse.v_z + effect.specular.v_z;
-	if (level > 0 && refl.reflection > 0)
-	{
-		refl = get_specular_addr(obj);
-		res = c_color(res, effect.reflect, 1 - refl.reflection, refl.reflection);
-	}
+
+	res.v_x = effect.ambient.v_x + effect.diffuse.v_x;
+	res.v_y = effect.ambient.v_y + effect.diffuse.v_y;
+	res.v_z = effect.ambient.v_z + effect.diffuse.v_z;
 	color_range_norm(&res);
 	return (res);
 }
+
 void	nineties(t_vec *color)
 {
 	color->v_x = MIN(color->v_x, 1.0);
