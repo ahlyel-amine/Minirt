@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   addobject_front.c                                  :+:      :+:    :+:   */
+/*   a.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:26:21 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/08/01 17:52:38 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/08/03 23:19:24 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
+#include "libft.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
 
-void	addobject_front(t_objects **lst, t_objects *new)
+int main(int ac, char **av)
 {
-	if (new && lst)
-	{
-		new->next = *lst;
-		*lst = new;
-	}
+	char *alo = ft_strdup("alo mok dsj dnij eidj jdsfio");
+
+	char *splited = ft_split(alo, ' ')[4];
+	
+	
+	
 }
 
-void	addobject_back(t_objects **lst, t_objects *new)
-{
-	t_objects *tmp;
-
-	tmp = *lst;
-	if (new && lst)
-	{
-		if (!tmp)
-		{
-			*lst = new;
-			return; 
-		}
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}

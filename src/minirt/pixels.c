@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/26 14:25:58 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:53:27 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 	return (r_color);
 }
 
-
 void	my_mlx_put(t_mrt *rt, int x, int y, int color)
 {
 	int	iter;
 	
-	// if ( x < (WIDTH - FRAME) && x >= FRAME && y >= FRAME && y < (HEIGHT - FRAME))
 	if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
 	{
 		iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
-		// printf("rt->bit_per_px: %d rt->line_len: %d\n", rt->bit_per_px, rt->line_len);
 		rt->mlx_add[iter] = color;
 		rt->mlx_add[++iter] = (color >> 8) & 0xFF;
 		rt->mlx_add[++iter] = (color >> 16) & 0xFF;

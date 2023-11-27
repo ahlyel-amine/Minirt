@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/26 14:32:16 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:49:05 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "library.h"
 #include "vector.h"
 #include "../../libft/include/libft.h"
-
 
 bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
@@ -27,7 +26,6 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	oc = vec_sub(ray->origin, sphere->cord);
 	p.a = dot_product(ray->direction, ray->direction);
 	p.b = dot_product(oc, ray->direction);
-
 	p.c = dot_product(oc, oc) - pow(sphere->diameter/2, 2);
 	discriminant = p.b * p.b - (p.a * p.c);
 	if (discriminant < eps)
@@ -41,7 +39,7 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 			if (tmp <= eps || tmp >= M_D)
 				return (false);		
 		}
-	}else
+	} else
 	{
 		tmp = -p.b / p.a;
 		if (tmp <= eps || tmp >= M_D)
@@ -50,11 +48,7 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	rec->t = tmp;
 	rec->pHit = at(rec->t, *ray);
 	t_vec norm = vec_sub(rec->pHit, sphere->cord);
-	// if (dot_product(norm, norm) == 0.0)
-	// 	return (false);
 	rec->nHit = normalize(&norm);
-	
-	// printf("sphere clooor %d %d %d\n", sphere->clr.r, sphere->clr.g, sphere->clr.b);
 	rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
 	return (true);
 }
@@ -84,6 +78,7 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	}
 	return (false);
 }
+
 bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
 	t_vec orthg;
@@ -91,7 +86,6 @@ bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	t_cord p;
 	t_cord param;
 
-	//pram.a => discriminant, param.b => solution 1, param.c => solution 2
 	orthg = cross_product(ray->direction, cylinder->normalized);
 	v = cross_product(vec_sub(ray->origin, cylinder->cord), cylinder->normalized);
 	p.a = dot_product(orthg, orthg);
@@ -164,67 +158,14 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		*rec = tmp_rec;
 	return (rec->t < M_D && rec->t > eps);
 }
-void	tri_properties(t_triangle *triangle)
-{
-	triangle->edge0 = vec_sub(triangle->cord2, triangle->cord1);
-	triangle->edge1 = vec_sub(triangle->cord3, triangle->cord2);
-	triangle->edge2 = vec_sub(triangle->cord1, triangle->cord3);
-	triangle->normalizer = cross_product(triangle->edge0, triangle->edge1);
-	// normalize(&triangle->normalizer);
-}
-
-bool	check_tri_inter(t_hit_record *rec, t_triangle *tri)
-{
-	t_vec c1, c2, c3;
-	c1 = vec_sub(rec->pHit, tri->cord1);
-	c2 = vec_sub(rec->pHit, tri->cord2);
-	c3 = vec_sub(rec->pHit, tri->cord3);
-	if (dot_product(cross_product(tri->edge0, c1), tri->normalizer) > 0 &&
-		dot_product(cross_product(tri->edge1, c2), tri->normalizer) > 0 &&
-		dot_product(cross_product(tri->edge2, c3), tri->normalizer) > 0)
-	{
-		rec->nHit = normalized(tri->normalizer);
-		rec->h_color = create_vec((double)(tri->clr.r) / 255, (double)(tri->clr.g) / 255, (double)(tri->clr.b) / 255);
-		return (true);
-	}	
-	return (false);
-		
-}
-bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
-{
-	t_triangle	*triangle;
-	double		dis;
-	double 		dinom;
-
-	triangle = (t_triangle *)obj->object;
-	tri_properties(triangle);
-	dinom = dot_product(ray->direction, triangle->normalizer);
-	if (fabs(dinom) < eps)
-		return (false);
-	dis = -dot_product(triangle->normalizer, triangle->cord1);
-	rec->t = -(dot_product(ray->origin, triangle->normalizer) + dis) / dinom;
-	if (rec->t < eps)
-		return (false);
-	rec->pHit = at(rec->t, *ray);
-	if (check_tri_inter(rec, triangle))
-	{
-		if (dot_product(rec->nHit, ray->direction) > 0)
-			rec->nHit = vec_nega(rec->nHit);
-		return (true);
-	}
-	return (false);
-	// return (check_tri_inter(rec, triangle));
-}
-
 
 inter_func	intersect(int type)
 {
 	t_objects	*obj;
-	inter_func 		obj_inter[4];
+	inter_func 		obj_inter[3];
 	obj_inter[SPHERE] = sphere_hit;
 	obj_inter[PLANE] = plan_hit;
 	obj_inter[CYLENDER] = f_cylinder_render;
-	obj_inter[TRIANGLE] = triangle_hit;
 	return (*(obj_inter + type));
 }
 
