@@ -6,14 +6,14 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:26:11 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "vector.h"
-#include "library.h"
-#include "tracer.h"
+#include "structs_bonus.h"
+#include "vector_bonus.h"
+#include "library_bonus.h"
+#include "tracer_bonus.h"
 #include "libft.h"
 #include <stdlib.h>
 

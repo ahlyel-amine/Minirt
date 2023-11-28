@@ -6,14 +6,15 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/28 10:23:48 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
+#include "structs_bonus.h"
 #include <stdlib.h>
-#include "vector.h"
-#include "library.h"
+#include "vector_bonus.h"
+#include "minirt_bonus.h"
+#include "library_bonus.h"
 
 t_camera *create_cam(t_vec *origin, t_vec *direction, double fov)
 {

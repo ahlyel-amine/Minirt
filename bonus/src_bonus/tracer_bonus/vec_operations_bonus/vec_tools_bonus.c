@@ -6,12 +6,12 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:56:21 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:28:11 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "vector.h"
+#include "structs_bonus.h"
+#include "vector_bonus.h"
 
 t_vec	create_vec_from_scalar(double s)
 {

@@ -6,13 +6,13 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/28 10:26:52 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "library.h"
-#include "tracer.h"
+#include "structs_bonus.h"
+#include "library_bonus.h"
+#include "tracer_bonus.h"
 
 
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)

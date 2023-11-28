@@ -1,7 +1,9 @@
 #ifndef TRACER_H
 # define TRACER_H
 
-#include "structs.h"
+#include "structs_bonus.h"
+#include <stdbool.h>
+
 
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 
@@ -13,6 +15,6 @@ bool	    f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
 inter_func	intersect(int type);
 
 void        Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam);
-t_vec       raytrace(t_data *data, t_rays *rays, t_hit_record *rec);
+t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level);
 
 #endif

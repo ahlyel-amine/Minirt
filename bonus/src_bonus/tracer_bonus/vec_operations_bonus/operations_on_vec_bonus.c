@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_tools.c                                        :+:      :+:    :+:   */
+/*   operations_on_vec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 15:56:21 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:28:11 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/11/27 15:53:30 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "vector.h"
+#include "structs_bonus.h"
 
-t_vec	create_vec_from_scalar(double s)
+t_vec vec_addition(t_vec v, t_vec u)
 {
-	return ((t_vec){s, s, s});
+	return ((t_vec){v.v_x + u.v_x, v.v_y + u.v_y, v.v_z + u.v_z});
 }
 
-t_coord	at(double t, t_ray ray)
+t_vec vec_sub(t_vec v, t_vec u)
 {
-	return ((vec_addition(ray.origin, scalar_mult(ray.direction, t))));
+	return ((t_vec){v.v_x - u.v_x, v.v_y - u.v_y, v.v_z - u.v_z});
 }
 
-double distance(t_vec v, t_vec u)
+t_vec	scalar_mult(t_vec v, double f)
 {
-	return (v_length(vec_sub(v, u)));
+	return ((t_vec){v.v_x * f, v.v_y * f, v.v_z * f});
 }
 
-double	length(t_vec v)
+t_vec	scalar_div(t_vec v, double f)
 {
-	return (sqr(v.v_x) + sqr(v.v_y) + sqr(v.v_z));
+	return ((t_vec){v.v_x / f, v.v_y / f, v.v_z / f});
 }
 
-double	v_length(t_vec v)
-{
-	return (sqrt(length(v)));
-}
