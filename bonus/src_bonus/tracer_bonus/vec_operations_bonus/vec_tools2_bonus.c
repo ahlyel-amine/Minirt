@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_tools.c                                        :+:      :+:    :+:   */
+/*   vec_tools2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 15:56:21 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:28:11 by aahlyel          ###   ########.fr       */
+/*   Created: 2023/11/27 15:59:59 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
-#include "vector.h"
+#include "structs_bonus.h"
+#include <math.h>
 
-t_vec	create_vec_from_scalar(double s)
+double	sqr(double x)
 {
-	return ((t_vec){s, s, s});
+	return (x * x);
 }
 
-t_coord	at(double t, t_ray ray)
+t_vec	create_vec(double x, double y, double z)
 {
-	return ((vec_addition(ray.origin, scalar_mult(ray.direction, t))));
+	return ((t_vec){x, y, z});
 }
 
-double distance(t_vec v, t_vec u)
+t_vec	vec_nega(t_vec v)
 {
-	return (v_length(vec_sub(v, u)));
-}
-
-double	length(t_vec v)
-{
-	return (sqr(v.v_x) + sqr(v.v_y) + sqr(v.v_z));
-}
-
-double	v_length(t_vec v)
-{
-	return (sqrt(length(v)));
+	return ((t_vec){-v.v_x, -v.v_y, -v.v_z});
 }

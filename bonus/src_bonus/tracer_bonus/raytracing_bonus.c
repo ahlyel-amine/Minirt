@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raytracing.c                                       :+:      :+:    :+:   */
+/*   raytracing_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:24:24 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:15:58 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tracer.h"
-#include "structs.h"
-#include "tools.h"
-#include "vector.h"
-#include "library.h"
-#include "minirt.h"
-
+#include "tracer_bonus.h"
+#include "structs_bonus.h"
+#include "tools_bonus.h"
+#include "vector_bonus.h"
+#include "draw_bonus.h"
+#include "library_bonus.h"
+#include "minirt_bonus.h"
 
 void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 {
@@ -46,7 +46,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
 }
 
-t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
+t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 {
 	t_light_effect	light_effect;
 	t_objects		*obj;
@@ -56,11 +56,21 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
 	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0});
+	t_specular_light refl = get_specular_addr(obj);
+	if (obj->type == PLANE)
+		rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
 	light_effect = get_light_effect(data, rays, obj, rec);
-	ref_ray.ray.origin = rec->pHit;
-	ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
-	ref_ray.ray.direction = vec_sub(rays->ray.direction, ref_ray.ray.direction);
-	normalize(&(ref_ray.ray.direction));
-	t_vec color = convert_light(light_effect, obj);
+	level -= 1;
+	if (refl.reflection > 0 &&  level > 0)
+	{
+		ref_ray.ray.origin = rec->pHit;
+		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
+		ref_ray.ray.direction = vec_sub(rays->ray.direction, ref_ray.ray.direction);
+		normalize(&(ref_ray.ray.direction));
+		light_effect.reflect = raytrace(data, &ref_ray, rec, level);
+	}
+	if (level <= 0)
+		obj = NULL;
+	t_vec color = convert_light(level, light_effect, obj, refl);
 	return (color);
 }
