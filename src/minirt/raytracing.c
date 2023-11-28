@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/26 13:50:15 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:31:26 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ndcY = ((double)y + 0.5) / HEIGHT;
 	ray->direction.v_x = (2 * ndcX - 1) * cam->scale * cam->aspect_ratio;
 	ray->direction.v_y = (1 - 2 * ndcY) * cam->scale;
-	ray->direction.v_z = 1;
+	ray->direction.v_z = 0.5;
 	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
 	normalize(&ray->direction);
 }
@@ -55,9 +55,9 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0}/*0xccaabb*/);
-	light_effect = get_light_effect(data, rays, obj, rec);
+	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
-	if ((obj->type == TRIANGLE || obj->type == PLANE) && level > 0)
+	if ((obj->type == SPHERE) && level > 0)
 	{
 		ref_ray.ray.origin = rec->pHit;
 		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
@@ -85,7 +85,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
 		// printf("origin type : %d\n",obj->type);
 
-	objt = get_closes_object2(&(rays->shadow_ray), obj, &h_shadow);
+	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
 	// if (objt)
 	// 	printf("origin type : %d------type : %d\n",obj->type, objt->type);
 	

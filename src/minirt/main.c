@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/24 09:23:35 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:38:09 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int main(int ac, char **av)
 
 	ft_memset(&data, 0, sizeof(t_data));
 	atexit(check);
+	t_texture_img *img = malloc(sizeof(t_texture_img));
+	img->path = ft_strdup("/home/morpheus/miniRT/img.xpm");
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
@@ -79,6 +81,19 @@ int main(int ac, char **av)
 		if (!make_image(&scean))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		lookat(&scean, &data.camera);
+		t_objects *obj = data.objects;
+		while (obj)
+		{
+			obj->textured = true;
+			if (obj->textured && obj->type == SPHERE)
+			{
+				t_sphere *sphere = (t_sphere *)obj->object;
+				sphere->texture = img;
+				puts("here");
+				texture_bump_init(obj, &scean);
+			}	
+			obj = obj->next;
+		}
 		if (!make_threads(&scean, data))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
