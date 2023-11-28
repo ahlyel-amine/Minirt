@@ -43,3 +43,5 @@ Now we reach the final stage which consist of applying the final camera to world
 
 
 https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/parametric-and-implicit-surfaces.html
+
+https://gamedev.stackexchange.com/questions/172352/finding-texture-coordinates-for-plane

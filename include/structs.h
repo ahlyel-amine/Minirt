@@ -1,6 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <stdio.h>
+#include <stdbool.h>
+
 typedef struct s_cord
 {
 	double	a;
@@ -55,12 +57,24 @@ typedef struct s_light
 	t_vec	cord;
 	struct s_light	*next;
 }	t_light;
+typedef struct s_texture_img
+{
+	void	*img;
+	char	*path;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_texture_img;
 
 typedef struct s_plane
 {
 	t_color	clr;
 	t_vec	cord;
 	t_vec	normalized;
+	t_texture_img	*texture;
 }	t_plane;
 
 typedef struct s_cylender
@@ -70,13 +84,15 @@ typedef struct s_cylender
 	double	height;
 	t_vec	cord;
 	t_vec	normalized;
+	t_texture_img	*texture;
 }	t_cylender;
 
 typedef struct s_sphere
 {
-	t_color	clr;
 	double	diameter;
+	t_color	clr;
 	t_vec	cord;
+	t_texture_img	*texture;
 }	t_sphere;
 
 typedef struct s_triangle
@@ -89,12 +105,15 @@ typedef struct s_triangle
 	t_vec	edge1;
 	t_vec	edge2;
 	t_vec 	normalizer;
+	t_texture_img	*texture;
 }	t_triangle;
+
 
 typedef	struct s_object
 {
 	unsigned char	type;
 	void			*object;
+	bool			textured;
 	struct s_object	*next;
 }	t_objects;
 

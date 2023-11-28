@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/26 13:48:32 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:57:07 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,94 @@ inter_func	intersect(int type)
 	obj_inter[TRIANGLE] = triangle_hit;
 	return (*(obj_inter + type));
 }
+t_vec	get_tex_color(t_texture_img *texture, double u, double v)
+{
+	int		x;
+	int		y;
+	int		index;
+	t_vec	color;
+
+	x = u * texture->width;
+	y = (1 - v) * texture->height;
+	index = (x * texture->bpp / 8) + (y * texture->line_len);
+	color.v_x = (unsigned char)texture->addr[index + 2] / 255.0;
+	color.v_y = (unsigned char)texture->addr[index + 1] / 255.0;
+	color.v_z = (unsigned char)texture->addr[index + 0] / 255.0;
+	return (color);
+}
+
+void	check_color(t_objects *object, t_hit_record *rec)
+{
+	double u;
+	double v;
+	if (object && object->textured)
+	{
+		get_uv_sphere(object->object, rec, &u, &v);
+		rec->h_color = get_tex_color(((t_sphere *)(object->object))->texture, u, v);
+	}
+}
+void	get_uv_sphere(t_sphere *sphere, t_hit_record *rec, double *u, double *v)
+{
+	t_vec unit_v;
+	// Step 1: Calculate the unit vector from P to O
+	unit_v = vec_sub(sphere->cord, rec->pHit);
+	normalize(&unit_v);
+	// Step 2: Calculate polar angle theta and azimuthal angle phi
+	double theta = acos(unit_v.v_y);
+	double phi = atan2(unit_v.v_x, unit_v.v_z);
+	// Step 4: Map theta and phi to the range [0,1] to get UV coordinates
+	*u = phi / (2 * M_PI);
+	*v = theta / M_PI;
+}
+
+void	get_uv_plane(t_plane *plane, t_hit_record *rec, double *u, double *v)
+{
+	t_vec unit_v;
+	
+}
+void	texture_bump_init(t_objects *shape, t_mrt *mrt)
+{
+	t_sphere	*sphere;
+	t_cylender	*cylender;
+	t_plane		*plane;
+	t_triangle	*triangle;
+	if (shape->type == SPHERE && shape->textured)
+	{
+		sphere = shape->object;
+		sphere->texture->img = mlx_xpm_file_to_image(mrt->mlx, sphere->texture->path, &sphere->texture->width, &sphere->texture->height);
+		if (!sphere->texture->img)
+			sphere->texture->img = NULL;
+		else
+			sphere->texture->addr = mlx_get_data_addr(sphere->texture->img, &sphere->texture->bpp, &sphere->texture->line_len, &sphere->texture->endian);
+	}
+	else if (shape->type == CYLENDER && shape->textured)
+	{
+		cylender = shape->object;
+		cylender->texture->img = mlx_xpm_file_to_image(mrt->mlx, cylender->texture->path, &cylender->texture->width, &cylender->texture->height);
+		if (!cylender->texture->img)
+			cylender->texture->img = NULL;
+		else
+			cylender->texture->addr = mlx_get_data_addr(cylender->texture->img, &cylender->texture->bpp, &cylender->texture->line_len, &cylender->texture->endian);
+	}
+	else if (shape->type == PLANE && shape->textured)
+	{
+		plane = shape->object;
+		plane->texture->img = mlx_xpm_file_to_image(mrt->mlx, plane->texture->path, &plane->texture->width, &plane->texture->height);
+		if (!plane->texture->img)
+			plane->texture->img = NULL;
+		else
+			plane->texture->addr = mlx_get_data_addr(plane->texture->img, &plane->texture->bpp, &plane->texture->line_len, &plane->texture->endian);
+	}
+	else if (shape->type == TRIANGLE && shape->textured)
+	{
+		triangle = shape->object;
+		triangle->texture->img = mlx_xpm_file_to_image(mrt->mlx, triangle->texture->path, &triangle->texture->width, &triangle->texture->height);
+		if (!triangle->texture->img)
+			triangle->texture->img = NULL;
+		else
+			triangle->texture->addr = mlx_get_data_addr(triangle->texture->img, &triangle->texture->bpp, &triangle->texture->line_len, &triangle->texture->endian);
+	}
+}
 
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
@@ -234,7 +322,7 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	double		closest_so_far;
 	double		temp;
 	t_hit_record	temp_rec;
-	closest_so_far = INFINITY;
+	closest_so_far = M_D;
 	object = NULL;
 
 	while (obj)
@@ -251,6 +339,7 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		}
 		obj = obj->next;
 	}
+	check_color(object, rec);
 	return (object);
 }
 
