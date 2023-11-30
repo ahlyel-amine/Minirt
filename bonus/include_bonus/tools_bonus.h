@@ -13,6 +13,9 @@ bool    	make_threads(t_mrt *scean, t_data data);
 void	    clearobjs(t_objects **lst);
 void		clearlights(t_light **lst);
 t_light 	*newlight(t_light new);
-void        addlight(t_light **lst, t_light *new);
+void					addlight(t_light **lst, t_light *new);
 t_specular_light		get_specular_addr(t_objects *obj);
+void					get_uv_sphere(t_sphere *sphere, t_hit_record *rec, double *u, double *v);
+void					get_uv_plane(t_plane *plane, t_hit_record *rec, double *u, double *v);
+
 #endif
