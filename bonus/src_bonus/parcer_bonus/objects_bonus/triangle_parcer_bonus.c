@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:59:13 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:43 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:02:10 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ bool	triangle_parcer(char *line, t_data *data)
 	if (a == -1)
 		return (ft_putendl_fd("minirt: triangle invalid color format", 2), false);
 	line += skip_spaces(line + a) + a;
-	// if (!check_for_features(line, triangle))
-	// 	return (false);
-	ft_atod(&line, &triangle->spec.intensity, INT_MAX, INT_MIN);
-	line += skip_spaces(line);
-	ft_atod(&line, &triangle->spec.shininess_factor, 1, 0);
-	line += skip_spaces(line);
-	ft_atod(&line, &triangle->spec.reflection, 1, 0);
+	if (!check_for_features(line, &triangle->spec))
+		return (false);
+	// ft_atod(&line, &triangle->spec.intensity, INT_MAX, INT_MIN);
+	// line += skip_spaces(line);
+	// ft_atod(&line, &triangle->spec.shininess_factor, 1, 0);
+	// line += skip_spaces(line);
+	// ft_atod(&line, &triangle->spec.reflection, 1, 0);
 	object = newobject(triangle, TRIANGLE);
 	if (!object)
 		return (false);

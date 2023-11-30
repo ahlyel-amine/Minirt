@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:28:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/29 17:36:16 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:21 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	rec->pHit = at(rec->t, *ray);
 	if (check_tri_inter(rec, triangle))
 	{
-		if (dot_product(rec->nHit, ray->direction) > 0)
+		if (dot_product(rec->nHit, ray->direction) > eps)
 			rec->nHit = vec_nega(rec->nHit);
 		return (true);
 	}

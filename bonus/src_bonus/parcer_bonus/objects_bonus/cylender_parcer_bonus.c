@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylender_parcer.c                                  :+:      :+:    :+:   */
+/*   cylender_parcer_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:01:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ bool cylender_parcer(char *line, t_data *data)
 	if (a == -1)
 		return (ft_putendl_fd("minirt: cylender invalid color format", 2), false);
 	line += skip_spaces(line + a) + a;
-	ft_atod(&line, &cylender->spec.intensity, INT_MAX, INT_MIN);
-	line += skip_spaces(line);
-	ft_atod(&line, &cylender->spec.shininess_factor, 1, 0);
-	line += skip_spaces(line);
-	ft_atod(&line, &cylender->spec.reflection, 1, 0);
+	if (!check_for_features(line, &cylender->spec))
+		return (false);
+	// ft_atod(&line, &cylender->spec.intensity, INT_MAX, INT_MIN);
+	// line += skip_spaces(line);
+	// ft_atod(&line, &cylender->spec.shininess_factor, 1, 0);
+	// line += skip_spaces(line);
+	// ft_atod(&line, &cylender->spec.reflection, 1, 0);
 	object = newobject(cylender, CYLENDER);
 	if (!object)
 		return (false);
