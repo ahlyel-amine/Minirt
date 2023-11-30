@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_parcer.c                                    :+:      :+:    :+:   */
+/*   sphere_parcer_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:01:59 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ t_data *data;
 	if (a == -1)
 		return (ft_putendl_fd("minirt: sphere invalid color format", 2), false);
 	line += skip_spaces(line + a) + a;
-	ft_atod(&line, &sphere->spec.intensity, INT_MAX, INT_MIN);
-	line += skip_spaces(line);
-	ft_atod(&line, &sphere->spec.shininess_factor, 1, 0);
-	line += skip_spaces(line);
-	ft_atod(&line, &sphere->spec.reflection, 1, 0);
+	if (!check_for_features(line, &sphere->spec))
+		return (false);
+	// ft_atod(&line, &sphere->spec.intensity, INT_MAX, INT_MIN);
+	// line += skip_spaces(line);
+	// ft_atod(&line, &sphere->spec.shininess_factor, 1, 0);
+	// line += skip_spaces(line);
+	// ft_atod(&line, &sphere->spec.reflection, 1, 0);
 	object = newobject(sphere, SPHERE);
 	if (!object)
 		return (false);

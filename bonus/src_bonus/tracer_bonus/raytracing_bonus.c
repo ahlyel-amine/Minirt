@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/29 19:57:53 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/30 14:26:12 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,29 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		return ((t_vec){0,0,0});
 	t_specular_light refl = get_specular_addr(obj);
 	if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
-		rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+	{
+		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+		double a,b ;
+		get_uv_plane(obj->object, rec, &a, &b);
+		if ((int)(floor(a) + floor(b)) % 2)
+			rec->h_color = (t_vec){255, 255, 255};
+	}
+	else if (obj->type == SPHERE&& ((t_sphere *)obj->object)->spec.checkred == true)
+	{
+		double a,b ;
+		get_uv_sphere(obj->object, rec, &a, &b);
+		if ((int)(floor(16 * a) + floor(8 * b)) % 2)
+			rec->h_color = (t_vec){255, 255, 255};
+		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+	}
+	else if (obj->type == CYLENDER&& ((t_cylender *)obj->object)->spec.checkred == true)
+	{
+		double a,b ;
+		get_uv_cylinder(obj->object, rec, &a, &b);
+		if ((int)(floor(16 * a) + floor(8 * b)) % 2)
+			rec->h_color = (t_vec){255, 255, 255};
+		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+	}
 	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
 	if (refl.reflection > 0 &&  level > 0)

@@ -11,6 +11,7 @@ bool    camera_parcer(char *line, t_data *data);
 bool    light_parcer(char *line, t_data *data);
 bool    lighting_parcer(char *line, t_data *data);
 bool    triangle_parcer(char *line, t_data *data);
+bool	check_for_features(char *line, t_specular_light *spec);
 
 bool	cordinate_parcer(char **line, t_vec *cordinate, int marge_max, int marge_min);
 int     color_parcer(char *line, t_color *color);

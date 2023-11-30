@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/30 09:55:59 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:23:44 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,15 @@ void	get_uv_plane(t_plane *plane, t_hit_record *rec, double *u, double *v)
 	*u = dot_product(e1, rec->pHit);
 	*v = dot_product(e2, rec->pHit);
 	
+}
+void get_uv_cylinder(t_cylender *cy, t_hit_record *rec, double *u, double *v)
+{
+    double theta;//azimuthal angle 
+    double     r;// radius in the XZ plane
+    double     h_z;//height along the z axis
+    r = sqrt(rec->pHit.v_x * rec->pHit.v_x + rec->pHit.v_z * rec->pHit.v_z);
+    theta = atan2(rec->pHit.v_z, rec->pHit.v_x);
+    h_z = rec->pHit.v_y;
+    *u = theta / (2 * M_PI);
+	*v = h_z / cy->height;
 }
