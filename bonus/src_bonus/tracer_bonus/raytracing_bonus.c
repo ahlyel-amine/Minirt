@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 12:15:58 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/29 19:57:53 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
 	normalize(&(rays->shadow_ray.direction));
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
-	objt = get_first_close_object(&(rays->shadow_ray), obj, &h_shadow);
+	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
 	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
 }
 
@@ -57,9 +57,9 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0});
 	t_specular_light refl = get_specular_addr(obj);
-	if (obj->type == PLANE)
+	if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
 		rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
-	light_effect = get_light_effect(data, rays, obj, rec);
+	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
 	if (refl.reflection > 0 &&  level > 0)
 	{
