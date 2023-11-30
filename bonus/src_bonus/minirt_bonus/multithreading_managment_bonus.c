@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 12:14:01 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/29 17:50:42 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 void init_data_sets(t_dataset	*ptr, int *coef_x, int *coef_y, int i)
 {
-	ptr->s_x = ((*coef_x) * WIDTH / 5);
-	ptr->e_x = (((*coef_x) + 1) * WIDTH / 5);
+	ptr->s_x = ((*coef_x) * WIDTH / 10);
+	ptr->e_x = (((*coef_x) + 1) * WIDTH / 10);
 	ptr->s_y = ((*coef_y) * HEIGHT / 2);
 	ptr->e_y = (((*coef_y) + 1) * HEIGHT / 2);
 	if (i % 2)

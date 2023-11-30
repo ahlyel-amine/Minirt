@@ -26,6 +26,8 @@ void	*draw(void *param);
 bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
+bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
+
 inter_func	intersect(int type);
 
 //--------------------camera--------------------

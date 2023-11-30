@@ -1,6 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <stdio.h>
+#include <stdbool.h>
 typedef struct s_cord
 {
 	double	a;
@@ -19,6 +20,7 @@ typedef struct s_specular_light
 {
 	double	intensity;
 	double	reflection;
+	bool	checkred;
 	double	shininess_factor;
 }	t_specular_light;
 
