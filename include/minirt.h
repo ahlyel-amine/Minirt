@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/28 11:44:42 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:23:22 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void        draw(t_data data, t_mrt *scean);
 
 //--------------------camera--------------------
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
-void	lookat(t_mrt *rt, t_camera *cam);
+void	lookat(t_camera *cam);
 
 
 void print_vec(char *str, t_vec vec);

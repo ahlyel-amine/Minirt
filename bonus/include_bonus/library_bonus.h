@@ -3,8 +3,8 @@
 #include <stdbool.h>
 # include <math.h>
 #include "structs_bonus.h"
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1280
+#define HEIGHT 820
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:53:28 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:22:41 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int main(int ac, char **av)
 		print_scean(data);
 		if (!make_image(&scean))
 			return (clearobjs(&data.objects), 1);
-		lookat(&scean, &data.camera);
+		lookat(&data.camera);
 		draw(data, &scean);
 		mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
 		mlx_loop(scean.mlx);

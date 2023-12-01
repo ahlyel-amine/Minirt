@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracer_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:03:33 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/29 17:38:50 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:32:21 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*draw(void *param)
 	{
 		for (int i = ptr->s_x; i < ptr->e_x; i++)
 		{
-			Prime_ray(ptr->m_rt, i, j, &(rays.ray), &ptr->data.camera);
+			Prime_ray(i, j, &(rays.ray), &ptr->data.camera);
 			my_mlx_put(ptr->m_rt, i, j, rgb_to_int(raytrace(&ptr->data, &rays, &rec, 10)));
 		}
 	}
