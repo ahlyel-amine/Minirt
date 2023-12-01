@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_tools.c                                      :+:      :+:    :+:   */
+/*   debug_tools_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:55:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:02:59 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	print_scean(t_data data)
             t_cylender	*object = (t_cylender *)data.objects->object;
             printf("cylender:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
             object->diameter, object->height,  object->clr.r, object->clr.g, object->clr.b);
+			printf("cylinder front face %d back_face %d\n", object->p_face->type, object->p_face->next->type);
         }
         data.objects = data.objects->next;
     }

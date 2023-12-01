@@ -74,15 +74,22 @@ typedef struct s_plane
 	t_color	clr;
 	t_vec	cord;
 }	t_plane;
+typedef	struct s_object
+{
+	unsigned char	type;
+	void			*object;
+	struct s_object	*next;
+}	t_objects;
 
 typedef struct s_cylender
 {
 	t_specular_light spec;
 	t_vec	normalized;
+	t_vec	cord;
 	t_color	clr;
+	t_objects	*p_face;
 	double	diameter;
 	double	height;
-	t_vec	cord;
 }	t_cylender;
 
 typedef struct s_sphere
@@ -106,12 +113,6 @@ typedef struct s_triangle
 	t_vec	edge2;
 }	t_triangle;
 
-typedef	struct s_object
-{
-	unsigned char	type;
-	void			*object;
-	struct s_object	*next;
-}	t_objects;
 
 typedef struct s_counter
 {

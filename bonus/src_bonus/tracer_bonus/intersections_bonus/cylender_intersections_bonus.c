@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylender_intersections.c                           :+:      :+:    :+:   */
+/*   cylender_intersections_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:26:38 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static void	calculate_disk_plan(t_cylender *cylinder, t_objects *obj, bool is_top)
-{
-	t_plane *plan;
-
-	plan = obj->object;
-	plan->normalized = cylinder->normalized;
-	if (is_top)
-		plan->cord = vec_addition(cylinder->cord, scalar_mult(cylinder->normalized, cylinder->height * 0.5));
-	else
-		plan->cord = vec_sub(cylinder->cord, scalar_mult(cylinder->normalized, cylinder->height * 0.5));
-}
 
 static bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
@@ -74,20 +63,22 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
 	t_hit_record	tmp_rec;
 	t_cylender	*cylinder;
-	t_objects		*plan;
+	t_plane		*plan;
 
 	rec->t = M_D;
-	plan = malloc(sizeof(t_objects));
-	plan->next = NULL;
-	plan->object = malloc(sizeof(t_plane));
-	ft_memset(plan->object, 0, sizeof(t_plane));
 	cylinder = obj->object;
-	calculate_disk_plan(cylinder, plan,true);
-	((t_plane *)(plan->object))->clr = cylinder->clr;
-	calculate_disk_plan(cylinder, plan, false);
-	if (plan_hit(ray, plan, &tmp_rec)
-		&& distance(tmp_rec.pHit, ((t_plane *)(plan->object))->cord) \
-		<= ((cylinder->diameter * 0.5) - 0.002)
+	plan = cylinder->p_face->object;
+	plan->clr = cylinder->clr;
+	if (plan_hit(ray, cylinder->p_face, &tmp_rec)
+		&& distance(tmp_rec.pHit, plan->cord) \
+		<= ((cylinder->diameter * 0.5))
+		&& rec->t > tmp_rec.t)
+		*rec = tmp_rec;
+	plan = cylinder->p_face->next->object;
+	plan->clr = cylinder->clr;
+	if (plan_hit(ray, cylinder->p_face->next, &tmp_rec)
+		&& distance(tmp_rec.pHit, plan->cord) \
+		<= ((cylinder->diameter * 0.5))
 		&& rec->t > tmp_rec.t)
 		*rec = tmp_rec;
 	if (cylinder_hit(ray, cylinder, &tmp_rec)
