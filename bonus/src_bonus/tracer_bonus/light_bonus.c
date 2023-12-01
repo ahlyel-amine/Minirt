@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 12:19:37 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:49:37 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 		inShadow = shadow_ray(rays, lights, obj, rec);
 		effect.specular =  vec_addition(effect.specular, specular_light(rays, lights, get_specular_addr(obj), rec));
 		if (!inShadow)
+		{
 			effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, lights, rec), 1, 1);
+		}	
 		lights = lights->next;
 	}
 	return (effect);

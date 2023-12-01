@@ -6,7 +6,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level);
 void	my_mlx_put(t_mrt *rt, int x, int y, int color);
 int	    get_pixel(t_mrt *rt, int x, int y);
 int	    rgb_to_int(t_coord color);
-void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam);
+void	Prime_ray(int x, int y, t_ray *ray,t_camera *cam);
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2);
 int 	rgb_to_int(t_coord color);
 t_vec   merge_light(t_vec color, t_color light_color, double ratio);

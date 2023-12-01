@@ -32,7 +32,7 @@ inter_func	intersect(int type);
 
 //--------------------camera--------------------
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
-void	lookat(t_mrt *rt, t_camera *cam);
+void	lookat(t_camera *cam);
 
 
 void	print_scean(t_data data);

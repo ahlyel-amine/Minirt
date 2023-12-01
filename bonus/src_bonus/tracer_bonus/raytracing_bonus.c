@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/30 14:26:12 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:01:29 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "library_bonus.h"
 #include "minirt_bonus.h"
 
-void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
+void	Prime_ray(int x, int y, t_ray *ray,t_camera *cam)
 {
 	double	ndcX;
 	double	ndcY;
@@ -29,7 +29,7 @@ void	Prime_ray(t_mrt *rt ,int x, int y, t_ray *ray,t_camera *cam)
 	ray->direction.v_x = (2 * ndcX - 1) * cam->scale * cam->aspect_ratio;
 	ray->direction.v_y = (1 - 2 * ndcY) * cam->scale;
 	ray->direction.v_z = 1;
-	ray->direction = cam_to_world(rt->cam_matrix, &ray->direction);
+	ray->direction = cam_to_world(cam->tr_matrix, &ray->direction);
 	normalize(&ray->direction);
 }
 

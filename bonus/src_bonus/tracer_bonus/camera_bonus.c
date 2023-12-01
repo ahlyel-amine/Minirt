@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   camera_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:29:07 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,32 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 	return v;
 }
 
-void	lookat(t_mrt *rt, t_camera *cam)
+void	camera_transform_matrix(t_camera *c)
+{
+	t_vec	forword;
+
+	forword = c->normalized;
+	c->tr_matrix[0][0] = c->right.v_x;
+	c->tr_matrix[0][1] = c->right.v_y;
+	c->tr_matrix[0][2] = c->right.v_z;
+	c->tr_matrix[1][0] = c->up.v_x;
+	c->tr_matrix[1][1] = c->up.v_y;
+	c->tr_matrix[1][2] = c->up.v_z;
+	c->tr_matrix[2][0] = forword.v_x;
+	c->tr_matrix[2][1] = forword.v_y;
+	c->tr_matrix[2][2] = forword.v_z;
+}
+void	camera_attributs(t_camera *c)
+{
+	if (WIDTH > HEIGHT)
+		c->aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	else
+		c->aspect_ratio = (double)HEIGHT / (double)WIDTH;
+	c->scale = tan(((double)c->v_field * 0.5) * M_PI / 180);
+	camera_transform_matrix(c);
+}
+
+void	lookat(t_camera *cam)
 {
 	t_vec	tmp;
 	t_vec	forword;
@@ -44,15 +69,5 @@ void	lookat(t_mrt *rt, t_camera *cam)
 	forword = cam->normalized;
 	cam->right = cross_product(tmp, forword);
 	cam->up = cross_product(forword, cam->right);
-	rt->cam_matrix[0][0] = cam->right.v_x;
-	rt->cam_matrix[0][1] = cam->right.v_y;
-	rt->cam_matrix[0][2] = cam->right.v_z;
-	rt->cam_matrix[1][0] = cam->up.v_x;
-	rt->cam_matrix[1][1] = cam->up.v_y;
-	rt->cam_matrix[1][2] = cam->up.v_z;
-	rt->cam_matrix[2][0] = forword.v_x;
-	rt->cam_matrix[2][1] = forword.v_y;
-	rt->cam_matrix[2][2] = forword.v_z;
-	cam->aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	cam->scale = tan(((double)cam->v_field / 2) * M_PI / 180);
+	camera_attributs(cam);
 }

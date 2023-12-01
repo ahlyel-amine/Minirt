@@ -55,6 +55,7 @@ typedef struct s_camera
 	t_vec			right;
 	double			scale;
 	double			aspect_ratio;
+	double			tr_matrix[4][4];
 }	t_camera;
 
 typedef struct s_light
@@ -138,7 +139,6 @@ typedef struct s_mrt
 	int		bit_per_px;
 	int		line_len;
 	int		endian;
-	double	cam_matrix[4][4];
 }	t_mrt;
 
 typedef struct s_hit_record
