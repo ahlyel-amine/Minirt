@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 19:26:38 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:30:14 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	cylinder = obj->object;
 	plan = cylinder->p_face->object;
 	plan->clr = cylinder->clr;
-	if (plan_hit(ray, cylinder->p_face, &tmp_rec)
+	if (intersect(PLANE)(ray, cylinder->p_face, &tmp_rec)
 		&& distance(tmp_rec.pHit, plan->cord) \
 		<= ((cylinder->diameter * 0.5))
 		&& rec->t > tmp_rec.t)
 		*rec = tmp_rec;
 	plan = cylinder->p_face->next->object;
 	plan->clr = cylinder->clr;
-	if (plan_hit(ray, cylinder->p_face->next, &tmp_rec)
+	if (intersect(PLANE)(ray, cylinder->p_face->next, &tmp_rec)
 		&& distance(tmp_rec.pHit, plan->cord) \
 		<= ((cylinder->diameter * 0.5))
 		&& rec->t > tmp_rec.t)
