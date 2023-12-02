@@ -22,8 +22,11 @@ typedef struct s_specular_light
 	double	intensity;
 	double	reflection;
 	bool	checkred;
+	double	checkred_h;
+	double	checkred_w;
 	double	shininess_factor;
 	char	*texture;
+	char	*bump;
 }	t_specular_light;
 
 typedef struct s_ray

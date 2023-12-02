@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading_managment_bonus.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 03:12:42 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:09:10 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	make_threads(t_mrt *scean, t_data data)
 	coef_x = 0;
 	coef_y = 0;
 	textures_binding(data.objects, scean);
-	print_scean(data);
+	// print_scean(data);
 	while (++i < 20)
 	{
 		ptr[i].m_rt = scean;

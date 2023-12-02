@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 23:03:46 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:58:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,27 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 	if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
 	{
 		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
-		double a,b ;
+		double a,b;
+		double c = ((t_plane *)obj->object)->spec.checkred_h ,d = ((t_plane *)obj->object)->spec.checkred_w;
 		get_uv_plane(obj->object, rec, &a, &b);
-		if ((int)(floor(a) + floor(b)) % 2)
+		if ((int)(floor(a * c) + floor(b * d)) % 2)
 			rec->h_color = (t_vec){255, 255, 255};
 	}
 	else if (obj->type == SPHERE&& ((t_sphere *)obj->object)->spec.checkred == true)
 	{
 		double a,b ;
+		double c = ((t_sphere *)obj->object)->spec.checkred_h ,d = ((t_sphere *)obj->object)->spec.checkred_w;
 		get_uv_sphere(obj->object, rec, &a, &b);
-		if ((int)(floor(16 * a) + floor(8 * b)) % 2)
+		if ((int)(floor(c * a) + floor(d * b)) % 2)
 			rec->h_color = (t_vec){255, 255, 255};
 		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
 	}
 	else if (obj->type == CYLENDER&& ((t_cylender *)obj->object)->spec.checkred == true)
 	{
 		double a,b ;
+		double c = ((t_cylender *)obj->object)->spec.checkred_h ,d = ((t_cylender *)obj->object)->spec.checkred_w;
 		get_uv_cylinder(obj->object, rec, &a, &b);
-		if ((int)(floor(16 * a) + floor(8 * b)) % 2)
+		if ((int)(floor(c * a) + floor(d * b)) % 2)
 			rec->h_color = (t_vec){255, 255, 255};
 		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
 	}
