@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/30 14:08:26 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/02 14:07:44 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parcer_bonus.h"
 #include "tools_bonus.h"
 #include <mlx.h>
+#include <limits.h>
 
 
 bool	check_reflection(line, reflection, loop)
@@ -59,20 +60,29 @@ bool	*loop;
 	return (true);
 }
 
-void	check_checkerboard(line, checkred, loop)
+bool	check_checkerboard(line, checkred, loop)
 char **line;
-bool	*checkred;
+t_specular_light	*checkred;
 bool	*loop;
 {
 	*line += skip_spaces(*line);
-	if (ft_strlen(*line) >= 8 && !ft_strncmp(*line, "checkred", 8))
+	if (ft_strlen(*line) >= 9 && !ft_strncmp(*line, "checkred=", 9))
 	{
 		printf("found checkred\n");
-		*line += 8;
-		*checkred = true;
+		*line += 9;
+		if (!ft_atod(line, &checkred->checkred_h, INT_MAX, INT_MIN))
+			return (ft_putendl_fd("minirt: invalid checkred height", 2), false);
+		if (**line == ',')
+			(*line)++;
+		else
+			return (ft_putendl_fd("minirt: invalid checkred format", 2), false);
+		if (!ft_atod(line, &checkred->checkred_w, INT_MAX, INT_MIN))
+			return (ft_putendl_fd("minirt: invalid checkred width factor", 2), false);
+		checkred->checkred = true;
 		*loop = true;
 	}
 	*line += skip_spaces(*line);
+	return (true);
 }
 
 bool	get_path(line, texture)
@@ -93,13 +103,14 @@ char	**texture;
 	return (false);
 }
 
-bool	check_texture(line, texture, loop)
+bool	check_texture(line, texture, loop, ind)
 char **line;
 char	**texture;
 bool	*loop;
+char	*ind;
 {
 	*line += skip_spaces(*line);
-	if (ft_strlen(*line) >= 6 && !ft_strncmp(*line, "txtr=\"", 6))
+	if (ft_strlen(*line) >= 6 && !ft_strncmp(*line, ind, 6))
 	{
 		*line += 6;
 		if (!get_path(line, texture))
@@ -127,10 +138,12 @@ t_specular_light *spec;
 			return (false);
 		if (loop)
 			continue ;
-		check_checkerboard(&line, &spec->checkred, &loop);
+		if (!check_checkerboard(&line, spec, &loop))
+			return (false);
 		if (loop)
 			continue ;
-		check_texture(&line, &spec->texture, &loop);
+		check_texture(&line, &spec->texture, &loop, "txtr=\"");
+		check_texture(&line, &spec->bump, &loop, "bump=\"");
 		if (loop)
 			continue ;
 		break ;

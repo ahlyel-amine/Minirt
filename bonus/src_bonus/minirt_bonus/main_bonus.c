@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 03:12:50 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:09:17 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int main(int ac, char **av)
 	{
 		if (!parcer(av[1], &data))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
-		// print_scean(data);
+		print_scean(data);
 		if (!make_image(&scean))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		lookat(&data.camera);
