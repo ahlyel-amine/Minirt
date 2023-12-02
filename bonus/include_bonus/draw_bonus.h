@@ -15,5 +15,8 @@ t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hi
 t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec);
 void	nineties(t_vec *color);
 t_vec	checkread_borad(t_vec color, t_vec p, t_hit_record *obj);
+void	textures_binding(t_objects *shapes, t_mrt *img);
+t_vec	get_tex_color(t_texture_img *texture, double u, double v, bool sp);
+void	check_color(t_objects *object, t_hit_record *rec);
 
 #endif

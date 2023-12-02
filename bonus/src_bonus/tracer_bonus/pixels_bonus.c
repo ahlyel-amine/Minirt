@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixels.c                                           :+:      :+:    :+:   */
+/*   pixels_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:28 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/02 04:27:06 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,52 @@ int	rgb_to_int(t_coord color)
 	g = (int)(255.0 * (color.v_y));
 	b = (int)(255.0 * color.v_z);
 	return (r << 16 | g << 8 | b);
+}
+ t_vec	get_tex_color(t_texture_img *texture, double u, double v, bool sp)
+{
+	int		x;
+	int		y;
+	int		index;
+	t_vec	color;
+
+	if (sp)
+	{
+		x = ((int)((u) * texture->width));
+		y = (1 - v) * texture->height;
+	}
+	else
+	{
+		x = ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
+		y = ((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height);
+	}
+	index = (x * texture->bpp / 8) + (y * texture->line_len);
+	color.v_x = (unsigned char)texture->addr[abs(index) + 2] / 255.0;
+	color.v_y = (unsigned char)texture->addr[abs(index) + 1] / 255.0;
+	color.v_z = (unsigned char)texture->addr[abs(index)] / 255.0;
+	return (color);
+}
+
+void	check_color(t_objects *object, t_hit_record *rec)
+{
+	double u;
+	double v;
+
+	if (object)
+	{
+		if (object->type == SPHERE && ((t_sphere *)(object->object))->spec.texture)
+		{
+			get_uv_sphere(object->object, rec, &u, &v);
+			rec->h_color = get_tex_color(((t_sphere *)(object->object))->texture, u, v, true);
+		}
+		else if (object->type == CYLENDER && ((t_cylender *)(object->object))->spec.texture)
+		{
+			get_uv_cylinder((t_cylender *)object->object, rec, &u, &v);
+			rec->h_color = get_tex_color(((t_cylender *)(object->object))->texture, u, v, false);
+		}
+		else if (object->type == PLANE && ((t_plane *)(object->object))->spec.texture)
+		{
+			get_uv_plane((t_plane *)object->object, rec, &u, &v);
+			rec->h_color = get_tex_color(((t_plane *)(object->object))->texture, u, v, false);
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:55:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 19:02:59 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/02 03:38:33 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,23 @@ void	print_scean(t_data data)
         {
             t_sphere	*object = (t_sphere *)data.objects->object;
             printf("sphere\t:\t%.2f,%.2f,%.2f\t\t\t\t%.2f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->diameter, object->clr.r, object->clr.g, object->clr.b);
-        }
+			if (object->spec.texture && object->texture->img)
+				printf("sphere texture %s \n", object->spec.texture);
+		}
         else if (data.objects->type == PLANE)
         {
             t_plane	*object = (t_plane *)data.objects->object;
             printf("plane\t:\t%.2f,%.2f,%.2f\t%.2f,%.2f,%.2f\t\t\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, object->clr.r, object->clr.g, object->clr.b);
-        }
+			if (object->spec.texture && object->texture->img)
+				printf("sphere texture %s \n", object->spec.texture);
+		}
         else if (data.objects->type == CYLENDER)
         {
             t_cylender	*object = (t_cylender *)data.objects->object;
             printf("cylender:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
             object->diameter, object->height,  object->clr.r, object->clr.g, object->clr.b);
-			printf("cylinder front face %d back_face %d\n", object->p_face->type, object->p_face->next->type);
+			if (object->texture->img && object->spec.texture)
+				printf("sphere texture %s \n", object->spec.texture);
         }
         data.objects = data.objects->next;
     }
