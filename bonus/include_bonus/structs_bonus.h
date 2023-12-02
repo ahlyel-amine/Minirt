@@ -2,6 +2,7 @@
 #define STRUCTS_H
 #include <stdio.h>
 #include <stdbool.h>
+
 typedef struct s_cord
 {
 	double	a;
@@ -67,13 +68,7 @@ typedef struct s_light
 }	t_light;
 
 
-typedef struct s_plane
-{
-	t_specular_light spec;
-	t_vec	normalized;
-	t_color	clr;
-	t_vec	cord;
-}	t_plane;
+
 typedef	struct s_object
 {
 	unsigned char	type;
@@ -81,9 +76,31 @@ typedef	struct s_object
 	struct s_object	*next;
 }	t_objects;
 
+typedef struct s_texture_img
+{
+	void	*img;
+	char	*path;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_texture_img;
+
+typedef struct s_plane
+{
+	t_specular_light spec;
+	t_texture_img	*texture;
+	t_vec	normalized;
+	t_color	clr;
+	t_vec	cord;
+}	t_plane;
+
 typedef struct s_cylender
 {
 	t_specular_light spec;
+	t_texture_img	*texture;
 	t_vec	normalized;
 	t_vec	cord;
 	t_color	clr;
@@ -95,6 +112,7 @@ typedef struct s_cylender
 typedef struct s_sphere
 {
 	t_specular_light spec;
+	t_texture_img	*texture;
 	t_color	clr;
 	double	diameter;
 	t_vec	cord;

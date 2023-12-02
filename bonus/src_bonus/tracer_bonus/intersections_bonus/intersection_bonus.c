@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/29 17:36:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/02 04:29:12 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs_bonus.h"
 #include "library_bonus.h"
 #include "tracer_bonus.h"
+#include "draw_bonus.h"
 
 
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
@@ -38,6 +39,7 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		}
 		obj = obj->next;
 	}
+	check_color(object, rec);
 	return (object);
 }
 

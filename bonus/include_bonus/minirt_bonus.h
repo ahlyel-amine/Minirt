@@ -19,6 +19,8 @@
 
 bool	parcer(char *scene, t_data	*data);
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
+typedef bool	(*texture)(void *, t_mrt *);
+
 void	*draw(void *param);
 
 //--------------------intersection--------------------
