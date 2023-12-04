@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcer.c                                           :+:      :+:    :+:   */
+/*   parcer_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 18:20:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ enum types	find_type(char *line)
 		return (PLANE);
 	else if (!ft_strncmp(line, S_TRIANGLE, 2) && ft_isspace(line[2]))
 		return (TRIANGLE);
+	else if (!ft_strncmp(line, S_CONE, 2) && ft_isspace(line[2]))
+		return (CONE);
 	else
 		return (INVALID);
 }
@@ -55,6 +57,7 @@ object_parcer	objcets_parcers(enum types offset)
 		function_parcer[CAMERA] = camera_parcer;
 		function_parcer[LIGHT] = light_parcer;
 		function_parcer[TRIANGLE] = triangle_parcer;
+		function_parcer[CONE] = cone_parcer;
 	}
 	return (*(function_parcer + offset));
 }

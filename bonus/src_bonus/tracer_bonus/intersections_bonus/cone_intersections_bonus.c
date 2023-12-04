@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:50:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 15:18:50 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 20:50:23 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
     double b = 2 * (cosTheta2 * ray->direction.v_x * cone_origin.v_x + cosTheta2 * ray->direction.v_z * cone_origin.v_z - sinTheta2 * ray->direction.v_y * cone_origin.v_y);
     double c = cosTheta2 * pow(cone_origin.v_x, 2) + cosTheta2 * pow(cone_origin.v_z, 2) - sinTheta2 * pow(cone_origin.v_y, 2);
     double discriminant = b * b - 4 * a * c;
-    if (discriminant < 0)
+    if (discriminant < eps)
         return (false);
     double t1 = (-b + sqrt(discriminant)) / (2 * a);
     double t2 = (-b - sqrt(discriminant)) / (2 * a);

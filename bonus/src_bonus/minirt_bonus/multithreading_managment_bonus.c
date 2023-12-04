@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 14:09:10 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 18:42:31 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	make_threads(t_mrt *scean, t_data data)
 	i = -1;
 	coef_x = 0;
 	coef_y = 0;
-	textures_binding(data.objects, scean);
+	// textures_binding(data.objects, scean);
 	// print_scean(data);
 	while (++i < 20)
 	{

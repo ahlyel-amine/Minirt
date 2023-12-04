@@ -35,5 +35,6 @@ enum	types
 #define	S_CAMERA	"C"
 #define	S_LIGHT		"l"
 #define	S_TRIANGLE	"tr"
+#define	S_CONE		"cn"
 
 #endif
