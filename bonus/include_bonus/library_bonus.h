@@ -3,8 +3,8 @@
 #include <stdbool.h>
 # include <math.h>
 #include "structs_bonus.h"
-#define WIDTH 1280
-#define HEIGHT 820
+#define WIDTH 1920	
+#define HEIGHT 1080
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3
@@ -14,10 +14,11 @@ typedef	bool	(*object_parcer)(char *, t_data *);
 
 enum	types
 {
-	SPHERE		= 0x00,
+	SPHERE		= 0x00,	
 	CYLENDER	= 0x01,
 	PLANE		= 0x02,
 	TRIANGLE	= 0x03,
+	CONE		= 0x03,
 	LIGHTING	= 0x04,
 	CAMERA		= 0x05,
 	LIGHT		= 0x06,

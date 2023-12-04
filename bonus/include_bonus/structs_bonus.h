@@ -100,6 +100,17 @@ typedef struct s_plane
 	t_vec	cord;
 }	t_plane;
 
+typedef struct s_cone
+{
+	t_specular_light spec;
+	t_texture_img	*texture;
+	t_vec normalized;
+    t_vec apex;
+	t_color	clr;
+    t_vec cord;
+    double half_angle;
+}   t_cone;
+
 typedef struct s_cylender
 {
 	t_specular_light spec;
