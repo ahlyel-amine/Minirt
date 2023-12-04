@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/02 04:29:12 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:19:30 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ t_objects	*get_first_close_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 inter_func	intersect(int type)
 {
 	t_objects	*obj;
-	inter_func	obj_inter[4];
+	inter_func	obj_inter[5];
 
 	obj_inter[SPHERE] = sphere_hit;
 	obj_inter[PLANE] = plan_hit;
 	obj_inter[CYLENDER] = f_cylinder_render;
 	obj_inter[TRIANGLE] = triangle_hit;
+	obj_inter[CONE] = cone_hit;
 	return (*(obj_inter + type));
 }
