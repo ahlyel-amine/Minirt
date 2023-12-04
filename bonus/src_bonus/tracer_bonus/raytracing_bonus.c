@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 13:58:07 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:21:15 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		if ((int)(floor(a * c) + floor(b * d)) % 2)
 			rec->h_color = (t_vec){255, 255, 255};
 	}
-	else if (obj->type == SPHERE&& ((t_sphere *)obj->object)->spec.checkred == true)
+	else if (obj->type == SPHERE && ((t_sphere *)obj->object)->spec.checkred == true)
 	{
 		double a,b ;
 		double c = ((t_sphere *)obj->object)->spec.checkred_h ,d = ((t_sphere *)obj->object)->spec.checkred_w;
@@ -75,7 +75,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 			rec->h_color = (t_vec){255, 255, 255};
 		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
 	}
-	else if (obj->type == CYLENDER&& ((t_cylender *)obj->object)->spec.checkred == true)
+	else if (obj->type == CYLENDER && ((t_cylender *)obj->object)->spec.checkred == true)
 	{
 		double a,b ;
 		double c = ((t_cylender *)obj->object)->spec.checkred_h ,d = ((t_cylender *)obj->object)->spec.checkred_w;

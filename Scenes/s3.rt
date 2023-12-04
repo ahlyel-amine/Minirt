@@ -1,25 +1,26 @@
 A                                           0.6                 255,255,255
 
-C   0,1,-10.0      		0.0,0.0,1.0         30
+C   0,0,-1000      		0.0,0.0,1.0         30
 
 l   4.0,1.0,-5.0                            0.3                0,0,255
-l   -4.0,1.0,-5.0                           0.3                0,0,255
-l   4.0,1.0,2.0                             0.3                0,0,255
-l   -4.0,1.0,2.0                            0.3                0,0,255
-l   0.0,2.0,-1.0                            0.4                0,0,255
+# l   -4.0,1.0,-5.0                           0.3                0,0,255
+# l   4.0,1.0,2.0                             0.3                0,0,255
+# l   -4.0,1.0,2.0                            0.3                0,0,255
+# l   0.0,2.0,-1.0                            0.4                0,0,255
 
-pl  0.0,-1.0,0.0        0.0,1.0,0.0                             255,255,255 checkred=1,1    s=0,0       r=0.1 txtr="/home/saba/Documents/absoluteRt/wall.xpm" bump="/home/saba/Documents/absoluteRt/wall.xpm" 
-pl  0.0,3.0,0.0         0.0,-1.0,0.0                            248,228,223 r=0.2       checkred=1,1    s=0,0 txtr="/home/saba/Documents/absoluteRt/wall.xpm" 
-pl  0.0,0.0,13.0        0.0,0.0,-1.0                            255,255,255 s=0,0       checkred=1,1    r=0.2 txtr="/home/saba/Documents/absoluteRt/wall.xpm" 
+# pl  0.0,-1.0,0.0        0.0,1.0,0.0                             255,255,255 checkred=1,1    s=0,0       r=0.1 txtr="/Users/aahlyel/Desktop/Minirt/wall.xpm" bump="/Users/aahlyel/Desktop/Minirt/wall.xpm" 
+# pl  0.0,3.0,0.0         0.0,-1.0,0.0                            248,228,223 r=0.2       checkred=1,1    s=0,0 txtr="/Users/aahlyel/Desktop/Minirt/wall.xpm" 
+# pl  0.0,0.0,13.0        0.0,0.0,-1.0                            255,255,255 s=0,0       checkred=1,1    r=0.2 txtr="/Users/aahlyel/Desktop/Minirt/wall.xpm" 
 # pl  0.0,0.0,-10.1       0.0,0.0,-1.0                            255,255,255
 # pl  0.0,0.0,0           1.0,0.0,0.0                             255,255,255
-# pl  0.0,1,-13           1.0,0.0,0.0                             255,255,255 txtr="/home/saba/Documents/absoluteRt/wall.xpm"
+# pl  0.0,1,-13           1.0,0.0,0.0                             255,255,255 txtr="/Users/aahlyel/Desktop/Minirt/wall.xpm"
 
-sp  1,-0.25,3           1.5     226,0,27      checkred=16,8  s=2,0.15  txtr="/home/saba/Documents/absoluteRt/wall.xpm"
-sp  -2.0,-0.25,6        1.5     189,18,39       checkred=16,8 r=0.2
-sp  0,-0.25,8           1.5     255,25,115      r=1
-sp  -6,0,5              2       255,25,115      r=1
-sp  -1.5,-0.25,-4.0     1.5     255,25,115    checkred=16,8  s=2,0.15  txtr="/home/saba/Documents/absoluteRt/wall.xpm"
+# sp  1,-0.25,3           1.5     226,0,27      checkred=16,8  s=2,0.15  txtr="/Users/aahlyel/Desktop/Minirt/wall.xpm"
+# sp  -2.0,-0.25,6        1.5     189,18,39       checkred=16,8 r=0.2
+# sp  0,-0.25,8           1.5     255,25,115      r=1
+cn  0,0,0        0.0,0.5,1.0       15       255,25,115      
+# sp  -6,0,5              2       255,25,115      r=1
+# sp  -1.5,-0.25,-4.0     1.5     255,25,115    checkred=16,8  s=2,0.15  txtr="/Users/aahlyel/Desktop/Minirt/wall.xpm"
 
 # A                                           0.6                 21,125,82
 

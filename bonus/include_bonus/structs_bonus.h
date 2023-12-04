@@ -105,9 +105,8 @@ typedef struct s_cone
 	t_specular_light spec;
 	t_texture_img	*texture;
 	t_vec normalized;
-    t_vec apex;
-	t_color	clr;
     t_vec cord;
+	t_color	clr;
     double half_angle;
 }   t_cone;
 
@@ -152,6 +151,7 @@ typedef struct s_counter
 	int cylender;
 	int plane;
 	int triangle;
+	int cone;
 }	t_counter;
 
 typedef	struct s_data

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 14:09:17 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:19:42 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	make_image(t_mrt *scean)
 	scean->mlx = mlx_init();
 	if (!scean->mlx)
 		return (false);
-	scean->mlx_win = mlx_new_window(scean->mlx, WIDTH, HEIGHT, "MINI_RT");
+	scean->mlx_win = mlx_new_window(scean->mlx, WIDTH, HEIGHT, "MiniRT_BONUS");
 	if (!scean->mlx_win)
 		return (false);
 	scean->mlx_img = mlx_new_image(scean->mlx, WIDTH, HEIGHT);
