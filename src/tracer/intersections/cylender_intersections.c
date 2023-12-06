@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylender_intersections.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:26:11 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 22:09:54 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	plan->object = malloc(sizeof(t_plane));
 	ft_memset(plan->object, 0, sizeof(t_plane));
 	cylinder = obj->object;
+	normalize(&cylinder->normalized);
 	calculate_disk_plan(cylinder, plan,true);
 	((t_plane *)(plan->object))->clr = cylinder->clr;
 	calculate_disk_plan(cylinder, plan, false);

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/28 10:26:52 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/04 22:39:35 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include "library.h"
 #include "tracer.h"
+#include "vector.h"
 
 
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
@@ -52,7 +53,7 @@ t_objects	*get_first_close_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	closest_so_far = INFINITY;
 	while (obj)
 	{
-		if (intersect(obj->type)(ray, obj, &temp_rec) && obj->type != PLANE)
+		if (intersect(obj->type)(ray, obj, &temp_rec))
 		{
 			temp = temp_rec.t;
 			if (temp < closest_so_far)

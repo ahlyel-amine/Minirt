@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 17:25:05 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/04 23:09:38 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
 	normalize(&(rays->shadow_ray.direction));
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
-	objt = get_first_close_object(&(rays->shadow_ray), obj, &h_shadow);
+	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
+	
 	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
 }
 
@@ -56,6 +57,10 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
 	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0});
+	rec->nHit = (t_vec){rec->nHit.v_x + 0.9, rec->nHit.v_y + 0.9, rec->nHit.v_z + 0.9};
+	normalize(&rec->nHit);
+	if (obj->type == SPHERE)
+		printf("nHit: %f %f %f\n", rec->nHit.v_x, rec->nHit.v_y, rec->nHit.v_z);
 	light_effect = get_light_effect(data, rays, obj, rec);
 	ref_ray.ray.origin = rec->pHit;
 	ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
