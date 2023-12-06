@@ -126,9 +126,10 @@ typedef struct s_sphere
 {
 	t_specular_light spec;
 	t_texture_img	*texture;
+	t_texture_img	*bump;
+	t_vec	cord;
 	t_color	clr;
 	double	diameter;
-	t_vec	cord;
 }	t_sphere;
 
 typedef struct s_triangle

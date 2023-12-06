@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/30 14:23:44 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/06 00:39:00 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	get_uv_sphere(t_sphere *sphere, t_hit_record *rec, double *u, double *v)
 	double theta = acos(unit_v.v_y);
 	double phi = atan2(unit_v.v_x, unit_v.v_z);
 	// Step 4: Map theta and phi to the range [0,1] to get UV coordinates
-	*u = phi / (2 * M_PI);
-	*v = theta / M_PI;
+	*u = (phi / (2 * M_PI)) * -1;
+	*v = (theta / M_PI);
 }
 
 void	get_uv_plane(t_plane *plane, t_hit_record *rec, double *u, double *v)
