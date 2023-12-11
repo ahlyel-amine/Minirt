@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:47 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:37:23 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/11 17:29:03 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@
 
 bool light_parcer(char *line, t_data *data)
 {
+	static	bool	visited;
 	t_light	*light;
 	t_light	single_light;
-
+	
+	if (visited)
+		return (ft_putendl_fd("minirt: error: duplicate of light information", 2), false);
+	visited = true;
 	line += 2;
 	if (!cordinate_parcer(&line, &data->light.cord, INT_MAX, INT_MIN))
 		return (ft_putendl_fd("minirt: light invalid cordinate format", 2), false);
