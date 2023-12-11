@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading_managment_bonus.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/06 00:58:13 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:02:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

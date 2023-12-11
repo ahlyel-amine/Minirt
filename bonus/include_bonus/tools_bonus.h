@@ -5,7 +5,6 @@
 void		handle_bump(t_hit_record *rec, t_objects *obj);
 void		get_integer(char **line, int *integer);
 void		addobject_front(t_objects **lst, t_objects *new);
-void    	addobject_back(t_objects **lst, t_objects *new);
 void	    clearobjs(t_objects **lst);
 void		clearlights(t_light **lst);
 void		addlight(t_light **lst, t_light *new);
