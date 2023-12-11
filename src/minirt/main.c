@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 17:22:41 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:45:22 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	make_image(t_mrt *scean)
 int main(int ac, char **av)
 {
 	t_data		data;
-	t_dataset	ptr[10];
 	t_mrt		scean;
 
 	ft_memset(&data, 0, sizeof(t_data));
