@@ -109,6 +109,7 @@ typedef struct s_cone
     t_vec cord;
 	t_color	clr;
     double half_angle;
+    double height;
 }   t_cone;
 
 typedef struct s_cylender

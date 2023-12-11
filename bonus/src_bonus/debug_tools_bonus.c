@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:55:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 14:08:45 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/11 14:49:56 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ void	print_scean(t_data data)
             if (object->spec.bump)
 				printf("sphere bump %s \n", object->spec.bump);
         }
+        else if (data.objects->type == CONE)
+        {
+            t_cone	*object = (t_cone *)data.objects->object;
+            printf("cone:\t%.1f,%.1f,%.1f\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%d,%d,%d\n", object->cord.v_x, object->cord.v_y, object->cord.v_z, object->normalized.v_x, object->normalized.v_y, object->normalized.v_z, \
+            object->half_angle, object->height,  object->clr.r, object->clr.g, object->clr.b);
+			if (object->spec.texture)
+				printf("sphere texture %s \n", object->spec.texture);
+            if (object->spec.bump)
+				printf("sphere bump %s \n", object->spec.bump);
+        }
+
         data.objects = data.objects->next;
     }
 }

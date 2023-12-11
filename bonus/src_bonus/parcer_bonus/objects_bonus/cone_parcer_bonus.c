@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/04 18:30:57 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/11 15:00:24 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ bool cone_parcer(char *line, t_data *data)
 		return (ft_putendl_fd("minirt: invalid normalized format", 2), false);
 	if (!ft_atod(&line, &cone->half_angle, 180, 0))
 		return (ft_putendl_fd("minirt: invalid half angle format", 2), false);
+	if (!ft_atod(&line, &cone->height, INT_MAX, INT_MIN))
+		return (ft_putendl_fd("minirt: invalid height format", 2), false);
 	line += skip_spaces(line);
 	int a = color_parcer(line, &cone->clr);
 	if (a == -1)
