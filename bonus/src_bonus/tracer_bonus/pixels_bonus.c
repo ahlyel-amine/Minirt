@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/02 04:27:06 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/10 11:05:55 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	rgb_to_int(t_coord color)
 	int	r;
 	int	g;
 	int	b;
-	
+
 	r = (int)(255.0 * (color.v_x));
 	g = (int)(255.0 * (color.v_y));
 	b = (int)(255.0 * color.v_z);

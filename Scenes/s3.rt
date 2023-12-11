@@ -8,9 +8,9 @@ l   4.0,1.0,2.0                             0.3                0,0,255
 l   -4.0,1.0,2.0                            0.3                0,0,255
 l   0.0,2.0,-1.0                            0.4                0,0,255
 
-pl  0.0,-1.0,0.0        0.0,1.0,0.0                             255,255,255 checkred=1,1    s=0,0       r=0.1 txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm" bump="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm" 
-pl  0.0,3.0,0.0         0.0,-1.0,0.0                            248,228,223 r=0.2       checkred=1,1    s=0,0 txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm" 
-pl  0.0,0.0,13.0        0.0,0.0,-1.0                            255,255,255 s=0,0       checkred=1,1    r=0.2 txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm" 
+pl  0.0,-1.0,0.0        0.0,1.0,0.0                             255,255,255     s=0,0        txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm"  
+pl  0.0,3.0,0.0         0.0,-1.0,0.0                            248,228,223            s=0,0 txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm"  
+pl  0.0,0.0,13.0        0.0,0.0,-1.0                            255,255,255 s=0,0            txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm"  
 pl  0.0,0.0,-10.1       0.0,0.0,-1.0                            255,255,255
 pl  0.0,0.0,0           1.0,0.0,0.0                             255,255,255
 pl  0.0,1,-13           1.0,0.0,0.0                             255,255,255 txtr="/Users/aelbrahm/Desktop/fuck/images/2wall.xpm"

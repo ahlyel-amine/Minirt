@@ -95,6 +95,7 @@ typedef struct s_plane
 {
 	t_specular_light spec;
 	t_texture_img	*texture;
+	t_texture_img	*bump;
 	t_vec	normalized;
 	t_color	clr;
 	t_vec	cord;
@@ -208,6 +209,16 @@ typedef struct s_dataset
 	int e_y;
 }	t_dataset;
 
+typedef struct s_bump_data
+{
+	t_vec	axis;
+	double	u;
+	double	v;
+	double 	b_scale_u;
+	double 	b_scale_v;
+	int		x;
+	int		y;
+}	t_bump_data;
 // typedef enum e_bool
 // {
 // 	false,
