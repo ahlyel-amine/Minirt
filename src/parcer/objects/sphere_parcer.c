@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:54:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/11 17:43:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ t_data *data;
 	data->counter.sphere += 1;
 	line += 3;
 	if (!cordinate_parcer(&line, &sphere->cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: sp invalid cordinate format", 2), false);
+		return (free(sphere), ft_putendl_fd("minirt: sp invalid cordinate format", 2), false);
 	if (!ft_atod(&line, &sphere->diameter, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid diameter format", 2), false);
+		return (free(sphere), ft_putendl_fd("minirt: invalid diameter format", 2), false);
 	line += skip_spaces(line);
 	if (!color_parcer(line, &sphere->clr))
-		return (ft_putendl_fd("minirt: sphere invalid color format", 2), false);
+		return (free(sphere), ft_putendl_fd("minirt: sphere invalid color format", 2), false);
 	object = newobject(sphere, SPHERE);
 	if (!object)
-		return (false);
-	addobject_back(&data->objects, object);
+		return (free(sphere), false);
+	addobject_front(&data->objects, object);
 	return (true);
 }
