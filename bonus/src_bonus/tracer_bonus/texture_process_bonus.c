@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:10:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/06 01:55:20 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/10 09:23:31 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static bool	texture_sphere(void *sphere, t_mrt *img)
 		s->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
 		if (!s->texture)
 			return (free(s->spec.texture), s->spec.texture = NULL, false);
-		bump_texture(s, img);
 		s->texture->path = s->spec.texture;
 		s->texture->img = mlx_xpm_file_to_image(img->mlx, s->texture->path, &s->texture->width, &s->texture->height);
 		if (!s->texture->img)
@@ -70,6 +69,7 @@ static bool	texture_sphere(void *sphere, t_mrt *img)
 		else
 			s->texture->addr = mlx_get_data_addr(s->texture->img, &s->texture->bpp, &s->texture->line_len, &s->texture->endian);
 	}
+	bump_texture(s, img);
 	return (true);
 }
 

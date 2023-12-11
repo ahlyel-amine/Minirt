@@ -6,13 +6,14 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/06 00:39:00 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/11 03:53:19 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs_bonus.h"
 #include "library_bonus.h"
 #include "vector_bonus.h"
+#include <stdlib.h>
 
 t_specular_light		get_specular_addr(t_objects *obj)
 {
@@ -53,6 +54,7 @@ void	get_uv_plane(t_plane *plane, t_hit_record *rec, double *u, double *v)
 	*v = dot_product(e2, rec->pHit);
 	
 }
+
 void get_uv_cylinder(t_cylender *cy, t_hit_record *rec, double *u, double *v)
 {
     double theta;//azimuthal angle 
