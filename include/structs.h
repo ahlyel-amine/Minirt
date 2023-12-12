@@ -112,6 +112,7 @@ typedef	struct s_data
 	t_light		light;
 	t_counter	counter;
 	t_camera	camera;
+	int			shape;
 }	t_data;
 
 
