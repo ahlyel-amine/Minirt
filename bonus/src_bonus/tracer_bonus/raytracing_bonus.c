@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 03:51:53 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/12 09:00:12 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
 	}
 	handle_bump(rec, rays->closet_obj);
-	light_effect = get_light_effect(data, rays, rays->closet_obj, rec);
+	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
 	if (refl.reflection > 0 &&  level > 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:03:33 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 17:32:21 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/12 08:30:51 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,22 @@ void	*draw(void *param)
 	t_dataset		*ptr;
 	t_hit_record	rec;
 	t_rays			rays;
+	int				idx[2];
 
 	ptr = (t_dataset *)param;
 	ft_memset(&rays, 0, sizeof(t_rays));
-	for (int j = ptr->s_y; j < ptr->e_y; j++)
+	*idx = ptr->s_y;
+	while (*idx < ptr->e_y)
 	{
-		for (int i = ptr->s_x; i < ptr->e_x; i++)
+		*(idx + 1) = ptr->s_x;
+		while (*(idx + 1) < ptr->e_x)
 		{
-			Prime_ray(i, j, &(rays.ray), &ptr->data.camera);
-			my_mlx_put(ptr->m_rt, i, j, rgb_to_int(raytrace(&ptr->data, &rays, &rec, 10)));
+			Prime_ray(*(idx + 1), *idx, &(rays.ray), &ptr->data.camera);
+			my_mlx_put(ptr->m_rt, *(idx + 1), *idx, \
+			rgb_to_int(raytrace(&ptr->data, &rays, &rec, 10)));
+			(*(idx + 1))++;
 		}
+		(*idx)++;
 	}
 	return (NULL);
 }

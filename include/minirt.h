@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/01 17:23:22 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/12 09:03:32 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	lookat(t_camera *cam);
 void print_vec(char *str, t_vec vec);
 double distance(t_vec v, t_vec u);
 
-t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
+t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_hit_record *rec);
 // t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular_light refl);
 // t_vec	convert_light(t_light_effect effect, t_objects *obj, t_specular_light refl);
 // t_vec	convert_light(int level, t_light_effect effect, t_objects *obj);

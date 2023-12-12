@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 16:15:02 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/12 09:05:06 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	return (diffuse);
 }
 
-t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
+t_light_effect	get_light_effect(data, rays, rec)
+t_data *data;
+t_rays *rays;
+t_hit_record *rec;
 {
 	t_light_effect	effect;
 	double			thita;
@@ -48,7 +51,7 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
 	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
-	if (!shadow_ray(rays, &data->light, obj, rec))
+	if (!shadow_ray(rays, &data->light, data->objects, rec))
 		effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, &data->light, rec), 1, 1);
 	return (effect);
 }
