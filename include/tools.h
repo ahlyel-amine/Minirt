@@ -9,5 +9,5 @@ void		addobject_front(t_objects **lst, t_objects *new);
 bool    	ft_atod(char **ascii, double *result, int marge_max, int marge_min);
 t_objects	*newobject(void *object, unsigned char type);
 void	    clearobjs(t_objects **lst);
-
+void	hooks_settings(t_data *data);
 #endif

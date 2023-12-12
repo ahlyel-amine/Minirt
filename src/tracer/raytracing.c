@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:26:07 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/12 09:02:41 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
 	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0});
-	rec->nHit = (t_vec){rec->nHit.v_x + 0.9, rec->nHit.v_y + 0.9, rec->nHit.v_z + 0.9};
 	normalize(&rec->nHit);
-	light_effect = get_light_effect(data, rays, obj, rec);
+	light_effect = get_light_effect(data, rays, rec);
 	ref_ray.ray.origin = rec->pHit;
 	ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
 	ref_ray.ray.direction = vec_sub(rays->ray.direction, ref_ray.ray.direction);

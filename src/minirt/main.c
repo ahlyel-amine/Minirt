@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:45:22 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/12 10:38:49 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,19 @@ bool	make_image(t_mrt *scean)
 	return (true);
 }
 
+
+void	check(void)
+{
+	system("leaks Minirt");
+}
+
+
 int main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
 
+	atexit(check);
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
@@ -47,9 +55,11 @@ int main(int ac, char **av)
 		print_scean(data);
 		if (!make_image(&scean))
 			return (clearobjs(&data.objects), 1);
+		data.m_rt = &scean;
 		lookat(&data.camera);
 		draw(data, &scean);
-		mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
+		hooks_settings(&data);
+		// mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
 		mlx_loop(scean.mlx);
 	}
 	return 0;

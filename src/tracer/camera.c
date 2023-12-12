@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/01 17:28:17 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/12 09:40:01 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 {
 	t_vec	v;
 
-	v.v_x = dir->v_x * matrix[0][0] + dir->v_y * matrix[1][0] + dir->v_z * matrix[2][0];
-	v.v_y = dir->v_x * matrix[0][1] + dir->v_y * matrix[1][1] + dir->v_z * matrix[2][1];
-	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * matrix[1][2] + dir->v_z * matrix[2][2];
+	v.v_x = dir->v_x * matrix[0][0] + dir->v_y * \
+	matrix[1][0] + dir->v_z * matrix[2][0];
+	v.v_y = dir->v_x * matrix[0][1] + dir->v_y * \
+	matrix[1][1] + dir->v_z * matrix[2][1];
+	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * \
+	matrix[1][2] + dir->v_z * matrix[2][2];
 	return v;
 }
 void	camera_transform_matrix(t_camera *c)

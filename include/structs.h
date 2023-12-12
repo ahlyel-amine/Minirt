@@ -93,16 +93,6 @@ typedef struct s_counter
 	int cylender;
 	int plane;
 }	t_counter;
-
-typedef	struct s_data
-{
-	t_objects	*objects;
-	t_lighting	lighting;
-	t_light		light;
-	t_counter	counter;
-	t_camera	camera;
-}	t_data;
-
 typedef struct s_mrt
 {
 	void	*mlx;
@@ -113,6 +103,17 @@ typedef struct s_mrt
 	int		line_len;
 	int		endian;
 }	t_mrt;
+
+typedef	struct s_data
+{
+	t_objects	*objects;
+	t_mrt		*m_rt;
+	t_lighting	lighting;
+	t_light		light;
+	t_counter	counter;
+	t_camera	camera;
+}	t_data;
+
 
 typedef struct s_hit_record
 {

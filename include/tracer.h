@@ -6,7 +6,6 @@
 typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
 
 t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
-t_objects	*get_first_close_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	    sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	    plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	    f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
