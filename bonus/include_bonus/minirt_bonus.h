@@ -48,6 +48,6 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hi
 t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular_light refl);
 // t_vec	convert_light(t_light_effect effect, t_objects *obj, t_specular_light refl);
 // t_vec	convert_light(int level, t_light_effect effect, t_objects *obj);
-
+void	calculate_disk_plan(t_cylender *cylinder, t_objects *obj, bool is_top);
 
 #endif

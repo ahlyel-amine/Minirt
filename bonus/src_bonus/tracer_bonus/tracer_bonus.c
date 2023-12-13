@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:03:33 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/12 08:30:51 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:32:36 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*draw(void *param)
 		*(idx + 1) = ptr->s_x;
 		while (*(idx + 1) < ptr->e_x)
 		{
-			Prime_ray(*(idx + 1), *idx, &(rays.ray), &ptr->data.camera);
+			prime_ray(*(idx + 1), *idx, &(rays.ray), &ptr->data.camera);
 			my_mlx_put(ptr->m_rt, *(idx + 1), *idx, \
 			rgb_to_int(raytrace(&ptr->data, &rays, &rec, 10)));
 			(*(idx + 1))++;
