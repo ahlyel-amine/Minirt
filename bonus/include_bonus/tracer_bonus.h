@@ -14,7 +14,7 @@ bool	    plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	    f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
 inter_func	intersect(int type);
 
-void        Prime_ray(int x, int y, t_ray *ray,t_camera *cam);
+void        prime_ray(int x, int y, t_ray *ray,t_camera *cam);
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level);
 
 #endif

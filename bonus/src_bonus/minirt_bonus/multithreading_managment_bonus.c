@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 23:35:40 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:45:51 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	make_threads(t_mrt *scean, t_data data)
 	coef_x = 0;
 	coef_y = 0;
 	// print_scean(data);
-	textures_binding(data.objects, scean);
+	ft_bzero(scean->mlx_add, WIDTH * HEIGHT * (scean->bit_per_px / 8));
 	while (++i < 10)
 	{
 		ptr[i].m_rt = scean;
@@ -65,5 +65,6 @@ bool	make_threads(t_mrt *scean, t_data data)
 			return (join_threads(th,  i + 1), false);
 	}
 	join_threads(th, 10);
+	mlx_put_image_to_window(scean->mlx, scean->mlx_win, scean->mlx_img, 0, 0);
 	return (true);
 }

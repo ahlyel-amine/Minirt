@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/12 09:00:12 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 14:21:19 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@
 #include "library_bonus.h"
 #include "minirt_bonus.h"
 
-void	Prime_ray(int x, int y, t_ray *ray,t_camera *cam)
+void	prime_ray(int x, int y, t_ray *ray,t_camera *cam)
 {
-	double	ndcX;
-	double	ndcY;
+	double	ndc_x;
+	double	ndc_y;
 
 	ray->origin = cam->cord;
-	ndcX = ((double)x + 0.5) / WIDTH;
-	ndcY = ((double)y + 0.5) / HEIGHT;
-	ray->direction.v_x = (2 * ndcX - 1) * cam->scale * cam->aspect_ratio;
-	ray->direction.v_y = (1 - 2 * ndcY) * cam->scale;
+	ndc_x = ((double)x + 0.5) / WIDTH;
+	ndc_y = ((double)y + 0.5) / HEIGHT;
+	ray->direction.v_x = (2 * ndc_x - 1) * cam->scale * cam->aspect_ratio;
+	ray->direction.v_y = (1 - 2 * ndc_y) * cam->scale;
 	ray->direction.v_z = 1;
 	ray->direction = cam_to_world(cam->tr_matrix, &ray->direction);
 	normalize(&ray->direction);
@@ -84,7 +84,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 			rec->h_color = (t_vec){255, 255, 255};
 		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
 	}
-	handle_bump(rec, rays->closet_obj);
+	// handle_bump(rec, rays->closet_obj);
 	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
 	if (refl.reflection > 0 &&  level > 0)

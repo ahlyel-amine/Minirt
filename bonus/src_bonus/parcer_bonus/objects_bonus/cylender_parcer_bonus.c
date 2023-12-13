@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 23:36:16 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:25:54 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <limits.h>
 
-static void	calculate_disk_plan(t_cylender *cylinder, t_objects *obj, bool is_top)
+void	calculate_disk_plan(t_cylender *cylinder, t_objects *obj, bool is_top)
 {
 	t_plane *plan;
 

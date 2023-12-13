@@ -18,4 +18,10 @@ double		get_greyscale_texture_c(t_texture_img *bump, int x, int y);
 t_objects	*newobject(void *object, unsigned char type);
 t_light 	*newlight(t_light new);
 t_specular_light		get_specular_addr(t_objects *obj);
+void	cam_y(int key, t_data *data);
+void	cam_x(int key, t_data *data);
+void					scale(int key, t_data *data);
+void	rotate(int key, t_data *data);
+void	hooks_settings(t_data *data);
+
 #endif
