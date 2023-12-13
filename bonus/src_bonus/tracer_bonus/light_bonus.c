@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 01:29:54 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:55:05 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,84 +108,4 @@ void	nineties(t_vec *color)
 	color->v_y = MIN(color->v_x, 1.0);
 	color->v_z = MIN(color->v_x, 1.0);
 }
-// #include <stdio.h>
-// #include <math.h>
 
-// // Structure to represent a 3D vector
-// typedef struct {
-//     float x, y, z;
-// } Vector3;
-
-// // Structure to represent a point on the surface hit by a ray
-// typedef struct {
-//     Vector3 position;  // Hit point coordinates
-//     Vector3 normal;    // Surface normal at the hit point
-//     float u, v;        // UV coordinates on the surface
-// } HitPoint;
-
-// // Bump mapping function
-// void bumpMap(HitPoint *hit, float bumpiness) {
-//     // Simulate the derivative by finding the difference in texture color
-//     // For simplicity, we'll use a basic grayscale texture with values in the range [0, 1]
-//     float textureColorAtHitPoint = /* ... (get texture color at hit->u, hit->v) ... */;
-//     float textureColorAtNeighbor = /* ... (get texture color at neighboring UV coordinates) ... */;
-
-//     // Calculate the bump amount based on the difference in texture color
-//     float bumpAmount = (textureColorAtNeighbor - textureColorAtHitPoint) * bumpiness;
-
-//     // Adjust the surface normal based on the bump amount
-//     hit->normal.x += bumpAmount;
-//     hit->normal.y += bumpAmount;
-//     hit->normal.z += bumpAmount;
-
-//     // Normalize the modified normal to maintain it as a unit vector
-//     float normalMagnitude = sqrt(hit->normal.x * hit->normal.x + hit->normal.y * hit->normal.y + hit->normal.z * hit->normal.z);
-//     hit->normal.x /= normalMagnitude;
-//     hit->normal.y /= normalMagnitude;
-//     hit->normal.z /= normalMagnitude;
-// }
-
-// int main() {
-//     // Example usage of bump mapping
-//     HitPoint hit;
-//     hit.position.x = 1.0;
-//     hit.position.y = 2.0;
-//     hit.position.z = 3.0;
-//     hit.normal.x = 0.0;
-//     hit.normal.y = 0.0;
-//     hit.normal.z = 1.0;
-//     hit.u = 0.5;
-//     hit.v = 0.5;
-
-//     // Apply bump mapping with a bumpiness factor
-//     bumpMap(&hit, 0.1);
-
-//     // The hit structure now contains the modified normal after bump mapping
-//     printf("Modified Normal: (%f, %f, %f)\n", hit.normal.x, hit.normal.y, hit.normal.z);
-
-//     return 0;
-// }
-
-// // Assuming you have a 2D texture represented by a 2D array or image data
-// float textureColorAtHitPoint = getGrayscaleTextureColor(texture, hit->u, hit->v);
-
-// // Function to get grayscale texture color at given UV coordinates
-// float getGrayscaleTextureColor(float texture[][width], float u, float v) {
-//     // Assuming 'width' is the width of the texture
-//     // Perform bilinear interpolation to get the texture color
-//     int x = (int)(u * (width - 1));
-//     int y = (int)(v * (height - 1));
-
-//     // Bilinear interpolation
-//     float uRatio = u * (width - 1) - x;
-//     float vRatio = v * (height - 1) - y;
-//     float uOpposite = 1.0 - uRatio;
-//     float vOpposite = 1.0 - vRatio;
-
-//     float color = uOpposite * vOpposite * texture[y][x] +
-//                   uRatio * vOpposite * texture[y][x + 1] +
-//                   uOpposite * vRatio * texture[y + 1][x] +
-//                   uRatio * vRatio * texture[y + 1][x + 1];
-
-//     return color;
-// }
