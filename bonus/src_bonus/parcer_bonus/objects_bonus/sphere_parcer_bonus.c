@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_parcer_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:49:07 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/15 13:16:11 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_data *data;
 	line += skip_spaces(line + a) + a;
 	if (!check_for_features(line, &sphere->spec))
 		return (free(sphere), false);
+
 	// ft_atod(&line, &sphere->spec.intensity, INT_MAX, INT_MIN);
 	// line += skip_spaces(line);
 	// ft_atod(&line, &sphere->spec.shininess_factor, 1, 0);

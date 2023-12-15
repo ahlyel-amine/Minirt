@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:11:16 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double get_greyscale_texture_c(t_texture_img *bump, int x, int y)
 	color.v_x = (unsigned char)bump->addr[abs(index) + 2] / 255.0;
 	color.v_y = (unsigned char)bump->addr[abs(index) + 1] / 255.0;
 	color.v_z = (unsigned char)bump->addr[abs(index)] / 255.0;
-	grey = color.v_x + color.v_y * 256.0 + color.v_z * 65536.0;
+	grey = color.v_x + color.v_y * 256.0 + color.v_z;
 	return (grey);
 }
 
@@ -40,7 +40,7 @@ bool	sphere_bump(t_hit_record *rec, t_sphere *sphere, t_bump_data *b)
 	b->y = ((1 - b->v) * (sphere->bump->height - 1));
 	b->u = get_greyscale_texture_c(sphere->bump, b->x, b->y);
 	b->v = get_greyscale_texture_c(sphere->bump, (b->x + 1) % sphere->bump->width, b->y);
-	b->b_scale_u = (b->u - b->v) * -0.2;
+	b->b_scale_u = (b->u - b->v) * 0.2;
 	b->v = get_greyscale_texture_c(sphere->bump, b->x, (b->y + 1) % sphere->bump->height);
 	b->b_scale_v = (b->u - b->v) * -0.2;
 	return (true);
