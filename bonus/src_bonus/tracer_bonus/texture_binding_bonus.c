@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_binding_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/15 12:11:16 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:26:58 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	sphere_bump(t_hit_record *rec, t_sphere *sphere, t_bump_data *b)
 	b->y = ((1 - b->v) * (sphere->bump->height - 1));
 	b->u = get_greyscale_texture_c(sphere->bump, b->x, b->y);
 	b->v = get_greyscale_texture_c(sphere->bump, (b->x + 1) % sphere->bump->width, b->y);
-	b->b_scale_u = (b->u - b->v) * 0.2;
+	b->b_scale_u = (b->u - b->v) * -0.2;
 	b->v = get_greyscale_texture_c(sphere->bump, b->x, (b->y + 1) % sphere->bump->height);
 	b->b_scale_v = (b->u - b->v) * -0.2;
 	return (true);
@@ -56,9 +56,9 @@ bool	plane_bump(t_hit_record *rec, t_plane *plane, t_bump_data *b)
 	b->y = ((1 - b->v) * (plane->bump->height - 1));
 	b->u = get_greyscale_texture_c(plane->bump, b->x, b->y);
 	b->v = get_greyscale_texture_c(plane->bump, (b->x + 1) % plane->bump->width, b->y);
-	b->b_scale_u = (b->u - b->v);
+	b->b_scale_u = (b->u - b->v) * 1;
 	b->v = get_greyscale_texture_c(plane->bump, b->x, (b->y + 1) % plane->bump->height);
-	b->b_scale_v = (b->u - b->v);
+	b->b_scale_v = (b->u - b->v) * 1;
 	return (true);
 }
 

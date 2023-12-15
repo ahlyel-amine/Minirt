@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/13 20:12:23 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:39:46 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	rgb_to_int(t_coord color)
 	// 	x = ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
 	// 	y = ((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height);
 	// }
-	x = (sp > 0) * ((int)((u) * texture->width)) + (sp < 1) * ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
+	x = (sp > 0) * ((int)((u) * texture->width)) + (sp < 1) * (((int)((u) * texture->width) + texture->width / 2) % (texture->width));
 	y = (sp > 0) * ((1 - v) * texture->height) + (sp < 1) * (((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height));
 	index = (x * texture->bpp / 8) + (y * texture->line_len);
 	color.v_x = (unsigned char)texture->addr[abs(index) + 2] / 255.0;
