@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/24 09:03:01 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:24:23 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ enum types	find_type(char *line)
 		return (CYLENDER);
 	else if (!ft_strncmp(line, S_PLANE, 2) && ft_isspace(line[2]))
 		return (PLANE);
-	else if (!ft_strncmp(line, S_TRIANGLE, 2) && ft_isspace(line[2]))
-		return (TRIANGLE);
 	else
 		return (INVALID);
 }
@@ -54,7 +52,6 @@ object_parcer	objcets_parcers(enum types offset)
 		function_parcer[LIGHTING] = lighting_parcer;
 		function_parcer[CAMERA] = camera_parcer;
 		function_parcer[LIGHT] = light_parcer;
-		function_parcer[TRIANGLE] = triangle_parcer;
 	}
 	return (*(function_parcer + offset));
 }
@@ -80,7 +77,7 @@ bool	read_true(char **line, t_data *data, int fd)
 	while (*line)
 	{
 		if (!transform_line(*line, data))
-			return (false);
+			return (free (*line), false);
 		free (*line);
 		*line = get_next_line(fd);
 	}

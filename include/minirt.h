@@ -6,46 +6,31 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/11/28 14:05:27 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:24:21 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-#define WIDTH 1280
-#define HEIGHT 820
-#define FRAME 3
-#define M_D 1.79769e+308
-#define eps 1e-3
-#include <stdbool.h>
-#include "structs.h"
-#define MIN(X, Y)((X) < (Y) ? (X) : (Y))
-#define REF_LEVEL 5
-typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
-bool	parcer(char *scene, t_data	*data);
-#include <mlx.h>
 
-//--------------------intersection--------------------
+# include <stdbool.h>
+# include "structs.h"
 
-bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
-bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
-bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
-inter_func	intersect(int type);
+bool			parcer(char *scene, t_data	*data);
+void			draw(t_data data, t_mrt *scean);
 
 //--------------------camera--------------------
-t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
-void	lookat(t_mrt *rt, t_camera *cam);
+t_vec			cam_to_world(double matrix[4][4], t_vec *dir);
+void			lookat(t_camera *cam);
 
+void			print_vec(char *str, t_vec vec);
+double			distance(t_vec v, t_vec u);
 
-void	print_scean(t_data data);
-void print_vec(char *str, t_vec vec);
-double distance(t_vec v, t_vec u);
+t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_hit_record *rec);
+t_vec			convert_light(t_light_effect effect, t_objects *obj);
 
-t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec);
-t_objects	*get_closes_object2(t_ray *ray, t_objects *obj, t_hit_record *rec);
-t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec);
-t_vec	convert_light(t_objects *obj, t_light_effect effect);
+void			print_scean(t_data data);
+void			calculate_disk_plan(t_cylender *cylinder, \
+t_objects *obj, bool is_top);
 
-void	texture_bump_init(t_objects *shape, t_mrt *mrt);
-void	get_uv_sphere(t_sphere *sphere, t_hit_record *rec, double *u, double *v);
 #endif
