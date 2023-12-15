@@ -1,8 +1,19 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
-#include <stdio.h>
-#include <stdbool.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 18:26:20 by aelbrahm          #+#    #+#             */
+/*   Updated: 2023/12/14 18:34:02 by aelbrahm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef STRUCTS_H
+# define STRUCTS_H
+# include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_cord
 {
@@ -24,7 +35,6 @@ typedef struct s_ray
 	t_vec	direction;
 }	t_ray;
 
-# define t_coord t_vec
 typedef struct s_color
 {
 	unsigned char	r;
@@ -64,13 +74,21 @@ typedef struct s_plane
 	t_vec	cord;
 }	t_plane;
 
+typedef struct s_object
+{
+	unsigned char	type;
+	void			*object;
+	struct s_object	*next;
+}	t_objects;
+
 typedef struct s_cylender
 {
-	t_vec	normalized;
-	t_color	clr;
-	double	diameter;
-	double	height;
-	t_vec	cord;
+	t_vec		normalized;
+	t_vec		cord;
+	t_color		clr;
+	t_objects	*p_face;
+	double		diameter;
+	double		height;
 }	t_cylender;
 
 typedef struct s_sphere
@@ -80,18 +98,11 @@ typedef struct s_sphere
 	t_vec	cord;
 }	t_sphere;
 
-typedef	struct s_object
-{
-	unsigned char	type;
-	void			*object;
-	struct s_object	*next;
-}	t_objects;
-
 typedef struct s_counter
 {
-	int sphere;
-	int cylender;
-	int plane;
+	int	sphere;
+	int	cylender;
+	int	plane;
 }	t_counter;
 typedef struct s_mrt
 {
@@ -104,7 +115,7 @@ typedef struct s_mrt
 	int		endian;
 }	t_mrt;
 
-typedef	struct s_data
+typedef struct s_data
 {
 	t_objects	*objects;
 	t_mrt		*m_rt;
@@ -115,13 +126,12 @@ typedef	struct s_data
 	int			shape;
 }	t_data;
 
-
 typedef struct s_hit_record
 {
 	double	t;
-	t_vec	pHit;
-	t_vec	nHit;
-	t_vec 	h_color;	
+	t_vec	p_hit;
+	t_vec	n_hit;
+	t_vec	h_color;	
 }	t_hit_record;
 
 typedef struct s_light_effect

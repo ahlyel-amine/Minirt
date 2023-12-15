@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/12 08:33:16 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void	handle_bump(t_hit_record *rec, t_objects *obj)
 	}	
 	else
 		return ;
-	perp_u = cross_product(rec->nHit, b.axis);
-	perp_v = cross_product(rec->nHit, perp_u);
-	rec->nHit = vec_addition(rec->nHit, scalar_mult(perp_u, b.b_scale_v));
-	rec->nHit = vec_addition(rec->nHit, scalar_mult(perp_v, b.b_scale_u));
-	normalize(&rec->nHit);
+	perp_u = cross_product(rec->n_hit, b.axis);
+	perp_v = cross_product(rec->n_hit, perp_u);
+	rec->n_hit = vec_addition(rec->n_hit, scalar_mult(perp_u, b.b_scale_v));
+	rec->n_hit = vec_addition(rec->n_hit, scalar_mult(perp_v, b.b_scale_u));
+	normalize(&rec->n_hit);
 }
 
 // Assuming you have a 2D texture represented by a 2D array or image data

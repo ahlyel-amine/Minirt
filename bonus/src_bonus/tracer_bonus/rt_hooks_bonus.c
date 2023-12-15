@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:38:10 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/13 15:44:05 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:23:47 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #include "tools_bonus.h"
 #include <mlx.h>
 
-void	close_key(t_mrt *scean)
+void	close_key(int key, t_data *data)
 {
-	mlx_destroy_image(scean->mlx, scean->mlx_img);
-	mlx_destroy_window(scean->mlx, scean->mlx_win);
+	(void)key;
+	mlx_destroy_image(data->m_rt->mlx, data->m_rt->mlx_img);
+	mlx_destroy_window(data->m_rt->mlx, data->m_rt->mlx_win);
 	exit(EXIT_SUCCESS);
 }
 
@@ -36,35 +37,37 @@ int	m_close(void *param)
 
 void	zoom(int key, t_data *data)
 {
-	if (key == 69)
-		data->camera.cord.v_z += 5;
-	else if (key == 78)
-		data->camera.cord.v_z -= 5;
+	data->camera.cord.v_z += (key == 69) * 5 - (key == 78) * 5;
 	lookat(&(data->camera));
 	make_threads(data->m_rt, *data);
 }
+typedef void (*hooks_f)(int, t_data *);
 
-int	key_hook(int keycode, t_data *data)
+hooks_f	hook_func(int idx)
 {
-	if (keycode == 53)
-		close_key(data->m_rt);
-	if (keycode == 123 || keycode == 124)
-		cam_x(keycode, data);
-	if (keycode == 125 || keycode == 126)
-		cam_y(keycode, data);
-	if (keycode == 78 || keycode == 69)
-		zoom(keycode, data);
-	if (keycode == 8)
-		data->shape = CYLENDER;
-	if (keycode == 35)
-		data->shape = PLANE;
-	if (keycode == 1)
-		data->shape = SPHERE;
-	if (data->shape && (keycode == 38 || \
-	keycode == 37 || keycode == 34 || keycode == 40))
-		rotate(keycode, data);
-	if ((keycode == 24 || keycode == 27))
-		scale(keycode, data);
+	hooks_f	func[7];
+	*(func) = skip;
+	*(func + 1) = close_key;
+	*(func + 2) = cam_x;
+	*(func + 3) = cam_y;
+	*(func + 4) = zoom;
+	*(func + 5) = rotate;
+	*(func + 6) = scale;
+	return (*(func + idx));
+}
+
+int	key_hook(int key, t_data *data)
+{
+	int	indx;
+	
+	indx = (key == 53) * 1 + (key == 123 || key == 124) * 2 + \
+	(key == 125 || key == 126) * 3 + (key == 78 || key == 69) * 4;
+	hook_func(indx)(key, data);
+	data->shape = (key == 8) * CYLENDER + (key == 35) * PLANE \
+	+ (key == 1) * SPHERE + (key != 1 && key != 35 && key != 8) * data->shape;
+	indx = (data->shape > 0 && (key == 38 || key == 37 || key \
+	== 34 || key == 40)) * 5 + (key == 24 || key == 27) * 6;
+	hook_func(indx)(key, data);
 	return (0);
 }
 

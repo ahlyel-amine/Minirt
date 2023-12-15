@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/13 14:21:19 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ bool shadow_ray(t_rays *rays, t_light *light, t_objects *obj, t_hit_record *rec)
 	t_hit_record	h_shadow;
 	t_objects		*objt;
 
-	rays->shadow_ray.origin = rec->pHit;
-	rays->shadow_ray.direction = vec_sub(light->cord, rec->pHit);
+	rays->shadow_ray.origin = rec->p_hit;
+	rays->shadow_ray.direction = vec_sub(light->cord, rec->p_hit);
 	normalize(&(rays->shadow_ray.direction));
 	rays->shadow_ray.origin = at(0.01, rays->shadow_ray);
 	objt = get_closes_object(&(rays->shadow_ray), obj, &h_shadow);
-	return (objt && distance(rec->pHit, light->cord) > h_shadow.t);
+	return (objt && distance(rec->p_hit, light->cord) > h_shadow.t);
 }
 
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
@@ -59,7 +59,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 	t_specular_light refl = get_specular_addr(obj);
 	if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
 	{
-		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+		// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
 		double a,b;
 		double c = ((t_plane *)obj->object)->spec.checkred_h ,d = ((t_plane *)obj->object)->spec.checkred_w;
 		get_uv_plane(obj->object, rec, &a, &b);
@@ -73,7 +73,7 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		get_uv_sphere(obj->object, rec, &a, &b);
 		if ((int)(floor(c * a) + floor(d * b)) % 2)
 			rec->h_color = (t_vec){255, 255, 255};
-		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+		// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
 	}
 	else if (obj->type == CYLENDER && ((t_cylender *)obj->object)->spec.checkred == true)
 	{
@@ -82,15 +82,15 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		get_uv_cylinder(obj->object, rec, &a, &b);
 		if ((int)(floor(c * a) + floor(d * b)) % 2)
 			rec->h_color = (t_vec){255, 255, 255};
-		// rec->h_color =  checkread_borad(rec->h_color, rec->pHit, rec);
+		// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
 	}
 	// handle_bump(rec, rays->closet_obj);
 	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
 	if (refl.reflection > 0 &&  level > 0)
 	{
-		ref_ray.ray.origin = rec->pHit;
-		ref_ray.ray.direction = scalar_mult(rec->nHit, 2 * dot_product(rays->ray.direction, rec->nHit));
+		ref_ray.ray.origin = rec->p_hit;
+		ref_ray.ray.direction = scalar_mult(rec->n_hit, 2 * dot_product(rays->ray.direction, rec->n_hit));
 		ref_ray.ray.direction = vec_sub(rays->ray.direction, ref_ray.ray.direction);
 		normalize(&(ref_ray.ray.direction));
 		light_effect.reflect = raytrace(data, &ref_ray, rec, level);

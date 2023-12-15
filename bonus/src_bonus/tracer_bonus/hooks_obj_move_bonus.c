@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:09:48 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/13 15:24:35 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:25:29 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,15 @@
 
 void	cam_x(int key, t_data *data)
 {
-	if (key == 124)
-		data->camera.normalized.v_x += 0.5;
-	else if (key == 123)
-		data->camera.normalized.v_x -= 0.5;
+	data->camera.normalized.v_x += ((key == 124) * 0.5) - ((key == 123) * 0.5);
 	normalize(&data->camera.normalized);
 	lookat(&(data->camera));
 	make_threads(data->m_rt, *data);
-
 }
 
 void	cam_y(int key, t_data *data)
 {
-	if (key == 126)
-		data->camera.normalized.v_y += 0.4;
-	else if (key == 125)
-		data->camera.normalized.v_y -= 0.4;
+	data->camera.normalized.v_y += (key == 126) * 0.4 - (key == 125) * 0.4;
 	normalize(&data->camera.normalized);
 	lookat(&(data->camera));
 	make_threads(data->m_rt, *data);
@@ -41,14 +34,8 @@ void	cam_y(int key, t_data *data)
 
 static void	cylinders_rotate(t_data *data, t_cylender *c, int key)
 {
-	if (key == 38)
-		c->normalized.v_x += 0.5;
-	else if (key == 37)
-		c->normalized.v_x -= 0.5;
-	else if (key == 34)
-		c->normalized.v_z += 0.5;
-	else if (key == 40)
-		c->normalized.v_z -= 0.5;
+	c->normalized.v_x += (key == 38) * 0.5 - (key == 37) * 0.5;
+	c->normalized.v_z += (key == 34) * 0.5 - (key == 40) * 0.5;
 	normalize(&c->normalized);
 	calculate_disk_plan(c, c->p_face, true);
 	calculate_disk_plan(c, c->p_face->next, false);
@@ -56,14 +43,8 @@ static void	cylinders_rotate(t_data *data, t_cylender *c, int key)
 
 static void	plane_rotate(t_data *data, t_plane *p, int key)
 {
-	if (key == 38)
-		p->normalized.v_x += 0.1;
-	else if (key == 37)
-		p->normalized.v_x -= 0.1;
-	else if (key == 34)
-		p->normalized.v_y += 0.1;
-	else if (key == 40)
-		p->normalized.v_y -= 0.1;
+	p->normalized.v_x += (key == 38) * 0.1 - (key == 37) * 0.1;
+	p->normalized.v_y += (key == 34) * 0.1 - (key == 40) * 0.1;
 	normalize(&p->normalized);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_intersections.c                             :+:      :+:    :+:   */
+/*   sphere_intersections_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:54 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 			return (false);
 	}
 	rec->t = tmp;
-	rec->pHit = at(rec->t, *ray);
-	t_vec norm = vec_sub(rec->pHit, sphere->cord);
-	rec->nHit = normalize(&norm);
+	rec->p_hit = at(rec->t, *ray);
+	t_vec norm = vec_sub(rec->p_hit, sphere->cord);
+	rec->n_hit = normalize(&norm);
 	rec->h_color = create_vec((double)(sphere->clr.r) / 255, (double)(sphere->clr.g) / 255, (double)(sphere->clr.b) / 255);
 	return (true);
 }

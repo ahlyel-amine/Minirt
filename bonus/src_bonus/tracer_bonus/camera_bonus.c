@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/12 08:21:29 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:24:24 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ void	camera_transform_matrix(t_camera *c)
 }
 void	camera_attributs(t_camera *c)
 {
-	if (WIDTH > HEIGHT)
-		c->aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	else
-		c->aspect_ratio = (double)HEIGHT / (double)WIDTH;
+	c->aspect_ratio = (WIDTH > HEIGHT) * ((double)WIDTH / \
+	(double)HEIGHT) + (WIDTH <= HEIGHT) * ((double)HEIGHT / (double)WIDTH);
 	c->scale = tan(((double)c->v_field * 0.5) * M_PI / 180);
 	camera_transform_matrix(c);
 }

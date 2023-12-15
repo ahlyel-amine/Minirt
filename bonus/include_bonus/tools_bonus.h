@@ -23,5 +23,5 @@ void	cam_x(int key, t_data *data);
 void					scale(int key, t_data *data);
 void	rotate(int key, t_data *data);
 void	hooks_settings(t_data *data);
-
+void	skip(int key, t_data *data);
 #endif

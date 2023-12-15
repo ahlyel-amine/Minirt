@@ -18,15 +18,15 @@ enum	types
 	CYLENDER	= 0x01,
 	PLANE		= 0x02,
 	TRIANGLE	= 0x03,
-	CONE		= 0x03,
-	LIGHTING	= 0x04,
-	CAMERA		= 0x05,
-	LIGHT		= 0x06,
+	CONE		= 0x04,
+	LIGHTING	= 0x05,
+	CAMERA		= 0x06,
+	LIGHT		= 0x07,
 	INVALID		= 0x20,
 };
 
 
-#define	MAX_OBJECTS	7
+#define	MAX_OBJECTS	8
 
 #define	S_SPHERE	"sp"
 #define	S_CYLENDER	"cy"

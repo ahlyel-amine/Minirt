@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone_intersections_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:50:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 18:02:55 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
     if (t < 0) 
         return (false);
     rec->t = t;
-	rec->pHit = at(rec->t, *ray);
-    if (dot_product(vec_sub(rec->pHit, cone->cord), cone->normalized) > eps)
+	rec->p_hit = at(rec->t, *ray);
+    if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) > eps)
         return (false);
-    if (distance(cone->cord, rec->pHit) > cone->height)
+    if (distance(cone->cord, rec->p_hit) > cone->height)
         return (false);
-	t_vec norm = vec_sub(rec->pHit, cone->cord);
-    rec->nHit = normalized(cross_product(cross_product(norm, cone->normalized), cone->normalized));
-    if (dot_product(rec->nHit, ray->direction) > 0)
-		rec->nHit = vec_nega(rec->nHit);
+	t_vec norm = vec_sub(rec->p_hit, cone->cord);
+    rec->n_hit = normalized(cross_product(cross_product(norm, cone->normalized), cone->normalized));
+    if (dot_product(rec->n_hit, ray->direction) > 0)
+		rec->n_hit = vec_nega(rec->n_hit);
 	rec->h_color = create_vec((double)(cone->clr.r) / 255, (double)(cone->clr.g) / 255, (double)(cone->clr.b) / 255);
 	return (true);
 }
