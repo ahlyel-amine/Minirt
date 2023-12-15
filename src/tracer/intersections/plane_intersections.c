@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_intersections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:52 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:27:10 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:34:10 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,26 @@
 
 bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
-	double  denom;
-	double  t;
-	t_vec   p;
-	t_plane *plan;
+	double	denom;
+	double	t;
+	t_vec	p;
+	t_plane	*plan;
 
-    plan = obj->object;
+	plan = obj->object;
 	denom = dot_product(plan->normalized, ray->direction);
-	if (fabs(denom) > eps)
+	if (fabs(denom) > EPS)
 	{
 		p = vec_sub(plan->cord, ray->origin);
 		t = dot_product(p, plan->normalized) / denom;
-		if (t > eps)
+		if (t > EPS)
 		{
 			rec->t = t;
-			rec->pHit = at(rec->t, *ray);
-			rec->nHit = plan->normalized;
-			if (dot_product(rec->nHit, ray->direction) > 0)
-				rec->nHit = vec_nega(rec->nHit);
-			rec->h_color = create_vec((double)(plan->clr.r) / 255, (double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
+			rec->p_hit = at(rec->t, *ray);
+			rec->n_hit = plan->normalized;
+			if (dot_product(rec->n_hit, ray->direction) > 0)
+				rec->n_hit = vec_nega(rec->n_hit);
+			rec->h_color = create_vec((double)(plan->clr.r) / 255, \
+			(double)(plan->clr.g) / 255, (double)(plan->clr.b) / 255);
 			return (true);
 		}
 	}
