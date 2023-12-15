@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/27 14:54:41 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:00:28 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include "structs.h"
+#include "library.h"
 #include "libft.h"
 
 void	clearobjs(t_objects **lst)
@@ -23,6 +24,8 @@ void	clearobjs(t_objects **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
+		if ((*lst)->type == CYLENDER)
+			clearobjs(&(((t_cylender *)((*lst)->object))->p_face));
 		free ((*lst)->object);
 		free(*lst);
 		*lst = tmp;

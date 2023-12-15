@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/12 09:40:01 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:26:34 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include "vector.h"
 #include "library.h"
 
-t_camera *create_cam(t_vec *origin, t_vec *direction, double fov)
+t_camera	*create_cam(t_vec *origin, t_vec *direction, double fov)
 {
 	t_camera	*cam;
+
 	cam = (t_camera *)malloc(sizeof(t_camera));
 	if (!cam)
 		return (NULL);
-	return cam;
+	return (cam);
 }
 
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
@@ -34,8 +35,9 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 	matrix[1][1] + dir->v_z * matrix[2][1];
 	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * \
 	matrix[1][2] + dir->v_z * matrix[2][2];
-	return v;
+	return (v);
 }
+
 void	camera_transform_matrix(t_camera *c)
 {
 	t_vec	forword;
@@ -51,12 +53,11 @@ void	camera_transform_matrix(t_camera *c)
 	c->tr_matrix[2][1] = forword.v_y;
 	c->tr_matrix[2][2] = forword.v_z;
 }
+
 void	camera_attributs(t_camera *c)
 {
-	if (WIDTH > HEIGHT)
-		c->aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	else
-		c->aspect_ratio = (double)HEIGHT / (double)WIDTH;
+	c->aspect_ratio = (WIDTH > HEIGHT) * ((double)WIDTH / \
+	(double)HEIGHT) + (WIDTH <= HEIGHT) * ((double)HEIGHT / (double)WIDTH);
 	c->scale = tan(((double)c->v_field * 0.5) * M_PI / 180);
 	camera_transform_matrix(c);
 }

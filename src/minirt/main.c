@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/12 10:38:49 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:43:44 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,19 @@ bool	make_image(t_mrt *scean)
 	scean->mlx_img = mlx_new_image(scean->mlx, WIDTH, HEIGHT);
 	if (!scean->mlx_img)
 		return (false);
-	scean->mlx_add = mlx_get_data_addr(scean->mlx_img, &(scean->bit_per_px), &(scean->line_len), &(scean->endian));
+	scean->mlx_add = mlx_get_data_addr(scean->mlx_img, \
+	&(scean->bit_per_px), &(scean->line_len), &(scean->endian));
 	if (!scean->mlx_add)
 		return (false);
 	return (true);
 }
-
 
 void	check(void)
 {
 	system("leaks Minirt");
 }
 
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
@@ -59,8 +58,7 @@ int main(int ac, char **av)
 		lookat(&data.camera);
 		draw(data, &scean);
 		hooks_settings(&data);
-		// mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
 		mlx_loop(scean.mlx);
 	}
-	return 0;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:57:21 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 10:28:00 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/14 20:42:10 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec	normalize(t_vec *v)
 	v->v_x *= len;
 	v->v_y *= len;
 	v->v_z *= len;
-	return (*v); 
+	return (*v);
 }
 
 t_vec	normalized(t_vec v)
