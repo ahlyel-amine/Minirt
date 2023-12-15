@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/12 02:44:49 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:09 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "library_bonus.h"
 #include "vector_bonus.h"
 #include <stdlib.h>
+
+void	skip(int key, t_data *data)
+{
+	(void)key;
+	(void)data;
+}
 
 t_specular_light		get_specular_addr(t_objects *obj)
 {
@@ -31,7 +37,7 @@ void	get_uv_sphere(t_sphere *sphere, t_hit_record *rec, double *u, double *v)
 {
 	t_vec unit_v;
 	// Step 1: Calculate the unit vector from P to O
-	unit_v = vec_sub(sphere->cord, rec->pHit);
+	unit_v = vec_sub(sphere->cord, rec->p_hit);
 	normalize(&unit_v);
 	// Step 2: Calculate polar angle theta and azimuthal angle phi
 	double theta = acos(unit_v.v_y);
@@ -50,8 +56,8 @@ void	get_uv_plane(t_plane *plane, t_hit_record *rec, double *u, double *v)
 	if (e1.v_x == 0 && e1.v_y == 0 && e1.v_z == 0)
 		e1 = normalized(cross_product(plane->normalized, (t_vec){0, 0, 1}));
 	e2 = normalized(cross_product(plane->normalized, e1));
-	*u = dot_product(e1, rec->pHit);
-	*v = dot_product(e2, rec->pHit);
+	*u = dot_product(e1, rec->p_hit);
+	*v = dot_product(e2, rec->p_hit);
 	
 }
 
@@ -60,9 +66,9 @@ void get_uv_cylinder(t_cylender *cy, t_hit_record *rec, double *u, double *v)
     double theta;//azimuthal angle 
     double     r;// radius in the XZ plane
     double     h_z;//height along the z axis
-    r = sqrt(rec->pHit.v_x * rec->pHit.v_x + rec->pHit.v_z * rec->pHit.v_z);
-    theta = atan2(rec->pHit.v_z, rec->pHit.v_x);
-    h_z = rec->pHit.v_y;
+    r = sqrt(rec->p_hit.v_x * rec->p_hit.v_x + rec->p_hit.v_z * rec->p_hit.v_z);
+    theta = atan2(rec->p_hit.v_z, rec->p_hit.v_x);
+    h_z = rec->p_hit.v_y;
     *u = theta / (2 * M_PI);
 	*v = h_z / cy->height;
 }

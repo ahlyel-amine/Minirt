@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/13 19:55:05 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	t_vec	diffuse;
 	double	thita;
 	
-	thita = dot_product(rays->shadow_ray.direction, rec->nHit);
+	thita = dot_product(rays->shadow_ray.direction, rec->n_hit);
 	diffuse = rec->h_color;
 	diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
 	return (diffuse);
@@ -88,7 +88,7 @@ t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hi
 
 	ft_memset(&specular, 0, sizeof(t_vec));
 	coef = speclr.shininess_factor;
-	view = scalar_mult(scalar_mult(rec->nHit, 2.0), dot_product(vec_nega(rec->nHit), rays->shadow_ray.direction));
+	view = scalar_mult(scalar_mult(rec->n_hit, 2.0), dot_product(vec_nega(rec->n_hit), rays->shadow_ray.direction));
 	reflect = vec_addition(rays->shadow_ray.direction, view);
 	thita = dot_product(reflect, view);
 	if (thita > eps)

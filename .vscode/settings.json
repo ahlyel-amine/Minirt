@@ -9,6 +9,11 @@
 		"minirt.h": "c",
 		"tools.h": "c",
 		"draw.h": "c",
-		"iosfwd": "cpp"
+		"iosfwd": "cpp",
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

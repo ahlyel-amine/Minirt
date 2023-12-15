@@ -183,8 +183,8 @@ typedef	struct s_data
 typedef struct s_hit_record
 {
 	double	t;
-	t_vec	pHit;
-	t_vec	nHit;
+	t_vec	p_hit;
+	t_vec	n_hit;
 	t_vec 	h_color;	
 }	t_hit_record;
 

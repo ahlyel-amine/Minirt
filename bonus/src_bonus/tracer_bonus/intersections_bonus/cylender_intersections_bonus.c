@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 19:30:14 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 
 	if (!solve_quad(ray, cylinder, rec))
 		return (false);
-	rec->pHit = at(rec->t, *ray);
-	v = vec_sub(rec->pHit, cylinder->cord);
-	rec->nHit = normalized(cross_product(cross_product(v, cylinder->normalized), cylinder->normalized));
-	if (dot_product(rec->nHit, ray->direction) > 0)
-		rec->nHit = vec_nega(rec->nHit);
-	if (pow(distance(cylinder->cord, rec->pHit), 2) > (pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2)))
+	rec->p_hit = at(rec->t, *ray);
+	v = vec_sub(rec->p_hit, cylinder->cord);
+	rec->n_hit = normalized(cross_product(cross_product(v, cylinder->normalized), cylinder->normalized));
+	if (dot_product(rec->n_hit, ray->direction) > 0)
+		rec->n_hit = vec_nega(rec->n_hit);
+	if (pow(distance(cylinder->cord, rec->p_hit), 2) > (pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2)))
 		return (false);
 	rec->h_color = create_vec((double)(cylinder->clr.r) / 255, (double)(cylinder->clr.g) / 255, (double)(cylinder->clr.b) / 255);
 	return (true);
@@ -70,19 +70,19 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	plan = cylinder->p_face->object;
 	plan->clr = cylinder->clr;
 	if (intersect(PLANE)(ray, cylinder->p_face, &tmp_rec)
-		&& distance(tmp_rec.pHit, plan->cord) \
+		&& distance(tmp_rec.p_hit, plan->cord) \
 		<= ((cylinder->diameter * 0.5))
 		&& rec->t > tmp_rec.t)
 		*rec = tmp_rec;
 	plan = cylinder->p_face->next->object;
 	plan->clr = cylinder->clr;
 	if (intersect(PLANE)(ray, cylinder->p_face->next, &tmp_rec)
-		&& distance(tmp_rec.pHit, plan->cord) \
+		&& distance(tmp_rec.p_hit, plan->cord) \
 		<= ((cylinder->diameter * 0.5))
 		&& rec->t > tmp_rec.t)
 		*rec = tmp_rec;
 	if (cylinder_hit(ray, cylinder, &tmp_rec)
-		&& pow(distance(cylinder->cord, tmp_rec.pHit), 2) \
+		&& pow(distance(cylinder->cord, tmp_rec.p_hit), 2) \
 		<= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))
 		*rec = tmp_rec;
 	return (rec->t < M_D && rec->t > eps);

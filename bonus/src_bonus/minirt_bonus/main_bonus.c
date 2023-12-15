@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/13 15:47:54 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:19:23 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ bool	make_image(t_mrt *scean)
 	return (true);
 }
 
+#include <time.h>
 int main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
-
+	clock_t tic = clock();
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
@@ -54,6 +55,8 @@ int main(int ac, char **av)
 		textures_binding(data.objects, &scean);
 		if (!make_threads(&scean, data))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
+		clock_t toc = clock();
+		printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
 		hooks_settings(&data);
 		mlx_loop(scean.mlx);
 	}

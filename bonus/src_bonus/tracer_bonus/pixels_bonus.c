@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/10 11:05:55 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:12:23 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,24 @@
 
 void color_range_norm(t_vec *color)
 {
-	if (color->v_x > 1)
-		color->v_x = 1.0;
-	if (color->v_y > 1.0)
-		color->v_y = 1.0;
-	if (color->v_z > 1.0)
-		color->v_z = 1.0;
-	if (color->v_x < 0)
-		color->v_x = 0.0;
-	if (color->v_y < 0)
-		color->v_y = 0.0;
-	if (color->v_z < 0)
-		color->v_z = 0.0;
+	color->v_x = (color->v_x > 1.0) * 1.0 + (color->v_x <= 1.0) * color->v_x;
+	color->v_y = (color->v_y > 1.0) * 1.0 + (color->v_y <= 1.0) * color->v_y;
+	color->v_z = (color->v_z > 1.0) * 1.0 + (color->v_z <= 1.0) * color->v_z;
+	color->v_x = (color->v_x < 0.0) * 0.0 + (color->v_x >= 0.0) * color->v_x;
+	color->v_y = (color->v_y < 0.0) * 0.0 + (color->v_y >= 0.0) * color->v_y;
+	color->v_z = (color->v_z < 0.0) * 0.0 + (color->v_z >= 0.0) * color->v_z;
+	// if (color->v_x > 1)
+	// 	color->v_x = 1.0;
+	// if (color->v_y > 1.0)
+	// 	color->v_y = 1.0;
+	// if (color->v_z > 1.0)
+	// 	color->v_z = 1.0;
+	// if (color->v_x < 0)
+	// 	color->v_x = 0.0;
+	// if (color->v_y < 0)
+	// 	color->v_y = 0.0;
+	// if (color->v_z < 0)
+	// 	color->v_z = 0.0;
 }
 
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
@@ -93,16 +99,18 @@ int	rgb_to_int(t_coord color)
 	int		index;
 	t_vec	color;
 
-	if (sp)
-	{
-		x = ((int)((u) * texture->width));
-		y = (1 - v) * texture->height;
-	}
-	else
-	{
-		x = ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
-		y = ((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height);
-	}
+	// if (sp)
+	// {
+	// 	x = ((int)((u) * texture->width));
+	// 	y = (1 - v) * texture->height;
+	// }
+	// else
+	// {
+	// 	x = ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
+	// 	y = ((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height);
+	// }
+	x = (sp > 0) * ((int)((u) * texture->width)) + (sp < 1) * ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
+	y = (sp > 0) * ((1 - v) * texture->height) + (sp < 1) * (((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height));
 	index = (x * texture->bpp / 8) + (y * texture->line_len);
 	color.v_x = (unsigned char)texture->addr[abs(index) + 2] / 255.0;
 	color.v_y = (unsigned char)texture->addr[abs(index) + 1] / 255.0;
