@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 13:16:40 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:56:26 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int main(int ac, char **av)
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		lookat(&data.camera);
 		data.m_rt = &scean;
-		// textures_binding(data.objects, &scean);
+		textures_binding(data.objects, &scean);
 		if (!make_threads(&scean, data))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		clock_t toc = clock();

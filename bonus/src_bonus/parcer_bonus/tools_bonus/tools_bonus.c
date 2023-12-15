@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 14:59:51 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:01:37 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "library_bonus.h"
 #include "tools_bonus.h"
+#include <stdarg.h>
 
 typedef void (*t_texture_clear)(void *);
 
@@ -121,4 +122,17 @@ void	get_integer(char **line, int *integer)
 		i++;
 	*integer = ft_atoi((*line));
 	*line += i;
+}
+
+void	ft_putendl_fd_arg(const int ac, ...)
+{
+	va_list	args;
+	int		tmp;
+	int		ret;
+
+	tmp = ac;
+	va_start(args, ac);
+	while (tmp--)
+		ft_putstr_fd(va_arg(args, char *), 2);
+	va_end(args);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_process_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:10:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/12 00:03:10 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:29:05 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-// void	*bump_texture_2(t_plane *p, t_mrt *img)
-// {
-// 	if (p->spec.bump)
-// 	{
-// 		p->bump = (t_texture_img *)malloc(sizeof(t_texture_img));
-// 		if (!p->bump)
-// 			return (free(p->spec.bump), NULL);
-// 		p->bump->path = p->spec.bump;
-// 		p->bump->img = mlx_xpm_file_to_image(img->mlx, p->bump->path, &p->bump->width, &p->bump->height);
-// 		if (!p->bump->img)
-// 			return (free(p->spec.bump), p->spec.bump = NULL, p->bump->img = NULL, NULL);
-// 		else
-// 			p->bump->addr = mlx_get_data_addr(p->bump->img, &p->bump->bpp, &p->bump->line_len, &p->bump->endian);
-// 		return ((void *)(p->bump));
-// 	}
-// 	return (NULL);
-// }
+void	*bump_texture_2(t_plane *p, t_mrt *img)
+{
+	if (p->spec.bump)
+	{
+		p->bump = (t_texture_img *)malloc(sizeof(t_texture_img));
+		if (!p->bump)
+			return (free(p->spec.bump), NULL);
+		p->bump->path = p->spec.bump;
+		p->bump->img = mlx_xpm_file_to_image(img->mlx, p->bump->path, &p->bump->width, &p->bump->height);
+		if (!p->bump->img)
+			return (free(p->spec.bump), p->spec.bump = NULL, p->bump->img = NULL, NULL);
+		else
+			p->bump->addr = mlx_get_data_addr(p->bump->img, &p->bump->bpp, &p->bump->line_len, &p->bump->endian);
+		return ((void *)(p->bump));
+	}
+	return (NULL);
+}
 static bool	texture_plane(void *p, t_mrt *img)
 {
 	t_plane	*plane;
@@ -50,7 +50,7 @@ static bool	texture_plane(void *p, t_mrt *img)
 		else
 			plane->texture->addr = mlx_get_data_addr(plane->texture->img, &plane->texture->bpp, &plane->texture->line_len, &plane->texture->endian);
 	}
-	// bump_texture_2(plane, img);
+	bump_texture_2(plane, img);
 	return (true);
 }
 void	*bump_texture(t_sphere *sphere, t_mrt *img)

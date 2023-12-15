@@ -1,4 +1,4 @@
-A 0 255,255,255
+A 1 255,255,255
 C 0,0,-1.4 0,0,1 90
 l 0,0.9,1 0.2 255,255,255
 l 0.5,0.9,1 0.1 0,0,255
@@ -13,26 +13,26 @@ l -0.5,0.9,-1 0.1 0,255,0
 l -1,0.9,-1 0.1 255,0,0
 
 
-pl  0,0,1.5      0,0,1      255,0,0 r=0.1 txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/images.xpm"
-pl  0,0,-1.5      0,0,1     255,0,0 txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/bookWallPaper.xpm"
+pl  0,0,1.5      0,0,1      255,0,0 r=0.1 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/images.xpm"
+pl  0,0,-1.5      0,0,1     255,0,0 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/bookWallPaper.xpm"
 
 pl  0,1,0      0,1,0        255,255,255  
-pl  0,-1,0      0,1,0        255,0,0  txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+pl  0,-1,0      0,1,0        255,0,0  txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/pool-water.xpm"  bump="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/pool-water.xpm"
 
-pl  -1.5,0,0       1,-0.001,0     255,255,255     txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/letterWallPaper.xpm"
-pl  1.5,0,0      1,-0.001,0     255,0,0          txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/letterWallPaperClrd.xpm"   
+pl  -1.5,0,0       1,-0.001,0     255,255,255     txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/letterWallPaper.xpm"
+pl  1.5,0,0      1,-0.001,0     255,0,0          txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/letterWallPaperClrd.xpm"   
 
-cy  -0.5,-0.9,0 0,1,0 0.5 1.08 0,0,255          txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.05 0,1,0 0.5 1.08 0,0,255      txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.1 0,1,0 0.5 1.08 0,0,255       txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.15 0,1,0 0.5 1.08 0,0,255      txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.2 0,1,0 0.5 1.08 0,0,255       txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.25 0,1,0 0.5 1.08 0,0,255      txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.3 0,1,0 0.5 1.08 0,0,255       txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.35 0,1,0 0.5 1.08 0,0,255      txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,0 0,1,0 0.5 1.08 0,0,255          txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.05 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.1 0,1,0 0.5 1.08 0,0,255       txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.15 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.2 0,1,0 0.5 1.08 0,0,255       txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.25 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.3 0,1,0 0.5 1.08 0,0,255       txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
+# cy  -0.5,-0.9,-0.35 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
 
 cn 0.75,-0.4,0 0,1,0 10 10 255,0,0 
 
 
-sp  -0.5,-0.11,0 0.5 0,255,0 s=5,0.01 r=0.01 txtr="/home/saba/Documents/absoluteRt/Scenes/bonus/b1/xpm/herringboneParquet.xpm"
+sp  -0.5,-0.11,0 0.5 0,255,0 s=5,0.01 r=0.01 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"  bump="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b1/xpm/woodFlooringSqaures.xpm"
 sp  0.5,-0.5,0.7 1 0,255,0  r=1

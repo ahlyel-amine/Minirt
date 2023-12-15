@@ -25,6 +25,18 @@ enum	types
 	INVALID		= 0x20,
 };
 
+enum	size_types
+{
+	T_SPHERE		= sizeof(t_sphere),	
+	T_CYLENDER		= sizeof(t_cylender),
+	T_PLANE			= sizeof(t_plane),
+	T_TRIANGLE		= sizeof(t_triangle),
+	T_CONE			= sizeof(t_cone),
+	T_LIGHTING		= sizeof(t_lighting),
+	T_CAMERA		= sizeof(t_camera),
+	T_LIGHT			= sizeof(t_light),
+	T_INVALID		= 0,
+};
 
 #define	MAX_OBJECTS	8
 
@@ -36,5 +48,24 @@ enum	types
 #define	S_LIGHT		"l"
 #define	S_TRIANGLE	"tr"
 #define	S_CONE		"cn"
+
+
+
+# define ERR			"ERROR\n"
+# define S_NAME			"minirt: "
+# define ERR_A 			"Ambient lighting "
+# define ERR_C 			"Camera "
+# define ERR_N			"invalid normalized vector format\n"
+# define ERR_CORD		"invalid cordinate format\n"
+# define ERR_COLOR		"invalid color format\n"
+# define ERR_VFIELD		"invalid vue field format\n"
+# define ERR_VALUE		"invalid value\n"
+# define ERR_DUP		"duplicate\n"
+# define ERR_HEIGHT		"duplicate\n"
+# define ERR_WIDTH		"duplicate\n"
+# define ERR_DIAMETER	"duplicate\n"
+
+
+
 
 #endif
