@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/17 09:45:10 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:34:56 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ bool	color_parcer(char *line, t_color *color)
 		*(&color->r + (i * sizeof(unsigned char))) = tmp;
 		free (colors[i++]);
 	}
+	if (!ret)
+		ft_putendl_fd("minirt: invalid color format", 2);
 	return (free(colors), ret);
 }

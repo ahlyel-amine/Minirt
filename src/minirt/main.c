@@ -6,40 +6,16 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 14:38:09 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:43:44 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
+#include "minirt.h"
 #include "libft.h"
 #include "library.h"
-#include "minirt.h"
-#include "vector.h"
-#include "draw.h"
 #include "tools.h"
-#include <pthread.h>
 #include <mlx.h>
-
-// t_coord	ray_color(t_ray *ray, t_objects *obj, t_hit_record *rec)
-// {
-		
-// 	if (obj->type == SPHERE &&  sphere_hit(ray, (t_sphere*)obj->object, rec))
-// 	{
-// 		t_sphere *sphere = (t_sphere *)obj->object;
-// 		t_vec	n = vec_sub(rec->nHit, sphere->cord);
-// 		return (scalar_mult((t_coord){n.v_x + 1, n.v_y + 1, n.v_z + 1}, 0.5));
-// 	}
-// 	else if (obj->type == PLANE && plan_hit(ray, (t_plane*)obj->object, rec))
-// 		return ((t_coord){0.5, 0.5, 0.5});
-		
-// 	t_coord	unit_direction = normalized(ray->direction);
-// 	double t = 0.5 * (unit_direction.v_y + 1.0);
-// 	t_coord	c_start = scalar_mult((t_coord){1.0,1.0,1.0}, (1.0 - t));
-// 	t_coord	c_end = scalar_mult((t_coord){0.5, 0.7, 1.0}, t);
-// 	return (scalar_mult((t_coord){0.3,0.3,0.3}, (0.1)));
-// }
-
-
 
 bool	make_image(t_mrt *scean)
 {
@@ -52,52 +28,37 @@ bool	make_image(t_mrt *scean)
 	scean->mlx_img = mlx_new_image(scean->mlx, WIDTH, HEIGHT);
 	if (!scean->mlx_img)
 		return (false);
-	scean->mlx_add = mlx_get_data_addr(scean->mlx_img, &(scean->bit_per_px), &(scean->line_len), &(scean->endian));
+	scean->mlx_add = mlx_get_data_addr(scean->mlx_img, \
+	&(scean->bit_per_px), &(scean->line_len), &(scean->endian));
 	if (!scean->mlx_add)
 		return (false);
 	return (true);
 }
-void check()
+
+void	check(void)
 {
 	system("leaks Minirt");
 }
-int main(int ac, char **av)
+
+int	main(int ac, char **av)
 {
 	t_data		data;
-	pthread_t	th[10];
-	t_dataset	ptr[10];
 	t_mrt		scean;
 
-	ft_memset(&data, 0, sizeof(t_data));
 	atexit(check);
-	t_texture_img *img = malloc(sizeof(t_texture_img));
-	img->path = ft_strdup("/home/morpheus/miniRT/img.xpm");
+	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
-			return (clearobjs(&data.objects), clearlights(&data.light),  1);
+			return (clearobjs(&data.objects), 1);
 		print_scean(data);
-		// printf("sphers:%d cylenders:%d planes:%d\n", data.counter.sphere, data.counter.cylender, data.counter.plane);
 		if (!make_image(&scean))
-			return (clearobjs(&data.objects), clearlights(&data.light),  1);
-		lookat(&scean, &data.camera);
-		t_objects *obj = data.objects;
-		while (obj)
-		{
-			obj->textured = true;
-			if (obj->textured && obj->type == SPHERE)
-			{
-				t_sphere *sphere = (t_sphere *)obj->object;
-				sphere->texture = img;
-				puts("here");
-				texture_bump_init(obj, &scean);
-			}	
-			obj = obj->next;
-		}
-		if (!make_threads(&scean, data))
-			return (clearobjs(&data.objects), clearlights(&data.light),  1);
-		mlx_put_image_to_window(scean.mlx, scean.mlx_win, scean.mlx_img, 0, 0);
+			return (clearobjs(&data.objects), 1);
+		data.m_rt = &scean;
+		lookat(&data.camera);
+		draw(data, &scean);
+		hooks_settings(&data);
 		mlx_loop(scean.mlx);
 	}
-	return 0;
+	return (0);
 }

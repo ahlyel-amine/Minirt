@@ -6,12 +6,13 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/24 09:18:03 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/15 10:00:28 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include "structs.h"
+#include "library.h"
 #include "libft.h"
 
 void	clearobjs(t_objects **lst)
@@ -23,20 +24,9 @@ void	clearobjs(t_objects **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
+		if ((*lst)->type == CYLENDER)
+			clearobjs(&(((t_cylender *)((*lst)->object))->p_face));
 		free ((*lst)->object);
-		free(*lst);
-		*lst = tmp;
-	}
-}
-void	clearlights(t_light **lst)
-{
-	t_light	*tmp;
-
-	if (!lst)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
 		free(*lst);
 		*lst = tmp;
 	}
