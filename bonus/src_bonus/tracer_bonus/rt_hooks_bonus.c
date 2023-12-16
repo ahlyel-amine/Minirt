@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:38:10 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 12:23:47 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 10:49:08 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	m_close(void *param)
 
 	data = (t_data *)param;
 	clearobjs(&data->objects);
-	exit(EXIT_FAILURE);
+	clearlights(&data->light);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 
