@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cordinate_parcer_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:36 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/01 18:34:20 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:15:48 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "structs_bonus.h"
-# include "libft.h"
-# include "tools_bonus.h"
-# include "library_bonus.h"
-# include <stdbool.h>
+#include "structs_bonus.h"
+#include "libft.h"
+#include "tools_bonus.h"
+#include "library_bonus.h"
+#include <stdbool.h>
 
-bool	cordinate_parcer(char **line, t_vec *cordinate, int marge_max, int marge_min)
+bool	cordinate_parcer(char **line, t_vec *cordinate, \
+int marge_max, int marge_min)
 {
 	if (!ft_atod(line, &cordinate->v_x, marge_max, marge_min))
 		return (false);

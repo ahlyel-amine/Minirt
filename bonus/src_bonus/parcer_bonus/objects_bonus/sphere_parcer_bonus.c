@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 23:25:28 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 12:32:05 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 #include <stdbool.h>
 #include <limits.h>
 
-bool sphere_parcer(line, data)
-char *line;
-t_data *data;
+bool	sphere_parcer(char *line, t_data *data)
 {
 	t_sphere	sphere;
 	int			i;
@@ -29,13 +27,13 @@ t_data *data;
 	data->counter.sphere += 1;
 	line += 3;
 	if (!cordinate_parcer(&line, &sphere.cord, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: sp invalid cordinate format", 2), false);
+		return (ft_print_errors(4, ERR, S_NAME, ERR_SP, ERR_CORD), false);
 	if (!ft_atod(&line, &sphere.diameter, INT_MAX, INT_MIN))
-		return (ft_putendl_fd("minirt: invalid diameter format", 2), false);
+		return (ft_print_errors(5, ERR, S_NAME, ERR_SP, ERR_V, ERR_DR), false);
 	line += skip_spaces(line);
 	i = color_parcer(line, &sphere.clr);
 	if (i == -1)
-		return (ft_putendl_fd("minirt: sphere invalid color format", 2), false);
+		return (ft_print_errors(4, ERR, S_NAME, ERR_SP, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
 	if (!check_for_features(line, &sphere.spec))
 		return (false);

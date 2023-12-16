@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:23 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:49:49 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 14:31:52 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ bool	lighting_parcer(char *line, t_data *data)
 {
 	static bool	visited;
 
+	if (!data && !line)
+		return (visited);
 	if (visited)
-		return (ft_putendl_fd("minirt: error: duplicate of lighting information", 2), false);
+		return (ft_print_errors(4, ERR, S_NAME, ERR_A, ERR_DUP), false);
 	visited = true;
 	line += 2;
 	if (!ft_atod(&line, &data->lighting.ratio, 1, 0))
-		return (ft_putendl_fd("minirt: invalid ambient lighting value", 2), false);
+		return (ft_print_errors(5, ERR, S_NAME, ERR_A, ERR_V, "\n"), false);
 	line += skip_spaces(line);
 	if (color_parcer(line, &data->lighting.clr) == -1)
-		return (ft_putendl_fd("minirt: lighting invalid color format", 2), false);
+		return (ft_print_errors(4, ERR, S_NAME, ERR_A, ERR_COLOR), false);
 	return (true);
 }

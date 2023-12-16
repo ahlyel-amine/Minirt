@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:40:03 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 14:34:35 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	transform_line(char *line, t_data *data)
 		return (true);
 	type = find_type(line);
 	if (type == INVALID)
-		return (ft_putendl_fd("minirt: invalid object/description format", 2), false);
+		return (ft_print_errors(4, ERR, S_NAME, ERR_F, ERR_DESC), false);
 	if (!objcets_parcers(type)(line, data))
 		return (false);
 	return (true);
@@ -95,13 +95,21 @@ bool	parcer(char *scene, t_data	*data)
 	int		fd;
 	char	*line;
 
+	if (ft_strncmp(scene + ft_strlen(scene) - 3, RT_FILE, 3))
+		return (ft_print_errors(3, ERR, S_NAME, ERR_SCN), false);
 	fd = open(scene, O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		return (ft_putendl_fd("minirt: invalid scene file", 2), false);
+		return (ft_print_errors(3, ERR, S_NAME, ERR_SCN), false);
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_putendl_fd("minirt: empty scene file", 2), false);
+		return (close(fd), ft_print_errors(3, ERR, S_NAME, ERR_ESCN), false);
 	if (!read_true(&line, data, fd))
-		return (false);
-	return (true);
+		return (close(fd), false);
+	if (!data->light)
+		return (close(fd), ft_print_errors(5, ERR, S_NAME, ERR_MS, ERR_L, "\n"), false);
+	if (!camera_parcer(NULL, NULL))
+		return (close(fd), ft_print_errors(5, ERR, S_NAME, ERR_MS, ERR_C, "\n"), false);
+	if (!lighting_parcer(NULL, NULL))
+		return (close(fd), ft_print_errors(5, ERR, S_NAME, ERR_MS, ERR_A, "\n"), false);
+	return (close(fd), true);
 }

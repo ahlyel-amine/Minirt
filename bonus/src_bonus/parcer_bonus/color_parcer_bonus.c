@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/29 19:19:55 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 14:08:26 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,21 @@ static int	only_3_digits(char *str)
 
 static bool	check_rgb(char *rgb, int *i)
 {
-	// int	i;
 	int	j;
-	int total;
+	int	total;
 
 	*i = 0;
 	*i = only_3_digits(rgb);
 	if (*i == -1 || rgb[*i] != ',')
-		return (ft_putendl_fd("minirt: invalid color format", 2), false);
+		return (false);
 	j = only_3_digits(rgb + *i + 1);
 	*i += j + 1;
 	if (j == -1 || rgb[*i] != ',')
-		return (ft_putendl_fd("minirt: invalid color format", 2), false);
+		return (false);
 	j = only_3_digits(rgb + *i + 1);
 	*i += j + 1;
 	if (j == -1)
-		return (ft_putendl_fd("minirt: invalid color format", 2), false);
-	// else if (rgb[i + skip_spaces(rgb + i)])
-	// 	return (ft_putendl_fd("color minirt: to much argumets", 2), false);
+		return (false);
 	return (true);
 }
 
@@ -55,7 +52,7 @@ int	color_parcer(char *line, t_color *color)
 	char	**colors;
 	int		tmp;
 	int		i;
-	int	ret;
+	int		ret;
 
 	i = 0;
 	if (!check_rgb(line, &ret))
