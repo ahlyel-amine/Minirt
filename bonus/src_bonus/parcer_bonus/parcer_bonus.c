@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 14:34:35 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:21:17 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "libft.h"
 #include "parcer_bonus.h"
 
-enum types	find_type(char *line)
+enum e_types	find_type(char *line)
 {
 	if (!ft_strncmp(line, S_LIGHTING, 1) && ft_isspace(line[1]))
 		return (LIGHTING);
@@ -42,9 +42,9 @@ enum types	find_type(char *line)
 		return (INVALID);
 }
 
-object_parcer	objcets_parcers(enum types offset)
+object_parcer	objcets_parcers(enum e_types offset)
 {
-	static object_parcer	function_parcer[MAX_OBJECTS];
+	statict_object_parcer	function_parcer[MAX_OBJECTS];
 	static bool				init;
 
 	if (!init)
@@ -64,7 +64,7 @@ object_parcer	objcets_parcers(enum types offset)
 
 bool	transform_line(char *line, t_data *data)
 {
-	enum types		type;
+	enum e_types		type;
 
 	if (!line[skip_spaces(line)])
 		return (true);

@@ -8,7 +8,7 @@
 #define FRAME 3
 #define M_D 1.79769e+308
 #define eps 1e-3
-#define MIN(X, Y)((X) < (Y) ? (X) : (Y))
+#define min(X, Y)((X) < (Y) ? (X) : (Y))
 #define REF_LEVEL 5
 typedef	bool	(*object_parcer)(char *, t_data *);
 typedef void (*t_texture_clear)(void *);
@@ -26,7 +26,7 @@ enum	types
 	INVALID		= 0x20,
 };
 
-enum	size_types
+enum	e_size_types
 {
 	T_SPHERE		= sizeof(t_sphere),	
 	T_CYLENDER		= sizeof(t_cylender),

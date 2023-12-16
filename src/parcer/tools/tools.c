@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 10:00:28 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:11:24 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	skip_spaces(char *str)
 void	get_integer(char **line, int *integer)
 {
 	int	i;
-	
+
 	i = 0;
 	*line += skip_spaces(*line);
 	while (ft_isdigit((*line)[i]))
