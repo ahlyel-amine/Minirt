@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylender_parcer_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/13 15:25:54 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:09:46 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,28 @@ bool	cylinder_cap(t_cylender *c)
 
 bool cylender_parcer(char *line, t_data *data)
 {
-	t_objects	*object;
-	t_cylender	*cylender;
+	t_cylender	cylender;
+	int			i;
 
-	cylender = ft_calloc(sizeof(t_cylender), 1);
-	if (!cylender)
-		return (false);
+	ft_memset(&cylender, 0, sizeof(t_cylender));
 	data->counter.cylender += 1;
 	line += 3;
-	if (!cordinate_parcer(&line, &cylender->cord, INT_MAX, INT_MIN))
-		return (free(cylender), ft_putendl_fd("minirt:  cy invalid cordinate format", 2), false);
-	if (!cordinate_parcer(&line, &cylender->normalized, 1, -1))
-		return (free(cylender), ft_putendl_fd("minirt: invalid normalized format", 2), false);
-	if (!ft_atod(&line, &cylender->diameter, INT_MAX, INT_MIN))
-		return (free(cylender), ft_putendl_fd("minirt: invalid diameter format", 2), false);
-	if (!ft_atod(&line, &cylender->height, INT_MAX, INT_MIN))
-		return (free(cylender), ft_putendl_fd("minirt: invalid diameter format", 2), false);
+	if (!cordinate_parcer(&line, &cylender.cord, INT_MAX, INT_MIN))
+		return (ft_putendl_fd_arg(5, ERR, ERR_CY, ERR 2), false);
+	if (!cordinate_parcer(&line, &cylender.normalized, 1, -1))
+		return (ft_putendl_fd_arg(5, ERR, ERR_CY, ERR), false);
+	if (!ft_atod(&line, &cylender.diameter, INT_MAX, INT_MIN))
+		return (ft_putendl_fd_arg(5, ERR, ERR_CY, ERR), false);
+	if (!ft_atod(&line, &cylender.height, INT_MAX, INT_MIN))
+		return (ft_putendl_fd_arg(5, ERR, ERR_CY, ERR), false);
 	line += skip_spaces(line);
-	int a = color_parcer(line, &cylender->clr);
-	if (a == -1)
-		return (free(cylender), ft_putendl_fd("minirt: cylender invalid color format", 2), false);
-	line += skip_spaces(line + a) + a;
-	if (!check_for_features(line, &cylender->spec))
-		return (free(cylender), false);
-	// ft_atod(&line, &cylender->spec.intensity, INT_MAX, INT_MIN);
-	// line += skip_spaces(line);
-	// ft_atod(&line, &cylender->spec.shininess_factor, 1, 0);
-	// line += skip_spaces(line);
-	// ft_atod(&line, &cylender->spec.reflection, 1, 0);
-	object = newobject(cylender, CYLENDER);
-	if (!object)
-		return (free(cylender), false);
-	addobject_front(&data->objects, object);
-	return (cylinder_cap(cylender));
+	i = color_parcer(line, &cylender.clr);
+	if (i == -1)
+		return (ft_putendl_fd_arg(5, ERR, ERR_CY, ERR 2), false);
+	line += skip_spaces(line + i) + i;
+	if (!check_for_features(line, &cylender.spec))
+		return (false);
+	object_validate(T_CYLENDER, CYLENDER, data, &cylender);
+	printf("ooo : %p\n\n\n\n\n", ((t_cylender *)data->objects->object)->texture);
+	return (cylinder_cap(data->objects->object));
 }
