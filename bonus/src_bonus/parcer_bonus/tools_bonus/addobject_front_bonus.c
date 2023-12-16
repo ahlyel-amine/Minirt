@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 22:27:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 12:40:05 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	addlight(t_light **lst, t_light *new)
 	}
 }
 
-bool	object_validate(enum size_types size, enum types type, t_data *data, void *object)
+bool	object_validate(enum size_types size, enum types type, \
+t_data *data, void *object)
 {
 	void		*new_object;
 	t_objects	*s_object;

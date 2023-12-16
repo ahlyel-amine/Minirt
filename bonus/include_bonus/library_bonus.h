@@ -11,6 +11,7 @@
 #define MIN(X, Y)((X) < (Y) ? (X) : (Y))
 #define REF_LEVEL 5
 typedef	bool	(*object_parcer)(char *, t_data *);
+typedef void (*t_texture_clear)(void *);
 
 enum	types
 {
@@ -40,35 +41,59 @@ enum	size_types
 
 #define	MAX_OBJECTS	8
 
-#define	S_SPHERE	"sp"
-#define	S_CYLENDER	"cy"
-#define	S_PLANE		"pl"
-#define	S_LIGHTING	"A"
-#define	S_CAMERA	"C"
-#define	S_LIGHT		"l"
-#define	S_TRIANGLE	"tr"
-#define	S_CONE		"cn"
+# define	RT_FILE		".rt"
+
+# define	S_SPHERE	"sp"
+# define	S_CYLENDER	"cy"
+# define	S_PLANE		"pl"
+# define	S_LIGHTING	"A"
+# define	S_CAMERA	"C"
+# define	S_LIGHT		"l"
+# define	S_TRIANGLE	"tr"
+# define	S_CONE		"cn"
+
+
+# define	S_REF		"r="
+# define	S_SPEC		"s="
+# define	S_CHKBRD	"checkred="
+# define	S_XPM		".xpm\""
+# define	S_TXTR		"txtr=\""
+# define	S_BUMP		"bump=\""
+# define	S_TRIANGLE	"tr"
+# define	S_CONE		"cn"
 
 
 
-# define S_NAME			"minirt: "
+# define S_NAME			"MiniRT: "
 # define ERR			"ERROR\n"
-# define ERR_CN			"cone : "
-# define ERR_CY			"cylender : "
+# define ERR_CN			"Cone : "
+# define ERR_CY			"Cylender : "
+# define ERR_PL			"Plane : "
+# define ERR_SP			"Sphere : "
+# define ERR_TR			"Triangle : "
 # define ERR_A 			"Ambient lighting "
 # define ERR_C 			"Camera "
+# define ERR_L 			"Light "
 # define ERR_N			"invalid normalized vector format\n"
 # define ERR_CORD		"invalid cordinate format\n"
 # define ERR_COLOR		"invalid color format\n"
-# define ERR_VFIELD		"field format "
-# define ERR_VALUE		"invalid value "
-# define ERR_HANGLE		"half angle "
+# define ERR_VF			"vue field\n"
+# define ERR_V			"invalid value "
+# define ERR_F			"invalid format "
+# define ERR_HA			"half angle "
 # define ERR_DUP		"duplicate\n"
-# define ERR_HEIGHT		"duplicate\n"
-# define ERR_WIDTH		"height "
-# define ERR_DIAMETER	"duplicate\n"
-
-
-
+# define ERR_B			"brightness\n"
+# define ERR_REF		"reflection\n"
+# define ERR_SPEC		"Specular "
+# define ERR_CHKBRD		"checkerboard "
+# define ERR_DESC		"object/description\n"
+# define ERR_SCN		"invalid scene file\n"
+# define ERR_ESCN		"empty scene file\n"
+# define ERR_INT		"intensity\n"
+# define ERR_SHF		"shininess factor\n"
+# define ERR_HT			"height "
+# define ERR_WH			"width "
+# define ERR_DR			"diameter "
+# define ERR_MS			"missing "
 
 #endif
