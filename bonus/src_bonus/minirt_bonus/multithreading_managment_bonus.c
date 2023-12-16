@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/13 15:45:51 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 18:09:51 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void init_data_sets(t_dataset	*ptr, int *coef_x, int *coef_y, int i)
 	ptr->e_x = (((*coef_x) + 1) * WIDTH / 5);
 	ptr->s_y = ((*coef_y) * HEIGHT / 2);
 	ptr->e_y = (((*coef_y) + 1) * HEIGHT / 2);
+	// ptr->load = &(ptr->d->load);
 	if (i % 2)
 	{
 		(*coef_y) = 0;
@@ -54,8 +55,11 @@ bool	make_threads(t_mrt *scean, t_data data)
 	i = -1;
 	coef_x = 0;
 	coef_y = 0;
-	// print_scean(data);
 	ft_bzero(scean->mlx_add, WIDTH * HEIGHT * (scean->bit_per_px / 8));
+	pthread_mutex_init(&(data.load), NULL);
+	while (++i < 10)
+		ptr[i].d = &data;
+	i = -1;
 	while (++i < 10)
 	{
 		ptr[i].m_rt = scean;

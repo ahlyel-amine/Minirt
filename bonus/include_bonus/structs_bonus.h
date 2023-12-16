@@ -2,6 +2,7 @@
 #define STRUCTS_H
 #include <stdio.h>
 #include <stdbool.h>
+# include <pthread.h>
 
 typedef struct s_cord
 {
@@ -76,6 +77,8 @@ typedef	struct s_object
 {
 	unsigned char	type;
 	void			*object;
+	void			*t_copy;
+	void			*b_copy;
 	struct s_object	*next;
 }	t_objects;
 
@@ -176,7 +179,9 @@ typedef	struct s_data
 	t_objects	*objects;
 	t_light		*light;
 	t_mrt		*m_rt;
+	int			load_p;
 	int			shape;
+	pthread_mutex_t load;
 }	t_data;
 
 
@@ -207,10 +212,13 @@ typedef struct s_dataset
 {
 	t_mrt *m_rt;
 	t_data data;
+	t_data *d;
+	// pthread_mutex_t *load;
 	int s_x;
 	int s_y;
 	int e_x;
 	int e_y;
+	int load_prog;
 }	t_dataset;
 
 typedef struct s_bump_data

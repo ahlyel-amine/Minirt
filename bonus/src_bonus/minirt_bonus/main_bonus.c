@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 15:56:20 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:00:46 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void check()
 #include <time.h>
 int main(int ac, char **av)
 {
-	atexit(check);
+	// atexit(check);
 	t_data		data;
 	t_mrt		scean;
 	clock_t tic = clock();
@@ -52,16 +52,17 @@ int main(int ac, char **av)
 	{
 		if (!parcer(av[1], &data))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
-		print_scean(data);
+		// print_scean(data);
 		if (!make_image(&scean))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		lookat(&data.camera);
 		data.m_rt = &scean;
+		data.load_p = 0;
 		textures_binding(data.objects, &scean);
 		if (!make_threads(&scean, data))
 			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		clock_t toc = clock();
-		printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+		// printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
 		hooks_settings(&data);
 		mlx_loop(scean.mlx);
 	}

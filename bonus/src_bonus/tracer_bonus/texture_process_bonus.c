@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:10:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/15 18:14:03 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 15:54:21 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	texture_plane(void *p, t_mrt *img)
 {
 	t_plane	*plane;
 
-	plane = (t_plane *)p;
+	plane = (t_plane *)(((t_objects *)p)->object);
 	if (plane->spec.texture)
 	{
 		plane->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
@@ -49,8 +49,9 @@ static bool	texture_plane(void *p, t_mrt *img)
 			return (free(plane->spec.texture), plane->spec.texture = NULL, plane->texture->img = NULL, false);
 		else
 			plane->texture->addr = mlx_get_data_addr(plane->texture->img, &plane->texture->bpp, &plane->texture->line_len, &plane->texture->endian);
+		((t_objects *)p)->t_copy = plane->texture;
 	}
-	bump_texture_2(plane, img);
+	((t_objects *)p)->b_copy = bump_texture_2(plane, img);
 	return (true);
 }
 void	*bump_texture(t_sphere *sphere, t_mrt *img)
@@ -74,7 +75,7 @@ static bool	texture_sphere(void *sphere, t_mrt *img)
 {
 	t_sphere	*s;
 
-	s = (t_sphere *)sphere;
+	s = (t_sphere *)(((t_objects *)sphere)->object);
 	if (s->spec.texture)
 	{
 		s->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
@@ -86,8 +87,9 @@ static bool	texture_sphere(void *sphere, t_mrt *img)
 			return (free(s->spec.texture), s->spec.texture = NULL, false);
 		else
 			s->texture->addr = mlx_get_data_addr(s->texture->img, &s->texture->bpp, &s->texture->line_len, &s->texture->endian);
+		((t_objects *)sphere)->t_copy = s->texture;
 	}
-	bump_texture(s, img);
+	((t_objects *)sphere)->b_copy = bump_texture(s, img);
 	return (true);
 }
 
@@ -95,7 +97,7 @@ static bool	texture_cylinder(void *cylinder, t_mrt *img)
 {
 	t_cylender	*c;
 
-	c = (t_cylender *)cylinder;
+	c = (t_cylender *)(((t_objects *)cylinder)->object);
 	if (c->spec.texture)
 	{
 		c->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
@@ -107,6 +109,7 @@ static bool	texture_cylinder(void *cylinder, t_mrt *img)
 			return (free(c->spec.texture), c->spec.texture = NULL, false);
 		else
 			c->texture->addr = mlx_get_data_addr(c->texture->img, &c->texture->bpp, &c->texture->line_len, &c->texture->endian);
+		((t_objects *)c)->t_copy = c->texture;
 	}
 	return (true);
 }
@@ -128,7 +131,7 @@ void	textures_binding(t_objects *shapes, t_mrt *img)
 	while (shape)
 	{
 		if (shape->type != TRIANGLE && shape->type != CONE)
-			texture_process(shape->type)(shape->object, img);
+			texture_process(shape->type)(shape, img);
 		shape = shape->next;
 	}
 }
