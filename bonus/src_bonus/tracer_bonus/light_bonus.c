@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:17:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hi
 
 void	nineties(t_vec *color)
 {
-	color->v_x = MIN(color->v_x, 1.0);
-	color->v_y = MIN(color->v_x, 1.0);
-	color->v_z = MIN(color->v_x, 1.0);
+	color->v_x = min(color->v_x, 1.0);
+	color->v_y = min(color->v_x, 1.0);
+	color->v_z = min(color->v_x, 1.0);
 }
 

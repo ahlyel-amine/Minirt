@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:24:23 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:21:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "libft.h"
 #include "parcer.h"
 
-enum types	find_type(char *line)
+enum e_types	find_type(char *line)
 {
 	if (!ft_strncmp(line, S_LIGHTING, 1) && ft_isspace(line[1]))
 		return (LIGHTING);
@@ -38,9 +38,9 @@ enum types	find_type(char *line)
 		return (INVALID);
 }
 
-object_parcer	objcets_parcers(enum types offset)
+t_object_parcer	objcets_parcers(enum e_types offset)
 {
-	static object_parcer	function_parcer[MAX_OBJECTS];
+	static t_object_parcer	function_parcer[MAX_OBJECTS];
 	static bool				init;
 
 	if (!init)
@@ -58,7 +58,7 @@ object_parcer	objcets_parcers(enum types offset)
 
 bool	transform_line(char *line, t_data *data)
 {
-	enum types		type;
+	enum e_types		type;
 
 	if (!line[skip_spaces(line)])
 		return (true);
@@ -66,7 +66,7 @@ bool	transform_line(char *line, t_data *data)
 		return (true);
 	type = find_type(line);
 	if (type == INVALID)
-		return (ft_putendl_fd("minirt: invalid object/description format", 2), false);
+		return (ft_putendl_fd(ERR_INVLD_O, 2), false);
 	if (!objcets_parcers(type)(line, data))
 		return (false);
 	return (true);
@@ -89,13 +89,21 @@ bool	parcer(char *scene, t_data	*data)
 	int		fd;
 	char	*line;
 
+	if (ft_strncmp(scene + ft_strlen(scene) - 3, RT_FILE, 3))
+		return (ft_putendl_fd(ERR_INVLD_SCN, 2), false);
 	fd = open(scene, O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		return (ft_putendl_fd("minirt: invalid scene file", 2), false);
+		return (ft_putendl_fd(ERR_INVLD_SCN, 2), false);
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_putendl_fd("minirt: empty scene file", 2), false);
+		return (close(fd), ft_putendl_fd(ERR_EMPTY_SCN, 2), false);
 	if (!read_true(&line, data, fd))
-		return (false);
+		return (close(fd), false);
+	if (!light_parcer(NULL, NULL))
+		return (close(fd), ft_putendl_fd(ERR_NO_L, 2), false);
+	if (!camera_parcer(NULL, NULL))
+		return (close(fd), ft_putendl_fd(ERR_NO_C, 2), false);
+	if (!lighting_parcer(NULL, NULL))
+		return (close(fd), ft_putendl_fd(ERR_NO_A, 2), false);
 	return (true);
 }

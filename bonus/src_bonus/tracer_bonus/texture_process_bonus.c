@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:10:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/15 23:59:45 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/16 14:09:45 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static bool	texture_cylinder(void *cylinder, t_mrt *img)
 	t_cylender	*c;
 
 	c = (t_cylender *)cylinder;
-	printf("%p\n\n\n\n", c->spec.texture);
 	if (c->spec.texture)
 	{
 		c->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
