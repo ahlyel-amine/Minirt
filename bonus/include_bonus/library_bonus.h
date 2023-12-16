@@ -51,18 +51,21 @@ enum	size_types
 
 
 
-# define ERR			"ERROR\n"
 # define S_NAME			"minirt: "
+# define ERR			"ERROR\n"
+# define ERR_CN			"cone : "
+# define ERR_CY			"cylender : "
 # define ERR_A 			"Ambient lighting "
 # define ERR_C 			"Camera "
 # define ERR_N			"invalid normalized vector format\n"
 # define ERR_CORD		"invalid cordinate format\n"
 # define ERR_COLOR		"invalid color format\n"
-# define ERR_VFIELD		"invalid vue field format\n"
-# define ERR_VALUE		"invalid value\n"
+# define ERR_VFIELD		"field format "
+# define ERR_VALUE		"invalid value "
+# define ERR_HANGLE		"half angle "
 # define ERR_DUP		"duplicate\n"
 # define ERR_HEIGHT		"duplicate\n"
-# define ERR_WIDTH		"duplicate\n"
+# define ERR_WIDTH		"height "
 # define ERR_DIAMETER	"duplicate\n"
 
 

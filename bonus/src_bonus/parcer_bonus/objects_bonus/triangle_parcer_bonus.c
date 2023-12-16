@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:59:13 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/11 17:49:29 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/15 23:25:43 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@
 // {
 // 	while (line)
 // 	{
-// 		if (!check_reflection(&line, &triangle->spec.reflection))
+// 		if (!check_reflection(&line, &triangle.spec.reflection))
 // 			return (false);
-// 		if (!check_specular(&line, &triangle->spec))
+// 		if (!check_specular(&line, &triangle.spec))
 // 			return (false);
 // 	}
 // 	return (true);
@@ -67,35 +67,26 @@
 
 bool	triangle_parcer(char *line, t_data *data)
 {
-	t_objects	*object;
-	t_triangle	*triangle;
+	t_triangle	triangle;
+	int			i;
 
-	triangle = ft_calloc(sizeof(t_triangle), 1);
-	if (!triangle)
-		return (false);
+	ft_memset(&triangle, 0, sizeof(t_triangle));
 	data->counter.triangle += 1;
 	line += 3;
-	if (!cordinate_parcer(&line, &triangle->cord1, INT_MAX, INT_MIN))
-		return (free(triangle), ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
-	if (!cordinate_parcer(&line, &triangle->cord2, INT_MAX, INT_MIN))
-		return (free(triangle), ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
-	if (!cordinate_parcer(&line, &triangle->cord3, INT_MAX, INT_MIN))
-		return (free(triangle), ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
+	if (!cordinate_parcer(&line, &triangle.cord1, INT_MAX, INT_MIN))
+		return (ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
+	if (!cordinate_parcer(&line, &triangle.cord2, INT_MAX, INT_MIN))
+		return (ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
+	if (!cordinate_parcer(&line, &triangle.cord3, INT_MAX, INT_MIN))
+		return (ft_putendl_fd("minirt:  tr invalid cordinate format", 2), false);
 	line += skip_spaces(line);
-	int a = color_parcer(line, &triangle->clr);
-	if (a == -1)
-		return (free(triangle), ft_putendl_fd("minirt: triangle invalid color format", 2), false);
-	line += skip_spaces(line + a) + a;
-	if (!check_for_features(line, &triangle->spec))
-		return (free(triangle), false);
-	// ft_atod(&line, &triangle->spec.intensity, INT_MAX, INT_MIN);
-	// line += skip_spaces(line);
-	// ft_atod(&line, &triangle->spec.shininess_factor, 1, 0);
-	// line += skip_spaces(line);
-	// ft_atod(&line, &triangle->spec.reflection, 1, 0);
-	object = newobject(triangle, TRIANGLE);
-	if (!object)
-		return (free(triangle), false);
-	addobject_front(&data->objects, object);
+	i = color_parcer(line, &triangle.clr);
+	if (i == -1)
+		return (ft_putendl_fd("minirt: triangle invalid color format", 2), false);
+	line += skip_spaces(line + i) + i;
+	if (!check_for_features(line, &triangle.spec))
+		return (false);
+	if (!object_validate(T_TRIANGLE, TRIANGLE, data, &triangle))
+		return (false);
 	return (true);
 }
