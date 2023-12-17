@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_intersections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:54 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 20:41:36 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	t_cord	p;
 
 	discriminant = sphere_quad(&p, obj, ray);
-	if (discriminant < EPS)
+	if (discriminant <EPS)
 		return (false);
-	if (discriminant > EPS)
+	if (discriminant >EPS)
 	{
 		tmp = (-p.b - sqrt(discriminant)) / (p.a);
-		if (tmp <= EPS || tmp >= M_D)
+		if (tmp <=EPS || tmp >= M_D)
 		{
 			tmp = (-p.b + sqrt(discriminant)) / (p.a);
-			if (tmp <= EPS || tmp >= M_D)
+			if (tmp <=EPS || tmp >= M_D)
 				return (false);
 		}
 	}
 	else
 	{
 		tmp = -p.b / p.a;
-		if (tmp <= EPS || tmp >= M_D)
+		if (tmp <=EPS || tmp >= M_D)
 			return (false);
 	}
 	update_record(rec, (t_sphere *)(obj->object), ray, tmp);

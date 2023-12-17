@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:36:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 19:16:56 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 21:54:30 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "structs.h"
 
-typedef bool	(*t_inter_func)(t_ray *, t_objects *, t_hit_record *);
+typedef bool	(*t_t_inter_func)(t_ray *, t_objects *, t_hit_record *);
 
-t_inter_func	intersect(int type);
+t_t_inter_func	intersect(int type);
 t_objects		*get_closes_object(t_ray *ray, t_objects *obj, \
 t_hit_record *rec);
 t_vec			raytrace(t_data *data, t_rays *rays, t_hit_record *rec);

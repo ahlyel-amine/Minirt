@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylender_intersections.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 19:23:52 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	param.a = p.b * p.b - 4 * p.a * p.c;
 	param.b = (-p.b - sqrt(param.a)) / (2 * p.a);
 	param.c = (-p.b + sqrt(param.a)) / (2 * p.a);
-	if (param.a <= EPS || (param.b <= EPS && param.c <= EPS))
+	if (param.a <=EPS || (param.b <=EPS && param.c <=EPS))
 		return (false);
-	if (param.b <= EPS || (param.c > EPS && (param.c < param.b)))
+	if (param.b <=EPS || (param.c >EPS && (param.c < param.b)))
 		param.b = param.c;
 	return (rec->t = param.b, true);
 }
@@ -87,5 +87,5 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		&& pow(distance(cylinder->cord, tmp_rec.p_hit), 2) \
 		<= pow(cylinder->height * 0.5, 2) + pow(cylinder->diameter * 0.5, 2))
 		*rec = tmp_rec;
-	return (rec->t < M_D && rec->t > EPS);
+	return (rec->t < M_D && rec->t >EPS);
 }

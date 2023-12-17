@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/02 15:19:30 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	object = NULL;
 	while (obj)
 	{
-		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t > eps && temp_rec.t < closest_so_far)
+		if (intersect(obj->type)(ray, obj, &temp_rec) && temp_rec.t >EPS && temp_rec.t < closest_so_far)
 		{
 			temp = temp_rec.t;
 			if (temp < closest_so_far)
@@ -71,10 +71,10 @@ t_objects	*get_first_close_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 }
 #include "minirt_bonus.h"
 
-inter_func	intersect(int type)
+t_inter_func	intersect(int type)
 {
 	t_objects	*obj;
-	inter_func	obj_inter[5];
+	t_inter_func	obj_inter[5];
 
 	obj_inter[SPHERE] = sphere_hit;
 	obj_inter[PLANE] = plan_hit;

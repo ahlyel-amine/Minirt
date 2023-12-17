@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 15:39:46 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 22:07:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	get_pixel(t_mrt *rt, int x, int y)
 	return (0);
 }
 
-int	rgb_to_int(t_coord color)
+int	rgb_to_int(t_vec color)
 {
 	int	r;
 	int	g;

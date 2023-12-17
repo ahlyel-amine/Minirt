@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-# define VECTOR_H
+#ifndef VECTOR_BONUS_H
+# define VECTOR_BONUS_H
 # include "structs_bonus.h"
 # include <math.h>
 double	sqr(double x);
@@ -29,7 +29,7 @@ t_vec	vec_addition(t_vec v, t_vec u);
 t_vec 	vec_sub(t_vec v, t_vec u);
 t_vec	scalar_mult(t_vec v, double f);
 t_vec	scalar_div(t_vec v, double f);
-t_coord	at(double t, t_ray ray);
+t_vec	at(double t, t_ray ray);
 double distance(t_vec v, t_vec u);
 
 #endif
