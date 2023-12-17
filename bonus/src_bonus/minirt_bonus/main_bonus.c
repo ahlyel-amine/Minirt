@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/17 21:27:07 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 21:49:25 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,32 @@ bool	make_image(t_mrt *scean)
 	scean->mlx_img = mlx_new_image(scean->mlx, WIDTH, HEIGHT);
 	if (!scean->mlx_img)
 		return (false);
-	scean->mlx_add = mlx_get_data_addr(scean->mlx_img, &(scean->bit_per_px), &(scean->line_len), &(scean->endian));
+	scean->mlx_add = mlx_get_data_addr(scean->mlx_img, &(scean->bit_per_px), \
+	&(scean->line_len), &(scean->endian));
 	if (!scean->mlx_add)
 		return (false);
 	return (true);
 }
 
-// void check()
-// {
-// 	system("leaks Minirt_bonus");
-// }
-
-#include <time.h>
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	// atexit(check);
 	t_data		data;
 	t_mrt		scean;
-	clock_t tic = clock();
+
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
-			return (clearobjs(&data.objects), clearlights(&data.light),  1);
-		print_scean(data);
+			return (clearobjs(&data.objects), clearlights(&data.light), 1);
 		if (!make_image(&scean))
-			return (clearobjs(&data.objects), clearlights(&data.light),  1);
+			return (clearobjs(&data.objects), clearlights(&data.light), 1);
 		lookat(&data.camera);
 		data.m_rt = &scean;
 		textures_binding(data.objects, &scean);
 		if (!make_threads(&scean, data))
-			return (clearobjs(&data.objects), clearlights(&data.light),  1);
-		clock_t toc = clock();
-		printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+			return (clearobjs(&data.objects), clearlights(&data.light), 1);
 		hooks_settings(&data);
 		mlx_loop(scean.mlx);
 	}
-	return 0;
+	return (0);
 }
