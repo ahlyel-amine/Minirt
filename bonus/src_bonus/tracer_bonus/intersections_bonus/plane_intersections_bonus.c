@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:52 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 11:20:54 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ bool	plan_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 
     plan = obj->object;
 	denom = dot_product(plan->normalized, ray->direction);
-	if (fabs(denom) > eps)
+	if (fabs(denom) > EPS)
 	{
 		p = vec_sub(plan->cord, ray->origin);
 		t = dot_product(p, plan->normalized) / denom;
-		if (t > eps)
+		if (t > EPS)
 		{
 			rec->t = t;
 			rec->p_hit = at(rec->t, *ray);
