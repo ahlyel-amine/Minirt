@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 13:10:11 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 21:31:18 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	check_reflection(char **line, double *reflection, bool *loop)
 	{
 		*line += 2;
 		if (!ft_atod(line, reflection, 1, 0))
-			return (ft_print_errors(4, ERR, S_NAME, ERR_V, ERR_REF), false);
+			return (print_err(4, ERR, NAME, ERR_V, ERR_REF), false);
 		*loop = true;
 	}
 	*line += skip_spaces(*line);
@@ -38,14 +38,14 @@ bool	check_specular(char **line, t_specular_light *specular, bool *loop)
 	{
 		*line += 2;
 		if (!ft_atod(line, &specular->intensity, 10, 0))
-			return (ft_print_errors(5, ERR, S_NAME, \
+			return (print_err(5, ERR, NAME, \
 			ERR_SPEC, ERR_V, ERR_INT), false);
 		if (**line == ',')
 			(*line)++;
 		else
-			return (ft_print_errors(4, ERR, S_NAME, ERR_F, ERR_SPEC), false);
+			return (print_err(4, ERR, NAME, ERR_F, ERR_SPEC), false);
 		if (!ft_atod(line, &specular->shininess_factor, 1, 0))
-			return (ft_print_errors(5, ERR, S_NAME, \
+			return (print_err(5, ERR, NAME, \
 			ERR_SPEC, ERR_V, ERR_SHF), false);
 		*loop = true;
 	}
@@ -60,14 +60,14 @@ bool	check_checkerboard(char **line, t_specular_light *checkred, bool *loop)
 	{
 		*line += 9;
 		if (!ft_atod(line, &checkred->checkred_h, INT_MAX, INT_MIN))
-			return (ft_print_errors(5, ERR, S_NAME, \
+			return (print_err(5, ERR, NAME, \
 			ERR_CHKBRD, ERR_V, ERR_HT), false);
 		if (**line == ',')
 			(*line)++;
 		else
-			return (ft_print_errors(4, ERR, S_NAME, ERR_F, ERR_CHKBRD), false);
+			return (print_err(4, ERR, NAME, ERR_F, ERR_CHKBRD), false);
 		if (!ft_atod(line, &checkred->checkred_w, INT_MAX, INT_MIN))
-			return (ft_print_errors(5, ERR, S_NAME, \
+			return (print_err(5, ERR, NAME, \
 			ERR_CHKBRD, ERR_V, ERR_WH), false);
 		checkred->checkred = true;
 		*loop = true;
@@ -142,6 +142,6 @@ bool	check_for_features(char *line, t_specular_light *spec)
 			break ;
 	}
 	if (*line)
-		return (ft_print_errors(4, ERR, S_NAME, ERR_F, "\n"), false);
+		return (print_err(4, ERR, NAME, ERR_F, "\n"), false);
 	return (true);
 }

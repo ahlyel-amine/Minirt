@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:59:13 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/16 12:32:22 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 21:31:18 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ bool	triangle_parcer(char *line, t_data *data)
 	data->counter.triangle += 1;
 	line += 3;
 	if (!cordinate_parcer(&line, &triangle.cord1, INT_MAX, INT_MIN))
-		return (ft_print_errors(4, ERR, S_NAME, ERR_TR, ERR_CORD), false);
+		return (print_err(4, ERR, NAME, ERR_TR, ERR_CORD), false);
 	if (!cordinate_parcer(&line, &triangle.cord2, INT_MAX, INT_MIN))
-		return (ft_print_errors(4, ERR, S_NAME, ERR_TR, ERR_CORD), false);
+		return (print_err(4, ERR, NAME, ERR_TR, ERR_CORD), false);
 	if (!cordinate_parcer(&line, &triangle.cord3, INT_MAX, INT_MIN))
-		return (ft_print_errors(4, ERR, S_NAME, ERR_TR, ERR_CORD), false);
+		return (print_err(4, ERR, NAME, ERR_TR, ERR_CORD), false);
 	line += skip_spaces(line);
 	i = color_parcer(line, &triangle.clr);
 	if (i == -1)
-		return (ft_print_errors(4, ERR, S_NAME, ERR_TR, ERR_COLOR), false);
+		return (print_err(4, ERR, NAME, ERR_TR, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
 	if (!check_for_features(line, &triangle.spec))
 		return (false);

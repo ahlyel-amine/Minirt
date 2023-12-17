@@ -10,10 +10,10 @@
 #define eps 1e-3
 #define min(X, Y)((X) < (Y) ? (X) : (Y))
 #define REF_LEVEL 5
-typedef	bool	(*object_parcer)(char *, t_data *);
+typedef	bool	(*t_object_parcer)(char *, t_data *);
 typedef void (*t_texture_clear)(void *);
 
-enum	types
+enum	e_types
 {
 	SPHERE		= 0x00,	
 	CYLENDER	= 0x01,
@@ -64,7 +64,7 @@ enum	e_size_types
 
 
 
-# define S_NAME			"MiniRT: "
+# define NAME			"MiniRT: "
 # define ERR			"ERROR\n"
 # define ERR_CN			"Cone : "
 # define ERR_CY			"Cylender : "
