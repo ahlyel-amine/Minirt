@@ -27,7 +27,7 @@ void				scale(int key, t_data *data);
 void				rotate(int key, t_data *data);
 void				hooks_settings(t_data *data);
 void				skip(int key, t_data *data);
-void				ft_print_errors(const int ac, ...);
+void				print_err(const int ac, ...);
 bool	            object_validate(enum e_size_types size, enum e_types type, t_data *data, void *object);
 
 #endif

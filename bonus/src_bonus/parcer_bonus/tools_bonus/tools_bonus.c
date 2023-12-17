@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 12:53:10 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 21:31:18 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	get_integer(char **line, int *integer)
 	*line += i;
 }
 
-void	ft_print_errors(const int ac, ...)
+void	print_err(const int ac, ...)
 {
 	va_list	args;
 	int		tmp;

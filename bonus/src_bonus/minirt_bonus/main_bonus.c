@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 14:28:18 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 21:27:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ bool	make_image(t_mrt *scean)
 	return (true);
 }
 
-void check()
-{
-	system("leaks Minirt_bonus");
-}
+// void check()
+// {
+// 	system("leaks Minirt_bonus");
+// }
 
 #include <time.h>
 int main(int ac, char **av)
 {
-	atexit(check);
+	// atexit(check);
 	t_data		data;
 	t_mrt		scean;
 	clock_t tic = clock();

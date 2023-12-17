@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_hooks_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:38:10 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 12:23:47 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 21:26:29 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	close_key(int key, t_data *data)
 	(void)key;
 	mlx_destroy_image(data->m_rt->mlx, data->m_rt->mlx_img);
 	mlx_destroy_window(data->m_rt->mlx, data->m_rt->mlx_win);
+	clearobjs(&data->objects);
+	clearlights(&data->light);
 	exit(EXIT_SUCCESS);
 }
 
@@ -31,6 +33,7 @@ int	m_close(void *param)
 
 	data = (t_data *)param;
 	clearobjs(&data->objects);
+	clearlights(&data->light);
 	exit(EXIT_FAILURE);
 	return (0);
 }
