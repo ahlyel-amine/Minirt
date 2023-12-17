@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:50:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 15:51:51 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 11:20:51 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
     // double c = cosTheta2 * pow(cone_origin.v_x, 2) + cosTheta2 * pow(cone_origin.v_z, 2) - sinTheta2 * pow(cone_origin.v_y, 2);
     double c = pow(dot_product(cone_origin, cone->normalized), 2) - cosTheta2 * dot_product(cone_origin, cone_origin);
     double discriminant = b * b - 4 * a * c;
-    if (discriminant < eps)
+    if (discriminant < EPS)
         return (false);
     double t1 = (-b + sqrt(discriminant)) / (2 * a);
     double t2 = (-b - sqrt(discriminant)) / (2 * a);
@@ -50,7 +50,7 @@ bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
         return (false);
     rec->t = t;
 	rec->p_hit = at(rec->t, *ray);
-    if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) > eps)
+    if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) > EPS)
         return (false);
     if (distance(cone->cord, rec->p_hit) > cone->height)
         return (false);

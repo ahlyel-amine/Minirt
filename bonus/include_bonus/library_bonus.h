@@ -7,7 +7,7 @@
 #define HEIGHT 1080
 #define FRAME 3
 #define M_D 1.79769e+308
-#define eps 1e-3
+#define EPS 1e-3
 #define MIN(X, Y)((X) < (Y) ? (X) : (Y))
 #define REF_LEVEL 5
 typedef	bool	(*object_parcer)(char *, t_data *);

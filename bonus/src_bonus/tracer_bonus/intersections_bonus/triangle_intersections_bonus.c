@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:28:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 11:20:56 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	triangle = (t_triangle *)obj->object;
 	tri_properties(triangle);
 	dinom = dot_product(ray->direction, triangle->normalizer);
-	if (fabs(dinom) < eps)
+	if (fabs(dinom) < EPS)
 		return (false);
 	dis = -dot_product(triangle->normalizer, triangle->cord1);
 	rec->t = -(dot_product(ray->origin, triangle->normalizer) + dis) / dinom;
-	if (rec->t < eps)
+	if (rec->t < EPS)
 		return (false);
 	rec->p_hit = at(rec->t, *ray);
 	if (check_tri_inter(rec, triangle))
 	{
-		if (dot_product(rec->n_hit, ray->direction) > eps)
+		if (dot_product(rec->n_hit, ray->direction) > EPS)
 			rec->n_hit = vec_nega(rec->n_hit);
 		return (true);
 	}
