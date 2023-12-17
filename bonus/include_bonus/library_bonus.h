@@ -1,15 +1,27 @@
-#ifndef LIBRARY_H
-#define LIBRARY_H
-#include <stdbool.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   library_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/12/17 22:04:50 by aahlyel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LIBRARY_BONUS_H
+# define LIBRARY_BONUS_H
+# include <stdbool.h>
 # include <math.h>
-#include "structs_bonus.h"
-#define WIDTH 1920	
-#define HEIGHT 1080
-#define FRAME 3
-#define M_D 1.79769e+308
-#define eps 1e-3
-#define min(X, Y)((X) < (Y) ? (X) : (Y))
-#define REF_LEVEL 5
+# include "structs_bonus.h"
+# define WIDTH 1920	
+# define HEIGHT 1080
+# define FRAME 3
+# define M_D 1.79769e+308
+# define EPS 1e-3
+# define min(X, Y)((X) < (Y) ? (X) : (Y))
+# define REF_LEVEL 5
 typedef	bool	(*t_object_parcer)(char *, t_data *);
 typedef void (*t_texture_clear)(void *);
 
@@ -39,30 +51,27 @@ enum	e_size_types
 	T_INVALID		= 0,
 };
 
-#define	MAX_OBJECTS	8
+# define MAX_OBJECTS	8
 
-# define	RT_FILE		".rt"
+# define RT_FILE		".rt"
 
-# define	S_SPHERE	"sp"
-# define	S_CYLENDER	"cy"
-# define	S_PLANE		"pl"
-# define	S_LIGHTING	"A"
-# define	S_CAMERA	"C"
-# define	S_LIGHT		"l"
-# define	S_TRIANGLE	"tr"
-# define	S_CONE		"cn"
+# define S_SPHERE		"sp"
+# define S_CYLENDER		"cy"
+# define S_PLANE		"pl"
+# define S_LIGHTING		"A"
+# define S_CAMERA		"C"
+# define S_LIGHT		"l"
+# define S_TRIANGLE		"tr"
+# define S_CONE			"cn"
 
-
-# define	S_REF		"r="
-# define	S_SPEC		"s="
-# define	S_CHKBRD	"checkred="
-# define	S_XPM		".xpm\""
-# define	S_TXTR		"txtr=\""
-# define	S_BUMP		"bump=\""
-# define	S_TRIANGLE	"tr"
-# define	S_CONE		"cn"
-
-
+# define S_REF			"r="
+# define S_SPEC			"s="
+# define S_CHKBRD		"checkred="
+# define S_XPM			".xpm\""
+# define S_TXTR			"txtr=\""
+# define S_BUMP			"bump=\""
+# define S_TRIANGLE		"tr"
+# define S_CONE			"cn"
 
 # define NAME			"MiniRT: "
 # define ERR			"ERROR\n"

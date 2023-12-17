@@ -1,5 +1,5 @@
-#ifndef TOOLS_H
-#define TOOLS_H
+#ifndef TOOLS_BONUS_H
+#define TOOLS_BONUS_H
 
 #include "structs_bonus.h"
 #include "library_bonus.h"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_intersections_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:54 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ bool	sphere_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	p.b = dot_product(oc, ray->direction);
 	p.c = dot_product(oc, oc) - pow(sphere->diameter/2, 2);
 	discriminant = p.b * p.b - (p.a * p.c);
-	if (discriminant < eps)
+	if (discriminant <EPS)
 		return (false);
-	if (discriminant > eps)
+	if (discriminant >EPS)
 	{
 		tmp = (-p.b - sqrt(discriminant)) / (p.a);
-		if (tmp <= eps || tmp >= M_D)
+		if (tmp <=EPS || tmp >= M_D)
 		{
 			tmp = (-p.b + sqrt(discriminant)) / (p.a);
-			if (tmp <= eps || tmp >= M_D)
+			if (tmp <=EPS || tmp >= M_D)
 				return (false);		
 		}
 	}
 	else
 	{
 		tmp = -p.b / p.a;
-		if (tmp <= eps || tmp >= M_D)
+		if (tmp <=EPS || tmp >= M_D)
 			return (false);
 	}
 	rec->t = tmp;

@@ -1,7 +1,20 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
-#include <stdio.h>
-#include <stdbool.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
+/*   Updated: 2023/12/17 22:02:03 by aahlyel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef STRUCTS_BONUS_H
+# define STRUCTS_BONUS_H
+
+# include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_cord
 {
@@ -35,8 +48,6 @@ typedef struct s_ray
 	t_vec	direction;
 }	t_ray;
 
-// typedef t_cord	(*param_at)(double t, t_ray ray);
-# define t_coord t_vec
 typedef struct s_color
 {
 	unsigned char	r;
@@ -64,15 +75,13 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_color	clr;
-	double	brightness;
-	t_vec	cord;
+	t_color			clr;
+	double			brightness;
+	t_vec			cord;
 	struct s_light	*next;
 }	t_light;
 
-
-
-typedef	struct s_object
+typedef struct s_object
 {
 	unsigned char	type;
 	void			*object;
@@ -93,68 +102,67 @@ typedef struct s_texture_img
 
 typedef struct s_plane
 {
-	t_specular_light spec;
-	t_texture_img	*texture;
-	t_texture_img	*bump;
-	t_vec	normalized;
-	t_color	clr;
-	t_vec	cord;
+	t_specular_light	spec;
+	t_texture_img		*texture;
+	t_texture_img		*bump;
+	t_vec				normalized;
+	t_color				clr;
+	t_vec				cord;
 }	t_plane;
 
 typedef struct s_cone
 {
-	t_specular_light spec;
-	t_texture_img	*texture;
-	t_vec normalized;
-    t_vec cord;
-	t_color	clr;
-    double half_angle;
-    double height;
-}   t_cone;
+	t_specular_light	spec;
+	t_texture_img		*texture;
+	t_vec				normalized;
+	t_vec				cord;
+	t_color				clr;
+	double				half_angle;
+	double				height;
+}	t_cone;
 
 typedef struct s_cylender
 {
-	t_specular_light spec;
-	t_texture_img	*texture;
-	t_vec	normalized;
-	t_vec	cord;
-	t_color	clr;
-	t_objects	*p_face;
-	double	diameter;
-	double	height;
+	t_specular_light	spec;
+	t_texture_img		*texture;
+	t_vec				normalized;
+	t_vec				cord;
+	t_color				clr;
+	t_objects			*p_face;
+	double				diameter;
+	double				height;
 }	t_cylender;
 
 typedef struct s_sphere
 {
-	t_specular_light spec;
-	t_texture_img	*texture;
-	t_texture_img	*bump;
-	t_vec	cord;
-	t_color	clr;
-	double	diameter;
+	t_specular_light	spec;
+	t_texture_img		*texture;
+	t_texture_img		*bump;
+	t_vec				cord;
+	t_color				clr;
+	double				diameter;
 }	t_sphere;
 
 typedef struct s_triangle
 {
-	t_specular_light spec;
-	t_vec 	normalizer;
-	t_color	clr;
-	t_vec	cord1;
-	t_vec	cord2;
-	t_vec	cord3;
-	t_vec	edge0;
-	t_vec	edge1;
-	t_vec	edge2;
+	t_specular_light	spec;
+	t_vec				normalizer;
+	t_color				clr;
+	t_vec				cord1;
+	t_vec				cord2;
+	t_vec				cord3;
+	t_vec				edge0;
+	t_vec				edge1;
+	t_vec				edge2;
 }	t_triangle;
-
 
 typedef struct s_counter
 {
-	int sphere;
-	int cylender;
-	int plane;
-	int triangle;
-	int cone;
+	int	sphere;
+	int	cylender;
+	int	plane;
+	int	triangle;
+	int	cone;
 }	t_counter;
 
 typedef struct s_mrt
@@ -168,7 +176,7 @@ typedef struct s_mrt
 	int		endian;
 }	t_mrt;
 
-typedef	struct s_data
+typedef struct s_data
 {
 	t_lighting	lighting;
 	t_counter	counter;
@@ -179,13 +187,12 @@ typedef	struct s_data
 	int			shape;
 }	t_data;
 
-
 typedef struct s_hit_record
 {
 	double	t;
 	t_vec	p_hit;
 	t_vec	n_hit;
-	t_vec 	h_color;	
+	t_vec	h_color;	
 }	t_hit_record;
 
 typedef struct s_light_effect
@@ -198,19 +205,19 @@ typedef struct s_light_effect
 
 typedef struct s_rays
 {
-	t_ray	ray;
-	t_ray	shadow_ray;
+	t_ray		ray;
+	t_ray		shadow_ray;
 	t_objects	*closet_obj;
 }	t_rays;
 
 typedef struct s_dataset
 {
-	t_mrt *m_rt;
-	t_data data;
-	int s_x;
-	int s_y;
-	int e_x;
-	int e_y;
+	t_mrt	*m_rt;
+	t_data	data;
+	int		s_x;
+	int		s_y;
+	int		e_x;
+	int		e_y;
 }	t_dataset;
 
 typedef struct s_bump_data
@@ -218,15 +225,10 @@ typedef struct s_bump_data
 	t_vec	axis;
 	double	u;
 	double	v;
-	double 	b_scale_u;
-	double 	b_scale_v;
+	double	b_scale_u;
+	double	b_scale_v;
 	int		x;
 	int		y;
 }	t_bump_data;
-// typedef enum e_bool
-// {
-// 	false,
-// 	true
-// }	t_bool;
 
 #endif

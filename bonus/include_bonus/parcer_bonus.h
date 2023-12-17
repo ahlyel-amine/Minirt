@@ -1,5 +1,5 @@
-#ifndef PARCER_H
-# define PARCER_H
+#ifndef PARCER_BONUS_H
+# define PARCER_BONUS_H
 
 #include <stdbool.h>
 #include "structs_bonus.h"

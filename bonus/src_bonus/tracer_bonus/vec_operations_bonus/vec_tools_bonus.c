@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_tools.c                                        :+:      :+:    :+:   */
+/*   vec_tools_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:56:21 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/11/28 11:47:19 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 22:06:27 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vec	create_vec_from_scalar(double s)
 	return ((t_vec){s, s, s});
 }
 
-t_coord	at(double t, t_ray ray)
+t_vec	at(double t, t_ray ray)
 {
 	return ((vec_addition(ray.origin, scalar_mult(ray.direction, t))));
 }

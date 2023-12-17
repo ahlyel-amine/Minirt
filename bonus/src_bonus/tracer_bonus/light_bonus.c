@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 16:17:07 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hi
 	view = scalar_mult(scalar_mult(rec->n_hit, 2.0), dot_product(vec_nega(rec->n_hit), rays->shadow_ray.direction));
 	reflect = vec_addition(rays->shadow_ray.direction, view);
 	thita = dot_product(reflect, view);
-	if (thita > eps)
+	if (thita >EPS)
 	{
 		spec = pow(thita, speclr.intensity);
 		specular = scalar_mult((t_vec){1, 1, 1}, spec);

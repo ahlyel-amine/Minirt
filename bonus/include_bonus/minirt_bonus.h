@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_BONUS_H
+# define MINIRT_BONUS_H
 
 #include <stdbool.h>
 #include "structs_bonus.h"
 #include "minirt_bonus.h"
 
 bool	parcer(char *scene, t_data	*data);
-typedef bool	(*inter_func)(t_ray *, t_objects *, t_hit_record *);
+typedef bool	(*t_inter_func)(t_ray *, t_objects *, t_hit_record *);
 typedef bool	(*texture)(void *, t_mrt *);
 
 void	*draw(void *param);
@@ -31,7 +31,7 @@ bool	f_cylinder_render(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec);
 
-inter_func	intersect(int type);
+t_inter_func	intersect(int type);
 
 //--------------------camera--------------------
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir);
