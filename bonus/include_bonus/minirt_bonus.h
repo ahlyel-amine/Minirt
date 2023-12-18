@@ -16,10 +16,11 @@
 #include <stdbool.h>
 #include "structs_bonus.h"
 #include "minirt_bonus.h"
-
+# define PBAR "########################################"
+# define WBAR 40
 bool	parcer(char *scene, t_data	*data);
 typedef bool	(*t_inter_func)(t_ray *, t_objects *, t_hit_record *);
-typedef bool	(*texture)(void *, t_mrt *);
+typedef bool	(*t_texture)(void *, t_mrt *);
 
 void	*draw(void *param);
 

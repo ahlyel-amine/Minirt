@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/17 21:49:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 16:46:49 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,33 @@ bool	make_image(t_mrt *scean)
 		return (false);
 	return (true);
 }
-
+void	check()
+{
+	system("leaks Minirt_bonus");
+}
 int	main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
-
+	atexit(check);
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
 		if (!parcer(av[1], &data))
-			return (clearobjs(&data.objects), clearlights(&data.light), 1);
+			return (clearobjs(&data.objects), clearlights(&data.light),  1);
+		// print_scean(data);
 		if (!make_image(&scean))
-			return (clearobjs(&data.objects), clearlights(&data.light), 1);
+			return (clearobjs(&data.objects), clearlights(&data.light),  1);
 		lookat(&data.camera);
 		data.m_rt = &scean;
+		data.load_p = 0;
 		textures_binding(data.objects, &scean);
 		if (!make_threads(&scean, data))
-			return (clearobjs(&data.objects), clearlights(&data.light), 1);
+			return (clearobjs(&data.objects), clearlights(&data.light),  1);
+		clock_t toc = clock();
+		// printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
 		hooks_settings(&data);
 		mlx_loop(scean.mlx);
 	}
-	return (0);
+	return 0;
 }

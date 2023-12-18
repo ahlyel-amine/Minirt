@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atod_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 12:40:41 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 16:14:41 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool	ft_atod(char **ascii, double *result, int marge_max, int marge_min)
 {
 	int		digits_left;
 	double	sign;
-
 	*result = 0.0;
 	sign = 1.0;
 	digits_left = 0;

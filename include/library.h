@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:16:23 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 16:00:11 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define HEIGHT 1080
 # define FRAME 3
 # define M_D 1.79769e+308
-# defineEPS 1e-3
+# define EPS 1e-3
 
 typedef bool	(*t_object_parcer)(char *, t_data *);
 
