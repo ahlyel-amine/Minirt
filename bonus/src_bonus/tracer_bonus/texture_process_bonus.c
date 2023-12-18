@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_process_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:10:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/16 14:09:45 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:24:33 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	*bump_texture_2(t_plane *p, t_mrt *img)
 	{
 		p->bump = (t_texture_img *)malloc(sizeof(t_texture_img));
 		if (!p->bump)
-			return (free(p->spec.bump), NULL);
+			return (free(p->spec.bump), p->spec.bump = NULL, NULL);
 		p->bump->path = p->spec.bump;
 		p->bump->img = mlx_xpm_file_to_image(img->mlx, p->bump->path, &p->bump->width, &p->bump->height);
 		if (!p->bump->img)
-			return (free(p->spec.bump), p->spec.bump = NULL, p->bump->img = NULL, NULL);
+			return (free(p->spec.bump), p->spec.bump = NULL, NULL);
 		else
 			p->bump->addr = mlx_get_data_addr(p->bump->img, &p->bump->bpp, &p->bump->line_len, &p->bump->endian);
 		return ((void *)(p->bump));
@@ -37,7 +37,7 @@ static bool	texture_plane(void *p, t_mrt *img)
 {
 	t_plane	*plane;
 
-	plane = (t_plane *)p;
+	plane = (t_plane *)(((t_objects *)p)->object);
 	if (plane->spec.texture)
 	{
 		plane->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
@@ -49,8 +49,9 @@ static bool	texture_plane(void *p, t_mrt *img)
 			return (free(plane->spec.texture), plane->spec.texture = NULL, plane->texture->img = NULL, false);
 		else
 			plane->texture->addr = mlx_get_data_addr(plane->texture->img, &plane->texture->bpp, &plane->texture->line_len, &plane->texture->endian);
+		((t_objects *)p)->t_copy = plane->texture;
 	}
-	bump_texture_2(plane, img);
+	((t_objects *)p)->b_copy = bump_texture_2(plane, img);
 	return (true);
 }
 void	*bump_texture(t_sphere *sphere, t_mrt *img)
@@ -74,12 +75,13 @@ static bool	texture_sphere(void *sphere, t_mrt *img)
 {
 	t_sphere	*s;
 
-	s = (t_sphere *)sphere;
+	s = (t_sphere *)(((t_objects *)sphere)->object);
 	if (s->spec.texture)
 	{
 		s->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
 		if (!s->texture)
 			return (free(s->spec.texture), s->spec.texture = NULL, false);
+		((t_objects *)sphere)->t_copy = s->texture;
 		s->texture->path = s->spec.texture;
 		s->texture->img = mlx_xpm_file_to_image(img->mlx, s->texture->path, &s->texture->width, &s->texture->height);
 		if (!s->texture->img)
@@ -87,7 +89,7 @@ static bool	texture_sphere(void *sphere, t_mrt *img)
 		else
 			s->texture->addr = mlx_get_data_addr(s->texture->img, &s->texture->bpp, &s->texture->line_len, &s->texture->endian);
 	}
-	bump_texture(s, img);
+	((t_objects *)sphere)->b_copy = bump_texture(s, img);
 	return (true);
 }
 
@@ -95,12 +97,13 @@ static bool	texture_cylinder(void *cylinder, t_mrt *img)
 {
 	t_cylender	*c;
 
-	c = (t_cylender *)cylinder;
+	c = (t_cylender *)(((t_objects *)cylinder)->object);
 	if (c->spec.texture)
 	{
 		c->texture = (t_texture_img *)malloc(sizeof(t_texture_img));
 		if (!c->texture)
-			return (false);
+			return (free(c->spec.texture), c->spec.texture = NULL, false);
+		((t_objects *)c)->t_copy = c->texture;
 		c->texture->path = c->spec.texture;
 		c->texture->img = mlx_xpm_file_to_image(img->mlx, c->texture->path, &c->texture->width, &c->texture->height);
 		if (!c->texture->img)
@@ -111,12 +114,12 @@ static bool	texture_cylinder(void *cylinder, t_mrt *img)
 	return (true);
 }
 
-texture texture_process(int type)
+t_texture texture_process(int type)
 {
-	texture func[3];
+	t_texture func[3];
 	func[SPHERE] = texture_sphere;
-	func[CYLENDER] = texture_cylinder;
 	func[PLANE] = texture_plane;
+	func[CYLENDER] = texture_cylinder;
 	return (func[type]);
 }
 
@@ -128,7 +131,7 @@ void	textures_binding(t_objects *shapes, t_mrt *img)
 	while (shape)
 	{
 		if (shape->type != TRIANGLE && shape->type != CONE)
-			texture_process(shape->type)(shape->object, img);
+			texture_process(shape->type)(shape, img);
 		shape = shape->next;
 	}
 }

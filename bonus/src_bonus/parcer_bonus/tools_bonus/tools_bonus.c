@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/17 21:31:18 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:14:49 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <stdarg.h>
 #include "structs_bonus.h"
 #include "libft.h"
 #include "library_bonus.h"
 #include "tools_bonus.h"
-#include <stdarg.h>
-
-void	clear_texture(void *shape, int type);
 
 void	clearobjs(t_objects **lst)
 {
@@ -28,15 +26,18 @@ void	clearobjs(t_objects **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		clear_texture((*lst)->object, (*lst)->type);
 		if ((*lst)->type == CYLENDER)
 			clearobjs(&(((t_cylender *)((*lst)->object))->p_face));
+		clear_texture((*lst)->object, (*lst)->type);
+		// if ((*lst)->t_copy)
+		// 	free((*lst)->t_copy);
+		// if ((*lst)->b_copy)
+		// 	free((*lst)->b_copy);
 		free ((*lst)->object);
 		free(*lst);
 		*lst = tmp;
 	}
 }
-
 void	clearlights(t_light **lst)
 {
 	t_light	*tmp;
@@ -64,7 +65,6 @@ int	skip_spaces(char *str)
 void	get_integer(char **line, int *integer)
 {
 	int	i;
-
 	i = 0;
 	*line += skip_spaces(*line);
 	while (ft_isdigit((*line)[i]))

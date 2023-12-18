@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/17 22:04:36 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:53:25 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	while (obj)
 	{
 		if (intersect(obj->type)(ray, obj, &temp_rec) && \
-		temp_rec.t >EPS && temp_rec.t < closest_so_far)
+		temp_rec.t > EPS && temp_rec.t < closest_so_far)
 		{
 			temp = temp_rec.t;
 			if (temp < closest_so_far)
@@ -71,10 +71,10 @@ t_hit_record *rec)
 	return (object);
 }
 
-t_t_inter_func	intersect(int type)
+t_inter_func	intersect(int type)
 {
 	t_objects		*obj;
-	t_t_inter_func	obj_inter[3];
+	t_inter_func	obj_inter[3];
 
 	obj_inter[SPHERE] = sphere_hit;
 	obj_inter[PLANE] = plan_hit;

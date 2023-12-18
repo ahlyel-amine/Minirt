@@ -29,5 +29,5 @@ void				hooks_settings(t_data *data);
 void				skip(int key, t_data *data);
 void				print_err(const int ac, ...);
 bool	            object_validate(enum e_size_types size, enum e_types type, t_data *data, void *object);
-
+void				clear_texture(void *shape, int type);
 #endif

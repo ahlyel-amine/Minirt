@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:42:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 12:43:08 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:18:17 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,22 @@
 #include "library_bonus.h"
 #include "tools_bonus.h"
 
+typedef void (*t_texture_clear)(void *);
 void	sphere_texutre_c(void *shape)
 {
 	t_sphere	*s;
 
 	s = (t_sphere *)shape;
 	if (s->spec.texture)
+	{
 		free(s->spec.texture);
+		free(s->texture);
+	}	
 	if (s->spec.bump)
+	{
 		free(s->spec.bump);
+		free(s->bump);
+	}	
 }
 
 void	plane_texutre_c(void *shape)
@@ -33,9 +40,15 @@ void	plane_texutre_c(void *shape)
 
 	p = (t_plane *)shape;
 	if (p->spec.texture)
+	{
 		free(p->spec.texture);
+		free(p->texture);
+	}	
 	if (p->spec.bump)
+	{
 		free(p->spec.bump);
+		free(p->bump);
+	}	
 }
 
 void	cy_texture_c(void *shape)
@@ -44,7 +57,10 @@ void	cy_texture_c(void *shape)
 
 	c = (t_cylender *)shape;
 	if (c->spec.texture)
+	{
 		free(c->spec.texture);
+		free(c->texture);
+	}	
 	if (c->spec.bump)
 		free(c->spec.bump);
 }

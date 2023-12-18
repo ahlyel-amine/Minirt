@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading_managment_bonus.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:40:30 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/17 21:50:16 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 16:21:36 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ bool	make_threads(t_mrt *scean, t_data data)
 	coef_x = 0;
 	coef_y = 0;
 	ft_bzero(scean->mlx_add, WIDTH * HEIGHT * (scean->bit_per_px / 8));
+	pthread_mutex_init(&(data.load), NULL);
+	while (++i < 10)
+		ptr[i].d = &data;
+	i = -1;
 	while (++i < 10)
 	{
 		ptr[i].m_rt = scean;
