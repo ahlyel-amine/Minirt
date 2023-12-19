@@ -40,7 +40,7 @@ INCLUDES	= -Iinclude -Ilibft/include
 BNS_INCLUDES	= -Ibonus/include_bonus -Ilibft/include
 OBJ_DIR 	= obj
 BNS_OBJ_DIR 	= obj_bonus
-FLAGS		=     
+FLAGS		=     -fsanitize=address
 # -fsanitize=thread
 # -Wall -Wextra -Werror -fsanitize=address
 NAME		= Minirt
