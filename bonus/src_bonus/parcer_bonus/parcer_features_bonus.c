@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 17:50:14 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/19 20:02:23 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ bool	check_for_features(char *line, t_specular_light *spec)
 {
 	bool	loop;
 
-	loop = true;
 	while (line)
 	{
 		loop = false;

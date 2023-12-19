@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   newobject_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:14:00 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:02:03 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_objects	*newobject(void *object, unsigned char type)
 t_light	*newlight(t_light new)
 {
 	t_light	*light;
+
 	light = malloc(sizeof(t_light));
 	if (light)
 	{
