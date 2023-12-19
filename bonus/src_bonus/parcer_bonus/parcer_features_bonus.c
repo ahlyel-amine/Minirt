@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer_features_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:17:16 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:50:14 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ bool	check_specular(char **line, t_specular_light *specular, bool *loop)
 		if (!ft_atod(line, &specular->intensity, 10, 0))
 			return (print_err(5, ERR, NAME, \
 			ERR_SPEC, ERR_V, ERR_INT), false);
-		if (**line == ',')
-			(*line)++;
+		if (*line[0] == ':')
+			*line += 1;
 		else
 			return (print_err(4, ERR, NAME, ERR_F, ERR_SPEC), false);
 		if (!ft_atod(line, &specular->shininess_factor, 1, 0))
@@ -62,7 +62,7 @@ bool	check_checkerboard(char **line, t_specular_light *checkred, bool *loop)
 		if (!ft_atod(line, &checkred->checkred_h, INT_MAX, INT_MIN))
 			return (print_err(5, ERR, NAME, \
 			ERR_CHKBRD, ERR_V, ERR_HT), false);
-		if (**line == ',')
+		if (**line == ':')
 			(*line)++;
 		else
 			return (print_err(4, ERR, NAME, ERR_F, ERR_CHKBRD), false);
@@ -121,6 +121,7 @@ bool	check_for_features(char *line, t_specular_light *spec)
 {
 	bool	loop;
 
+	loop = true;
 	while (line)
 	{
 		loop = false;
