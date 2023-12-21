@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:09 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:01:14 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 #include "vector_bonus.h"
 #include <stdlib.h>
 
-void	skip(int key, t_data *data)
-{
-	(void)key;
-	(void)data;
-}
 
 t_specular_light		get_specular_addr(t_objects *obj)
 {

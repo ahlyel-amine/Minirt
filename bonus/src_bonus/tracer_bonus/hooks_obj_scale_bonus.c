@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_obj_scale_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:13:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/21 22:01:22 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:01:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,15 @@ void	cy_scale(int key, t_data *data)
 
 t_obj_scale	shape_scale(int idx)
 {
-	t_obj_scale	shape_s[3];
+	static t_obj_scale	shape_s[2];
+	static bool			init;
 
-	*(shape_s) = skip;
-	*(shape_s + 1) = &sphere_scale;
-	*(shape_s + 2) = &cy_scale;
+	if (!init)
+	{
+		init = true;
+		shape_s[0] = sphere_scale;
+		shape_s[1] = cy_scale;
+	}
 	return (*(shape_s + idx));
 }
 
@@ -64,6 +68,9 @@ void	scale(int key, t_data *data)
 	int	idx;
 
 	idx = (data->shape == SPHERE) * 1 + (data->shape == CYLENDER) * 2;
-	shape_scale(idx)(key, data);
-	make_threads(data->m_rt, *data);
+	if (!idx)
+	{
+		shape_scale(idx)(key, data);
+		make_threads(data->m_rt, *data);
+	}
 }

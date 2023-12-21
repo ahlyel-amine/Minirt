@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 12:05:45 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:19:16 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,35 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 	if (!rays->closet_obj)
 		return ((t_vec){0,0,0});
 	t_specular_light refl = get_specular_addr(obj);
-	if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
-	{
-		// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
-		double a,b;
-		double c = ((t_plane *)obj->object)->spec.checkred_h ,d = ((t_plane *)obj->object)->spec.checkred_w;
-		get_uv_plane(obj->object, rec, &a, &b);
-		if ((int)(floor(a * c) + floor(b * d)) % 2)
-			rec->h_color = (t_vec){255, 255, 255};
-	}
-	else if (obj->type == SPHERE && ((t_sphere *)obj->object)->spec.checkred == true)
-	{
-		double a,b ;
-		double c = ((t_sphere *)obj->object)->spec.checkred_h ,d = ((t_sphere *)obj->object)->spec.checkred_w;
-		get_uv_sphere(obj->object, rec, &a, &b);
-		if ((int)(floor(c * a) + floor(d * b)) % 2)
-			rec->h_color = (t_vec){255, 255, 255};
-		// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
-	}
-	else if (obj->type == CYLENDER && ((t_cylender *)obj->object)->spec.checkred == true)
-	{
-		double a,b ;
-		double c = ((t_cylender *)obj->object)->spec.checkred_h ,d = ((t_cylender *)obj->object)->spec.checkred_w;
-		get_uv_cylinder(obj->object, rec, &a, &b);
-		if ((int)(floor(c * a) + floor(d * b)) % 2)
-			rec->h_color = (t_vec){255, 255, 255};
-		// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
-	}
 	handle_bump(rec, rays->closet_obj);
+	checkread_borad(obj, rec);
+	// if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
+	// {
+	// 	// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
+	// 	double a,b;
+	// 	double c = ((t_plane *)obj->object)->spec.checkred_h ,d = ((t_plane *)obj->object)->spec.checkred_w;
+	// 	get_uv_plane(obj->object, rec, &a, &b);
+	// 	if ((int)(floor(a * c) + floor(b * d)) % 2)
+	// 		rec->h_color = (t_vec){255, 255, 255};
+	// }
+	// else if (obj->type == SPHERE && ((t_sphere *)obj->object)->spec.checkred == true)
+	// {
+	// 	double a,b ;
+	// 	double c = ((t_sphere *)obj->object)->spec.checkred_h ,d = ((t_sphere *)obj->object)->spec.checkred_w;
+	// 	get_uv_sphere(obj->object, rec, &a, &b);
+	// 	if ((int)(floor(c * a) + floor(d * b)) % 2)
+	// 		rec->h_color = (t_vec){255, 255, 255};
+	// 	// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
+	// }
+	// else if (obj->type == CYLENDER && ((t_cylender *)obj->object)->spec.checkred == true)
+	// {
+	// 	double a,b ;
+	// 	double c = ((t_cylender *)obj->object)->spec.checkred_h ,d = ((t_cylender *)obj->object)->spec.checkred_w;
+	// 	get_uv_cylinder(obj->object, rec, &a, &b);
+	// 	if ((int)(floor(c * a) + floor(d * b)) % 2)
+	// 		rec->h_color = (t_vec){255, 255, 255};
+	// 	// rec->h_color =  checkread_borad(rec->h_color, rec->p_hit, rec);
+	// }
 	light_effect = get_light_effect(data, rays, data->objects, rec);
 	level -= 1;
 	if (refl.reflection > 0 &&  level > 0)

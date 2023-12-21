@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 22:01:01 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:54:47 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ enum	e_size_types
 # define ERR_WH			"width "
 # define ERR_DR			"diameter "
 # define ERR_MS			"missing "
+# define ERR_TXTR		"texture/bump is only for objects : SPHERE/CYLENDER/PLANE\n"
 
 #endif

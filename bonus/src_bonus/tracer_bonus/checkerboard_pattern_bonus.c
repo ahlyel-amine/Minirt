@@ -3,27 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard_pattern_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:39:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:21:16 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs_bonus.h"
-#include "vector_bonus.h"
+#include "library_bonus.h"
+#include "tools_bonus.h"
 #include <math.h>
 
-t_vec	checkread_borad(t_vec color, t_vec p, t_hit_record *obj)
+void	checkread_borad(t_objects *obj, t_hit_record *rec)
 {
-	if (dot_product(obj->n_hit, (t_vec){0, 0, 1}))
-		if ((int)(floor(p.v_x) + floor(p.v_y)) % 2)
-			return ((t_vec){255, 255, 255});
-	if (dot_product(obj->n_hit, (t_vec){0, 1, 0}))
-		if ((int)(floor(p.v_x) + floor(p.v_z)) % 2)
-			return ((t_vec){255, 255, 255});
-	if (dot_product(obj->n_hit, (t_vec){1, 0, 0}))
-		if ((int)(floor(p.v_y) + floor(p.v_z)) % 2)
-			return ((t_vec){255, 255, 255});
-	return (color);
+	double a;
+	double b;
+	double c;
+	double d;
+
+	if (obj->type == PLANE && ((t_plane *)obj->object)->spec.checkred == true)
+	{
+		c = ((t_plane *)obj->object)->spec.checkred_h;
+		d = ((t_plane *)obj->object)->spec.checkred_w;
+		get_uv_plane(obj->object, rec, &a, &b);
+		if ((int)(floor(c * a) + floor(d * b)) % 2)
+			rec->h_color = (t_vec){255, 255, 255};
+	}
+	else if (obj->type == SPHERE && ((t_sphere *)obj->object)->spec.checkred == true)
+	{
+		c = ((t_sphere *)obj->object)->spec.checkred_h;
+		d = ((t_sphere *)obj->object)->spec.checkred_w;
+		get_uv_sphere(obj->object, rec, &a, &b);
+		if ((int)(floor(c * a) + floor(d * b)) % 2)
+			rec->h_color = (t_vec){255, 255, 255};
+	}
+	else if (obj->type == CYLENDER && ((t_cylender *)obj->object)->spec.checkred == true)
+	{
+		c = ((t_cylender *)obj->object)->spec.checkred_h;
+		d = ((t_cylender *)obj->object)->spec.checkred_w;
+		get_uv_cylinder(obj->object, rec, &a, &b);
+		if ((int)(floor(c * a) + floor(d * b)) % 2)
+			rec->h_color = (t_vec){255, 255, 255};
+	}
+
 }
