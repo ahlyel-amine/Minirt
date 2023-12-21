@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:33:47 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/21 22:05:45 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 #include "draw_bonus.h"
 #include "tools_bonus.h"
 
-t_vec merge_light(t_vec color, t_color light_color, double ratio)
+t_vec	merge_light(t_vec color, t_color light_color, double ratio)
 {
 	t_vec	res;
-	
+
 	res.v_x = color.v_x * ((double)(light_color.r) / 255) * ratio;
 	res.v_y = color.v_y * ((double)(light_color.g) / 255) * ratio;
 	res.v_z = color.v_z * ((double)(light_color.b) / 255) * ratio;
@@ -33,38 +33,43 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 {
 	t_vec	diffuse;
 	double	thita;
-	
+
 	thita = dot_product(rays->shadow_ray.direction, rec->n_hit);
 	diffuse = rec->h_color;
 	diffuse = merge_light(diffuse, light->clr, light->brightness * thita);
 	return (diffuse);
 }
 
-t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_objects *obj, t_hit_record *rec)
+t_light_effect	get_light_effect(t_data *data, t_rays *rays, \
+t_objects *obj, t_hit_record *rec)
 {
+	t_light			*lights;
 	t_light_effect	effect;
 	double			thita;
-	t_light *lights;
-	bool inShadow;
+	bool			inshadow;
 
 	lights = data->light;
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
-	effect.ambient = merge_light(effect.ambient, data->lighting.clr, data->lighting.ratio);
+	effect.ambient = merge_light(effect.ambient, \
+	data->lighting.clr, data->lighting.ratio);
 	while (lights)
 	{
-		inShadow = shadow_ray(rays, lights, obj, rec);
-		if (!inShadow)
+		inshadow = shadow_ray(rays, lights, obj, rec);
+		if (!inshadow)
 		{
-			effect.diffuse = c_color(effect.diffuse, diffuse_effect(rays, lights, rec), 1, 1);
-			effect.specular =  vec_addition(effect.specular, specular_light(rays, lights, get_specular_addr(obj), rec));
-		}	
+			effect.diffuse = c_color(effect.diffuse, \
+			diffuse_effect(rays, lights, rec), 1, 1);
+			effect.specular = vec_addition(effect.specular, \
+			specular_light(rays, lights, get_specular_addr(obj), rec));
+		}
 		lights = lights->next;
 	}
 	return (effect);
 }
 
-t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular_light refl)
+t_vec	convert_light(int level, t_light_effect effect, \
+t_objects *obj, t_specular_light refl)
 {
 	t_vec	res;
 
@@ -72,12 +77,14 @@ t_vec	convert_light(int level, t_light_effect effect, t_objects *obj, t_specular
 	res.v_y = effect.ambient.v_y + effect.diffuse.v_y + effect.specular.v_y;
 	res.v_z = effect.ambient.v_z + effect.diffuse.v_z + effect.specular.v_z;
 	if (level > 0 && refl.reflection > 0)
-		res = c_color(res, effect.reflect, 1 - refl.reflection, refl.reflection);
+		res = c_color(res, effect.reflect, \
+		1 - refl.reflection, refl.reflection);
 	color_range_norm(&res);
 	return (res);
 }
 
-t_vec	specular_light(t_rays *rays, t_light *light, t_specular_light speclr, t_hit_record *rec)
+t_vec	specular_light(t_rays *rays, t_light *light, \
+t_specular_light speclr, t_hit_record *rec)
 {
 	t_vec	specular;
 	t_vec	reflect;
