@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:17 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 06:19:38 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/21 23:52:09 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_vec	specular_light(t_rays *rays, t_light *light, \
 t_specular_light speclr, t_hit_record *rec);
 t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec);
 void	nineties(t_vec *color);
-t_vec	checkread_borad(t_vec color, t_vec p, t_hit_record *obj);
+void	checkread_borad(t_objects *obj, t_hit_record *rec);
 void	textures_binding(t_objects *shapes, t_mrt *img);
 t_vec	get_tex_color(t_texture_img *texture, double u, double v, bool sp);
 void	check_color(t_objects *object, t_hit_record *rec);

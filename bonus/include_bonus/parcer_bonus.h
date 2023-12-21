@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:07 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 06:24:52 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 00:51:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	light_parcer(char *line, t_data *data);
 bool	lighting_parcer(char *line, t_data *data);
 bool	triangle_parcer(char *line, t_data *data);
 bool	cone_parcer(char *line, t_data *data);
-bool	check_for_features(char *line, t_specular_light *spec);
+bool	check_for_features(char *line, t_specular_light *spec, int type);
 
 bool	cordinate_parcer(char **line, t_vec *cordinate, \
 int marge_max, int marge_min);

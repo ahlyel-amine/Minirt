@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylender_parcer_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:19:37 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:55:43 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ bool	cylender_parcer(char *line, t_data *data)
 	if (i == -1)
 		return (print_err(4, ERR, NAME, ERR_CY, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
-	if (!check_for_features(line, &cylender.spec))
-		return (false);
+	if (!check_for_features(line, &cylender.spec, CYLENDER))
+		return (clear_texture(&cylender, CYLENDER), false);
 	object_validate(T_CYLENDER, CYLENDER, data, &cylender);
 	return (cylinder_cap(data->objects->object));
 }

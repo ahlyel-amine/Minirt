@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_process_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 00:10:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/18 17:24:33 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/21 23:38:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,16 @@ static bool	texture_cylinder(void *cylinder, t_mrt *img)
 
 t_texture texture_process(int type)
 {
-	t_texture func[3];
-	func[SPHERE] = texture_sphere;
-	func[PLANE] = texture_plane;
-	func[CYLENDER] = texture_cylinder;
+	static t_texture func[3];
+	static bool		init;
+
+	if (!init)
+	{
+		init = true;
+		func[SPHERE] = texture_sphere;
+		func[PLANE] = texture_plane;
+		func[CYLENDER] = texture_cylinder;
+	}
 	return (func[type]);
 }
 

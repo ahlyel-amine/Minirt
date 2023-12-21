@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_parcer_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:18:22 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:51:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ bool	sphere_parcer(char *line, t_data *data)
 	if (i == -1)
 		return (print_err(4, ERR, NAME, ERR_SP, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
-	if (!check_for_features(line, &sphere.spec))
-		return (false);
+	if (!check_for_features(line, &sphere.spec, SPHERE))
+		return (clear_texture(&sphere, SPHERE), false);
 	if (!object_validate(T_SPHERE, SPHERE, data, &sphere))
 		return (false);
 	return (true);

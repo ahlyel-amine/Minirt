@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:42:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 22:07:38 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/21 23:36:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,17 @@ void	cy_texture_c(void *shape)
 
 t_texture_clear	shapes_texture_clear(int index)
 {
-	t_texture_clear	clear[4];
+	static t_texture_clear	clear[4];
+	static bool				init;
 
-	*(clear) = NULL;
-	*(clear + 1) = sphere_texutre_c;
-	*(clear + 2) = plane_texutre_c;
-	*(clear + 3) = cy_texture_c;
+	if (!init)
+	{
+		init = true;
+		*(clear) = NULL;
+		*(clear + 1) = sphere_texutre_c;
+		*(clear + 2) = plane_texutre_c;
+		*(clear + 3) = cy_texture_c;
+	}
 	return (*(clear + index));
 }
 

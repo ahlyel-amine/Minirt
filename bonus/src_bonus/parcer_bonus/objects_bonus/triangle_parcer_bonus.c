@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triangle_parcer_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:59:13 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/18 16:18:03 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:51:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	triangle_parcer(char *line, t_data *data)
 	if (i == -1)
 		return (print_err(4, ERR, NAME, ERR_TR, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
-	if (!check_for_features(line, &triangle.spec))
+	if (!check_for_features(line, &triangle.spec, TRIANGLE))
 		return (false);
 	if (!object_validate(T_TRIANGLE, TRIANGLE, data, &triangle))
 		return (false);

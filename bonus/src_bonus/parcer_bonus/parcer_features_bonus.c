@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 00:50:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 00:54:52 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,10 @@ bool	check_texture(char **line, char **texture, bool *loop, char *ind)
 	return (true);
 }
 
-bool	textures_call(char **line, t_specular_light *spec, bool *loop)
+bool	textures_call(char **line, t_specular_light *spec, bool *loop, int type)
 {
+	if (type != SPHERE && type != CYLENDER && type != PLANE)
+		return (print_err(3, NAME, ERR, ERR_TXTR), false);
 	if (!check_texture(line, &spec->texture, loop, S_TXTR))
 		return (false);
 	if (*loop)
@@ -117,7 +119,7 @@ bool	textures_call(char **line, t_specular_light *spec, bool *loop)
 	return (true);
 }
 
-bool	check_for_features(char *line, t_specular_light *spec)
+bool	check_for_features(char *line, t_specular_light *spec, int type)
 {
 	bool	loop;
 
@@ -136,7 +138,7 @@ bool	check_for_features(char *line, t_specular_light *spec)
 			return (false);
 		if (loop)
 			continue ;
-		if (!textures_call(&line, spec, &loop))
+		if (!textures_call(&line, spec, &loop, type))
 			return (false);
 		if (!loop)
 			break ;
