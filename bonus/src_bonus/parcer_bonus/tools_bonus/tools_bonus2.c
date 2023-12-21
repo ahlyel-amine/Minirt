@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:42:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 20:03:20 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/21 06:33:47 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ void	sphere_texutre_c(void *shape)
 
 	s = (t_sphere *)shape;
 	if (s->spec.texture)
-	{
 		free(s->spec.texture);
+	if (s->texture)
 		free(s->texture);
-	}
 	if (s->spec.bump)
-	{
 		free(s->spec.bump);
+	if (s->bump)
 		free(s->bump);
-	}
 }
 
 void	plane_texutre_c(void *shape)
@@ -39,15 +37,13 @@ void	plane_texutre_c(void *shape)
 
 	p = (t_plane *)shape;
 	if (p->spec.texture)
-	{
 		free(p->spec.texture);
+	if (p->texture)
 		free(p->texture);
-	}
 	if (p->spec.bump)
-	{
 		free(p->spec.bump);
+	if (p->bump)
 		free(p->bump);
-	}
 }
 
 void	cy_texture_c(void *shape)
@@ -56,12 +52,13 @@ void	cy_texture_c(void *shape)
 
 	c = (t_cylender *)shape;
 	if (c->spec.texture)
-	{
 		free(c->spec.texture);
+	if (c->texture)
 		free(c->texture);
-	}
 	if (c->spec.bump)
 		free(c->spec.bump);
+	if (c->bump)
+		free(c->bump);
 }
 
 t_texture_clear	shapes_texture_clear(int index)
