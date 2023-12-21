@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 06:22:20 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/21 22:01:01 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 typedef bool	(*t_object_parcer)(char *, t_data *);
 typedef void	(*t_texture_clear)(void *);
-
+typedef void	(*t_obj_scale)(int, t_data *);
 enum	e_types
 {
 	SPHERE		= 0x00,	

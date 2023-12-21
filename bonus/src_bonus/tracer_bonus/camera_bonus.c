@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/13 19:24:24 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:58:15 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 {
 	t_vec	v;
 
-	v.v_x = dir->v_x * matrix[0][0] + dir->v_y * matrix[1][0] + dir->v_z * matrix[2][0];
-	v.v_y = dir->v_x * matrix[0][1] + dir->v_y * matrix[1][1] + dir->v_z * matrix[2][1];
-	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * matrix[1][2] + dir->v_z * matrix[2][2];
+	v.v_x = dir->v_x * matrix[0][0] + dir->v_y * \
+	matrix[1][0] + dir->v_z * matrix[2][0];
+	v.v_y = dir->v_x * matrix[0][1] + dir->v_y * \
+	matrix[1][1] + dir->v_z * matrix[2][1];
+	v.v_z = dir->v_x * matrix[0][2] + dir->v_y * \
+	matrix[1][2] + dir->v_z * matrix[2][2];
 	return (v);
 }
 
@@ -51,6 +54,7 @@ void	camera_transform_matrix(t_camera *c)
 	c->tr_matrix[2][1] = forword.v_y;
 	c->tr_matrix[2][2] = forword.v_z;
 }
+
 void	camera_attributs(t_camera *c)
 {
 	c->aspect_ratio = (WIDTH > HEIGHT) * ((double)WIDTH / \

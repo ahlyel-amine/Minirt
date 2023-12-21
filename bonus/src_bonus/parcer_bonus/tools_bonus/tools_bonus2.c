@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:42:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 06:33:47 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/21 22:07:38 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	cy_texture_c(void *shape)
 		free(c->texture);
 	if (c->spec.bump)
 		free(c->spec.bump);
-	if (c->bump)
-		free(c->bump);
 }
 
 t_texture_clear	shapes_texture_clear(int index)

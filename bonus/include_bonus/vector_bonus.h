@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:05:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 20:07:26 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/21 22:08:19 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 double	sqr(double x);
 double	length(t_vec v);
 t_vec	create_vec(double x, double y, double z);
-t_vec	create_vec_from_scalar(double s);
+t_vec	create_vec_from_scalar(t_vec vec, double s);
 double	v_length(t_vec v);
 t_vec	normalize(t_vec *v);
 t_vec	normalized(t_vec v);
