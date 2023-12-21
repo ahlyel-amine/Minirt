@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 20:01:43 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/21 06:22:20 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 # define EPS 1e-3
 # define min(X, Y)((X) < (Y) ? (X) : (Y))
 # define REF_LEVEL 5
-typedef	bool	(*t_object_parcer)(char *, t_data *);
-typedef void (*t_texture_clear)(void *);
+
+typedef bool	(*t_object_parcer)(char *, t_data *);
+typedef void	(*t_texture_clear)(void *);
 
 enum	e_types
 {

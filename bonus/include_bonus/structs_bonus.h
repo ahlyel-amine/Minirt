@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:30:56 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:09:14 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <pthread.h>
+
 typedef struct s_cord
 {
 	double	a;
@@ -75,15 +76,13 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_color	clr;
-	double	brightness;
-	t_vec	cord;
+	t_color			clr;
+	double			brightness;
+	t_vec			cord;
 	struct s_light	*next;
 }	t_light;
 
-
-
-typedef	struct s_object
+typedef struct s_object
 {
 	unsigned char	type;
 	void			*object;
@@ -182,17 +181,16 @@ typedef struct s_mrt
 
 typedef struct s_data
 {
-	t_lighting	lighting;
-	t_counter	counter;
-	t_camera	camera;
-	t_objects	*objects;
-	t_light		*light;
-	t_mrt		*m_rt;
-	int			load_p;
-	int			shape;
-	pthread_mutex_t load;
+	t_lighting		lighting;
+	t_counter		counter;
+	t_camera		camera;
+	t_objects		*objects;
+	t_light			*light;
+	t_mrt			*m_rt;
+	int				load_p;
+	int				shape;
+	pthread_mutex_t	load;
 }	t_data;
-
 
 typedef struct s_hit_record
 {
@@ -219,15 +217,14 @@ typedef struct s_rays
 
 typedef struct s_dataset
 {
-	t_mrt *m_rt;
-	t_data data;
-	t_data *d;
-	// pthread_mutex_t *load;
-	int s_x;
-	int s_y;
-	int e_x;
-	int e_y;
-	int load_prog;
+	t_mrt	*m_rt;
+	t_data	data;
+	t_data	*d;
+	int		s_x;
+	int		s_y;
+	int		e_x;
+	int		e_y;
+	int		load_prog;
 }	t_dataset;
 
 typedef struct s_bump_data
