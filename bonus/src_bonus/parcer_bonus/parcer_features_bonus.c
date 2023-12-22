@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 04:03:22 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 04:46:13 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,14 @@ bool	check_specular(char **line, t_specular_light *specular, bool *loop)
 	return (true);
 }
 
-bool	check_checkerboard(char **line, t_specular_light *checkred, bool *loop)
+bool	check_checkerboard(char **line, t_specular_light *checkred, \
+bool *loop, int type)
 {
 	*line += skip_spaces(*line);
 	if (ft_strlen(*line) >= 9 && !ft_strncmp(*line, S_CHKBRD, 9))
 	{
+		if (type != SPHERE && type != CYLENDER && type != PLANE)
+			return (print_err(4, ERR, NAME, ERR_F, ERR_CKRD), false);
 		*line += 9;
 		if (!ft_atod(line, &checkred->checkred_h, INT_MAX, INT_MIN))
 			return (print_err(5, ERR, NAME, \
@@ -110,18 +113,18 @@ bool	check_texture(char **line, char **texture, bool *loop, char *ind)
 
 bool	textures_call(char **line, t_specular_light *spec, bool *loop, int type)
 {
-	char *s;
+	char	*s;
+	bool	check;
 
-	s = S_ERR_TXTR;
-	if (!(type != SPHERE && type != CYLENDER && type != PLANE))
-		s = S_TXTR;
+	check = type != SPHERE && type != CYLENDER && type != PLANE;
+	s = (char *)((unsigned long)S_ERR_TXTR * \
+	check + (unsigned long)S_TXTR * !check);
 	if (!check_texture(line, &spec->texture, loop, s))
 		return (false);
 	if (*loop)
 		return (true);
-	s = S_ERR_BUMP;
-	if (!(type != SPHERE && type != CYLENDER && type != PLANE))
-		s = S_BUMP;
+	s = (char *)((unsigned long)S_ERR_BUMP * \
+	check + (unsigned long)S_BUMP * !check);
 	if (!check_texture(line, &spec->bump, loop, s))
 		return (false);
 	return (true);
@@ -142,7 +145,7 @@ bool	check_for_features(char *line, t_specular_light *spec, int type)
 			return (false);
 		if (loop)
 			continue ;
-		if (!check_checkerboard(&line, spec, &loop))
+		if (!check_checkerboard(&line, spec, &loop, type))
 			return (false);
 		if (loop)
 			continue ;
