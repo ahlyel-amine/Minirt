@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_obj_move_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:09:48 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 12:25:29 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 03:42:07 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	rotate(int key, t_data *data)
 	t_objects	*obj;
 
 	obj = data->objects;
+	if (data->shape == CYLENDER && !data->counter.cylender)
+		return ;
+	if (data->shape == PLANE && !data->counter.plane)
+		return ;
 	while (obj)
 	{
 		if (data->shape == CYLENDER && obj->type == CYLENDER)

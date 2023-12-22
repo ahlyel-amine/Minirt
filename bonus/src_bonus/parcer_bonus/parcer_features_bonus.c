@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 09:52:16 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 00:54:52 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 04:03:22 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ bool	check_texture(char **line, char **texture, bool *loop, char *ind)
 	*line += skip_spaces(*line);
 	if (ft_strlen(*line) >= 6 && !ft_strncmp(*line, ind, 6))
 	{
+		if (ft_strlen(ind) == 7)
+			return (print_err(4, ERR, NAME, ERR_F, ERR_TXTR), false);
 		*line += 6;
 		if (!get_path(line, texture))
 			return (false);
@@ -108,13 +110,19 @@ bool	check_texture(char **line, char **texture, bool *loop, char *ind)
 
 bool	textures_call(char **line, t_specular_light *spec, bool *loop, int type)
 {
-	if (type != SPHERE && type != CYLENDER && type != PLANE)
-		return (print_err(3, NAME, ERR, ERR_TXTR), false);
-	if (!check_texture(line, &spec->texture, loop, S_TXTR))
+	char *s;
+
+	s = S_ERR_TXTR;
+	if (!(type != SPHERE && type != CYLENDER && type != PLANE))
+		s = S_TXTR;
+	if (!check_texture(line, &spec->texture, loop, s))
 		return (false);
 	if (*loop)
 		return (true);
-	if (!check_texture(line, &spec->bump, loop, S_BUMP))
+	s = S_ERR_BUMP;
+	if (!(type != SPHERE && type != CYLENDER && type != PLANE))
+		s = S_BUMP;
+	if (!check_texture(line, &spec->bump, loop, s))
 		return (false);
 	return (true);
 }
