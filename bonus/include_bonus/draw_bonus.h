@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:17 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 23:52:09 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 05:51:22 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void	color_range_norm(t_vec *color);
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level);
 void	my_mlx_put(t_mrt *rt, int x, int y, int color);
-int		get_pixel(t_mrt *rt, int x, int y);
 int		rgb_to_int(t_vec color);
 void	prime_ray(int x, int y, t_ray *ray, t_camera *cam);
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2);
