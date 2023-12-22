@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 06:51:47 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:00:26 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	return (diffuse);
 }
 
+bool is_specular(t_objects *obj)
+{
+	t_specular_light spec;
+	spec = get_specular_addr(obj);
+	// printf("spec.intensity: %f\n", spec.intensity);
+	// printf("spec.shininess_factor: %f\n", spec.shininess_factor);
+	// printf("type: %d\n", obj->type);
+	return ((int)spec.intensity == 0 && (int)spec.shininess_factor == 0);
+}
+
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, \
 t_objects *obj, t_hit_record *rec)
 {
@@ -55,13 +65,14 @@ t_objects *obj, t_hit_record *rec)
 	data->lighting.clr, data->lighting.ratio);
 	while (lights)
 	{
-		inshadow = shadow_ray(rays, lights, obj, rec);
+		inshadow = shadow_ray(rays, lights, data->objects, rec);
 		if (!inshadow)
 		{
 			effect.diffuse = c_color(effect.diffuse, \
 			diffuse_effect(rays, lights, rec), 1, 1);
-			effect.specular = vec_addition(effect.specular, \
-			specular_light(rays, lights, get_specular_addr(obj), rec));
+			if (!is_specular(obj))
+				effect.specular = vec_addition(effect.specular, \
+				specular_light(rays, lights, get_specular_addr(obj), rec));
 		}
 		lights = lights->next;
 	}

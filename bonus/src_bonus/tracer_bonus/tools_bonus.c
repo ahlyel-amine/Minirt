@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 06:50:07 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:47:03 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ t_specular_light	get_specular_addr(t_objects *obj)
 		return (((t_sphere *)obj->object)->spec);
 	else if (obj->type == CYLENDER)
 		return (((t_cylender *)obj->object)->spec);
-	else
+	else if (obj->type == TRIANGLE)
 		return (((t_triangle *)obj->object)->spec);
+	else
+		return (((t_cone *)obj->object)->spec);
 }
 
 void	get_uv_sphere(t_sphere *sphere, t_hit_record *rec, \
