@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 03:48:00 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 04:43:52 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ enum	e_size_types
 # define ERR_DR			"diameter "
 # define ERR_MS			"missing "
 # define ERR_TXTR		"texture/bump is only for objects : SPHERE/CYLENDER/PLANE\n"
+# define ERR_CKRD		"checker board is only for objects : SPHERE/CYLENDER/PLANE\n"
 
 #endif
