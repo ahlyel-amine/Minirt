@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_obj_scale_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:13:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/22 03:35:29 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 05:48:21 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "minirt_bonus.h"
 #include "library_bonus.h"
 #include "tools_bonus.h"
+
+void	zoom(int key, t_data *data)
+{
+	data->camera.cord.v_z += (key == ZOOMIN) * 5 - (key == ZOOMOUT) * 5;
+	lookat(&(data->camera));
+	make_threads(data->m_rt, *data);
+}
 
 void	sphere_scale(int key, t_data *data)
 {
@@ -24,7 +31,7 @@ void	sphere_scale(int key, t_data *data)
 	{
 		if (obj->type == SPHERE)
 			((t_sphere *)obj->object)->diameter += \
-			(key == 24) * 0.1 - (key == 27) * 0.1;
+			(key == KPLUS) * 0.1 - (key == KMIN) * 0.1;
 		obj = obj->next;
 	}
 }
@@ -41,7 +48,7 @@ void	cy_scale(int key, t_data *data)
 		{
 			c = obj->object;
 			((t_cylender *)obj->object)->height += \
-			(key == 24) * 0.1 - (key == 27) * 0.1;
+			(key == KPLUS) * 0.1 - (key == KMIN) * 0.1;
 			calculate_disk_plan(c, c->p_face, true);
 			calculate_disk_plan(c, c->p_face->next, false);
 		}
@@ -67,13 +74,10 @@ void	scale(int key, t_data *data)
 {
 	int	idx;
 
-	idx = (data->shape == SPHERE) * 0 + (data->shape == CYLENDER) * 1;
-
+	idx = (data->shape == CYLENDER) * 1;
 	shape_scale(idx)(key, data);
 	if (!idx && data->counter.sphere)
 		make_threads(data->m_rt, *data);
 	if (idx && data->counter.cylender)
 		make_threads(data->m_rt, *data);
-		// return ;
-
 }

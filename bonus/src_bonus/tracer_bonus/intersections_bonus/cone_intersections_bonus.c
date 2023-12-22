@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:50:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:10:59 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 06:52:36 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double	cone_quadratic_calculs(t_ray *ray, t_objects *obj, bool *success)
 	quad.c = pow(dot_product(cone_origin, cone->normalized), 2) - cos_theta2 * \
 	dot_product(cone_origin, cone_origin);
 	discriminant = quad.b * quad.b - 4 * quad.a * quad.c;
-	if (discriminant <EPS)
+	if (discriminant < EPS)
 		return (*success = false, 0);
 	quad.c = (-quad.b + sqrt(discriminant)) / (2 * quad.a);
 	quad.b = (-quad.b - sqrt(discriminant)) / (2 * quad.a);
@@ -58,7 +58,7 @@ bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 		return (false);
 	rec->t = t;
 	rec->p_hit = at(rec->t, *ray);
-	if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) >EPS)
+	if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) > EPS)
 		return (false);
 	if (distance(cone->cord, rec->p_hit) > cone->height)
 		return (false);

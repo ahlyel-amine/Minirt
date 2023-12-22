@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:12 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 06:24:18 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 05:36:53 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define WBAR 40
 
 typedef bool	(*t_inter_func)(t_ray *, t_objects *, t_hit_record *);
-typedef bool	(*t_texture)(void *, t_mrt *);
 
 bool			parcer(char *scene, t_data	*data);
 void			*draw(void *param);

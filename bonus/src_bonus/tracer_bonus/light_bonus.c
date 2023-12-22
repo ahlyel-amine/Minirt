@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 22:05:45 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 06:51:47 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,4 @@ t_specular_light speclr, t_hit_record *rec)
 		return ((t_vec){0,0,0});
 	return (specular);
 }
-
-// void	nineties(t_vec *color)
-// {
-// 	color->v_x = MIN(color->v_x, 1.0);
-// 	color->v_y = MIN(color->v_x, 1.0);
-// 	color->v_z = MIN(color->v_x, 1.0);
-// }
 
