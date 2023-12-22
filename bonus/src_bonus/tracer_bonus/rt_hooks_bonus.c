@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_hooks_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:38:10 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/18 16:34:08 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 03:31:55 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ void	zoom(int key, t_data *data)
 	make_threads(data->m_rt, *data);
 }
 typedef void (*hooks_f)(int, t_data *);
+void				skip(int key, t_data *data)
+{
+    (void)key;
+    (void)data;
 
+}
 hooks_f	hook_func(int idx)
 {
 	hooks_f	func[7];
@@ -70,7 +75,8 @@ int	key_hook(int key, t_data *data)
 	+ (key == 1) * SPHERE + (key != 1 && key != 35 && key != 8) * data->shape;
 	indx = (data->shape > 0 && (key == 38 || key == 37 || key \
 	== 34 || key == 40)) * 5 + (key == 24 || key == 27) * 6;
-	hook_func(indx)(key, data);
+	if (indx >= 0 && indx <= 6)
+		hook_func(indx)(key, data);
 	return (0);
 }
 

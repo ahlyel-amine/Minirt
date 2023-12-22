@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 00:54:47 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 03:48:00 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ enum	e_size_types
 # define S_CHKBRD		"checkred="
 # define S_XPM			".xpm\""
 # define S_TXTR			"txtr=\""
+# define S_ERR_TXTR		"txtr=\"E"
 # define S_BUMP			"bump=\""
+# define S_ERR_BUMP		"bump=\"E"
 # define S_TRIANGLE		"tr"
 # define S_CONE			"cn"
 

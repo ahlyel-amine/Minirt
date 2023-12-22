@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:13:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/22 00:01:28 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/22 03:35:29 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,13 @@ void	scale(int key, t_data *data)
 {
 	int	idx;
 
-	idx = (data->shape == SPHERE) * 1 + (data->shape == CYLENDER) * 2;
-	if (!idx)
-	{
-		shape_scale(idx)(key, data);
+	idx = (data->shape == SPHERE) * 0 + (data->shape == CYLENDER) * 1;
+
+	shape_scale(idx)(key, data);
+	if (!idx && data->counter.sphere)
 		make_threads(data->m_rt, *data);
-	}
+	if (idx && data->counter.cylender)
+		make_threads(data->m_rt, *data);
+		// return ;
+
 }
