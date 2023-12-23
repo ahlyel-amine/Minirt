@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 20:00:26 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/23 01:02:36 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	return (diffuse);
 }
 
-bool is_specular(t_objects *obj)
+bool	is_specular(t_objects *obj)
 {
-	t_specular_light spec;
+	t_specular_light	spec;
+
 	spec = get_specular_addr(obj);
-	// printf("spec.intensity: %f\n", spec.intensity);
-	// printf("spec.shininess_factor: %f\n", spec.shininess_factor);
-	// printf("type: %d\n", obj->type);
 	return ((int)spec.intensity == 0 && (int)spec.shininess_factor == 0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 19:47:03 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/23 02:43:38 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ double *u, double *v)
 	normalize(&unit_v);
 	theta = acos(unit_v.v_y);
 	phi = atan2(unit_v.v_x, unit_v.v_z);
-	*u = (phi / (2 * M_PI)) * -1;
-	*v = (theta / M_PI);
+	*u = -((phi) / (2 * M_PI)) + (sphere->rot_x);
+	*v = ((theta) / M_PI);
 }
 
 void	get_uv_plane(t_plane *plane, t_hit_record *rec, \

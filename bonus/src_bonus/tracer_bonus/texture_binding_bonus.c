@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/22 06:37:44 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 03:08:35 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ bool	sphere_bump(t_hit_record *rec, t_sphere *sphere)
 	b.y = (((1 - b.v) * (sphere->bump->height - 1)));
 	b.u = get_cscale_texture(sphere->bump, b.x, b.y);
 	b.v = get_cscale_texture(sphere->bump, (b.x + 1) % \
-	sphere->bump->width, b.y);
+	(sphere->bump->width - 1), b.y);
 	b.b_scale_u = (b.u - b.v) * -0.2;
 	b.v = get_cscale_texture(sphere->bump, b.x, (b.y + 1) % \
-	sphere->bump->height);
+	(sphere->bump->height - 1));
 	b.b_scale_v = (b.u - b.v) * -0.2;
 	perp_u = cross_product(rec->n_hit, b.axis);
 	perp_v = cross_product(rec->n_hit, perp_u);

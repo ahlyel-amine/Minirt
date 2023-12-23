@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:13:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/22 05:48:21 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:51:02 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include "minirt_bonus.h"
 #include "library_bonus.h"
 #include "tools_bonus.h"
-
-void	zoom(int key, t_data *data)
-{
-	data->camera.cord.v_z += (key == ZOOMIN) * 5 - (key == ZOOMOUT) * 5;
-	lookat(&(data->camera));
-	make_threads(data->m_rt, *data);
-}
 
 void	sphere_scale(int key, t_data *data)
 {
