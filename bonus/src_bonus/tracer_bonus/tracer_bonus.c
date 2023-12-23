@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:03:33 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 06:51:09 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 03:09:25 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	*draw(void *param)
 			(*(idx + 1))++;
 		}
 		(*idx)++;
-		pthread_mutex_lock(&(ptr->d->load));
-		ptr->d->load_p += 1;
-		loading_bar(((double)(ptr->d->load_p) / HEIGHT) / 5);
-		pthread_mutex_unlock(&(ptr->d->load));
+		// pthread_mutex_lock(&(ptr->d->load));
+		// ptr->d->load_p += 1;
+		// loading_bar(((double)(ptr->d->load_p) / HEIGHT) / 5);
+		// pthread_mutex_unlock(&(ptr->d->load));
 	}
 	return (NULL);
 }

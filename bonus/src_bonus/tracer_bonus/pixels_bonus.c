@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 06:01:07 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 03:27:14 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_vec	get_tex_color(t_texture_img *texture, double u, double v, bool sp)
 	int		index;
 	t_vec	color;
 
-	x = (sp > 0) * ((int)((u) * texture->width)) + \
+	x = (sp > 0) * ((int)((u) * (texture->width - 1))) + \
 	(sp < 1) * ((int)((u) * texture->width)) % (texture->width);
-	y = (sp > 0) * ((1 - v) * texture->height) + \
+	y = (sp > 0) * ((1 - v) * (texture->height - 1)) + \
 	(sp < 1) * (((int)((1 - v) * texture->height)) % (texture->height));
 	index = (x * texture->bpp / 8) + (y * texture->line_len);
 	color.v_x = (unsigned char)texture->addr[abs(index) + 2] / 255.0;

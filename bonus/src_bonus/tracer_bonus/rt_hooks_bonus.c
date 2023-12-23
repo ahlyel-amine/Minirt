@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:38:10 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/22 04:58:38 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 01:22:48 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	key_hook(int key, t_data *data)
 	data->shape = (key == CKEY) * CYLENDER + (key == PKEY) * PLANE \
 	+ (key == SKEY) * SPHERE + \
 	(key != SKEY && key != PKEY && key != CKEY) * data->shape;
-	indx = (data->shape > 0 && (key == JKEY || key == LKEY || key \
+	indx = ((key == JKEY || key == LKEY || key \
 	== IKEY || key == KKEY)) * 5 + (key == KPLUS || key == KMIN) * 6;
 	if (indx >= 0 && indx <= 6)
 		hook_func(indx)(key, data);
