@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 15:54:25 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 21:51:30 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 	p.a = dot_product(orthg, orthg);
 	p.b = 2 * dot_product(orthg, v);
 	p.c = dot_product(v, v) - pow(cylinder->diameter * 0.5, 2);
-	param.a = p.b * p.b - 4 * p.a * p.c;
+	param.a = p.b * p.b - (4 * p.a * p.c);
 	param.b = (-p.b - sqrt(param.a)) / (2 * p.a);
 	param.c = (-p.b + sqrt(param.a)) / (2 * p.a);
 	if (param.a <= EPS || (param.b <= EPS && param.c <= EPS))

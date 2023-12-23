@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 15:57:45 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 21:57:13 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	cylender_parcer(char *line, t_data *data)
 	if (!color_parcer(line, &cylender.clr))
 		return (ft_putendl_fd(ERR_CY_COLOR, 2), \
 		false);
-	if (!object_validate(T_PLANE, PLANE, data, &cylender))
+	if (!object_validate(T_CYLENDER, CYLENDER, data, &cylender))
 		return (false);
 	return (cylinder_cap((t_cylender *)data->objects->object));
 }
