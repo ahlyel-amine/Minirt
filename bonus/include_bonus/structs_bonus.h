@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 20:09:14 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/23 15:29:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,22 @@ typedef struct s_light
 	struct s_light	*next;
 }	t_light;
 
+typedef struct s_features
+{
+	bool	checkred;
+	bool	reflection;
+	bool	specular;
+	bool	texture;
+	bool	bump;
+}	t_features;
+
 typedef struct s_object
 {
 	unsigned char	type;
 	void			*object;
 	void			*t_copy;
 	void			*b_copy;
+	t_features		features;
 	struct s_object	*next;
 }	t_objects;
 
@@ -144,6 +154,7 @@ typedef struct s_sphere
 	t_vec				cord;
 	t_color				clr;
 	double				diameter;
+	double				rot_x;
 }	t_sphere;
 
 typedef struct s_triangle

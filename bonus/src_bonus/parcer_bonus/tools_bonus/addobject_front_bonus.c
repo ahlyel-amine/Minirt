@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   addobject_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:15:05 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:49:47 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ void	addlight(t_light **lst, t_light *new)
 	}
 }
 
+void	features_bool(t_data *data, t_objects *object, enum e_types type)
+{
+	t_specular_light ftrs;
+
+	ftrs = get_specular_addr(object);
+	if (ftrs.checkred_h > 0 || ftrs.checkred_w > 0)
+		object->features.checkred = true;
+	if (ftrs.reflection > 0)
+		object->features.reflection = true;
+	if (ftrs.intensity > 0 || ftrs.shininess_factor > 0)
+		object->features.specular = true;
+	if (ftrs.texture)
+		object->features.texture = true;
+	if (ftrs.bump)
+		object->features.bump = true;
+}
+
 bool	object_validate(enum e_size_types size, enum e_types type, \
 t_data *data, void *object)
 {
@@ -46,6 +63,7 @@ t_data *data, void *object)
 	s_object = newobject(new_object, type);
 	if (!s_object)
 		return (free(new_object), false);
+	features_bool(data, s_object, type);
 	addobject_front(&data->objects, s_object);
 	return (true);
 }
