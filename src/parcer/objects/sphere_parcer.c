@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_parcer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:00 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:43:54 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:33:14 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,21 @@
 #include <stdbool.h>
 #include <limits.h>
 
-bool sphere_parcer(line, data)
-char *line;
-t_data *data;
+bool	sphere_parcer(char *line, t_data *data)
 {
-	t_objects	*object;
-	t_sphere	*sphere;
+	t_sphere	sphere;
 
-	sphere = ft_calloc(sizeof(t_sphere), 1);
-	if (!sphere)
-		return (false);
+	ft_memset(&sphere, 0, sizeof(t_sphere));
 	data->counter.sphere += 1;
 	line += 3;
-	if (!cordinate_parcer(&line, &sphere->cord, INT_MAX, INT_MIN))
-		return (free(sphere), ft_putendl_fd("minirt: sp invalid cordinate format", 2), false);
-	if (!ft_atod(&line, &sphere->diameter, INT_MAX, INT_MIN))
-		return (free(sphere), ft_putendl_fd("minirt: invalid diameter format", 2), false);
+	if (!cordinate_parcer(&line, &sphere.cord, INT_MAX, INT_MIN))
+		return (ft_putendl_fd(ERR_SP_CORD, 2), false);
+	if (!ft_atod(&line, &sphere.diameter, INT_MAX, INT_MIN))
+		return (ft_putendl_fd(ERR_SP_DR, 2), false);
 	line += skip_spaces(line);
-	if (!color_parcer(line, &sphere->clr))
-		return (free(sphere), ft_putendl_fd("minirt: sphere invalid color format", 2), false);
-	object = newobject(sphere, SPHERE);
-	if (!object)
-		return (free(sphere), false);
-	addobject_front(&data->objects, object);
+	if (!color_parcer(line, &sphere.clr))
+		return (ft_putendl_fd(ERR_SP_COLOR, 2), false);
+	if (!object_validate(T_SPHERE, SPHERE, data, &sphere))
+		return (false);
 	return (true);
 }

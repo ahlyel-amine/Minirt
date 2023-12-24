@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/15 17:47:44 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 00:32:17 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "tools_bonus.h"
 #include "draw_bonus.h"
 
-void color_range_norm(t_vec *color)
+void	color_range_norm(t_vec *color)
 {
 	color->v_x = (color->v_x > 1.0) * 1.0 + (color->v_x <= 1.0) * color->v_x;
 	color->v_y = (color->v_y > 1.0) * 1.0 + (color->v_y <= 1.0) * color->v_y;
@@ -27,23 +27,12 @@ void color_range_norm(t_vec *color)
 	color->v_x = (color->v_x < 0.0) * 0.0 + (color->v_x >= 0.0) * color->v_x;
 	color->v_y = (color->v_y < 0.0) * 0.0 + (color->v_y >= 0.0) * color->v_y;
 	color->v_z = (color->v_z < 0.0) * 0.0 + (color->v_z >= 0.0) * color->v_z;
-	// if (color->v_x > 1)
-	// 	color->v_x = 1.0;
-	// if (color->v_y > 1.0)
-	// 	color->v_y = 1.0;
-	// if (color->v_z > 1.0)
-	// 	color->v_z = 1.0;
-	// if (color->v_x < 0)
-	// 	color->v_x = 0.0;
-	// if (color->v_y < 0)
-	// 	color->v_y = 0.0;
-	// if (color->v_z < 0)
-	// 	color->v_z = 0.0;
 }
 
 t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 {
-	t_vec r_color;
+	t_vec	r_color;
+
 	r_color.v_x = f_c.v_x * p1 + s_c.v_x * p2;
 	r_color.v_y = f_c.v_y * p1 + s_c.v_y * p2;
 	r_color.v_z = f_c.v_z * p1 + s_c.v_z * p2;
@@ -51,37 +40,7 @@ t_vec	c_color(t_vec f_c, t_vec s_c, double p1, double p2)
 	return (r_color);
 }
 
-void	my_mlx_put(t_mrt *rt, int x, int y, int color)
-{
-	int	iter;
-	
-	if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
-	{
-		iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
-		rt->mlx_add[iter] = color;
-		rt->mlx_add[++iter] = (color >> 8) & 0xFF;
-		rt->mlx_add[++iter] = (color >> 16) & 0xFF;
-	}
-	return ;
-}
-
-int	get_pixel(t_mrt *rt, int x, int y)
-{
-	int	iter;
-	int	color;
-
-	if (x < WIDTH && x >= 0 && y >= 0 && y < HEIGHT)
-	{
-		iter = (x * rt->bit_per_px / 8) + (y * rt->line_len);
-		color = rt->mlx_add[iter];
-		color |= rt->mlx_add[++iter] << 8;
-		color |= rt->mlx_add[++iter] << 16;
-		return (color);
-	}
-	return (0);
-}
-
-int	rgb_to_int(t_coord color)
+int	rgb_to_int(t_vec color)
 {
 	int	r;
 	int	g;
@@ -92,25 +51,18 @@ int	rgb_to_int(t_coord color)
 	b = (int)(255.0 * color.v_z);
 	return (r << 16 | g << 8 | b);
 }
- t_vec	get_tex_color(t_texture_img *texture, double u, double v, bool sp)
+
+t_vec	get_tex_color(t_texture_img *texture, double u, double v, bool sp)
 {
 	int		x;
 	int		y;
 	int		index;
 	t_vec	color;
 
-	// if (sp)
-	// {
-	// 	x = ((int)((u) * texture->width));
-	// 	y = (1 - v) * texture->height;
-	// }
-	// else
-	// {
-	// 	x = ((int)((u) * texture->width) + texture->width / 2) % (texture->width);
-	// 	y = ((int)((1 - v) * texture->height) + texture->height / 2) % (texture->height);
-	// }
-	x = (sp > 0) * ((int)((u) * texture->width)) + (sp < 1) * ((int)((u) * texture->width)) % (texture->width);
-	y = (sp > 0) * ((1 - v) * texture->height) + (sp < 1) * (((int)((1 - v) * texture->height)) % (texture->height));
+	x = (sp > 0) * ((int)((u) * (texture->width - 1))) + \
+	(sp < 1) * ((int)((u) * texture->width)) % (texture->width);
+	y = (sp > 0) * ((1 - v) * (texture->height - 1)) + \
+	(sp < 1) * (((int)((1 - v) * texture->height)) % (texture->height));
 	index = (x * texture->bpp / 8) + (y * texture->line_len);
 	color.v_x = (unsigned char)texture->addr[abs(index) + 2] / 255.0;
 	color.v_y = (unsigned char)texture->addr[abs(index) + 1] / 255.0;
@@ -120,25 +72,26 @@ int	rgb_to_int(t_coord color)
 
 void	check_color(t_objects *object, t_hit_record *rec)
 {
-	double u;
-	double v;
+	double	u_v[2];
 
-	if (object)
+	if (!object)
+		return ;
+	if (object->type == SPHERE && object->texture)
 	{
-		if (object->type == SPHERE && ((t_sphere *)(object->object))->spec.texture)
-		{
-			get_uv_sphere(object->object, rec, &u, &v);
-			rec->h_color = get_tex_color(((t_sphere *)(object->object))->texture, u, v, true);
-		}
-		else if (object->type == CYLENDER && ((t_cylender *)(object->object))->spec.texture)
-		{
-			get_uv_cylinder((t_cylender *)object->object, rec, &u, &v);
-			rec->h_color = get_tex_color(((t_cylender *)(object->object))->texture, u, v, false);
-		}
-		else if (object->type == PLANE && ((t_plane *)(object->object))->spec.texture)
-		{
-			get_uv_plane((t_plane *)object->object, rec, &u, &v);
-			rec->h_color = get_tex_color(((t_plane *)(object->object))->texture, u, v, false);
-		}
+		get_uv_sphere(object->object, rec, &u_v[0], &u_v[1]);
+		rec->h_color = get_tex_color(object->texture, \
+		u_v[0], u_v[1], true);
+	}
+	else if (object->type == CYLENDER && object->texture)
+	{
+		get_uv_cylinder((t_cylender *)object->object, rec, &u_v[0], &u_v[1]);
+		rec->h_color = get_tex_color(object->texture, \
+		u_v[0], u_v[1], false);
+	}
+	else if (object->type == PLANE && object->texture)
+	{
+		get_uv_plane((t_plane *)object->object, rec, &u_v[0], &u_v[1]);
+		rec->h_color = get_tex_color(object->texture, \
+		u_v[0], u_v[1], false);
 	}
 }

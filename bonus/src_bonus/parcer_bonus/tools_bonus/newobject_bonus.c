@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/16 11:35:36 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 01:03:09 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_objects	*newobject(void *object, unsigned char type)
 	{
 		node->type = type;
 		node->object = object;
-		node->b_copy = NULL;
-		node->t_copy = NULL;
+		node->bump = NULL;
+		node->texture = NULL;
 		node->next = NULL;
 	}
 	return (node);
@@ -32,7 +32,7 @@ t_objects	*newobject(void *object, unsigned char type)
 t_light	*newlight(t_light new)
 {
 	t_light	*light;
-	
+
 	light = malloc(sizeof(t_light));
 	if (light)
 	{
