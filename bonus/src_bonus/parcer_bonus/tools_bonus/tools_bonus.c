@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:02:01 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:56:29 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	print_err(const int ac, ...)
 {
 	va_list	args;
 	int		tmp;
-	int		ret;
 
 	tmp = ac;
 	va_start(args, ac);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:30:29 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 18:24:21 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:54:09 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			print_vec(char *str, t_vec vec);
 double			distance(t_vec v, t_vec u);
 
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_hit_record *rec);
-t_vec			convert_light(t_light_effect effect, t_objects *obj);
+t_vec			convert_light(t_light_effect effect);
 
 void			print_scean(t_data data);
 void			calculate_disk_plan(t_cylender *cylinder, \

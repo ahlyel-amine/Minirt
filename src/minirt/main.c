@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 22:20:09 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:16:41 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ bool	make_image(t_mrt *scean)
 	return (true);
 }
 
-void	check(void)
-{
-	system("leaks Minirt");
-}
+// void	check(void)
+// {
+// 	system("leaks Minirt");
+// }
 
 int	main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
 
-	atexit(check);
+	// atexit(check);
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{

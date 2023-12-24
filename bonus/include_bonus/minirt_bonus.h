@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:12 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:43:32 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 17:01:58 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <stdbool.h>
 # include "structs_bonus.h"
 # include "minirt_bonus.h"
-# define PBAR "████████████████████████████████████████████████████████████████████████████████████████████████████"
-# define EBAR "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+# define PBAR "████████████████████████████████████████████████\
+████████████████████████████████████████████████████"
+# define EBAR "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
 # define WBAR 100
 
 typedef bool	(*t_inter_func)(t_ray *, t_objects *, t_hit_record *);
@@ -51,7 +53,7 @@ t_hit_record *rec);
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, \
 t_objects *obj, t_hit_record *rec);
 t_vec			convert_light(int level, t_light_effect effect, \
-t_objects *obj, t_features refl);
+t_features refl);
 void			calculate_disk_plan(t_cylender *cylinder, \
 t_objects *obj, bool is_top);
 
