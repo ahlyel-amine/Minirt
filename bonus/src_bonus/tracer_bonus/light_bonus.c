@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:57:39 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_objects *obj, t_hit_record *rec)
 {
 	t_light			*lights;
 	t_light_effect	effect;
-	double			thita;
 	bool			inshadow;
 
 	lights = data->light;
@@ -69,8 +68,7 @@ t_objects *obj, t_hit_record *rec)
 	return (effect);
 }
 
-t_vec	convert_light(int level, t_light_effect effect, \
-t_objects *obj, t_features refl)
+t_vec	convert_light(int level, t_light_effect effect, t_features refl)
 {
 	t_vec	res;
 

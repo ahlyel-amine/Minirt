@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/23 21:18:42 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:54:35 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ t_hit_record *rec)
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec)
 {
 	t_light_effect	light_effect;
-	t_objects		*obj;
 	t_vec			color;
 
 	rays->closet_obj = get_closes_object(&(rays->ray), data->objects, rec);
-	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0, 0, 0});
 	normalize(&rec->n_hit);
 	light_effect = get_light_effect(data, rays, rec);
-	color = convert_light(light_effect, obj);
+	color = convert_light(light_effect);
 	return (color);
 }

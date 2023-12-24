@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:43 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:53:54 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_hit_record *rec)
 {
 	t_light_effect	effect;
-	double			thita;
 
 	ft_memset(&effect, 0, sizeof(t_light_effect));
 	effect.ambient = rec->h_color;
@@ -55,7 +54,7 @@ t_light_effect	get_light_effect(t_data *data, t_rays *rays, t_hit_record *rec)
 	return (effect);
 }
 
-t_vec	convert_light(t_light_effect effect, t_objects *obj)
+t_vec	convert_light(t_light_effect effect)
 {
 	t_vec	res;
 

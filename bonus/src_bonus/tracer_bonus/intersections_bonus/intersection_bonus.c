@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/21 23:34:09 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:58:39 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 
 t_inter_func	intersect(int type)
 {
-	t_objects			*obj;
 	static t_inter_func	obj_inter[5];
 	static bool			init;
 

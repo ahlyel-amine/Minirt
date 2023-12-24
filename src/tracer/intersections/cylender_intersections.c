@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylender_intersections.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:48 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 21:51:30 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:53:43 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static bool	solve_quad(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 
 static bool	cylinder_hit(t_ray *ray, t_cylender *cylinder, t_hit_record *rec)
 {
-	t_cord	p;
 	t_vec	v;
 
 	if (!solve_quad(ray, cylinder, rec))

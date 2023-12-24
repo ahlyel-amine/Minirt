@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:12:56 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:57:51 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		normalize(&(ref_ray.ray.direction));
 		light_effect.reflect = raytrace(data, &ref_ray, rec, level);
 	}
-	return (convert_light(level, light_effect, rays->closet_obj, refl));
+	return (convert_light(level, light_effect, refl));
 }

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:56:25 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	addlight(t_light **lst, t_light *new)
 	}
 }
 
-void	features_bool(t_data *data, t_objects *object, enum e_types type)
+void	features_bool(t_objects *object)
 {
 	t_features	ftrs;
 
@@ -63,7 +63,7 @@ t_data *data, void *object)
 	s_object = newobject(new_object, type);
 	if (!s_object)
 		return (free(new_object), false);
-	features_bool(data, s_object, type);
+	features_bool(s_object);
 	addobject_front(&data->objects, s_object);
 	return (true);
 }

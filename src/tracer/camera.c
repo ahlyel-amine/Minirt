@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 06:33:28 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/13 19:26:34 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:51:21 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 #include <stdlib.h>
 #include "vector.h"
 #include "library.h"
-
-t_camera	*create_cam(t_vec *origin, t_vec *direction, double fov)
-{
-	t_camera	*cam;
-
-	cam = (t_camera *)malloc(sizeof(t_camera));
-	if (!cam)
-		return (NULL);
-	return (cam);
-}
 
 t_vec	cam_to_world(double matrix[4][4], t_vec *dir)
 {

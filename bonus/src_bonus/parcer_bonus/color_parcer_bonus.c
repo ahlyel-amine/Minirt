@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_parcer_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:19:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:20:46 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:55:37 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	only_3_digits(char *str)
 static bool	check_rgb(char *rgb, int *i)
 {
 	int	j;
-	int	total;
 
 	*i = 0;
 	*i = only_3_digits(rgb);
