@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 23:52:00 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 09:11:56 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ typedef struct s_camera
 typedef struct s_light
 {
 	t_color			clr;
-	double			brightness;
 	t_vec			cord;
+	double			brightness;
 	struct s_light	*next;
 }	t_light;
 
@@ -90,7 +90,6 @@ typedef struct s_features
 	bool	texture;
 	bool	bump;
 }	t_features;
-
 
 typedef struct s_texture_img
 {
@@ -137,9 +136,9 @@ typedef struct s_cylender
 	t_vec				normalized;
 	t_vec				cord;
 	t_color				clr;
-	t_objects			*p_face;
 	double				diameter;
 	double				height;
+	t_objects			*p_face;
 }	t_cylender;
 
 typedef struct s_sphere
@@ -192,9 +191,9 @@ typedef struct s_data
 	t_objects		*objects;
 	t_light			*light;
 	t_mrt			*m_rt;
+	pthread_mutex_t	load;
 	int				load_p;
 	int				shape;
-	pthread_mutex_t	load;
 }	t_data;
 
 typedef struct s_hit_record
@@ -223,8 +222,8 @@ typedef struct s_rays
 typedef struct s_dataset
 {
 	t_mrt	*m_rt;
-	t_data	data;
 	t_data	*d;
+	t_data	data;
 	int		s_x;
 	int		s_y;
 	int		e_x;

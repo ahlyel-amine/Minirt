@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 01:02:36 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 09:16:29 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ t_specular_light speclr, t_hit_record *rec)
 		specular = merge_light(specular, light->clr, light->brightness * coef);
 	}
 	else
-		return ((t_vec){0,0,0});
+		return ((t_vec){0, 0, 0});
 	return (specular);
 }
-

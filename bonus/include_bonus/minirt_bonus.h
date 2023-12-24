@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:12 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 05:36:53 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 06:56:13 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void			print_vec(char *str, t_vec vec);
 void			*draw(void *param);
 
 t_objects		*get_closes_object(t_ray *ray, t_objects *obj, \
-t_hit_record *rec);
-t_objects		*get_closes_object2(t_ray *ray, t_objects *obj, \
 t_hit_record *rec);
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, \
 t_objects *obj, t_hit_record *rec);
