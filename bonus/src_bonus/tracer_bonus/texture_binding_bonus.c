@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/24 01:26:15 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 10:15:09 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "tools_bonus.h"
 #include <mlx.h>
 #include <stdlib.h>
-
 
 bool	texture_init(t_objects *shape, t_mrt *img)
 {
@@ -38,24 +37,11 @@ bool	texture_init(t_objects *shape, t_mrt *img)
 			shape->texture->addr = mlx_get_data_addr(shape->texture->img, \
 			&shape->texture->bpp, &shape->texture->line_len, \
 			&shape->texture->endian);
+		if (shape->type == SPHERE || shape->type == PLANE)
+			shape->features.bump = bump_texture(shape, img);
+		return (true);
 	}
-	if (shape->type == SPHERE || shape->type == PLANE)
-		bump_texture(shape, img);
-	return (true);
-}
-
-double	get_cscale_texture(t_texture_img *bump, int x, int y)
-{
-	int		index;
-	double	grey;
-	t_vec	color;
-
-	index = (x * bump->bpp / 8) + (y * bump->line_len);
-	color.v_x = (unsigned char)bump->addr[abs(index) + 2] / 255.0;
-	color.v_y = (unsigned char)bump->addr[abs(index) + 1] / 255.0;
-	color.v_z = (unsigned char)bump->addr[abs(index)] / 255.0;
-	grey = color.v_x + color.v_y * 255.0 + color.v_z;
-	return (grey);
+	return (false);
 }
 
 bool	sphere_bump(t_hit_record *rec, t_objects *shape)
@@ -137,7 +123,7 @@ void	textures_binding(t_objects *shapes, t_mrt *img)
 	while (shape)
 	{
 		if (shape->type != TRIANGLE && shape->type != CONE)
-			texture_init(shape, img);
+			shape->features.texture = texture_init(shape, img);
 		shape = shape->next;
 	}
 }
