@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:17 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 05:51:22 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vec	merge_light(t_vec color, t_color light_color, double ratio);
 bool	shadow_ray(t_rays *rays, t_light *light, \
 t_objects *obj, t_hit_record *rec);
 t_vec	specular_light(t_rays *rays, t_light *light, \
-t_specular_light speclr, t_hit_record *rec);
+t_features speclr, t_hit_record *rec);
 t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec);
 void	nineties(t_vec *color);
 void	checkread_borad(t_objects *obj, t_hit_record *rec);

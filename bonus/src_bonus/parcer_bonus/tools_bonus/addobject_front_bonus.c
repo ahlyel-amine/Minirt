@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:10:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 15:49:47 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	addlight(t_light **lst, t_light *new)
 
 void	features_bool(t_data *data, t_objects *object, enum e_types type)
 {
-	t_specular_light ftrs;
+	t_features	ftrs;
 
 	ftrs = get_specular_addr(object);
 	if (ftrs.checkred_h > 0 || ftrs.checkred_w > 0)

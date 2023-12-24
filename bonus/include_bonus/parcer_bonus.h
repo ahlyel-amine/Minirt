@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:07 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 15:48:28 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ bool	light_parcer(char *line, t_data *data);
 bool	lighting_parcer(char *line, t_data *data);
 bool	triangle_parcer(char *line, t_data *data);
 bool	cone_parcer(char *line, t_data *data);
-bool	check_for_features(char *line, t_specular_light *obj, int type);
+bool	features_parcer(char *line, t_features *obj, int type);
 bool	cordinate_parcer(char **line, t_vec *cordinate, \
 int marge_max, int marge_min);
 int		color_parcer(char *line, t_color *color);
+bool	check_reflection(char **line, double *reflection, bool *loop);
+bool	check_specular(char **line, t_features *specular, bool *loop);
+bool	check_checkerboard(char **line, t_features *checkred, \
+bool *loop, int type);
+bool	check_texture(char **line, char **texture, bool *loop, char *ind);
+bool	get_path(char **line, char **texture);
 
 #endif

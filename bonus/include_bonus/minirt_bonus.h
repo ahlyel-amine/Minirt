@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:12 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 05:36:53 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_hit_record *rec);
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, \
 t_objects *obj, t_hit_record *rec);
 t_vec			convert_light(int level, t_light_effect effect, \
-t_objects *obj, t_specular_light refl);
+t_objects *obj, t_features refl);
 void			calculate_disk_plan(t_cylender *cylinder, \
 t_objects *obj, bool is_top);
 

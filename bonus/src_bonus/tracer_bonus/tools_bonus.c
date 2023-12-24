@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 02:43:38 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "vector_bonus.h"
 #include <stdlib.h>
 
-t_specular_light	get_specular_addr(t_objects *obj)
+t_features	get_specular_addr(t_objects *obj)
 {
 	if (obj->type == PLANE)
 		return (((t_plane *)obj->object)->spec);

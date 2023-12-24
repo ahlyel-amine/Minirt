@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:00:11 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 01:02:36 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:09:38 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,6 @@ t_vec	diffuse_effect(t_rays *rays, t_light *light, t_hit_record *rec)
 	return (diffuse);
 }
 
-bool	is_specular(t_objects *obj)
-{
-	t_specular_light	spec;
-
-	spec = get_specular_addr(obj);
-	return ((int)spec.intensity == 0 && (int)spec.shininess_factor == 0);
-}
-
 t_light_effect	get_light_effect(t_data *data, t_rays *rays, \
 t_objects *obj, t_hit_record *rec)
 {
@@ -68,7 +60,7 @@ t_objects *obj, t_hit_record *rec)
 		{
 			effect.diffuse = c_color(effect.diffuse, \
 			diffuse_effect(rays, lights, rec), 1, 1);
-			if (!is_specular(obj))
+			if (obj->features.specular)
 				effect.specular = vec_addition(effect.specular, \
 				specular_light(rays, lights, get_specular_addr(obj), rec));
 		}
@@ -78,7 +70,7 @@ t_objects *obj, t_hit_record *rec)
 }
 
 t_vec	convert_light(int level, t_light_effect effect, \
-t_objects *obj, t_specular_light refl)
+t_objects *obj, t_features refl)
 {
 	t_vec	res;
 
@@ -93,28 +85,27 @@ t_objects *obj, t_specular_light refl)
 }
 
 t_vec	specular_light(t_rays *rays, t_light *light, \
-t_specular_light speclr, t_hit_record *rec)
+t_features speclr, t_hit_record *rec)
 {
 	t_vec	specular;
 	t_vec	reflect;
 	t_vec	view;
-	double	spec;
 	double	coef;
-	double	thita;
+	double	thita_spec;
 
 	ft_memset(&specular, 0, sizeof(t_vec));
 	coef = speclr.shininess_factor;
-	view = scalar_mult(scalar_mult(rec->n_hit, 2.0), dot_product(vec_nega(rec->n_hit), rays->shadow_ray.direction));
+	view = scalar_mult(scalar_mult(rec->n_hit, 2.0), \
+	dot_product(vec_nega(rec->n_hit), rays->shadow_ray.direction));
 	reflect = vec_addition(rays->shadow_ray.direction, view);
-	thita = dot_product(reflect, view);
-	if (thita > EPS)
+	thita_spec = dot_product(reflect, view);
+	if (thita_spec > EPS)
 	{
-		spec = pow(thita, speclr.intensity);
-		specular = scalar_mult((t_vec){1, 1, 1}, spec);
+		thita_spec = pow(thita_spec, speclr.intensity);
+		specular = scalar_mult((t_vec){1, 1, 1}, thita_spec);
 		specular = merge_light(specular, light->clr, light->brightness * coef);
 	}
 	else
-		return ((t_vec){0,0,0});
+		return ((t_vec){0, 0, 0});
 	return (specular);
 }
-

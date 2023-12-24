@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 05:44:39 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:12:23 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ int					skip_spaces(char *str);
 bool				ft_atod(char **ascii, double *result, int marge_max, \
 int marge_min);
 bool				make_threads(t_mrt *scean, t_data data);
-// double				get_cscale_texture_c(t_texture_img *bump, int x, int y);
 t_objects			*newobject(void *object, unsigned char type);
 t_light				*newlight(t_light new);
-t_specular_light	get_specular_addr(t_objects *obj);
+t_features			get_specular_addr(t_objects *obj);
 void				cam_y(int key, t_data *data);
 void				cam_x(int key, t_data *data);
 void				zoom(int key, t_data *data);
@@ -68,4 +67,6 @@ void				*bump_texture_p(t_plane *p, t_mrt *img);
 bool				object_validate(enum e_size_types size, enum e_types type, \
 t_data *data, void *object);
 t_texture			texture_process(int type);
+double				min(double a, double b);
+
 #endif
