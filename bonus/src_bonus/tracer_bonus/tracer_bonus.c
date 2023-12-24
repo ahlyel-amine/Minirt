@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:03:33 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 15:50:43 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:43:55 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ void	loading_bar(double percent)
 
 	lpad = (int)(percent * WBAR);
 	rpad = WBAR - lpad;
-	printf("\r[\033[32;1m%.*s%*s\033[0m] %.0f%%", (lpad), \
-	PBAR, rpad, "", roundf(percent * 100));
+	write(1, "\r\033[32;1m", ft_strlen("\r\033[32;1m"));
+	write(1, PBAR, lpad * ft_strlen("█"));
+	write(1, EBAR, rpad * ft_strlen("▒"));
+	write(1, "\033[0m", ft_strlen("\033[0m]"));
+	printf(" %.0f%%", roundf(percent * 100));
 	fflush(stdout);
 }
 
