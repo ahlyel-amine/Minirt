@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:09:57 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/11 17:40:03 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/18 16:17:51 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "libft.h"
 #include "parcer_bonus.h"
 
-enum types	find_type(char *line)
+enum e_types	find_type(char *line)
 {
 	if (!ft_strncmp(line, S_LIGHTING, 1) && ft_isspace(line[1]))
 		return (LIGHTING);
@@ -42,9 +42,9 @@ enum types	find_type(char *line)
 		return (INVALID);
 }
 
-object_parcer	objcets_parcers(enum types offset)
+t_object_parcer	objcets_parcers(enum e_types offset)
 {
-	static object_parcer	function_parcer[MAX_OBJECTS];
+	static t_object_parcer	function_parcer[MAX_OBJECTS];
 	static bool				init;
 
 	if (!init)
@@ -64,7 +64,7 @@ object_parcer	objcets_parcers(enum types offset)
 
 bool	transform_line(char *line, t_data *data)
 {
-	enum types		type;
+	enum e_types		type;
 
 	if (!line[skip_spaces(line)])
 		return (true);
@@ -72,7 +72,7 @@ bool	transform_line(char *line, t_data *data)
 		return (true);
 	type = find_type(line);
 	if (type == INVALID)
-		return (ft_putendl_fd("minirt: invalid object/description format", 2), false);
+		return (print_err(4, ERR, NAME, ERR_F, ERR_DESC), false);
 	if (!objcets_parcers(type)(line, data))
 		return (false);
 	return (true);
@@ -95,13 +95,21 @@ bool	parcer(char *scene, t_data	*data)
 	int		fd;
 	char	*line;
 
+	if (ft_strncmp(scene + ft_strlen(scene) - 3, RT_FILE, 3))
+		return (print_err(3, ERR, NAME, ERR_SCN), false);
 	fd = open(scene, O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		return (ft_putendl_fd("minirt: invalid scene file", 2), false);
+		return (print_err(3, ERR, NAME, ERR_SCN), false);
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_putendl_fd("minirt: empty scene file", 2), false);
+		return (close(fd), print_err(3, ERR, NAME, ERR_ESCN), false);
 	if (!read_true(&line, data, fd))
-		return (false);
-	return (true);
+		return (close(fd), false);
+	if (!data->light)
+		return (close(fd), print_err(5, ERR, NAME, ERR_MS, ERR_L, "\n"), false);
+	if (!camera_parcer(NULL, NULL))
+		return (close(fd), print_err(5, ERR, NAME, ERR_MS, ERR_C, "\n"), false);
+	if (!lighting_parcer(NULL, NULL))
+		return (close(fd), print_err(5, ERR, NAME, ERR_MS, ERR_A, "\n"), false);
+	return (close(fd), true);
 }

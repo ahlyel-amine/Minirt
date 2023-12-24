@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 19:32:56 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 22:19:12 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,15 @@ t_hit_record *rec)
 
 t_inter_func	intersect(int type)
 {
-	t_objects		*obj;
-	t_inter_func	obj_inter[3];
+	static t_inter_func	obj_inter[3];
+	static bool			init;
 
-	obj_inter[SPHERE] = sphere_hit;
-	obj_inter[PLANE] = plan_hit;
-	obj_inter[CYLENDER] = f_cylinder_render;
+	if (!init)
+	{
+		obj_inter[SPHERE] = sphere_hit;
+		obj_inter[PLANE] = plan_hit;
+		obj_inter[CYLENDER] = f_cylinder_render;
+		init = 0x1;
+	}
 	return (*(obj_inter + type));
 }

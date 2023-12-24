@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:50:06 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/17 11:20:51 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/22 06:52:36 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,58 @@
 #include "tools_bonus.h"
 #include "library_bonus.h"
 
-// struct s_cone
-// {
-//     t_vec apex;
-//     t_vec axis;
-//     t_vec point;
-//     double half_angle;
-// }   t_cone;
+double	cone_quadratic_calculs(t_ray *ray, t_objects *obj, bool *success)
+{
+	t_cone	*cone;
+	t_vec	cone_origin;
+	double	discriminant;
+	double	cos_theta2;
+	t_cord	quad;
+
+	cone = (t_cone *)obj->object;
+	cos_theta2 = cos(cone->half_angle) * cos(cone->half_angle);
+	cone_origin = vec_sub(ray->origin, cone->cord);
+	quad.a = pow(dot_product(ray->direction, cone->normalized), 2) - cos_theta2;
+	quad.b = 2 * ((dot_product(ray->direction, cone->normalized) * \
+	dot_product(cone_origin, cone->normalized)) - \
+	dot_product(ray->direction, cone_origin) * cos_theta2);
+	quad.c = pow(dot_product(cone_origin, cone->normalized), 2) - cos_theta2 * \
+	dot_product(cone_origin, cone_origin);
+	discriminant = quad.b * quad.b - 4 * quad.a * quad.c;
+	if (discriminant < EPS)
+		return (*success = false, 0);
+	quad.c = (-quad.b + sqrt(discriminant)) / (2 * quad.a);
+	quad.b = (-quad.b - sqrt(discriminant)) / (2 * quad.a);
+	discriminant = min(quad.b, quad.c);
+	if (discriminant < 0)
+		return (*success = false, 0);
+	return (discriminant);
+}
 
 bool	cone_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 {
-    t_cone *cone;
-    
-    cone = (t_cone *)obj->object;
-    double cosTheta2 = cos(cone->half_angle) * cos(cone->half_angle);
-    double sinTheta2 = 1.0 - cosTheta2;
+	t_cone	*cone;
+	t_vec	norm;
+	bool	success;
+	double	t;
 
-    t_vec cone_origin = vec_sub(ray->origin, cone->cord);
-    // ray->direction = cross_product(ray->direction, cone->axis);
-    // double a = cosTheta2 * pow(ray->direction.v_x, 2) + cosTheta2 * pow(ray->direction.v_z, 2) - sinTheta2 * pow(ray->direction.v_y, 2);
-    double a = pow(dot_product(ray->direction, cone->normalized), 2) - cosTheta2;
-    // double b = 2 * (cosTheta2 * ray->direction.v_x * cone_origin.v_x + cosTheta2 * ray->direction.v_z * cone_origin.v_z - sinTheta2 * ray->direction.v_y * cone_origin.v_y);
-    double b = 2 * ((dot_product(ray->direction, cone->normalized) * dot_product(cone_origin, cone->normalized)) - dot_product(ray->direction, cone_origin) * cosTheta2);
-    // double c = cosTheta2 * pow(cone_origin.v_x, 2) + cosTheta2 * pow(cone_origin.v_z, 2) - sinTheta2 * pow(cone_origin.v_y, 2);
-    double c = pow(dot_product(cone_origin, cone->normalized), 2) - cosTheta2 * dot_product(cone_origin, cone_origin);
-    double discriminant = b * b - 4 * a * c;
-    if (discriminant < EPS)
-        return (false);
-    double t1 = (-b + sqrt(discriminant)) / (2 * a);
-    double t2 = (-b - sqrt(discriminant)) / (2 * a);
-    double t = MIN(t1, t2);
-    if (t < 0) 
-        return (false);
-    rec->t = t;
+	cone = (t_cone *)obj->object;
+	success = true;
+	t = cone_quadratic_calculs(ray, obj, &success);
+	if (!success)
+		return (false);
+	rec->t = t;
 	rec->p_hit = at(rec->t, *ray);
-    if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) > EPS)
-        return (false);
-    if (distance(cone->cord, rec->p_hit) > cone->height)
-        return (false);
-	t_vec norm = vec_sub(rec->p_hit, cone->cord);
-    rec->n_hit = normalized(cross_product(cross_product(norm, cone->normalized), cone->normalized));
-    if (dot_product(rec->n_hit, ray->direction) > 0)
+	if (dot_product(vec_sub(rec->p_hit, cone->cord), cone->normalized) > EPS)
+		return (false);
+	if (distance(cone->cord, rec->p_hit) > cone->height)
+		return (false);
+	norm = vec_sub(rec->p_hit, cone->cord);
+	rec->n_hit = normalized(cross_product(\
+	cross_product(norm, cone->normalized), cone->normalized));
+	if (dot_product(rec->n_hit, ray->direction) > 0)
 		rec->n_hit = vec_nega(rec->n_hit);
-	rec->h_color = create_vec((double)(cone->clr.r) / 255, (double)(cone->clr.g) / 255, (double)(cone->clr.b) / 255);
+	rec->h_color = create_vec((double)(cone->clr.r) / 255, \
+	(double)(cone->clr.g) / 255, (double)(cone->clr.b) / 255);
 	return (true);
 }

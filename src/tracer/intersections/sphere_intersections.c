@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_intersections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:07:54 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/14 20:41:36 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/21 06:26:26 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_record(t_hit_record *rec, t_sphere *s, t_ray *r, double distance)
 	rec->t = distance;
 	rec->p_hit = at(distance, *r);
 	rec->n_hit = vec_sub(rec->p_hit, s->cord);
-	normalized(rec->n_hit);
+	normalize(&rec->n_hit);
 	rec->h_color = create_vec((double)(s->clr.r) / 255, \
 	(double)(s->clr.g) / 255, (double)(s->clr.b) / 255);
 }

@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:13:59 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/14 12:31:45 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:51:02 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "minirt_bonus.h"
 #include "library_bonus.h"
 #include "tools_bonus.h"
-typedef void (*obj_scale)(int, t_data *);
 
 void	sphere_scale(int key, t_data *data)
 {
@@ -24,7 +23,8 @@ void	sphere_scale(int key, t_data *data)
 	while (obj)
 	{
 		if (obj->type == SPHERE)
-			((t_sphere *)obj->object)->diameter += (key == 24) * 0.1 - (key == 27) * 0.1;
+			((t_sphere *)obj->object)->diameter += \
+			(key == KPLUS) * 0.1 - (key == KMIN) * 0.1;
 		obj = obj->next;
 	}
 }
@@ -40,7 +40,8 @@ void	cy_scale(int key, t_data *data)
 		if (obj->type == CYLENDER)
 		{
 			c = obj->object;
-			((t_cylender *)obj->object)->height += (key == 24) * 0.1 - (key == 27) * 0.1;
+			((t_cylender *)obj->object)->height += \
+			(key == KPLUS) * 0.1 - (key == KMIN) * 0.1;
 			calculate_disk_plan(c, c->p_face, true);
 			calculate_disk_plan(c, c->p_face->next, false);
 		}
@@ -48,12 +49,17 @@ void	cy_scale(int key, t_data *data)
 	}
 }
 
-obj_scale	shape_scale(int idx)
+t_obj_scale	shape_scale(int idx)
 {
-	obj_scale	shape_s[3];
-	*(shape_s) = skip;
-	*(shape_s + 1) = &sphere_scale;
-	*(shape_s + 2) = &cy_scale;
+	static t_obj_scale	shape_s[2];
+	static bool			init;
+
+	if (!init)
+	{
+		init = true;
+		shape_s[0] = sphere_scale;
+		shape_s[1] = cy_scale;
+	}
 	return (*(shape_s + idx));
 }
 
@@ -61,7 +67,10 @@ void	scale(int key, t_data *data)
 {
 	int	idx;
 
-	idx = (data->shape == SPHERE) * 1 + (data->shape == CYLENDER) * 2;
+	idx = (data->shape == CYLENDER) * 1;
 	shape_scale(idx)(key, data);
-	make_threads(data->m_rt, *data);
+	if (!idx && data->counter.sphere)
+		make_threads(data->m_rt, *data);
+	if (idx && data->counter.cylender)
+		make_threads(data->m_rt, *data);
 }
