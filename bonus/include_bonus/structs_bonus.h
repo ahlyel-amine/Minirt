@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 15:29:54 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:11:42 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_vec
 	double	v_z;
 }	t_vec;
 
-typedef struct s_specular_light
+typedef struct s_features
 {
 	double	intensity;
 	double	reflection;
@@ -41,7 +41,7 @@ typedef struct s_specular_light
 	double	shininess_factor;
 	char	*texture;
 	char	*bump;
-}	t_specular_light;
+}	t_features;
 
 typedef struct s_ray
 {
@@ -82,23 +82,23 @@ typedef struct s_light
 	struct s_light	*next;
 }	t_light;
 
-typedef struct s_features
+typedef struct s_bool_features
 {
 	bool	checkred;
 	bool	reflection;
 	bool	specular;
 	bool	texture;
 	bool	bump;
-}	t_features;
+}	t_bool_features;
 
 typedef struct s_object
 {
-	unsigned char	type;
-	void			*object;
-	void			*t_copy;
-	void			*b_copy;
-	t_features		features;
-	struct s_object	*next;
+	unsigned char		type;
+	void				*object;
+	void				*t_copy;
+	void				*b_copy;
+	t_bool_features		features;
+	struct s_object		*next;
 }	t_objects;
 
 typedef struct s_texture_img
@@ -115,7 +115,7 @@ typedef struct s_texture_img
 
 typedef struct s_plane
 {
-	t_specular_light	spec;
+	t_features			spec;
 	t_texture_img		*texture;
 	t_texture_img		*bump;
 	t_vec				normalized;
@@ -125,7 +125,7 @@ typedef struct s_plane
 
 typedef struct s_cone
 {
-	t_specular_light	spec;
+	t_features			spec;
 	t_texture_img		*texture;
 	t_vec				normalized;
 	t_vec				cord;
@@ -136,7 +136,7 @@ typedef struct s_cone
 
 typedef struct s_cylender
 {
-	t_specular_light	spec;
+	t_features			spec;
 	t_texture_img		*texture;
 	t_vec				normalized;
 	t_vec				cord;
@@ -148,7 +148,7 @@ typedef struct s_cylender
 
 typedef struct s_sphere
 {
-	t_specular_light	spec;
+	t_features			spec;
 	t_texture_img		*texture;
 	t_texture_img		*bump;
 	t_vec				cord;
@@ -159,7 +159,7 @@ typedef struct s_sphere
 
 typedef struct s_triangle
 {
-	t_specular_light	spec;
+	t_features			spec;
 	t_vec				normalizer;
 	t_color				clr;
 	t_vec				cord1;

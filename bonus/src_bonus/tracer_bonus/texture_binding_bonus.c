@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_binding_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/23 03:08:35 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 15:48:30 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	textures_binding(t_objects *shapes, t_mrt *img)
 	shape = shapes;
 	while (shape)
 	{
-		if (shape->type != TRIANGLE && shape->type != CONE)
+		if (shape->type != TRIANGLE && shape->type != CONE \
+		&& shape->features.texture)
 			texture_process(shape->type)(shape, img);
 		shape = shape->next;
 	}

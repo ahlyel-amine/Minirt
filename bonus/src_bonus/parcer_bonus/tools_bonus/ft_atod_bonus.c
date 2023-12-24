@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:51:59 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 20:01:56 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:12:42 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "libft.h"
 #include "tools_bonus.h"
 #include "structs_bonus.h"
+
+double	min(double a, double b)
+{
+	if (a <= b)
+		return (a);
+	return (b);
+}
 
 static int	ft_datoi(char **str)
 {

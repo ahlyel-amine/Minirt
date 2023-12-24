@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:38:50 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 20:00:46 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:12:56 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ t_objects *obj, t_hit_record *rec)
 
 t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 {
-	t_light_effect		light_effect;
-	t_specular_light	refl;
-	t_objects			*obj;
-	t_rays				ref_ray;
+	t_light_effect	light_effect;
+	t_features		refl;
+	t_rays			ref_ray;
 
 	rays->closet_obj = get_closes_object(&(rays->ray), data->objects, rec);
-	obj = rays->closet_obj;
 	if (!rays->closet_obj)
 		return ((t_vec){0, 0, 0});
-	refl = get_specular_addr(obj);
-	handle_bump(rec, rays->closet_obj);
-	checkread_borad(obj, rec);
-	light_effect = get_light_effect(data, rays, obj, rec);
+	refl = get_specular_addr(rays->closet_obj);
+	if (rays->closet_obj->features.bump)
+		handle_bump(rec, rays->closet_obj);
+	if (rays->closet_obj->features.checkred)
+		checkread_borad(rays->closet_obj, rec);
+	light_effect = get_light_effect(data, rays, rays->closet_obj, rec);
 	if (--level > 0 && refl.reflection > 0)
 	{
 		ref_ray.ray.origin = rec->p_hit;
@@ -72,5 +72,5 @@ t_vec	raytrace(t_data *data, t_rays *rays, t_hit_record *rec, int level)
 		normalize(&(ref_ray.ray.direction));
 		light_effect.reflect = raytrace(data, &ref_ray, rec, level);
 	}
-	return (convert_light(level, light_effect, obj, refl));
+	return (convert_light(level, light_effect, rays->closet_obj, refl));
 }

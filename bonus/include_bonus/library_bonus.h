@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 18:00:17 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:10:02 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define FRAME 3
 # define M_D 1.79769e+308
 # define EPS 1e-3
-# define min(X, Y)((X) < (Y) ? (X) : (Y))
 # define REF_LEVEL 5
 
 typedef bool	(*t_object_parcer)(char *, t_data *);
@@ -110,7 +109,9 @@ enum	e_size_types
 # define ERR_WH			"width "
 # define ERR_DR			"diameter "
 # define ERR_MS			"missing "
-# define ERR_TXTR		"texture/bump is only for objects : SPHERE/CYLENDER/PLANE\n"
-# define ERR_CKRD		"checker board is only for objects : SPHERE/CYLENDER/PLANE\n"
+# define ERR_TXTR		\
+"texture/bump is only for objects : SPHERE/CYLENDER/PLANE\n"
+# define ERR_CKRD		\
+"checker board is only for objects : SPHERE/CYLENDER/PLANE\n"
 
 #endif

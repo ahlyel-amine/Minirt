@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:39:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 15:46:31 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:13:08 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,28 @@
 
 void	checkread_borad(t_objects *obj, t_hit_record *rec)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-	bool	checkred;
+	double		u;
+	double		v;
+	bool		checkred;
+	t_features	spec;
 
-	if (obj->type == PLANE && obj->features.checkred == true)
+	spec = get_specular_addr(obj);
+	if (obj->type == PLANE)
 	{
-		c = ((t_plane *)obj->object)->spec.checkred_h;
-		d = ((t_plane *)obj->object)->spec.checkred_w;
-		get_uv_plane(obj->object, rec, &a, &b);
+		get_uv_plane(obj->object, rec, &u, &u);
 		checkred = true;
 	}
-	else if (obj->type == SPHERE && obj->features.checkred == true)
+	else if (obj->type == SPHERE)
 	{
-		c = ((t_sphere *)obj->object)->spec.checkred_h;
-		d = ((t_sphere *)obj->object)->spec.checkred_w;
-		get_uv_sphere(obj->object, rec, &a, &b);
+		get_uv_sphere(obj->object, rec, &u, &v);
 		checkred = true;
 	}
-	else if (obj->type == CYLENDER && obj->features.checkred == true)
+	else if (obj->type == CYLENDER)
 	{
-		c = ((t_cylender *)obj->object)->spec.checkred_h;
-		d = ((t_cylender *)obj->object)->spec.checkred_w;
-		get_uv_cylinder(obj->object, rec, &a, &b);
+		get_uv_cylinder(obj->object, rec, &u, &v);
 		checkred = true;
 	}
-	if (checkred && (int)(floor(c * a) + floor(d * b)) % 2)
+	if (checkred && (int)(floor(spec.checkred_h * u) + \
+	floor(spec.checkred_w * v)) % 2)
 		rec->h_color = (t_vec){255, 255, 255};
 }

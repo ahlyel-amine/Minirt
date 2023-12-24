@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:32 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 15:17:45 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 16:03:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	cone_parcer(char *line, t_data *data)
 	if (i == -1)
 		return (print_err(4, ERR, NAME, ERR_CN, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
-	if (!check_for_features(line, &cone.spec, CONE))
+	if (!features_parcer(line, &cone.spec, CONE))
 		return (false);
 	if (!object_validate(T_CONE, CONE, data, &cone))
 		return (false);
