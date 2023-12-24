@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:39:24 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/02 00:16:40 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/24 17:42:12 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ char	*get_next_line(int fd)
 	static char	*hold;
 	char		*line;
 	char		*tmp;
-	int			count;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (line);
-	count = 0;
 	line = ft_read(fd);
 	if (hold)
 	{
