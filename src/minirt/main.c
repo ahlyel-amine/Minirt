@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:49:44 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:57:15 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,11 @@ bool	make_image(t_mrt *scean)
 	return (true);
 }
 
-// void	check(void)
-// {
-// 	system("leaks Minirt");
-// }
-
 int	main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
 
-	// atexit(check);
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{

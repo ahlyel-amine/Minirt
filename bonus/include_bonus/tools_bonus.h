@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:44:20 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:56:23 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int marge_min);
 bool				make_threads(t_mrt *scean, t_data data);
 t_objects			*newobject(void *object, unsigned char type);
 t_light				*newlight(t_light new);
-t_features      	*get_specular_add(t_objects *obj);
+t_features			*get_specular_add(t_objects *obj);
 t_features			get_specular_addr(t_objects *obj);
 void				cam_y(int key, t_data *data);
 void				cam_x(int key, t_data *data);
