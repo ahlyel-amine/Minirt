@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:42:03 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:55:51 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ void	get_uv_cylinder(t_cylender *cy, t_hit_record *rec, double *u, double *v)
 {
 	double	theta;
 	double	h_z;
-	// double	r;
-// r = sqrt(rec->p_hit.v_x * rec->p_hit.v_x + rec->p_hit.v_z * rec->p_hit.v_z);
+
 	theta = atan2(rec->p_hit.v_z, rec->p_hit.v_x);
 	h_z = rec->p_hit.v_y;
 	*u = theta / (2 * M_PI);

@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:46:26 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:56:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_object
 	t_texture_img	*texture;
 	t_texture_img	*bump;
 	void			*object;
-	t_bool_features		features;
+	t_bool_features	features;
 	struct s_object	*next;
 }	t_objects;
 typedef struct s_plane
