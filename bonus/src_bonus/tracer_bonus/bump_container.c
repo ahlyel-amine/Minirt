@@ -3,55 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   bump_container.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 05:30:00 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/22 05:47:54 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/25 17:47:20 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs_bonus.h"
 #include "minirt_bonus.h"
 #include "library_bonus.h"
+#include "tools_bonus.h"
 #include <mlx.h>
 #include <stdlib.h>
 
-void	*bump_texture(t_sphere *sphere, t_mrt *img)
+double	get_cscale_texture(t_texture_img *bump, int x, int y)
 {
-	if (sphere->spec.bump)
-	{
-		sphere->bump = (t_texture_img *)malloc(sizeof(t_texture_img));
-		if (!sphere->bump)
-			return (free(sphere->spec.bump), sphere->spec.bump = NULL, NULL);
-		sphere->bump->path = sphere->spec.bump;
-		sphere->bump->img = mlx_xpm_file_to_image(img->mlx, sphere->bump->path, \
-		&sphere->bump->width, &sphere->bump->height);
-		if (!sphere->bump->img)
-			return (free(sphere->spec.bump), sphere->spec.bump = NULL, NULL);
-		else
-			sphere->bump->addr = mlx_get_data_addr(sphere->bump->img, \
-			&sphere->bump->bpp, &sphere->bump->line_len, &sphere->bump->endian);
-		return ((void *)(sphere->bump));
-	}
+	int		index;
+	double	grey;
+	t_vec	color;
+
+	index = (x * bump->bpp / 8) + (y * bump->line_len);
+	color.v_x = (unsigned char)bump->addr[abs(index) + 2] / 255.0;
+	color.v_y = (unsigned char)bump->addr[abs(index) + 1] / 255.0;
+	color.v_z = (unsigned char)bump->addr[abs(index)] / 255.0;
+	grey = color.v_x + color.v_y * 255.0 + color.v_z;
+	return (grey);
+}
+
+t_features	*get_specular_add(t_objects *obj)
+{
+	if (obj->type == PLANE)
+		return (&(((t_plane *)obj->object)->spec));
+	else if (obj->type == SPHERE)
+		return (&(((t_sphere *)obj->object)->spec));
+	else if (obj->type == CYLENDER)
+		return (&(((t_cylender *)obj->object)->spec));
 	return (NULL);
 }
 
-void	*bump_texture_p(t_plane *p, t_mrt *img)
+bool	bump_texture(t_objects *shape, t_mrt *img)
 {
-	if (p->spec.bump)
+	t_features	*spec;
+
+	spec = get_specular_add(shape);
+	if (spec && spec->bump)
 	{
-		p->bump = (t_texture_img *)malloc(sizeof(t_texture_img));
-		if (!p->bump)
-			return (free(p->spec.bump), p->spec.bump = NULL, NULL);
-		p->bump->path = p->spec.bump;
-		p->bump->img = mlx_xpm_file_to_image(img->mlx, p->bump->path, \
-		&p->bump->width, &p->bump->height);
-		if (!p->bump->img)
-			return (free(p->spec.bump), p->spec.bump = NULL, NULL);
+		shape->bump = (t_texture_img *)malloc(sizeof(t_texture_img));
+		if (!shape->bump)
+			return (free(spec->bump), spec->bump = NULL, false);
+		shape->bump->path = spec->bump;
+		shape->bump->img = mlx_xpm_file_to_image(img->mlx, shape->bump->path, \
+		&shape->bump->width, &shape->bump->height);
+		if (!shape->bump->img)
+			return (free(spec->bump), spec->bump = NULL, \
+			free(shape->bump), shape->bump = NULL, false);
 		else
-			p->bump->addr = mlx_get_data_addr(p->bump->img, &p->bump->bpp, \
-			&p->bump->line_len, &p->bump->endian);
-		return ((void *)(p->bump));
+			shape->bump->addr = mlx_get_data_addr(shape->bump->img, \
+			&shape->bump->bpp, &shape->bump->line_len, &shape->bump->endian);
+		return (true);
 	}
-	return (NULL);
+	return (false);
 }

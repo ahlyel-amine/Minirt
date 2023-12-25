@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:42:34 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/21 23:36:13 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:46:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,63 +16,21 @@
 #include "library_bonus.h"
 #include "tools_bonus.h"
 
-void	sphere_texutre_c(void *shape)
+void	texutre_clear(t_objects *shape)
 {
-	t_sphere	*s;
+	t_features	*spec;
 
-	s = (t_sphere *)shape;
-	if (s->spec.texture)
-		free(s->spec.texture);
-	if (s->texture)
-		free(s->texture);
-	if (s->spec.bump)
-		free(s->spec.bump);
-	if (s->bump)
-		free(s->bump);
-}
-
-void	plane_texutre_c(void *shape)
-{
-	t_plane	*p;
-
-	p = (t_plane *)shape;
-	if (p->spec.texture)
-		free(p->spec.texture);
-	if (p->texture)
-		free(p->texture);
-	if (p->spec.bump)
-		free(p->spec.bump);
-	if (p->bump)
-		free(p->bump);
-}
-
-void	cy_texture_c(void *shape)
-{
-	t_cylender	*c;
-
-	c = (t_cylender *)shape;
-	if (c->spec.texture)
-		free(c->spec.texture);
-	if (c->texture)
-		free(c->texture);
-	if (c->spec.bump)
-		free(c->spec.bump);
-}
-
-t_texture_clear	shapes_texture_clear(int index)
-{
-	static t_texture_clear	clear[4];
-	static bool				init;
-
-	if (!init)
-	{
-		init = true;
-		*(clear) = NULL;
-		*(clear + 1) = sphere_texutre_c;
-		*(clear + 2) = plane_texutre_c;
-		*(clear + 3) = cy_texture_c;
-	}
-	return (*(clear + index));
+	spec = get_specular_add(shape);
+	if (!spec)
+		return ;
+	if (spec->texture)
+		free(spec->texture);
+	if (shape->texture)
+		free(shape->texture);
+	if (spec->bump)
+		free(spec->bump);
+	if (shape->bump)
+		free(shape->bump);
 }
 
 void	clear_texture(void *shape, int type)
@@ -81,5 +39,5 @@ void	clear_texture(void *shape, int type)
 
 	index = (type == SPHERE) * 1 + (type == PLANE) * 2 + (type == CYLENDER) * 3;
 	if (index)
-		shapes_texture_clear(index)(shape);
+		texutre_clear(shape);
 }

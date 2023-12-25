@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:49:37 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:56:29 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:37:48 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	clearobjs(t_objects **lst)
 		tmp = (*lst)->next;
 		if ((*lst)->type == CYLENDER)
 			clearobjs(&(((t_cylender *)((*lst)->object))->p_face));
-		clear_texture((*lst)->object, (*lst)->type);
+		clear_texture((*lst), (*lst)->type);
 		free ((*lst)->object);
 		free(*lst);
 		*lst = tmp;

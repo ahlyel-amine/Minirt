@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 00:40:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/23 03:27:14 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/25 17:41:00 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,22 @@ void	check_color(t_objects *object, t_hit_record *rec)
 
 	if (!object)
 		return ;
-	if (object->type == SPHERE && ((t_sphere *)(object->object))->spec.texture)
+	if (object->type == SPHERE && object->texture)
 	{
 		get_uv_sphere(object->object, rec, &u_v[0], &u_v[1]);
-		rec->h_color = get_tex_color(((t_sphere *)(object->object))->texture, \
+		rec->h_color = get_tex_color(object->texture, \
 		u_v[0], u_v[1], true);
 	}
-	else if (object->type == CYLENDER && \
-	((t_cylender *)(object->object))->spec.texture)
+	else if (object->type == CYLENDER && object->texture)
 	{
 		get_uv_cylinder((t_cylender *)object->object, rec, &u_v[0], &u_v[1]);
-		rec->h_color = get_tex_color(((t_cylender *)(object->object))->texture, \
+		rec->h_color = get_tex_color(object->texture, \
 		u_v[0], u_v[1], false);
 	}
-	else if (object->type == PLANE && \
-	((t_plane *)(object->object))->spec.texture)
+	else if (object->type == PLANE && object->texture)
 	{
 		get_uv_plane((t_plane *)object->object, rec, &u_v[0], &u_v[1]);
-		rec->h_color = get_tex_color(((t_plane *)(object->object))->texture, \
+		rec->h_color = get_tex_color(object->texture, \
 		u_v[0], u_v[1], false);
 	}
 }

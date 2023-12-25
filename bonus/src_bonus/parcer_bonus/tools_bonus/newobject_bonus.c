@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 02:58:35 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/19 20:02:03 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:37:29 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_objects	*newobject(void *object, unsigned char type)
 	{
 		node->type = type;
 		node->object = object;
-		node->b_copy = NULL;
-		node->t_copy = NULL;
+		node->bump = NULL;
+		node->texture = NULL;
 		node->next = NULL;
 	}
 	return (node);

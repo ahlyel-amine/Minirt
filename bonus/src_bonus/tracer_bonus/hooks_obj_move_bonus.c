@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:09:48 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/24 16:57:04 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:47:57 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	plane_rotate(t_plane *p, int key)
 
 static void	sp_rotate(t_sphere *s, int key)
 {
-	if (s->spec.texture && s->texture)
+	if (s->spec.texture)
 	{
 		if (s->rot_x < (M_PI * 0.5) && s->rot_x > -(M_PI * 0.5))
 			s->rot_x += (key == LKEY) * (M_PI * 0.01) - \
@@ -62,8 +62,7 @@ void	rotate(int key, t_data *data)
 		else if (data->shape == PLANE && obj->type == PLANE)
 			plane_rotate(obj->object, key);
 		else if (data->shape == SPHERE && obj->type == SPHERE \
-		&& ((t_sphere *)(obj->object))->spec.texture \
-		&& ((t_sphere *)(obj->object))->texture)
+		&& (obj->texture))
 			sp_rotate(obj->object, key);
 		obj = obj->next;
 	}
