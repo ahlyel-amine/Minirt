@@ -82,7 +82,6 @@ BNS_SRC			= $(BNS_MINIRT_F)/main_bonus.c \
                   $(BNS_TRACER_F)/raytracing_bonus.c \
                   $(BNS_TRACER_F)/rt_hooks_bonus.c \
                   $(BNS_TRACER_F)/texture_binding_bonus.c \
-                  $(BNS_TRACER_F)/texture_process_bonus.c \
                   $(BNS_TRACER_F)/tools_bonus.c \
                   $(BNS_TRACER_F)/tracer_bonus.c \
                   $(BNS_VEC_OP_F)/operations_on_vec_bonus.c \
