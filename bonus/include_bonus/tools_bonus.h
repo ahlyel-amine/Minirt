@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:03 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:12:23 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:44:20 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int marge_min);
 bool				make_threads(t_mrt *scean, t_data data);
 t_objects			*newobject(void *object, unsigned char type);
 t_light				*newlight(t_light new);
+t_features      	*get_specular_add(t_objects *obj);
 t_features			get_specular_addr(t_objects *obj);
 void				cam_y(int key, t_data *data);
 void				cam_x(int key, t_data *data);
@@ -62,11 +63,10 @@ void				hooks_settings(t_data *data);
 void				skip(int key, t_data *data);
 void				print_err(const int ac, ...);
 void				clear_texture(void *shape, int type);
-void				*bump_texture(t_sphere *sphere, t_mrt *img);
-void				*bump_texture_p(t_plane *p, t_mrt *img);
+bool				bump_texture(t_objects *shape, t_mrt *img);
+double				get_cscale_texture(t_texture_img *bump, int x, int y);
 bool				object_validate(enum e_size_types size, enum e_types type, \
 t_data *data, void *object);
-t_texture			texture_process(int type);
 double				min(double a, double b);
-
+// t_texture			texture_process(int type);
 #endif

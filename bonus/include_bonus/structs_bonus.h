@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:58:08 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:11:42 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:46:26 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_features
 {
 	double	intensity;
 	double	reflection;
+	double	specular;
 	bool	checkred;
 	double	checkred_h;
 	double	checkred_w;
@@ -91,16 +92,6 @@ typedef struct s_bool_features
 	bool	bump;
 }	t_bool_features;
 
-typedef struct s_object
-{
-	unsigned char		type;
-	void				*object;
-	void				*t_copy;
-	void				*b_copy;
-	t_bool_features		features;
-	struct s_object		*next;
-}	t_objects;
-
 typedef struct s_texture_img
 {
 	void	*img;
@@ -113,11 +104,18 @@ typedef struct s_texture_img
 	int		height;
 }	t_texture_img;
 
+typedef struct s_object
+{
+	unsigned char	type;
+	t_texture_img	*texture;
+	t_texture_img	*bump;
+	void			*object;
+	t_bool_features		features;
+	struct s_object	*next;
+}	t_objects;
 typedef struct s_plane
 {
 	t_features			spec;
-	t_texture_img		*texture;
-	t_texture_img		*bump;
 	t_vec				normalized;
 	t_color				clr;
 	t_vec				cord;
@@ -126,7 +124,6 @@ typedef struct s_plane
 typedef struct s_cone
 {
 	t_features			spec;
-	t_texture_img		*texture;
 	t_vec				normalized;
 	t_vec				cord;
 	t_color				clr;
@@ -137,20 +134,17 @@ typedef struct s_cone
 typedef struct s_cylender
 {
 	t_features			spec;
-	t_texture_img		*texture;
 	t_vec				normalized;
 	t_vec				cord;
 	t_color				clr;
-	t_objects			*p_face;
 	double				diameter;
 	double				height;
+	t_objects			*p_face;
 }	t_cylender;
 
 typedef struct s_sphere
 {
 	t_features			spec;
-	t_texture_img		*texture;
-	t_texture_img		*bump;
 	t_vec				cord;
 	t_color				clr;
 	double				diameter;
@@ -198,9 +192,9 @@ typedef struct s_data
 	t_objects		*objects;
 	t_light			*light;
 	t_mrt			*m_rt;
+	pthread_mutex_t	load;
 	int				load_p;
 	int				shape;
-	pthread_mutex_t	load;
 }	t_data;
 
 typedef struct s_hit_record
@@ -229,8 +223,8 @@ typedef struct s_rays
 typedef struct s_dataset
 {
 	t_mrt	*m_rt;
-	t_data	data;
 	t_data	*d;
+	t_data	data;
 	int		s_x;
 	int		s_y;
 	int		e_x;

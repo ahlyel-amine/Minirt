@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/24 16:10:02 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/25 17:31:21 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@
 # define REF_LEVEL 5
 
 typedef bool	(*t_object_parcer)(char *, t_data *);
-typedef void	(*t_texture_clear)(void *);
 typedef void	(*t_obj_scale)(int, t_data *);
 typedef void	(*t_hooks_f)(int, t_data *);
-typedef bool	(*t_texture)(void *, t_mrt *);
 
 enum	e_types
 {
