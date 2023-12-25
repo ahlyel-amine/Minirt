@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 03:17:50 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/24 10:15:09 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:28:09 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	textures_binding(t_objects *shapes, t_mrt *img)
 	shape = shapes;
 	while (shape)
 	{
-		if (shape->type != TRIANGLE && shape->type != CONE)
+		if (shape->type != TRIANGLE && shape->type != CONE && shape->features.texture)
 			shape->features.texture = texture_init(shape, img);
 		shape = shape->next;
 	}

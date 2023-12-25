@@ -58,12 +58,12 @@ NC			= '\e[0m'
 all : lib $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)  -lmlx -Ofast -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_NAME)  -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o  $(NAME)
 
 $(OBJ_DIR)/%.o : %.c include/
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -Ofast -Imlx -c $< -o $@
+	$(CC) $(FLAGS) $(DEPSFLAGS) ${INCLUDES} -I/usr/include -Imlx_linux -c $< -o $@
 
 lib:
 	make -C ${LIBFT}
@@ -71,10 +71,10 @@ lib:
 $(BNS_OBJ_DIR)/%.o : %.c bonus/include_bonus/
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
-	$(CC) $(FLAGS) $(DEPSFLAGS) -Ibonus/include_bonus -Ilibft/include -Ofast -Imlx -c $< -o $@
+	$(CC) $(FLAGS) $(DEPSFLAGS) ${BNS_INCLUDES} -I/usr/include -Imlx_linux -c $< -o $@
 
 bonus : lib $(BNS_OBJ)
-	$(CC) $(FLAGS) $(BNS_OBJ) $(LIBFT_NAME)   -lmlx -Ofast -framework OpenGL -framework AppKit -o $(BNS_NAME)
+	$(CC) $(FLAGS) $(BNS_OBJ) $(LIBFT_NAME)   -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(BNS_NAME)
 	
 
 
