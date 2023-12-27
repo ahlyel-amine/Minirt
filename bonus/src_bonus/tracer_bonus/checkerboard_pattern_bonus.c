@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard_pattern_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:39:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:39:24 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/26 04:46:57 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	checkread_borad(t_objects *obj, t_hit_record *rec)
 	bool		checkred;
 	t_features	spec;
 
+	checkred = 0;
 	spec = get_specular_addr(obj);
 	if (obj->type == PLANE)
 	{
