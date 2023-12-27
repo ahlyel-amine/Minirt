@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:55:51 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/27 15:28:52 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ double *u, double *v)
 	theta = acos(unit_v.v_y);
 	phi = atan2(unit_v.v_x, unit_v.v_z);
 	*u = -((phi) / (2 * M_PI)) + (sphere->rot_x);
-	*v = ((theta) / M_PI);
+	*v = (theta / M_PI);
 }
 
 void	get_uv_plane(t_plane *plane, t_hit_record *rec, \
@@ -60,13 +60,15 @@ double *u, double *v)
 
 void	get_uv_cylinder(t_cylender *cy, t_hit_record *rec, double *u, double *v)
 {
-	double	theta;
-	double	h_z;
+	t_vec	e1;
+	t_vec	e2;
 
-	theta = atan2(rec->p_hit.v_z, rec->p_hit.v_x);
-	h_z = rec->p_hit.v_y;
-	*u = theta / (2 * M_PI);
-	*v = h_z / cy->height;
+	e1 = normalized(cross_product(cy->normalized, (t_vec){1, 0, 0}));
+	if (e1.v_x == 0 && e1.v_y == 0 && e1.v_z == 0)
+		e1 = normalized(cross_product(cy->normalized, (t_vec){0, 0, 1}));
+	e2 = normalized(cross_product(cy->normalized, e1));
+	*u = dot_product(e1, rec->p_hit);
+	*v = dot_product(e2, rec->p_hit);
 }
 
 void	skip(int key, t_data *data)
