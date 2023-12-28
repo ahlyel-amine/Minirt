@@ -1,16 +1,19 @@
 A                                           0.6                 255,230,255
 
-C   0,2,-10.0      		0.0,0.0,1.0         50
+C   0,1.8,-10.0      		0.0,0,1.0         50
 
-# L   4.0,2.0,-4.0                            0.6                 255,255,255
-l   -4.0,1.0,-5.0                           0.3                 255,255,255
-l   4.0,1.0,4.0                             0.3                 255,255,255
-l   -4.0,1.0,4.0                            0.3              255,255,255
-l   0.0,2.0,-1.0                            0.5                 255,255,255
+l   0.0,1.8,-1.0                            0.9                 0,50,255
 
 pl  0.0,-1.0,0.0        0.0,1.0,0.0                             255,255,255	s=1:0.2 txtr="/goinfre/aelbrahm/miniRT/images/zlij.xpm" bump="/goinfre/aelbrahm/miniRT/images/zlij.xpm"
 pl  0.0,3.0,0.0         0.0,-1.0,0.0                            0,0,0	s=2:0.1	txtr="/goinfre/aelbrahm/miniRT/images/wood.xpm"
 pl  0.0,0.0,5.0         0.0,0.0,-1.0                            0,0,255  txtr="/goinfre/aelbrahm/miniRT/images/zlij.xpm" bump="/goinfre/aelbrahm/miniRT/images/zlij.xpm"
+
+# lamp
+cy	0,2.5,-1	0,1,0 0.8 0.3			255,255,255 s=2:0.5 txtr="/goinfre/aelbrahm/miniRT/images/wood.xpm"
+
+cy	0,3,-1		0,-1,0 0.6 0.101 		255,255,255 
+
+sp	0,2.7,-1	0.8					255,255,255 s=2:0.5 txtr="/goinfre/aelbrahm/miniRT/images/m.xpm"
 
 cy  2.0,-1.0,-5.0       0.0,1.0,0.0         0.5  23.0           255,255,255     txtr="/goinfre/aelbrahm/miniRT/images/wood.xpm"
 cy  -2.0,-1.0,-5.0      0.0,1.0,0.0         0.5  23.0           255,255,255    txtr="/goinfre/aelbrahm/miniRT/images/wood.xpm"
@@ -18,5 +21,5 @@ cy  3.0,-1.0,3.0        0.0,1.0,0.0         0.5  23.0           255,255,255    t
 cy  -3.0,-1.0,3.0       0.0,1.0,0.0         0.5  23.0           255,255,255    txtr="/goinfre/aelbrahm/miniRT/images/wood.xpm"
 cy  0.0,-1.08,0       0.0,1.0,0.0         5.5  1.0           255,255,255			txtr="/goinfre/aelbrahm/miniRT/images/water_pool.xpm"
 cy  0.0,-1.1,0       0.0,1.0,0.0         6  1.0           255,255,255 txtr="/goinfre/aelbrahm/miniRT/images/zlij.xpm"
-cy  0.0,-1.14,0       0.0,1.0,0.0         6.5  1.0           255,255,255 r=1
+cy  0.0,-1.11,0       0.0,1.0,0.0         6.5  1.0           255,255,255 txtr="/goinfre/aelbrahm/miniRT/images/wood.xpm"
 sp  0,-0.5,0                          0.8                 255,255,255 r=1
