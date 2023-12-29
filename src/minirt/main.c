@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/29 21:42:24 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:51:16 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int ac, char **av)
 {
 	t_data		data;
 	t_mrt		scean;
+
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac == 2)
 	{
