@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:28:55 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/22 06:52:13 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 13:36:23 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 #include "library_bonus.h"
 #include <stdbool.h>
 #include <limits.h>
-
-void	tri_properties(t_triangle *triangle)
-{
-	triangle->edge0 = vec_sub(triangle->cord2, triangle->cord1);
-	triangle->edge1 = vec_sub(triangle->cord3, triangle->cord2);
-	triangle->edge2 = vec_sub(triangle->cord1, triangle->cord3);
-	triangle->normalizer = cross_product(triangle->edge0, triangle->edge1);
-}
 
 bool	check_tri_inter(t_hit_record *rec, t_triangle *tri)
 {
@@ -54,7 +46,6 @@ bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	double		dinom;
 
 	triangle = (t_triangle *)obj->object;
-	tri_properties(triangle);
 	dinom = dot_product(ray->direction, triangle->normalizer);
 	if (fabs(dinom) < EPS)
 		return (false);
@@ -65,6 +56,7 @@ bool	triangle_hit(t_ray *ray, t_objects *obj, t_hit_record *rec)
 	rec->p_hit = at(rec->t, *ray);
 	if (check_tri_inter(rec, triangle))
 	{
+		rec->n_hit = triangle->normalizer;
 		if (dot_product(rec->n_hit, ray->direction) > EPS)
 			rec->n_hit = vec_nega(rec->n_hit);
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:38 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/27 21:38:33 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 11:23:45 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,13 @@ t_features	get_specular_addr(t_objects *obj)
 void	get_uv_sphere(t_sphere *sphere, t_hit_record *rec, \
 double *u, double *v)
 {
-	t_vec	unit_v;
 	double	theta;
 	double	phi;
 
-	unit_v = vec_sub(sphere->cord, rec->p_hit);
-	normalize(&unit_v);
-	theta = acos(unit_v.v_y);
-	phi = atan2(unit_v.v_x, unit_v.v_z);
-	*u = -((phi) / (2 * M_PI)) + (sphere->rot_x);
-	*v = (theta / M_PI);
+	theta = asin(rec->n_hit.v_y) / M_PI;
+	phi = atan2(rec->n_hit.v_z, rec->n_hit.v_x) / (2 * M_PI);
+	*u = 0.5 + phi + (sphere->rot_x);
+	*v = 0.5 + theta;
 }
 
 void	get_uv_plane(t_plane *plane, t_hit_record *rec, \
