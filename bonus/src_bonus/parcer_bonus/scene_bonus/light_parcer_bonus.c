@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:47 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:16:11 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:46:49 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	light_parcer(char *line, t_data *data)
 {
 	t_light	*light;
 	t_light	single_light;
+	int		i;
 
 	line += 2;
 	if (!cordinate_parcer(&line, &single_light.cord, INT_MAX, INT_MIN))
@@ -29,7 +30,10 @@ bool	light_parcer(char *line, t_data *data)
 	if (!ft_atod(&line, &single_light.brightness, 1, 0))
 		return (print_err(5, ERR, NAME, ERR_L, ERR_V, ERR_B), false);
 	line += skip_spaces(line);
-	if (color_parcer(line, &single_light.clr) == -1)
+	i = color_parcer(line, &single_light.clr);
+	if (i == -1)
+		return (print_err(4, ERR, NAME, ERR_L, ERR_COLOR), false);
+	if (line[skip_spaces(line + i) + i])
 		return (print_err(4, ERR, NAME, ERR_L, ERR_COLOR), false);
 	light = newlight(single_light);
 	if (!light)

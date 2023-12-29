@@ -1,0 +1,20 @@
+A                                           0.6                 255,255,255
+
+C   0,0,-10     		0.0,0.0,1.0         30
+
+# l   4.0,1.0,-5.0                            0.3                0,0,255
+l   -4.0,2.5,2.5                            0.8                10,20,255
+l   0.0,2.6,10.0                             0.8                10,255,55
+l   4.0,2.5,2.5                            0.8                100,0,255
+l   0.0,1.5,27.9                            0.8                255,255,255
+
+pl  0.0,-1.0,0.0        0.0,1.0,0.0                             255,255,255     s=0:0        txtr="/Users/aelbrahm/Desktop/miniRT/images/wall.xpm"  
+pl  0.0,3.0,0.0         0.0,-1.0,0.0                            248,228,223            s=10:0.5 txtr="/Users/aelbrahm/Desktop/miniRT/images/wall.xpm"  
+pl  0.0,0.0,-13.0        0.0,0.0,-1.0                            255,255,255 s=20:0.5     r=1       txtr="/Users/aelbrahm/Desktop/miniRT/images/2wall.xpm"  
+pl  0.0,1,28           0.0,0.0,1.0                             255,255,255 txtr="/Users/aelbrahm/Desktop/miniRT/images/2wall.xpm"
+
+sp  1,-0.25,3           1.5     226,0,27      checkred=16:8  s=2:0.15  txtr="/Users/aelbrahm/Desktop/miniRT/images/2wall.xpm"
+sp  -2.0,-0.25,6        1.5     189,18,39       checkred=16:8 r=0.2
+sp  0,-0.25,8           1.5     255,25,115      r=1     
+sp  -6,0,5              2       255,25,115      r=1
+sp  -1.4,-0.25,-6.0     0.5     255,25,115    checkred=16:8  s=2:0.15  txtr="/Users/aelbrahm/Desktop/miniRT/images/2wall.xpm"

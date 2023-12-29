@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:06:12 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:32:21 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/29 20:58:28 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ████████████████████████████████████████████████████"
 # define EBAR "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\
 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
-# define WBAR 100
+# define WBAR 60
 
 typedef bool	(*t_inter_func)(t_ray *, t_objects *, t_hit_record *);
 
@@ -42,7 +42,6 @@ t_inter_func	intersect(int type);
 t_vec			cam_to_world(double matrix[4][4], t_vec *dir);
 void			lookat(t_camera *cam);
 
-void			print_scean(t_data data);
 void			print_vec(char *str, t_vec vec);
 void			*draw(void *param);
 
