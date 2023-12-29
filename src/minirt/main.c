@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 04:41:56 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:57:15 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/29 20:58:36 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int ac, char **av)
 	{
 		if (!parcer(av[1], &data))
 			return (clearobjs(&data.objects), 1);
-		print_scean(data);
 		if (!make_image(&scean))
 			return (clearobjs(&data.objects), 1);
 		data.m_rt = &scean;
