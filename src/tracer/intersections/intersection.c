@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:03:01 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/23 22:19:12 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 09:40:26 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,6 @@ t_objects	*get_closes_object(t_ray *ray, t_objects *obj, t_hit_record *rec)
 				closest_so_far = temp;
 				object = obj;
 				*rec = temp_rec;
-			}
-		}
-		obj = obj->next;
-	}
-	return (object);
-}
-
-t_objects	*get_first_close_object(t_ray *ray, \
-t_objects *obj, \
-t_hit_record *rec)
-{
-	t_objects		*object;
-	double			closest_so_far;
-	double			temp;
-	t_hit_record	temp_rec;
-
-	object = NULL;
-	closest_so_far = INFINITY;
-	while (obj)
-	{
-		if (intersect(obj->type)(ray, obj, &temp_rec))
-		{
-			temp = temp_rec.t;
-			if (temp < closest_so_far)
-			{
-				closest_so_far = temp;
-				object = obj;
-				*rec = temp_rec;
-				return (obj);
 			}
 		}
 		obj = obj->next;
