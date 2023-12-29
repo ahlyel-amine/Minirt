@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:04:52 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/08/05 08:46:11 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/29 19:43:57 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	{
 		tmp = (*lst)->next;
 		free(*lst);
-		// ft_lstdelone(*lst, del);
+		ft_lstdelone(*lst, del);
 		*lst = tmp;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 22:02:46 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:31:21 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/29 14:08:01 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include <stdbool.h>
 # include <math.h>
 # include "structs_bonus.h"
-# define WIDTH 1920	
-# define HEIGHT 1080
+# define WIDTH 840
+# define HEIGHT 680
 # define FRAME 3
 # define M_D 1.79769e+308
 # define EPS 1e-3

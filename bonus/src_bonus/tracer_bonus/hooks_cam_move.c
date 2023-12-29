@@ -6,7 +6,7 @@
 /*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 02:50:20 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/25 17:39:30 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/29 21:00:43 by aahlyel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	zoom(int key, t_data *data)
 
 void	cam_x(int key, t_data *data)
 {
-	data->camera.normalized.v_x += ((key == 124) * 0.5) - ((key == 123) * 0.5);
+	data->camera.normalized.v_x += ((key == ARRORIGHT) * 0.5) - ((key == ARROLEFT) * 0.5);
 	normalize(&data->camera.normalized);
 	lookat(&(data->camera));
 	make_threads(data->m_rt, *data);
@@ -32,7 +32,7 @@ void	cam_x(int key, t_data *data)
 
 void	cam_y(int key, t_data *data)
 {
-	data->camera.normalized.v_y += (key == 126) * 0.4 - (key == 125) * 0.4;
+	data->camera.normalized.v_y += (key == ARROUP) * 0.4 - (key == ARRODOWN) * 0.4;
 	normalize(&data->camera.normalized);
 	lookat(&(data->camera));
 	make_threads(data->m_rt, *data);

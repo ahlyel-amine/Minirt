@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_parcer_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aahlyel <aahlyel@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:21:53 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/25 17:36:25 by aahlyel          ###   ########.fr       */
+/*   Updated: 2023/12/29 20:40:35 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ bool	plane_parcer(char *line, t_data *data)
 	if (!cordinate_parcer(&line, &plane.cord, INT_MAX, INT_MIN))
 		return (print_err(4, ERR, NAME, ERR_PL, ERR_CORD), false);
 	if (!cordinate_parcer(&line, &plane.normalized, 1, -1))
-		return (print_err(4, ERR, NAME, ERR_CY, ERR_N), false);
+		return (print_err(4, ERR, NAME, ERR_PL, ERR_N), false);
 	line += skip_spaces(line);
 	i = color_parcer(line, &plane.clr);
 	if (i == -1)
-		return (print_err(4, ERR, NAME, ERR_CY, ERR_COLOR), false);
+		return (print_err(4, ERR, NAME, ERR_PL, ERR_COLOR), false);
 	line += skip_spaces(line + i) + i;
 	if (!features_parcer(line, &plane.spec, PLANE))
 		return (clear_texture(&plane, PLANE), false);

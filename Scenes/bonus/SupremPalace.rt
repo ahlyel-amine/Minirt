@@ -1,0 +1,35 @@
+A 0.1 255,255,255
+C 0,0,0 0,0,1 90
+# l 10,4,20 0.99 250,25,255
+l 8,3.9,110 0.99 250,25,255
+# l 10,4,0 0.99 250,25,255
+l -8,4,70 0.99 250,25,255
+l -8,3.9,160 0.99 250,25,255
+l 5,4,20 0.99 0,255,25
+l -5,4,20 0.99 0,25,225
+l 0,4,15 0.99 255,25,225
+l -5,4,10 0.99 0,255,25
+l 5,4,10 0.99 0,25,255
+pl 0,-5,0 0,1,0 100,150,150 r=0.8
+# txtr="/home/morpheus/Desktop/miniRT2/images/wall.xpm" 
+pl 0,5,0 0,1,0 100,150,150 s=30:0.9 
+pl 0,0,-1 0,0,1 200,200,200 r=1 
+pl 0,0,200 0,0,1 0,0,0  
+# pl -20,5,0 1,0,0 100,150,150 txtr="/home/morpheus/Desktop/miniRT2/images/wall.xpm"
+# pl 20,5,0 1,0,0 100,150,150 
+sp -2,-3,9 3 255,0,0 r=1
+sp 2,-3,9 3 255,0,0 r=1 
+# txtr="/home/morpheus/Desktop/miniRT2/images/wall.xpm" 
+sp 10,-5,10 3 255,255,255 txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+sp 10,-5,30 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm" 
+sp -10,-5,10 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+sp -10,-5,30 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+sp 10,5,10 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+sp 10,5,30 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+sp -10,5,10 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+sp -10,5,30 3 255,255,255  txtr="/Users/aelbrahm/Desktop/miniRT/images/waves.xpm"
+# tr  -10,-10,10 0,5,30 10,-10,30 255,255,255 r=1
+cy 10,-5,10 0,1,0 1.5  20 250,0,192 r=0.8
+cy 10,-5,30 0,1,0 1.5  20 250,0,192 r=0.8
+cy -10,-5,30 0,1,0 1.5  20 250,0,192 r=0.8
+cy -10,-5,10 0,1,0 1.5 20 250,0,192 r=0.8

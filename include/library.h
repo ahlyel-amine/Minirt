@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:16:23 by aelbrahm          #+#    #+#             */
-/*   Updated: 2023/12/18 16:00:11 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 10:04:32 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <math.h>
 # include "structs.h"
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 820
+# define HEIGHT 680
 # define FRAME 3
 # define M_D 1.79769e+308
 # define EPS 1e-3
