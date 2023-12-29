@@ -6,7 +6,7 @@
 /*   By: aelbrahm <aelbrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 17:23:23 by aahlyel           #+#    #+#             */
-/*   Updated: 2023/12/18 16:15:15 by aelbrahm         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:48:02 by aelbrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 bool	lighting_parcer(char *line, t_data *data)
 {
 	static bool	visited;
+	int		i;
 
 	if (!data && !line)
 		return (visited);
@@ -31,7 +32,10 @@ bool	lighting_parcer(char *line, t_data *data)
 	if (!ft_atod(&line, &data->lighting.ratio, 1, 0))
 		return (print_err(5, ERR, NAME, ERR_A, ERR_V, "\n"), false);
 	line += skip_spaces(line);
-	if (color_parcer(line, &data->lighting.clr) == -1)
+	i = color_parcer(line, &data->lighting.clr);
+	if (i == -1)
+		return (print_err(4, ERR, NAME, ERR_A, ERR_COLOR), false);
+	if (line[skip_spaces(line + i) + i])
 		return (print_err(4, ERR, NAME, ERR_A, ERR_COLOR), false);
 	return (true);
 }
