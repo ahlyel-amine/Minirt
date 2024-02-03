@@ -1,0 +1,26 @@
+A       0.2      255,255,255
+
+C 0,0.1,-0.75 0,0,1           90
+
+l 0,0.5,-0.5 0.4  25,0,255
+l 0,0.5,0.5 0.4 255,25,0
+l -0.5,0.5,0.5 0.4 255,25,0
+l 0.5,0.5,0.5 0.4 255,25,0
+l 0,0.5,0.2 0.4 255,25,0
+l -0.5,0.5,0.2 0.4 0,25,255
+l 0.5,0.5,0.2 0.4 25,255,0
+
+pl 0,0.6,0 0,1,0 255,255,255  s=10:10
+pl 0,-0.6,0 0,1,0 0,0,0 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b2/woodfloor.xpm"
+
+pl 0,0,0.75 0,0,1 101,95,95 r=0.4 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b2/1337.xpm"
+pl 0,0,-0.76 0,0,1 255,255,255 r=1 
+
+pl 0.75,0,0    1,0,0 255,255,255 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b2/wallpaper.xpm"
+pl -0.75,0,0    1,0,0 255,255,255 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b2/wallpaper.xpm"
+
+
+sp -0.42,-0.135,-0.05 0.27 255,0,0 r=1 
+cy -0.4,-0.5,-0.05      0.0,1.0,0.0         0.4  0.5           250,250,250 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b2/steel.xpm"
+
+sp 0.15,-0.35,0 0.4 255,0,0 txtr="/Users/aahlyel/Desktop/Minirt/Scenes/bonus/b2/coloredfloor.xpm"

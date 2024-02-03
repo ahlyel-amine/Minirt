@@ -21,80 +21,78 @@ BNS_VEC_OP_F		= $(BNS_TRACER_F)/vec_operations_bonus
 
 SRC				= $(MINIRT_F)/main.c \
 				  $(TOOLS_F)/addobject_front.c \
-                  $(TOOLS_F)/ft_atod.c \
-                  $(TOOLS_F)/tools.c \
-                  $(TOOLS_F)/newobject.c \
-                  $(SCENES_F)/camera_parcer.c \
-                  $(SCENES_F)/lighting_parcer.c \
-                  $(SCENES_F)/light_parcer.c \
-                  $(PARCER_F)/color_parcer.c \
-                  $(PARCER_F)/cordinate_parcer.c \
-                  $(PARCER_F)/parcer.c \
-                  $(OBJECTS_F)/cylender_parcer.c \
-                  $(OBJECTS_F)/plane_parcer.c \
-                  $(OBJECTS_F)/sphere_parcer.c \
-                  $(TRACER_F)/camera.c \
-                  $(TRACER_F)/hooks_obj_move.c \
-                  $(TRACER_F)/hooks_obj_scale.c \
-                  $(TRACER_F)/light.c \
-                  $(TRACER_F)/pixels.c \
-                  $(TRACER_F)/raytracing.c \
-                  $(TRACER_F)/rt_hooks.c \
-                  $(TRACER_F)/tracer.c \
-                  $(VEC_OP_F)/operations_on_vec.c \
-                  $(VEC_OP_F)/vec_operations.c \
-                  $(VEC_OP_F)/vec_tools2.c \
-                  $(VEC_OP_F)/vec_tools.c \
-                  $(INTERSECTION_F)/cylender_intersections.c \
-                  $(INTERSECTION_F)/intersection.c \
-                  $(INTERSECTION_F)/plane_intersections.c \
-                  $(INTERSECTION_F)/sphere_intersections.c \
-                  src/debug_tools.c \
+				  $(TOOLS_F)/ft_atod.c \
+				  $(TOOLS_F)/tools.c \
+				  $(TOOLS_F)/newobject.c \
+				  $(SCENES_F)/camera_parcer.c \
+				  $(SCENES_F)/lighting_parcer.c \
+				  $(SCENES_F)/light_parcer.c \
+				  $(PARCER_F)/color_parcer.c \
+				  $(PARCER_F)/cordinate_parcer.c \
+				  $(PARCER_F)/parcer.c \
+				  $(OBJECTS_F)/cylender_parcer.c \
+				  $(OBJECTS_F)/plane_parcer.c \
+				  $(OBJECTS_F)/sphere_parcer.c \
+				  $(TRACER_F)/camera.c \
+				  $(TRACER_F)/hooks_obj_move.c \
+				  $(TRACER_F)/hooks_obj_scale.c \
+				  $(TRACER_F)/light.c \
+				  $(TRACER_F)/pixels.c \
+				  $(TRACER_F)/raytracing.c \
+				  $(TRACER_F)/rt_hooks.c \
+				  $(TRACER_F)/tracer.c \
+				  $(VEC_OP_F)/operations_on_vec.c \
+				  $(VEC_OP_F)/vec_operations.c \
+				  $(VEC_OP_F)/vec_tools2.c \
+				  $(VEC_OP_F)/vec_tools.c \
+				  $(INTERSECTION_F)/cylender_intersections.c \
+				  $(INTERSECTION_F)/intersection.c \
+				  $(INTERSECTION_F)/plane_intersections.c \
+				  $(INTERSECTION_F)/sphere_intersections.c 
 
 BNS_SRC			= $(BNS_MINIRT_F)/main_bonus.c \
-                  $(BNS_MINIRT_F)/multithreading_managment_bonus.c \
-                  $(BNS_TOOLS_F)/addobject_front_bonus.c \
-                  $(BNS_TOOLS_F)/ft_atod_bonus.c \
-                  $(BNS_TOOLS_F)/newobject_bonus.c \
-                  $(BNS_TOOLS_F)/tools_bonus2.c \
-                  $(BNS_TOOLS_F)/tools_bonus.c \
-                  $(BNS_SCENES_F)/camera_parcer_bonus.c \
-                  $(BNS_SCENES_F)/lighting_parcer_bonus.c \
-                  $(BNS_SCENES_F)/light_parcer_bonus.c \
-                  $(BNS_PARCER_F)/color_parcer_bonus.c \
-                  $(BNS_PARCER_F)/cordinate_parcer_bonus.c \
-                  $(BNS_PARCER_F)/features_checker_bonus.c \
-                  $(BNS_PARCER_F)/parcer_bonus.c \
-                  $(BNS_PARCER_F)/parcer_features_bonus.c \
-                  $(BNS_OBJECTS_F)/cone_parcer_bonus.c \
-                  $(BNS_OBJECTS_F)/cylender_parcer_bonus.c \
-                  $(BNS_OBJECTS_F)/plane_parcer_bonus.c \
-                  $(BNS_OBJECTS_F)/sphere_parcer_bonus.c \
-                  $(BNS_OBJECTS_F)/triangle_parcer_bonus.c \
-                  $(BNS_TRACER_F)/bump_container.c \
-                  $(BNS_TRACER_F)/camera_bonus.c \
-                  $(BNS_TRACER_F)/checkerboard_pattern_bonus.c \
-                  $(BNS_TRACER_F)/hooks_cam_move.c \
-                  $(BNS_TRACER_F)/hooks_obj_move_bonus.c \
-                  $(BNS_TRACER_F)/hooks_obj_scale_bonus.c \
-                  $(BNS_TRACER_F)/light_bonus.c \
-                  $(BNS_TRACER_F)/pixels_bonus.c \
-                  $(BNS_TRACER_F)/raytracing_bonus.c \
-                  $(BNS_TRACER_F)/rt_hooks_bonus.c \
-                  $(BNS_TRACER_F)/texture_binding_bonus.c \
-                  $(BNS_TRACER_F)/tools_bonus.c \
-                  $(BNS_TRACER_F)/tracer_bonus.c \
-                  $(BNS_VEC_OP_F)/operations_on_vec_bonus.c \
-                  $(BNS_VEC_OP_F)/vec_operations_bonus.c \
-                  $(BNS_VEC_OP_F)/vec_tools2_bonus.c \
-                  $(BNS_VEC_OP_F)/vec_tools_bonus.c \
-                  $(BNS_INTERSECTION_F)/cone_intersections_bonus.c \
-                  $(BNS_INTERSECTION_F)/cylender_intersections_bonus.c \
-                  $(BNS_INTERSECTION_F)/intersection_bonus.c \
-                  $(BNS_INTERSECTION_F)/plane_intersections_bonus.c \
-                  $(BNS_INTERSECTION_F)/sphere_intersections_bonus.c \
-                  $(BNS_INTERSECTION_F)/triangle_intersections_bonus.c \
-                  bonus/src_bonus/debug_tools_bonus.c
+				  $(BNS_MINIRT_F)/multithreading_managment_bonus.c \
+				  $(BNS_TOOLS_F)/addobject_front_bonus.c \
+				  $(BNS_TOOLS_F)/ft_atod_bonus.c \
+				  $(BNS_TOOLS_F)/newobject_bonus.c \
+				  $(BNS_TOOLS_F)/tools_bonus2.c \
+				  $(BNS_TOOLS_F)/tools_bonus.c \
+				  $(BNS_SCENES_F)/camera_parcer_bonus.c \
+				  $(BNS_SCENES_F)/lighting_parcer_bonus.c \
+				  $(BNS_SCENES_F)/light_parcer_bonus.c \
+				  $(BNS_PARCER_F)/color_parcer_bonus.c \
+				  $(BNS_PARCER_F)/cordinate_parcer_bonus.c \
+				  $(BNS_PARCER_F)/features_checker_bonus.c \
+				  $(BNS_PARCER_F)/parcer_bonus.c \
+				  $(BNS_PARCER_F)/parcer_features_bonus.c \
+				  $(BNS_OBJECTS_F)/cone_parcer_bonus.c \
+				  $(BNS_OBJECTS_F)/cylender_parcer_bonus.c \
+				  $(BNS_OBJECTS_F)/plane_parcer_bonus.c \
+				  $(BNS_OBJECTS_F)/sphere_parcer_bonus.c \
+				  $(BNS_OBJECTS_F)/triangle_parcer_bonus.c \
+				  $(BNS_TRACER_F)/bump_container.c \
+				  $(BNS_TRACER_F)/camera_bonus.c \
+				  $(BNS_TRACER_F)/checkerboard_pattern_bonus.c \
+				  $(BNS_TRACER_F)/hooks_cam_move.c \
+				  $(BNS_TRACER_F)/hooks_obj_move_bonus.c \
+				  $(BNS_TRACER_F)/hooks_obj_scale_bonus.c \
+				  $(BNS_TRACER_F)/light_bonus.c \
+				  $(BNS_TRACER_F)/pixels_bonus.c \
+				  $(BNS_TRACER_F)/raytracing_bonus.c \
+				  $(BNS_TRACER_F)/rt_hooks_bonus.c \
+				  $(BNS_TRACER_F)/texture_binding_bonus.c \
+				  $(BNS_TRACER_F)/tools_bonus.c \
+				  $(BNS_TRACER_F)/tracer_bonus.c \
+				  $(BNS_VEC_OP_F)/operations_on_vec_bonus.c \
+				  $(BNS_VEC_OP_F)/vec_operations_bonus.c \
+				  $(BNS_VEC_OP_F)/vec_tools2_bonus.c \
+				  $(BNS_VEC_OP_F)/vec_tools_bonus.c \
+				  $(BNS_INTERSECTION_F)/cone_intersections_bonus.c \
+				  $(BNS_INTERSECTION_F)/cylender_intersections_bonus.c \
+				  $(BNS_INTERSECTION_F)/intersection_bonus.c \
+				  $(BNS_INTERSECTION_F)/plane_intersections_bonus.c \
+				  $(BNS_INTERSECTION_F)/sphere_intersections_bonus.c \
+				  $(BNS_INTERSECTION_F)/triangle_intersections_bonus.c 
 
 INCLUDES		= -Iinclude -Ilibft/include
 BNS_INCLUDES	= -Ibonus/include_bonus -Ilibft/include
@@ -102,8 +100,8 @@ OBJ_DIR 		= obj
 BNS_OBJ_DIR 	= obj_bonus
 CFLAGS			= -Wall -Wextra -Werror
 GFLAGS			= -lmlx -Ofast -framework OpenGL -framework AppKit
-NAME			= Minirt
-BNS_NAME		= Minirt_bonus
+NAME			= miniRT
+BNS_NAME		= miniRT_bonus
 LIBFT_NAME		= libft/bin/libft.a
 CC				= cc
 OBJ				= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -113,44 +111,29 @@ BNS_DEPS		= $(patsubst %.c, $(BNS_OBJ_DIR)/%.d, $(BNS_SRC))
 DEPSFLAGS		= -MMD -MP
 HBLU			= '\e[1;94m'
 NC				= '\e[0m'
-THEME 			= \
-'                                                                                                                                                                                                  '\
-'                                bbbbbbbb                                                                                                                                                          '\
-'               AAA              b::::::b                                              lllllll                          tttt                            RRRRRRRRRRRRRRRRR   TTTTTTTTTTTTTTTTTTTTTTT'\
-'              A:::A             b::::::b                                              l:::::l                       ttt:::t                            R::::::::::::::::R  T:::::::::::::::::::::T'\
-'             A:::::A            b::::::b                                              l:::::l                       t:::::t                            R::::::RRRRRR:::::R T:::::::::::::::::::::T'\
-'            A:::::::A            b:::::b                                              l:::::l                       t:::::t                            RR:::::R     R:::::RT:::::TT:::::::TT:::::T'\
-'           A:::::::::A           b:::::bbbbbbbbb        ssssssssss      ooooooooooo    l::::l uuuuuu    uuuuuuttttttt:::::ttttttt        eeeeeeeeeeee    R::::R     R:::::RTTTTTT  T:::::T  TTTTTT'\
-'          A:::::A:::::A          b::::::::::::::bb    ss::::::::::s   oo:::::::::::oo  l::::l u::::u    u::::ut:::::::::::::::::t      ee::::::::::::ee  R::::R     R:::::R        T:::::T        '\
-'         A:::::A A:::::A         b::::::::::::::::b ss:::::::::::::s o:::::::::::::::o l::::l u::::u    u::::ut:::::::::::::::::t     e::::::eeeee:::::eeR::::RRRRRR:::::R         T:::::T        '\
-'        A:::::A   A:::::A        b:::::bbbbb:::::::bs::::::ssss:::::so:::::ooooo:::::o l::::l u::::u    u::::utttttt:::::::tttttt    e::::::e     e:::::eR:::::::::::::RR          T:::::T        '\
-'       A:::::A     A:::::A       b:::::b    b::::::b s:::::s  ssssss o::::o     o::::o l::::l u::::u    u::::u      t:::::t          e:::::::eeeee::::::eR::::RRRRRR:::::R         T:::::T        '\
-'      A:::::AAAAAAAAA:::::A      b:::::b     b:::::b   s::::::s      o::::o     o::::o l::::l u::::u    u::::u      t:::::t          e:::::::::::::::::e R::::R     R:::::R        T:::::T        '\
-'     A:::::::::::::::::::::A     b:::::b     b:::::b      s::::::s   o::::o     o::::o l::::l u::::u    u::::u      t:::::t          e::::::eeeeeeeeeee  R::::R     R:::::R        T:::::T        '\
-'    A:::::AAAAAAAAAAAAA:::::A    b:::::b     b:::::bssssss   s:::::s o::::o     o::::o l::::l u:::::uuuu:::::u      t:::::t    tttttte:::::::e           R::::R     R:::::R        T:::::T        '\
-'   A:::::A             A:::::A   b:::::bbbbbb::::::bs:::::ssss::::::so:::::ooooo:::::ol::::::lu:::::::::::::::uu    t::::::tttt:::::te::::::::e        RR:::::R     R:::::R      TT:::::::TT      '\
-'  A:::::A               A:::::A  b::::::::::::::::b s::::::::::::::s o:::::::::::::::ol::::::l u:::::::::::::::u    tt::::::::::::::t e::::::::eeeeeeeeR::::::R     R:::::R      T:::::::::T      '\
-' A:::::A                 A:::::A b:::::::::::::::b   s:::::::::::ss   oo:::::::::::oo l::::::l  uu::::::::uu:::u      tt:::::::::::tt  ee:::::::::::::eR::::::R     R:::::R      T:::::::::T      '\
-'AAAAAAA                   AAAAAAAbbbbbbbbbbbbbbbb     sssssssssss       ooooooooooo   llllllll    uuuuuuuu  uuuu        ttttttttttt      eeeeeeeeeeeeeeRRRRRRRR     RRRRRRR      TTTTTTTTTTT      '\
-'                                                                                                                                                                                                  '
 
-all : lib $(NAME)
+all : theme lib $(NAME)
+
+theme :
+	@printf "\e[1;94m                                                                                                           \n                                                                                                           \nMMMMMMMM               MMMMMMMM  iiii                     iiii  RRRRRRRRRRRRRRRRR   TTTTTTTTTTTTTTTTTTTTTTT\nM:::::::M             M:::::::M i::::i                   i::::i R::::::::::::::::R  T:::::::::::::::::::::T\nM::::::::M           M::::::::M  iiii                     iiii  R::::::RRRRRR:::::R T:::::::::::::::::::::T\nM:::::::::M         M:::::::::M                                 RR:::::R     R:::::RT:::::TT:::::::TT:::::T\nM::::::::::M       M::::::::::Miiiiiiinnnn  nnnnnnnn    iiiiiii   R::::R     R:::::RTTTTTT  T:::::T  TTTTTT\nM:::::::::::M     M:::::::::::Mi:::::in:::nn::::::::nn  i:::::i   R::::R     R:::::R        T:::::T        \nM:::::::M::::M   M::::M:::::::M i::::in::::::::::::::nn  i::::i   R::::RRRRRR:::::R         T:::::T        \nM::::::M M::::M M::::M M::::::M i::::inn:::::::::::::::n i::::i   R:::::::::::::RR          T:::::T        \nM::::::M  M::::M::::M  M::::::M i::::i  n:::::nnnn:::::n i::::i   R::::RRRRRR:::::R         T:::::T        \nM::::::M   M:::::::M   M::::::M i::::i  n::::n    n::::n i::::i   R::::R     R:::::R        T:::::T        \nM::::::M    M:::::M    M::::::M i::::i  n::::n    n::::n i::::i   R::::R     R:::::R        T:::::T        \nM::::::M     MMMMM     M::::::M i::::i  n::::n    n::::n i::::i   R::::R     R:::::R        T:::::T        \nM::::::M               M::::::Mi::::::i n::::n    n::::ni::::::iRR:::::R     R:::::R      TT:::::::TT      \nM::::::M               M::::::Mi::::::i n::::n    n::::ni::::::iR::::::R     R:::::R      T:::::::::T      \nM::::::M               M::::::Mi::::::i n::::n    n::::ni::::::iR::::::R     R:::::R      T:::::::::T      \nMMMMMMMM               MMMMMMMMiiiiiiii nnnnnn    nnnnnniiiiiiiiRRRRRRRR     RRRRRRR      TTTTTTTTTTT      \n                                                                                                           \n                                                                                                           \n                                                                                                           \n                                                                                                           \n                                                                                                           \n                                                                                                           \n                                                                                                           \n\e[0m"
+
+bonus_theme :
+	@printf "\e[1;94m                                                                                                                                                                                                  \n                                bbbbbbbb                                                                                                                                                          \n               AAA              b::::::b                                              lllllll                          tttt                            RRRRRRRRRRRRRRRRR   TTTTTTTTTTTTTTTTTTTTTTT\n              A:::A             b::::::b                                              l:::::l                       ttt:::t                            R::::::::::::::::R  T:::::::::::::::::::::T\n             A:::::A            b::::::b                                              l:::::l                       t:::::t                            R::::::RRRRRR:::::R T:::::::::::::::::::::T\n            A:::::::A            b:::::b                                              l:::::l                       t:::::t                            RR:::::R     R:::::RT:::::TT:::::::TT:::::T\n           A:::::::::A           b:::::bbbbbbbbb        ssssssssss      ooooooooooo    l::::l uuuuuu    uuuuuuttttttt:::::ttttttt        eeeeeeeeeeee    R::::R     R:::::RTTTTTT  T:::::T  TTTTTT\n          A:::::A:::::A          b::::::::::::::bb    ss::::::::::s   oo:::::::::::oo  l::::l u::::u    u::::ut:::::::::::::::::t      ee::::::::::::ee  R::::R     R:::::R        T:::::T        \n         A:::::A A:::::A         b::::::::::::::::b ss:::::::::::::s o:::::::::::::::o l::::l u::::u    u::::ut:::::::::::::::::t     e::::::eeeee:::::eeR::::RRRRRR:::::R         T:::::T        \n        A:::::A   A:::::A        b:::::bbbbb:::::::bs::::::ssss:::::so:::::ooooo:::::o l::::l u::::u    u::::utttttt:::::::tttttt    e::::::e     e:::::eR:::::::::::::RR          T:::::T        \n       A:::::A     A:::::A       b:::::b    b::::::b s:::::s  ssssss o::::o     o::::o l::::l u::::u    u::::u      t:::::t          e:::::::eeeee::::::eR::::RRRRRR:::::R         T:::::T        \n      A:::::AAAAAAAAA:::::A      b:::::b     b:::::b   s::::::s      o::::o     o::::o l::::l u::::u    u::::u      t:::::t          e:::::::::::::::::e R::::R     R:::::R        T:::::T        \n     A:::::::::::::::::::::A     b:::::b     b:::::b      s::::::s   o::::o     o::::o l::::l u::::u    u::::u      t:::::t          e::::::eeeeeeeeeee  R::::R     R:::::R        T:::::T        \n    A:::::AAAAAAAAAAAAA:::::A    b:::::b     b:::::bssssss   s:::::s o::::o     o::::o l::::l u:::::uuuu:::::u      t:::::t    tttttte:::::::e           R::::R     R:::::R        T:::::T        \n   A:::::A             A:::::A   b:::::bbbbbb::::::bs:::::ssss::::::so:::::ooooo:::::ol::::::lu:::::::::::::::uu    t::::::tttt:::::te::::::::e        RR:::::R     R:::::R      TT:::::::TT      \n  A:::::A               A:::::A  b::::::::::::::::b s::::::::::::::s o:::::::::::::::ol::::::l u:::::::::::::::u    tt::::::::::::::t e::::::::eeeeeeeeR::::::R     R:::::R      T:::::::::T      \n A:::::A                 A:::::A b:::::::::::::::b   s:::::::::::ss   oo:::::::::::oo l::::::l  uu::::::::uu:::u      tt:::::::::::tt  ee:::::::::::::eR::::::R     R:::::R      T:::::::::T      \nAAAAAAA                   AAAAAAAbbbbbbbbbbbbbbbb     sssssssssss       ooooooooooo   llllllll    uuuuuuuu  uuuu        ttttttttttt      eeeeeeeeeeeeeeRRRRRRRR     RRRRRRR      TTTTTTTTTTT      \n                                                                                                                                                                                                  \n\e[0m"
 
 $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_NAME) ${GFLAGS} -o $(NAME)
 
-$(OBJ_DIR)/%.o : %.c include/ Makefile
-	@echo $(THEME)
+$(OBJ_DIR)/%.o : %.c include/ 
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
 	$(CC) $(CFLAGS) $(DEPSFLAGS) ${INCLUDES} -Ofast -Imlx -c $< -o $@
 
-$(BNS_OBJ_DIR)/%.o : %.c bonus/include_bonus/ Makefile
+$(BNS_OBJ_DIR)/%.o : %.c bonus/include_bonus/ 
 	mkdir -p $(dir $@)
 	printf $(HBLU)"[%-37s] 🕝 \r"$(NC) "Compiling $(notdir $@)"
 	$(CC) $(CFLAGS) $(DEPSFLAGS) ${BNS_INCLUDES} -Ofast -Imlx -c $< -o $@
 
-bonus : lib $(BNS_OBJ)
+bonus : bonus_theme lib $(BNS_OBJ)
 	$(CC) $(CFLAGS) $(BNS_OBJ) $(LIBFT_NAME) ${GFLAGS} -o $(BNS_NAME)	
 
 lib:
