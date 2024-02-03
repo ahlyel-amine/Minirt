@@ -89,3 +89,11 @@ But with some dedication and resilience, i ended up with a much better and beaut
 ![scene by a ray tracer](readme/9.webp)
 ![scene by a ray tracer](readme/10.webp)
 ![scene by a ray tracer](readme/11.webp)
+
+
+# You can create image by passing a scene file ".rt" to the program "./miniRT"
+## Check the "README.rt" file in "scenes/" to get an idea of how to write one.
+
+# Usage:
+## Compile the code using `make bonus`
+## Create scenes using `./minirt_bonus <path_to_scene_file>`
