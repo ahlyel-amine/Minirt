@@ -13,26 +13,26 @@ l -0.5,0.9,-1 0.1 0,255,0
 l -1,0.9,-1 0.1 255,0,0
 
 
-pl  0,0,1.5      0,0,1      255,0,0 r=0.1 txtr="/Users/aahlyel/Desktop/miniRT/images/images.xpm"
-pl  0,0,-1.5      0,0,1     255,0,0 txtr="/Users/aahlyel/Desktop/miniRT/images/bookWallPaper.xpm"
+pl  0,0,1.5      0,0,1      255,0,0 r=0.1 txtr="./images/images.xpm"
+pl  0,0,-1.5      0,0,1     255,0,0 txtr="./images/bookWallPaper.xpm"
 
 pl  0,1,0      0,1,0        255,255,255  
-pl  0,-1,0      0,1,0        255,0,0  txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm" 
-# bump="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
+pl  0,-1,0      0,1,0        255,0,0  txtr="./images/woodFlooringSqaures.xpm" 
 
-pl  -1.5,0,0       1,-0.001,0     255,255,255     txtr="/Users/aahlyel/Desktop/miniRT/images/letterWallPaper.xpm"
-pl  1.5,0,0      1,-0.001,0     255,0,0          txtr="/Users/aahlyel/Desktop/miniRT/images/letterWallPaperClrd.xpm" bump="/Users/aahlyel/Desktop/miniRT/images/letterWallPaperClrd.xpm"   
-cy  -0.5,-0.9,0 0,1,0 0.5 1.08 0,0,255          txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.05 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.1 0,1,0 0.5 1.08 0,0,255       txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm" bump="/Urser/aahlyel/Desktop/miniRT/images/letterWallPaperClrd.xpm"
-cy  -0.5,-0.9,-0.15 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.2 0,1,0 0.5 1.08 0,0,255       txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.25 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.3 0,1,0 0.5 1.08 0,0,255       txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
-cy  -0.5,-0.9,-0.35 0,1,0 0.5 1.08 0,0,255      txtr="/Users/aahlyel/Desktop/miniRT/images/woodFlooringSqaures.xpm"
+
+pl  -1.5,0,0       1,-0.001,0     255,255,255     txtr="./images/letterWallPaper.xpm"
+pl  1.5,0,0      1,-0.001,0     255,0,0          txtr="./images/letterWallPaperClrd.xpm" bump="./images/letterWallPaperClrd.xpm"   
+cy  -0.5,-0.9,0 0,1,0 0.5 1.08 0,0,255          txtr="./images/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,-0.05 0,1,0 0.5 1.08 0,0,255      txtr="./images/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,-0.1 0,1,0 0.5 1.08 0,0,255       txtr="./images/woodFlooringSqaures.xpm" bump="./images/letterWallPaperClrd.xpm"
+cy  -0.5,-0.9,-0.15 0,1,0 0.5 1.08 0,0,255      txtr="./images/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,-0.2 0,1,0 0.5 1.08 0,0,255       txtr="./images/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,-0.25 0,1,0 0.5 1.08 0,0,255      txtr="./images/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,-0.3 0,1,0 0.5 1.08 0,0,255       txtr="./images/woodFlooringSqaures.xpm"
+cy  -0.5,-0.9,-0.35 0,1,0 0.5 1.08 0,0,255      txtr="./images/woodFlooringSqaures.xpm"
 
 cn 0.75,-0.4,0 0,1,0 10 10 255,0,0 
 
 
-sp  -0.5,-0.11,0 0.5 0,255,0 s=5:0.01 r=0.01 txtr="/Users/aahlyel/Desktop/miniRT/images/herringboneParquet.xpm"
+sp  -0.5,-0.11,0 0.5 0,255,0 s=5:0.01 r=0.01 txtr="./images/herringboneParquet.xpm"
 sp  0.5,-0.5,0.7 1 0,255,0  r=1

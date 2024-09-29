@@ -14,9 +14,9 @@ l	0,1.8,-5		0.1			25,25,12
 
 
 pl	0,0.3,0		0,1,0				255,255,255 s=8:0.5
-pl	0,0.3,24		0,0,1				255,255,255 s=2:0.5 txtr="/goinfre/aelbrahm/miniRT/images/m.xpm"
-pl	24,0.3,0		1,0,0				255,255,255 s=2:0.5 txtr="/goinfre/aelbrahm/miniRT/images/m.xpm"
-pl	-24,0.3,0		1,0,0				255,255,255 s=2:0.5 txtr="/goinfre/aelbrahm/miniRT/images/m.xpm"
+pl	0,0.3,24		0,0,1				255,255,255 s=2:0.5 txtr="./images/m.xpm"
+pl	24,0.3,0		1,0,0				255,255,255 s=2:0.5 txtr="./images/m.xpm"
+pl	-24,0.3,0		1,0,0				255,255,255 s=2:0.5 txtr="./images/m.xpm"
 pl	0,12,0		0,0.8,0.2				88,20,33 s=2:0.5 
 
 cy	0,3.2,3.8	0,1,0 1 0.3			255,255,255 s=8:0.5
