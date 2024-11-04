@@ -55,6 +55,7 @@ Reflection and Refraction: If a surface is reflective or transparent, rays are s
 Recursive nature: This process can occur multiple times for each ray, simulating complex interactions between light and surfaces.
 Given the recursive nature of this step, it’s crucial to set a limit on the number of recursions that yield acceptable results.
 
+![mrr](readme/triple5.png)
 ![mrr](readme/555.png)
 
 As rays bounce around the scene, they gather information about the color and intensity of light they encounter. This information contributes to forming the final image pixel by pixel.
